@@ -1,0 +1,7 @@
+.map {
+	.mapboxgl-marker {
+		svg path {
+			fill: var(--primary-color, blue) !important;
+		}
+	}
+}

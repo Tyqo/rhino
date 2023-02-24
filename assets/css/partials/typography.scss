@@ -1,0 +1,75 @@
+/**
+ * src/css/partials/_typography.scss
+ *
+ * Typography related styles
+ *
+ */
+
+@use "shapes" as *;
+
+/************
+ * Webfonts *
+ ************/
+
+// Woff2 is preferered and - if available - the only format needed.
+// Use a font-face include line for each font face (regular, bold, italic, bold-italic, like shown below
+
+/**
+ * @example
+ *
+ * @include font-face('FontName', '../fonts/FontName-Regular', normal, normal, $file-types: woff2);
+ * @include font-face('FontName', '../fonts/FontName-Bold', bold, normal, $file-types: woff2);
+ * @include font-face('FontName', '../fonts/FontName-Italic', normal, italic, $file-types: woff2);
+ */
+
+
+html {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	font-size: slope-rem-minmax(0.85rem, 1.2rem, 320px, 1920px);
+}
+
+body {
+	@include type-setting(400);
+	color: var(--text-color);
+	font-family: 'Inter', sans-serif;
+}
+
+.headline--big, h1 {
+	@include type-setting(900);
+	font-weight: 900;
+}
+
+.headline--default, h2 {
+	@include type-setting(800);
+	font-weight: 800;
+}
+
+.headline--small, h3 {
+	@include type-setting(600);
+}
+
+.headline, h1, h2, h3, h4, h5, h6 {
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	hyphens: auto;
+	
+	@include for-size(tablet-landscape-up) {
+		hyphens: manual;
+	}
+}
+
+.body-text {
+	h1, h2, h3, h4, h5, h6 {
+		margin-bottom: var(--vertical-unit);
+	}
+
+	p {
+		margin-bottom: 0;
+	}
+}
+
+.small {
+	@include type-setting(200);
+}

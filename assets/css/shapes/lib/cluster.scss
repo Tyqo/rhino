@@ -1,0 +1,32 @@
+/**
+ * The Cluster
+ *
+ * https://every-layout.dev/demos/cluster-ctas/
+ *
+ * We can use `gap` now on flexbox items, so it gets really easy now :-)
+ */
+
+$cluster-spacing: 1rem !default;
+$cluster-gap: true;
+
+@mixin cluster($spacing: $cluster-spacing, $use-gap: $cluster-gap) {
+  @if $use-gap {
+    gap: $spacing;
+		display: flex;
+		flex-wrap: wrap;
+  } @else {
+    > * {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: center;
+      margin: calc(#{$spacing} / 2 * -1);
+    }
+  }
+
+  @if $use-gap != true {
+    > * > * {
+      margin: calc(#{$spacing} / 2);
+    }
+  }
+}

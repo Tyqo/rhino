@@ -1,0 +1,192 @@
+/**
+* partials/_common.scss
+*
+* Common styles, like e.g. resets, basic styles...
+*/
+
+@use "settings" as *;
+@use "shapes";
+
+
+/////////////////////////
+//  Custom properties  //
+/////////////////////////
+
+:root {
+	@each $color, $value in $colors {
+		--#{$color}-color: #{$value};
+
+		@each $shade, $weight in $shades {
+			@if $shade < 400 {
+				--#{$color}-color-#{$shade}: #{lighten($value, $weight)};
+			} @else if $shade > 400 {
+				--#{$color}-color-#{$shade}: #{darken($value, $weight)};
+			} @else {
+				--#{$color}-color-#{$shade}: #{$value};
+			}
+		}
+	}
+
+	@each $key, $margin in $margins {
+		--margin-#{$key}: #{$margin};
+	}
+
+	@each $key, $value in $border {
+		--border-#{$key}: #{$value};
+	}
+
+	--border: var(--border-color) var(--border-width) var(--border-type) var(--border-radius);
+
+  --gutter: 1rem;
+  --vertical-unit: #{$vertical-unit};
+  
+	--outer-bound: #{2 * $gutter};
+  --inner-bound-width: #{$inner-bound-width};
+  --outer-bound-width: #{$outer-bound-width};
+	--header-height: #{shapes.slope-rem-minmax($min-header-height, $max-header-height, $min-supported-screen-width, $max-supported-screen-width)};
+
+	@if $substract-header-height {
+		--screen-height: calc(100vh - var(--header-height));
+	} @else {
+		--screen-height: 100vh;
+	}
+}
+
+html {
+  scroll-behavior: smooth;
+  @include shapes.scrollbars(var(--primary-color), var(--secondary-color), 1rem);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+.main-content {
+	flex: 1;
+	width: 100%;
+
+	& > *:first-of-type > *:first-child:not(.full-width) {
+		margin-top:  var(--header-height);
+		padding-top: var(--margin-400);
+	}
+	
+	h1, h2, h3, h4, h5, h6 {
+		& + .body-text {
+			margin-top: var(--margin-200);
+		}
+	}
+}
+
+@if $fade-in-transition {
+	.main-content > * {
+		transition-duration: 750ms;
+		transition-timing-function: ease-out, linear;
+		transition-property: transform, opacity;
+	}
+	
+	body:not(.page-has-loaded):not(.cmt-layout) {
+		.main-content > * {
+			transform: translateY(20vh);
+			opacity: 0;
+		}
+	}
+}
+
+@each $key, $margin in $margins {
+	.margin--#{$key} {
+		margin-bottom: var(--margin-#{$key});
+	}
+	
+	.margin-bottom--#{$key} {
+		margin-bottom: var(--margin-#{$key});
+	}
+	
+	.margin-top--#{$key} {
+		margin-top: var(--margin-#{$key});
+	}
+	
+	.gap--#{$key} {
+		gap: var(--margin-#{$key});
+	}
+}
+
+.box {
+  @include shapes.box;
+}
+
+.box--inverted {
+	@include shapes.box(
+		$color: color('background'),
+		$background: color('secondary'),
+		$border-color: color('background')
+	);
+}
+
+.inverted {
+	--primary-color: #{color('secondary')};
+	--secondary-color: #{color('primary')};
+	--background-color: #{color('contrast')};
+	--text-color: #{color('background')};
+	--contrast-color: #{color('text')};
+}
+
+.cluster {
+  @include shapes.cluster;
+}
+
+.cluster-end {
+  justify-content: flex-end;
+}
+
+.center {
+  @include shapes.center;
+}
+
+.stack {
+  @include shapes.stack;
+}
+
+.icon {
+  @include shapes.icon;
+}
+
+.with-icon {
+  @include shapes.with-icon($gutter * 0.5);
+}
+
+.cover {
+	object-position: center;
+	object-fit: cover;
+	height: 100%;
+}
+
+.sr-only {
+  @include shapes.sr-only(true);
+}
+
+.outer-bound {
+  @include shapes.bound(var(--outer-bound-width), var(--gutter));
+}
+
+.inner-bound {
+  @include shapes.bound(var(--inner-bound-width), var(--gutter));
+}
+
+.full-width {
+  @include shapes.full-width(var(--scrollbarWidth));
+}
+
+.list-style-none {
+	@include shapes.list-style-none;
+}
+
+img {
+	width: 100%;
+}
+
+.background {
+	background-color: var(--background-color);
+	color: var(--contrast-color);
+}

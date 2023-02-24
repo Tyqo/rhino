@@ -1,0 +1,16 @@
+@use 'settings' as *;
+
+.main-footer {
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: var(--margin-400);
+	padding-bottom: var(--margin-400);
+
+	& > div {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-end;
+		flex-wrap: wrap;
+		gap: var(--margin-400);
+	}
+}

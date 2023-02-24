@@ -1,0 +1,55 @@
+@use 'shapes' as *;
+
+@mixin cover {
+	img, video {
+		object-fit: cover;
+		height: 100%;
+		width: 100%;
+	}
+}
+
+.element-size {
+	&--fill-screen {
+		height: var(--screen-height);
+		@include cover;
+	}
+	
+	&--half-screen {
+		height: calc(var(--screen-height) / 2);
+		@include cover;
+	}
+	
+	&--third-screen {
+		height: calc(var(--screen-height) / 3);
+		@include cover;
+	}
+	
+	&--two-third-screen {
+		height: calc((var(--screen-height) / 3) * 2);
+		@include cover;
+	}
+	
+	&--16x9 {
+		@include for-size(tablet-landscape-up) {
+			aspect-ratio: 16 / 9;
+			padding: 0;
+		}
+		@include cover;
+	}
+	
+	&--4x3 {
+		@include for-size(tablet-landscape-up) {
+			aspect-ratio: 4 / 3;
+			padding: 0;
+		}
+		@include cover;
+	}
+	
+	&--1x1 {
+		@include for-size(tablet-landscape-up) {
+			aspect-ratio: 1 / 1;
+			padding: 0;
+		}
+		@include cover;
+	}
+}

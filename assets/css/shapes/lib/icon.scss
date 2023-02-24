@@ -1,0 +1,26 @@
+@mixin icon($stroke: none, $vertical-align: -0.01em, $space: 0.5em) {
+	display: inline-block;
+	height: 0.75em;
+	width: 0.75em;
+	/* ↓ Override the em value with `1cap`  where `cap` is supported */  
+	height: 1cap;
+	width: 1cap;
+	overflow: visible;
+	vertical-align: $vertical-align;
+	
+	svg {
+		fill: currentColor !important;
+		stroke: $stroke;
+		display: block;
+		width: 100%;
+		height: 100%;
+		overflow: visible;
+	}
+}
+
+@mixin with-icon($space: 0.5em) {
+	/* ↓ Set the `inline-flex` context,  which eliminates the word space */
+	display: inline-flex;
+	align-items: center;
+  gap: var(--space, #{$space});
+}

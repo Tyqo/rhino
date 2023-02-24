@@ -1,0 +1,65 @@
+/**
+ * libhalma/_rwd.scss
+ *
+ * Breakpoints, media queries, responsive webdesign
+ * See: https://medium.freecodecamp.org/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862
+ *
+ * @usage: @include for-size(tablet-landscape-up) { ... }
+ *				 Use a pre devined size from $breakpoints with added '-up' or '-down' for direction.
+ *
+ * 				 @include for-size(1200px, up) { ... }
+ *				 If second parameter is 'up' or 'down' it will be used as direction and a custom size can be used.
+ *
+ *
+ * @author Johannes Braun <j.braun@agentur-halma.de>, Carsten Coull <c.coull@agebtur-halma.de>
+ * @package libhalma
+ */
+
+$breakpoints: (
+	tablet-portrait: 600px,
+	tablet-landscape: 900px,
+	desktop: 1200px,
+	desktop-big: 1800px,
+	desktop-huge: 2400px,
+) !default;
+
+@mixin for-size($size, $direction: false) {
+	$notFound: true;
+
+	@if $direction {
+		@if $direction == 'up' {
+			$notFound: false;
+			@media (min-width: $size) {
+				@content;
+			}
+		} @else if $direction == 'down' {
+			$notFound: false;
+			@media (max-width: $size) {
+				@content;
+			}
+		}
+	} @else {
+		@each $breakpoint, $width in $breakpoints {
+			@if $size == #{$breakpoint}-up {
+				$notFound: false;
+				@media (min-width: #{$width}) {
+					@content;
+				}
+			} @else if $size == #{$breakpoint}-down {
+				$notFound: false;
+				@media (max-width: #{$width}) {
+					@content;
+				}
+			} @else if $size == $breakpoint {
+				$notFound: false;
+				@media (max-width: #{$width - 1}) {
+					@content;
+				}
+			}
+		}
+	}
+
+	@if $notFound {
+		@error "Breakpoint: no width for #{$size} devined";
+	}
+}

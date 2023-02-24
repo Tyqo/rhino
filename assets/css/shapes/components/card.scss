@@ -1,0 +1,9 @@
+.cards {
+	display: flex;
+	flex-flow: row;
+	gap: var(--margin-400);
+}
+
+.card {
+	flex: 1 1 0;
+}

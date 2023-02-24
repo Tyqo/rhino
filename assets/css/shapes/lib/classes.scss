@@ -1,0 +1,116 @@
+/**
+ * src/css/libhalma/_classes.scss
+ *
+ * Predefined utility classes
+ *
+ * @author C.Coull <c.coull@agentur-halma.de>
+ * @author J. Braun <j.braun@agentur-halma.de>
+ * @package libhalma
+ * @version 2021-05-27
+ */
+
+// Screenreader only
+@mixin sr-only($visible-on-focus: true) {
+	// color: transparent;
+	display: inline-block;
+	opacity: 0;
+	background: none;
+	position: absolute;
+	line-height: 0;
+	font-size: 0;
+	overflow: hidden;
+	width: 2px;
+	height: 2px;
+	margin: -1px;
+
+	@if $visible-on-focus {
+		&:focus,
+		&:active {
+			opacity: 1;
+			// color: inherit;
+			font-size: inherit;
+			line-height: inherit;
+			width: auto;
+			width: max-content;
+			height: auto;
+			height: max-content;
+			margin: 0;
+			z-index: 1;
+		}
+	}
+}
+
+@mixin bound($bound-width: 64rem, $padding: false) {
+	box-sizing: content-box; // Yes ;-) see EveryLayout: Center
+	max-width: $bound-width;
+	margin-left: auto;
+	margin-right: auto;
+	
+	@if $padding {
+		padding-left: $padding;
+		padding-right: $padding;
+	}
+}
+
+
+// Take scrollbar-width in to account
+// @see https://destroytoday.com/blog/100vw-and-the-horizontal-overflow-you-probably-didnt-know-about
+@mixin full-width($scrollbar-width: 0) {
+	--half-screen-width: calc((100vw - #{$scrollbar-width}) / 2);
+	margin-left: calc(50% - var(--half-screen-width));
+	margin-right: calc(50% - var(--half-screen-width));
+}
+
+@mixin skip-link {
+	position: fixed;
+	z-index: 200;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, -200%);
+	transition: transform 300ms ease-in-out;
+	
+	&:focus {
+		transform: translate(-50%, 0%);
+	}
+}
+
+@mixin list-style-none {
+	list-style: none;
+
+	li {
+		position: static;
+		padding: 0;
+		
+		&::before {
+			content: none;
+			display: none;
+		}
+	}
+}
+
+// set Thumn and Background Color
+// use on html to set global
+// Webkit and Chromium will ignore color when size isn't set
+@mixin scrollbars(
+	$foreground-color: #999,
+  $background-color: #333,
+  $size: false
+) {
+	@if $size {
+		// For Chrome & Safari
+		&::-webkit-scrollbar {
+			width: $size;
+			height: $size;
+		}
+	}
+
+	&::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--background-color);
+  }
+
+  // Standard version (Firefox only for now)
+  scrollbar-color: $foreground-color var(--background-color);
+}

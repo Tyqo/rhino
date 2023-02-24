@@ -1,0 +1,90 @@
+@use "settings" as *;
+
+.main-header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	padding-left: 0;
+	padding-right: 0;
+
+	&>div {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	transition: transform 350ms ease-in-out,
+	background 350ms ease-in-out;
+}
+
+#home:focus {
+	filter: brightness(0.8);
+}
+
+.logo {
+	height: calc(var(--header-height) - #{$gutter * 2});
+	display: inline-flex;
+	justify-content: center;
+	gap: var(--margin-200);
+	
+	svg {
+		height: 100%;
+		width: auto;
+	}
+	
+	span {
+		display: inline-block;
+		font: inherit;
+		font-size: calc(var(--header-height) - #{$gutter * 2});
+		line-height: 1;
+		text-decoration: none;
+		font-weight: 900;
+	}
+}
+
+.start {
+	@if $collapsable-header {
+		.main-header {
+			position: fixed;
+			left: 0;
+			width: 100%;
+
+			--header-background: transparent;
+
+			color: var(--text-color);
+			background-color: var(--header-background);
+		}
+	}
+
+	@if $start-dark-background {
+		.main-header {
+			--text-color: #{color(contrast)};
+		}
+
+		.main-content>.element-hero:first-of-type {
+			color: var(--contrast-color);
+		}
+	}
+}
+
+.mobile-nav-is-open {
+	.main-header {
+		--header-background: #{color(background)};
+		--text-color: #{color(contrast)};
+	}
+}
+
+.has-scrolled-past-header {
+	.main-header {
+		--header-background: #{color(background)};
+		--text-color: #{color(contrast)};
+	}
+
+	@if $collapsable-header {
+		&.has-scrolled-down:not(.mobile-nav-is-open) {
+			.main-header {
+				transform: translateY(-100%);
+			}
+		}
+	}
+}

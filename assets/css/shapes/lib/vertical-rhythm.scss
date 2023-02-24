@@ -1,0 +1,81 @@
+/**
+ * src/css/libhalma/_vertical_rhythm.scss
+ *
+ * @author Johannes Braun <j.braun@agentur-halma.de>
+ * @package libhalma
+ */
+
+
+/**
+ * The vertical unit
+ * Give with rem as unit, e.g. 1.5rem
+ */
+$vertical-unit: 1.5rem !default;
+
+$modular-scale-ratio: 1.25 !default; // $major-third;
+
+@function modular-scale($level) {
+	@return ($level + 1) * $modular-scale-ratio;
+}
+
+/**
+ * Sets font-size and line-height according to a given level, containing a
+ * vertical rhythm based on the vertical unit (global var $vertical-unit)
+ *
+ * Here we use rem units only to refer to the html's font-size which has been set
+ * by the fluid typography section above
+ *
+ * @param int $level 		 	The font size level to use
+ * @param int $margin-bottom 	optional: Add bottom margin in n times the vertical unit
+ */
+@mixin type-setting($level:0, $margin-bottom:0) {
+	$font-size: strip-unit(modular-scale($level));
+	$line-height: strip-unit($vertical-unit) / $font-size;
+
+	// Make sure line-height is at least 1 times the vertical unit
+	@if $line-height > 0 { // prevent endless loop if somehow line-height is zero or negative
+		@while $line-height < 1 {
+			$line-height: $line-height * 1.41421; // Steps up half a vertical unit at each step
+		}
+	}
+
+	font-size: $font-size + rem;
+	line-height: $line-height + em;
+	margin-bottom: ($line-height * $margin-bottom) + rem;
+}
+
+
+
+$visual-base-line-grid-offset: 0px !default;
+$visual-base-line-grid-above: false !default;
+
+// Visual baseline grid for debugging ("Grundlinienraster")
+@if $debug-base-line-grid {
+	body {
+		position: relative;
+	}
+	.debug-base-line-grid {
+		background-image: linear-gradient(
+			to bottom,
+			transparent 0,
+			transparent calc(#{$vertical-unit}),
+			rgba(gainsboro, 0.2) calc(#{$vertical-unit}),
+			rgba(gainsboro, 0.2)
+		);
+		background-size: 100% (2 * $vertical-unit);
+		@include position(absolute, 0 0 0 0);
+		@if $visual-base-line-grid-above {
+			z-index: 1;
+		}
+		@else {
+			z-index: -1;
+		}
+		top: $visual-base-line-grid-offset;
+		display: none;
+	}
+
+	.debug-base-line-grid--is-visible .debug-base-line-grid {
+		display: block;
+	}
+}
+

@@ -1,0 +1,33 @@
+$box-color: #333 !default;
+$box-background: #fff !default;
+$box-padding: 1rem !default;
+$box-border-color: currentColor !default;
+$box-border-width: 2px !default;
+$box-border-radius: 4px !default;
+
+@mixin box(
+  $color: $box-color,
+  $background: $box-background,
+  $padding: $box-padding,
+  $border-color: $box-border-color,
+  $border-width: $box-border-width,
+  $border-radius: $box-border-radius,
+) {
+  /* ↓ Padding set to the first point on the modular scale */
+  padding: $padding;
+  border: $border-width $border-color solid;
+
+  /* ↓ Always apply the transparent outline, for high contrast mode */
+  outline: $border-width transparent;
+  outline-offset: calc(#{$border-width} * -1);
+
+  color: $color;
+  background-color: $background;
+  border-radius: $border-radius;
+
+  * {
+    /* ↓ Force colors to inherit from the parent
+  and honor inversion (below) */
+    color: inherit;
+  }
+}

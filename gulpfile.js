@@ -44,8 +44,6 @@ const $ = require('gulp-load-plugins')({
 	}
 });
 
-
-// const sass = require('gulp-sass');
 const sass = require('gulp-sass')(require('sass'));
 sass.compiler = $.dartSass;
 
@@ -90,8 +88,6 @@ var settings = {
 		proxy:
 			"https://" +
 			pkg.name +
-			"." +
-			require("os").userInfo().username +
 			".localhost",
 		open: false, // Don't open browser, change to "local" if you want or see https://browsersync.io/docs/options#option-open
 		notify: false, // Don't notify on every change
@@ -111,6 +107,8 @@ var settings = {
 		srcMain: [
 			src + "css/main.scss",
 			src + "css/webfonts.scss",
+			src + "css/cake/cake.css",
+			src + "css/cake/home.css",
 			// './src/css/email.scss',
 			// You can add more files here that will be built seperately,
 			// f.e. newsletter.scss
@@ -152,9 +150,6 @@ var settings = {
 			src + "js/vendor/**/*.js",
 			src + "js/shapes/**/*.js",
 			// "./shapes/src/js/**/*.js",
-			// "./node_modules/@splidejs/splide/dist/js/splide.esm.js",
-			// './node_modules/mapbox-gl/dist/mapbox-gl.js'
-			// './node_modules/glider-autoplay/index.js',
 			// Add single vendor files here,
 			// they will be copied as is to `{prefix}/js/vendor/`,
 			// e.g. './node_modules/flickity/dist/flickity.pkgd.min.js',
@@ -165,8 +160,6 @@ var settings = {
 	cssVendor: {
 		src: [
 			src + "css/vendor/**/*.css",
-			"./node_modules/@splidejs/splide/dist/css/splide.min.css",
-			'./node_modules/mapbox-gl/dist/mapbox-gl.css'
 			// Add single vendor files here,
 			// they will be copied as is to `{prefix}/css/vendor/`,
 			// e.g. './node_modules/flickity/dist/flickity.min.css'
@@ -175,8 +168,8 @@ var settings = {
 	},
 
 	fonts: {
-		src: src + "fonts/**/*",
-		dest: dist + "fonts/",
+		src: src + "font/**/*",
+		dest: dist + "font/",
 	},
 
 	images: {
@@ -189,15 +182,8 @@ var settings = {
 	},
 
 	icons: {
-		src: src + "icons/**/*.svg",
-		dest: dist + "icons/",
-		options: [$.imagemin.svgo(svgoOptions)],
-	},
-
-	sprite: {
-		src: src + "icons/**/*.svg",
-		dest: dist + "img/",
-		destFile: "icons.svg",
+		src: src + "icon/**/*.svg",
+		dest: dist + "icon/",
 		options: [$.imagemin.svgo(svgoOptions)],
 	},
 
@@ -206,13 +192,15 @@ var settings = {
 		dest: dist + "img/favicons/",
 		background: "#ffffff",
 	},
+
+	clean: {
+		folders: dist + '/(css|font|icon|img|js)'
+	}
 };
 
 // Clean dist before building
 function cleanDist() {
-	return $.del([
-		pkg.project_settings.prefix + '/'
-	]);
+	return $.del([settings.clean.folders]);
 }
 
 /*
@@ -352,20 +340,6 @@ function icons() {
 }
 
 
-/*
- * Task: create sprites(SVG): optimize and concat SVG icons
- */
-function sprite() {
-	return gulp.src(settings.sprite.src)
-		.pipe($.imagemin(settings.sprite.options))
-		.pipe($.svgstore({
-			inlineSvg: true
-		}))
-		.pipe($.rename(settings.sprite.destFile))
-		.pipe(gulp.dest(settings.sprite.dest));
-}
-
-
 /**
  * Task: Dummy task to perform reload on template change
  */
@@ -380,7 +354,6 @@ function templates(done) {
  * build CSS file and inject into browser
  */
 function gulpDefault(done) {
-
 	checkKey();
 	$.browserSync.init(settings.browserSync);
 
@@ -451,7 +424,7 @@ function checkKey() {
 /*
  * Task: Build all
  */
-exports.build = series(cleanDist, js, jsModules, jsVendor, css, cssVendor, images, sprite, icons, fonts, favicon);
+exports.build = series(cleanDist, js, jsModules, jsVendor, css, cssVendor, images, icons, fonts, favicon);
 
 exports.default = gulpDefault;
 exports.cleanDist = cleanDist;
@@ -462,7 +435,6 @@ exports.cssVendor = cssVendor;
 exports.fonts = fonts;
 exports.images = images;
 exports.icons = icons;
-exports.sprite = sprite;
 exports.favicon = favicon;
 exports.jsModules = jsModules;
 exports.templates = templates;

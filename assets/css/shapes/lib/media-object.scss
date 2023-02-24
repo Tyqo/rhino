@@ -1,0 +1,29 @@
+/**
+ * src/css/libhalma/media-object.scss
+ *
+ * @author Johannes Braun <j.braun@agentur-halma.de>
+ * @package libhalma
+ * @version 2021-05-31
+ */
+@mixin media-object($space: var(--gutter)) {
+  display: flex;
+  // flex-wrap: wrap;
+  gap: $space;
+
+  // [class*="body"] {
+  //   flex: 1 0 0;
+  // }
+
+  & > :first-child {
+    flex-grow: 1;
+		flex-shrink: 1;
+		flex-basis: 50%;
+  }
+	
+  & > :last-child {
+		flex-basis: 50%;
+		flex-shrink: 1;
+    flex-grow: 1;
+    // min-inline-size: 50%;
+  }
+}

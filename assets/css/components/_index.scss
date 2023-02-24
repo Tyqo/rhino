@@ -1,0 +1,25 @@
+@use 'settings';
+
+// Edit as needed
+@forward '../shapes/layout-options/element-margin';
+@forward '../shapes/layout-options/element-size';
+
+@forward '../shapes/components/loading-screen' with (
+	$loader: settings.$loader,
+	$background-color: var(--contrast-color-600),
+);
+
+@forward '../shapes/components/nav';
+@forward '../shapes/components/overlay';
+@forward '../shapes/components/flash-message';
+@forward '../shapes/components/hero';
+@forward '../shapes/components/media-object';
+@forward '../shapes/components/quote';
+@forward '../shapes/components/slider';
+@forward '../shapes/components/tile';
+@forward '../shapes/components/expander';
+@forward '../shapes/components/card';
+@forward '../shapes/components/light-box';
+@forward '../shapes/components/map';
+
+// Add as needed

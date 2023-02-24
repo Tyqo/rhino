@@ -20,6 +20,7 @@
     "git-rev-sync": "^3.0.2",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-favicons": "^3.0.0",
     "gulp-header": "^2.0.9",
@@ -38,7 +39,7 @@
     "yargs": "^17.3.1"
   },
   "project_settings": {
-    "prefix": "./dist/",
+    "prefix": "./webroot/",
 		"source": "./assets/"
   },
   "browserslist": [

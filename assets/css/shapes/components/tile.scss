@@ -1,0 +1,33 @@
+
+@use "shapes" as *;
+
+.tiles {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: var(--margin-300);
+}
+
+.tile {
+	position: relative;
+
+	img {
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	&__caption {
+		position: absolute;
+		bottom: var(--margin-200);
+		left: var(--margin-300);
+		right: var(--margin-300);
+
+		@include type-setting(600);
+		font-weight: 600;
+		color: var(--background-color);
+
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 100%;
+	}
+}

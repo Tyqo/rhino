@@ -1,0 +1,63 @@
+@use 'shapes' as *;
+
+.light-box {
+	overflow: hidden;
+
+	figure {
+		height: calc(100%);
+		width: 100%;
+	}
+
+	img,
+	video {
+		height: 100%;
+		width: 100%;
+		object-fit: contain;
+		object-position: center;
+		max-height: 80vh;
+	}
+
+	figure {
+		transition: 500ms ease-out;
+		transform-origin: center;
+		opacity: 0;
+		transform: translateY(-10%);
+	}
+
+	&--active {
+		z-index: 10;
+		opacity: 1;
+
+		figure {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+}
+
+.light-box__controlls {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	@include type-setting(600);
+	font-variant-numeric: tabular-nums;
+
+	button {
+		cursor: pointer;
+		display: block;
+		border: none;
+		background: none;
+		color: inherit;
+	}
+	
+	svg {
+		display: block;
+		height: 2em;
+		width: 2em;
+		fill: currentColor;
+	}
+
+	.light-box--total::after {
+		content: " | ";
+	}
+}

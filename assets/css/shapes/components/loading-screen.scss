@@ -1,0 +1,155 @@
+$size: 120px;
+$padding: 1rem;
+$color: var(--primary-color);
+
+$loader: 'spinner' !default;
+$background-color: var(--background-color-600) !default;
+
+body:not(.cmt-layout) .loading-screen {
+	position: fixed;
+	z-index: 800;
+	inset: 0;
+	background: $background-color;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: transform 500ms ease-in-out;
+}
+
+.page-has-loaded .loading-screen {
+	opacity: 0;
+	pointer-events: none;
+
+	&__animation {
+		animation-play-state: paused;
+	}
+}
+
+body.is-loading .loading-screen {
+	opacity: 1;
+	pointer-events: all;
+
+	&__animation {
+		animation-play-state: running;
+	}
+}
+
+
+// Diverent loader types
+// For more information on loader types, see:
+// https: //css-tricks.com/single-element-loaders-the-spinner/
+
+@mixin loading-spinner {
+	width: $size;
+	padding: $padding;
+	background: $color;
+
+	aspect-ratio: 1;
+	border-radius: 50%;
+	--_m:
+		conic-gradient(#0000, #000),
+		linear-gradient(#000 0 0) content-box;
+	-webkit-mask: var(--_m);
+	mask: var(--_m);
+	-webkit-mask-composite: source-out;
+	mask-composite: subtract;
+	box-sizing: border-box;
+	animation: load-spinner 1s linear infinite;
+}
+
+@keyframes load-spinner {
+	to {
+		transform: rotate(1turn)
+	}
+}
+
+@mixin loading-dots {
+
+	&,
+	&:before,
+	&:after {
+		width: $size * 0.3;
+		/* update this to control the size */
+		aspect-ratio: .5;
+		display: grid;
+		background: radial-gradient($color 68%, #0000 72%) center/100% 50% no-repeat;
+		animation: load-dots 1.2s infinite linear calc(var(--_s, 0)*.4s);
+		transform: translate(calc(var(--_s, 0)*150%));
+	}
+
+	&:before,
+	&:after {
+		content: "";
+		grid-area: 1/1;
+	}
+
+	&:before {
+		--_s: -1
+	}
+
+	&:after {
+		--_s: 1
+	}
+}
+
+@keyframes load-dots {
+	20% {
+		background-position: top
+	}
+
+	40% {
+		background-position: bottom
+	}
+
+	60% {
+		background-position: center
+	}
+}
+
+@mixin loading-bars {
+	width: $size;
+	aspect-ratio: 1;
+	--c: no-repeat linear-gradient(#{$color}, #{$color});
+	background:
+		var(--c) 0% 50%,
+		var(--c) 50% 50%,
+		var(--c) 100% 50%;
+	background-size: 20% 100%;
+	animation: load-bars 1s infinite linear;
+}
+
+@keyframes load-bars {
+	0% {
+		background-size: 20% 100%, 20% 100%, 20% 100%
+	}
+
+	33% {
+		background-size: 20% 10%, 20% 100%, 20% 100%
+	}
+
+	50% {
+		background-size: 20% 100%, 20% 10%, 20% 100%
+	}
+
+	66% {
+		background-size: 20% 100%, 20% 100%, 20% 10%
+	}
+
+	100% {
+		background-size: 20% 100%, 20% 100%, 20% 100%
+	}
+}
+
+.loading-screen__animation {
+	@if $loader =="spinner" {
+		@include loading-spinner;
+	}
+
+	@else if $loader =="dots" {
+		@include loading-dots;
+	}
+
+	@else if $loader =="bars" {
+		@include loading-bars;
+	}
+}

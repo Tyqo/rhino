@@ -1,0 +1,38 @@
+@use "shapes";
+
+.splide {
+	&__track, &__list, &__slide, & figure {
+		height: 100%;
+	}
+
+	img {
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	ul {
+		@include shapes.list-style-none;
+	}
+}
+
+.slide {
+	&__figure {
+		position: relative;
+	}
+
+	&__caption {
+		position: absolute;
+		bottom: var(--margin-400);
+		left: var(--margin-300);
+		right: var(--margin-300);
+
+		@include shapes.type-setting(800);
+		font-weight: 600;
+		color: var(--background-color);
+
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 100%;
+	}
+}

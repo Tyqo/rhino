@@ -1,0 +1,43 @@
+@use 'shapes' as *;
+
+.quote {
+	display: flex;
+	flex-flow: column;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	padding-top: var(--margin-800);
+	padding-bottom: var(--margin-800);
+
+	&[style*=custom-background] {
+		background-image: var(--custom-background);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		color: var(--contrast-color);
+	}
+
+	&__block {
+		margin-bottom: 0;
+		@include type-setting(800);
+		font-weight: 600;
+
+		@include for-size(tablet-portrait-up) {
+			word-break: keep-all;
+		}
+	}
+
+	&__author {
+		@include type-setting(600);
+		font-weight: 800;
+	}
+
+	&__figure,
+	&__figcaption {
+		padding: 0 var(--gutter);
+	}
+
+	&>*+* {
+		margin-top: var(--margin-400);
+	}
+}

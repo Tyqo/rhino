@@ -1,0 +1,212 @@
+@use "sass:math";
+/**
+ * src/css/mixins/_utils.scss
+ *
+ * Utility mixins and functions
+ *
+ * @author Johannes Braun <j.braun@agentur-halma.de>
+ * @package libhalma
+ */
+
+/**
+ * strip-unit
+ *
+ * Returns the unitless number
+ * From: https://css-tricks.com/snippets/sass/strip-unit-function/
+ *
+ * @param number
+ * @return number
+ */
+@function strip-unit ($number) {
+	@if type-of ($number) == 'number' and not unitless ($number) {
+		@return math.div($number, ($number * 0 + 1));
+	}
+	@return $number;
+}
+
+
+
+/**
+ * pow
+ *
+ * Return the number risen to the power of n
+ * From: https://css-tricks.com/snippets/sass/power-function/
+ *
+ * @param number 	The operator
+ * @param exp 		The exponent
+ * @return number
+ */
+@function pow ($number, $exp) {
+	$val: 1;
+	@if $exp > 0 {
+		@for $i from 1 through $exp {
+			$val: $val * $number;
+		}
+	}
+	@return $val;
+}
+
+/**
+ * Calculates the sRGB luma of a colour.
+ *
+ * From: https://lnikki.la/articles/sass-better-colour-based-on-brightness/
+ *
+ * Math nicked from a great Thoughtbot article by Reda Lemeden:
+ * http://robots.thoughtbot.com/closer-look-color-lightness
+ */
+
+@function luma($c) {
+	$-local-red: red(rgba($c, 1));
+	$-local-green: green(rgba($c, 1));
+	$-local-blue: blue(rgba($c, 1));
+
+	@return math.div((0.2126 * $-local-red  + 0.7152 * $-local-green + 0.0722 * $-local-blue), 255);
+}
+
+
+/*
+ * Picks a colour from two options based on which one is more visible
+ * on the given background colour.
+ *
+ * From: https://lnikki.la/articles/sass-better-colour-based-on-brightness/
+ *
+ * Usage: color-for-bg($bg-color, $color-1, $color-2)
+ */
+
+@function color-for-bg($bg, $c1, $c2) {
+	$bg-luma: luma($bg);
+	$c1-luma: luma($c1);
+	$c2-luma: luma($c2);
+
+	$c1-diff: abs($bg-luma - $c1-luma);
+	$c2-diff: abs($bg-luma - $c2-luma);
+
+	@if $c1-diff > $c2-diff {
+		@return $c1;
+	}
+	@else {
+		@return $c2;
+	}
+}
+
+/*
+ * @author Carsten Coull <c.coull@agentur-halma.de>
+ *
+ * Slope Utilits
+ * sets a Graph to use for unit
+ *
+ * Needs a calc support
+ */
+
+/*
+ * for fluid type to fit to screen;
+ */
+@mixin slope-type($slope, $offset: 1rem) {
+	font-size: $offset * (1 + $slope);
+	font-size: calc(#{slope-size($slope, $offset)});
+	line-height: 1em;
+
+	@include for-size($m) {
+		font-size: $offset * (2 + $slope);
+		font-size: calc(#{slope-size($slope, $offset)});
+	}
+	line-height: 1em;
+}
+
+@function slope($slope, $offset: 1rem) {
+	@return (#{$slope} *  100vw + #{$offset});
+}
+
+/*
+ * Sets a fluid Unit between to Values
+ *
+ * $min-size: Minimum Value
+ * $max-size: Maximum Value
+ * $min-view: Size at which to use $min-size
+ * $max-view: Size at which to use $max-size
+ *
+ * works best with px Unit
+ */
+
+@function slope-minmax($min-size: 16px, $max-size: 124px, $min-view: 320px, $max-view: 1920px) {
+	$slope: ($max-size - $min-size) / ($max-view - $min-view);
+	$offset: ($slope * $min-view) - $min-size;
+
+	@return (100vw * #{$slope} - #{$offset});
+}
+
+@mixin slope-type-minmax ($min-size: 16px, $max-size: 124px, $min-view: 320px, $max-view: 1920px) {
+	font-size: $min-size;
+	line-height: 1.125em;
+	// margin-bottom: 1.125em;
+
+	@media (min-width: $min-view) {
+		font-size: calc(#{slope-minmax($min-size, $max-size, $min-view, $max-view)});
+	}
+
+	@media (min-width: $max-view) {
+		font-size: $max-size;
+	}
+}
+
+/* Can be used with Custom Proporties */
+@mixin slope-property-minmax ($property, $min-size: 16px, $max-size: 124px, $min-view: 320px, $max-view: 1920px) {
+	#{$property}: $min-size;
+
+	@media (min-width: $min-view) {
+		#{$property}: calc(#{slope-minmax($min-size, $max-size, $min-view, $max-view)});
+	}
+
+	@media (min-width: $max-view) {
+		#{$property}: $max-size;
+	}
+}
+
+@function rem-to-px($rem) {
+	@return (strip-unit($rem) * 16) * 1px;
+}
+
+@function px-to-rem($px) {
+	@return math.div(strip-unit($px), 16) * 1rem;
+}
+
+@function slope-rem-minmax($min-size: 1rem, $max-size: 7.5rem, $min-view: 320px, $max-view: 1920px) {
+	$slope: math.div(($max-size - $min-size), strip-unit(px-to-rem($max-view) - px-to-rem($min-view)));
+	$offset: strip-unit($slope * px-to-rem($min-view)) - $min-size;
+
+	@return clamp(#{$min-size}, (100vw * #{strip-unit($slope)}) - #{$offset}, #{$max-size});
+}
+
+@mixin fixed-ratio ($width, $height) {
+	display: block;
+	position: relative;
+	max-width: 100%;
+	
+	&::after {
+		content: '';
+		height: 0;
+		padding-bottom: math.div( $height, $width ) * 100%;
+		display: block;
+	}
+	
+	& > *:first-child {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	@supports(aspect-ratio: 1 / 1) {
+		aspect-ratio: math.div( $width, $height );
+
+		&::after {
+			display: none;
+		}
+
+		& > *:first-child {
+			position: static;
+		}
+	}
+}

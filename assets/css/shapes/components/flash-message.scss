@@ -1,0 +1,68 @@
+@use "settings" as *;
+@use "shapes";
+
+
+$info-color: skyblue;
+$success-color: green;
+$warning-color: yellow;
+$error-color: red;
+
+.flash-messages {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  inset: auto 0;
+
+  font-weight: 800;
+
+  margin-bottom: -$gutter;
+  // transform: translateY(-100%);
+	
+  & + * {
+		margin-top: 0;
+  }
+	
+  .message {
+		color: var(--text-color);
+    background-color: $info-color;
+		transition: 350ms ease-out;
+		transition-property: max-height, opacity;
+		max-height: 4rem;
+		overflow: hidden;
+		
+    .icon {
+			font-size: 2rem;
+    }
+		
+    &__wrapper {
+			display: flex;
+      width: 100%;
+      justify-content: space-between;
+			padding: $gutter;
+    }
+		
+    &__dismiss {
+			@include shapes.type-setting(800);
+    }
+		
+    &--error {
+      color: var(--background-color);
+      background-color: $error-color;
+    }
+
+    &--warning {
+      color: var(--text-color);
+      background-color: $warning-color;
+    }
+
+    &--success {
+      color: var(--background-color);
+      background-color: $success-color;
+    }
+
+		&--dismissed {
+			pointer-events: none;
+			max-height: 0;
+		}
+  }
+}

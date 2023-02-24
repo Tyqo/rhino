@@ -1,0 +1,12 @@
+/**
+ * From: EveryLayout
+ */
+@mixin center($max-width: false) {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	@if $max-width {
+		max-width: $max-width;
+	}
+}

@@ -1,0 +1,74 @@
+@use "settings" as *;
+@use "shapes";
+
+@mixin padding {
+	padding: 0.25em 0.5em;
+}
+
+a, button, input, select, textarea {
+	font: inherit;
+	cursor: pointer;
+	
+	&:focus {
+		outline: none;
+	}
+}
+
+input {
+	background-color: var(--text-color);
+	color: var(--background-color);
+	@include shapes.type-setting(400);
+	@include padding;
+}
+
+.icon-button {
+	@include shapes.icon;
+	@include shapes.button-reset;
+}
+
+.button {
+	@include shapes.button;
+	font-weight: 600;
+}
+
+.alt-button {
+	@include shapes.button(
+		$background-color: var(--secondary-color),
+		$border-color: var(--secondary-color),
+		$color-hover: var(--secondary-color),
+		$border-color-hover: var(--secondary-color)
+	);
+
+	font-weight: 600;
+}
+
+.button-container a {
+	@extend .button;
+}
+
+.alt-button-container a {
+	@extend .alt-button;
+}
+
+// Link
+.body-text a {
+	color: var(--primary-color);
+	font-weight: 600;
+
+	&:hover, &:focus {
+		color: var(--primary-color-500);
+	}
+
+	&:focus {
+		outline: 2px solid var(--primary-color-500);
+		outline-offset: 2px;
+	}
+
+	&:active {
+		color: var(--primary-color-800);
+	}
+}
+
+.skip-link {
+	@include shapes.skip-link;
+}

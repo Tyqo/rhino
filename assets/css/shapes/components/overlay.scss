@@ -1,0 +1,58 @@
+@use "settings" as *;
+@use 'shapes' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  
+  display: grid;
+
+  place-content: center;
+  place-items: center;
+
+  padding: $gutter;
+  background-color: rgba(#000, 0.6);
+	color: var(--contrast-color);
+
+	pointer-events: none;
+	visibility: hidden;
+	
+	opacity: 0;
+	transition: opacity 500ms ease-in-out;
+	
+	&__wrapper {
+		max-width: var(--outer-bound-width);
+		
+		> *:not(.overlay--target) {
+			display: none;
+		}
+	}
+
+	&--open {
+		visibility: visible;
+		pointer-events: all;
+		opacity: 1;
+	}
+	
+	&__close {
+		cursor: pointer;
+		display: block;
+		position: absolute;
+		z-index: 1000; // above all else
+		background: none;
+		border: none;
+		@include type-setting(900);
+		margin: 0;
+		right: calc(var(--outer-bound));
+		top: calc(var(--outer-bound));
+		color: inherit;
+		
+		svg {
+			display: block;
+			height: 1em;
+			width: 1em;
+			fill: currentColor;
+		}
+	}
+}

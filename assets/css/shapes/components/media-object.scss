@@ -1,0 +1,57 @@
+@use "settings" as *;
+@use "shapes";
+
+.media-object {
+  @include shapes.media-object($gutter * 2);
+
+	@include shapes.for-size(tablet-landscape-down) {
+		flex-flow: column;
+		gap: $gutter;
+	}
+	
+	&--inverted {
+		@include shapes.for-size(tablet-landscape-up) {
+			flex-direction: row-reverse;
+		}
+	}
+
+	&__image {
+		&--fill-height {
+			align-self: stretch;
+			width: auto;
+			height: auto;
+
+			img, video  {
+				height: 100%;
+				object-fit: cover;
+				object-position: center;
+			}
+		}
+		
+		&--fill-screen {
+			img, video {
+				height: var(--screen-height);
+				object-fit: cover;
+				object-position: center;
+			}
+		}
+	}
+}
+
+@if $full-width-fix {
+	.full-width {
+		&.media-object .body-text > * {
+			max-width: calc(var(--outer-bound-width) / 2);
+			padding-right: $gutter;
+		}
+
+		&.media-object--inverted .body-text > * {
+			padding-left: $gutter;
+			padding-right: 0;
+
+			@include shapes.for-size(tablet-landscape-up) {
+				margin-left: auto;
+			}
+		}
+	}
+}

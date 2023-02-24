@@ -1,0 +1,44 @@
+@use "settings" as *;
+@use 'shapes';
+
+.hero {
+	position: relative;
+	// height: calc(var(--screen-height));
+	// height: calc(var(--screen-height) - var(--header-height));
+	overflow: hidden;
+	
+	&__background {
+		position: absolute;
+		inset: 0;
+	}
+	
+	&__foreground {
+		display: flex;
+		flex-flow: column;
+		
+		height: 100%;
+	}
+	
+	img {
+		object-position: center;
+		object-fit: cover;
+		height: 100%;
+	}
+	
+	&__caption {
+		z-index: 1;
+		margin-top: auto;
+		margin-bottom: auto;
+		padding-top: var(--margin-600);
+		padding-bottom: var(--margin-600);
+		
+		@include shapes.for-size(tablet-landscape-up) {
+			width: 50%;
+			margin: auto auto auto 12.5%;
+		}
+		
+		@include shapes.for-size(desktop-up) {
+			width: 64ch;
+		}
+	}
+}
