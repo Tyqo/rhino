@@ -54,7 +54,7 @@ endif;
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        CakePHP: the rapid development PHP framework:
+        Rhino | the rapid development PHP framework:
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
@@ -74,8 +74,11 @@ endif;
                 <img alt="CakePHP" src="https://cakephp.org/v2/img/logos/CakePHP_Logo.svg" width="350" />
             </a>
             <h1>
-                Welcome to CakePHP <?= h(Configure::version()) ?> Strawberry (🍓)
+                🦏 Welcome to Rhino
             </h1>
+						<p>
+							<small>(CakePHP <?= h(Configure::version()) ?>)</small>
+						</p>
         </div>
     </header>
     <main class="main">

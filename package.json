@@ -1,0 +1,47 @@
+{
+  "name": "rhino",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "carsten.coull@swu.de",
+  "license": "MIT",
+  "copyright": "SWU Stadtwerke Ulm / Neu-Ulm GmbH",
+  "devDependencies": {
+    "browser-sync": "^2.27.7",
+    "del": "^6.0.0",
+    "fancy-log": "^2.0.0",
+    "git-rev-sync": "^3.0.2",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-favicons": "^3.0.0",
+    "gulp-header": "^2.0.9",
+    "gulp-imagemin": "^6.2.0",
+    "gulp-jsvalidate": "^5.0.0",
+    "gulp-load-plugins": "^2.0.7",
+    "gulp-newer": "^1.4.0",
+    "gulp-notify": "^4.0.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-svgstore": "^9.0.0",
+    "gulp-terser": "^2.1.0",
+    "moment": "^2.29.1",
+    "sass": "^1.49.8",
+    "yargs": "^17.3.1"
+  },
+  "project_settings": {
+    "prefix": "./dist/",
+		"source": "./assets/"
+  },
+  "browserslist": [
+    "> 2% in DE and not dead"
+  ]
+}

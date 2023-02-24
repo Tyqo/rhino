@@ -22,7 +22,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-        Rhino | 
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
