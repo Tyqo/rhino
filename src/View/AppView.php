@@ -15,6 +15,7 @@ declare(strict_types=1);
  */
 namespace App\View;
 
+use Cake\Core\Configure;
 use Cake\View\View;
 
 /**
@@ -37,5 +38,8 @@ class AppView extends View
      */
     public function initialize(): void
     {
+			Configure::load('app', 'default', true);
+			$local = Configure::read('App.defaultLocale');
+			$this->set(compact("local"));
     }
 }
