@@ -1,35 +1,29 @@
-	<meta charset="UTF-8">
+	<?= $this->Html->charset() ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title><?= $this->getPageTitle() ?> | <?= WEBNAME ?></title>
+	<title>Rhino | <?= $this->fetch('title') ?> </title>
 
 	<script type="module">
 		document.documentElement.classList.remove('no-js');
 		document.documentElement.classList.add('js');
 	</script>
 
-	<link rel="stylesheet" href="/dist/css/main.css?v=<?= CMT_RUNTIME_ENVIRONMENT != 'production' ? $_SERVER['REQUEST_TIME'] : 1 ?>" as="style" />
-	<link rel="stylesheet" href="/dist/css/webfonts.css" as="style" />
-	<link rel="stylesheet" href="/dist/css/vendor/splide.min.css" />
+	<meta name="author" content="carsten.coull@swu.de">
 
-	<meta name="description" content='<?= $this->getPageDescription() ?>'>
-	<meta name="keywords" content='<?= $this->getPageImage() ?>'>
+	<!-- To do: add Version Number to css -->
+	<?= $this->Html->css(['webfonts', 'main']) ?>
 
-	<meta name="author" content="HALMA GmbH &amp; Co. KG Agentur für Werbung, https://www.agentur-halma.de">
+		<!-- Load main javascript -->
+	<?= $this->Html->script(['main'], ["type" => "module"]) ?>
 
-	<meta property="og:title" content='<?= $this->getPageTitle() . "-" . WEBNAME ?>'>
-	<meta property="og:description" content='<?= $this->getPageDescription() ?>'>
-	<meta property="og:image" content='<?= $this->getPageImage() ?>'>
+	<?= $this->fetch('meta') ?>
+	<?= $this->fetch('css') ?>
+	<?= $this->fetch('script') ?>
 
-	<meta property="og:locale" content="<?= PAGELANG ?>">
-	<meta property="og:type" content="website">
-	<meta name="twitter:card" content="summary_large_image">
-	<meta property="og:url" content="<?= URL ?>">
 
-	<link rel="canonical" href="<?= URL ?>">
-	<link rel="shortcut icon" href="/dist/img/favicons/favicon.ico" />
-	<link rel="shortcut icon" href="/dist/img/logo.svg" />
-
+	<!-- To do: check for OG support -->
+	<!-- og:title, og:description, og:image, og:locale, og:type, og:url -->
+	
 	<meta name="theme-color" content="#ffffff">
 
 	<!-- Schema.org JSON+LD -->
@@ -37,8 +31,8 @@
 		{
 			"@context": "http://schema.org/",
 			"@type": "WebSite",
-			"name": "<?= WEBNAME ?>",
-			"url": "<?= URL ?>"
+			"name": "WEBNAME",
+			"url": "URL"
 		}
 	</script>
 	<script type="application/ld+json">
@@ -47,7 +41,7 @@
 			"@type": "",
 			"name": "",
 			"legalName": "",
-			"url": "<?= URL ?>",
+			"url": "URL",
 			"email": "",
 			"telephone": "",
 			"address": {
@@ -60,14 +54,10 @@
 	</script>
 
 	<!-- Fail save for when JS is not working -->
-	<?php if (!$this->isLayoutmode()) : ?>
-		<script>
-			window.onload = function() {
-				setTimeout(() => {
-					document.body.classList.add('page-has-loaded');
-				}, 3000);
-			}
-		</script>
-	<?php endif ?>
-
-	<?= $this->layoutmodeHead() ?>
+	<script>
+		window.onload = function() {
+			setTimeout(() => {
+				document.body.classList.add('page-has-loaded');
+			}, 3000);
+		}
+	</script>

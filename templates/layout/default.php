@@ -1,34 +1,21 @@
 <!doctype html>
 <html class="no-js" lang="<?= $local ?>">
 <head>
-	<?= $this->parsePHP(PATHTOWEBROOT . 'templates/partials/head.php') ?>
+	<?= $this->element('partials/head') ?>
 </head>
 
-<body class="<?php if ($this->getPageData()['cmt_isroot'] == 1 && PAGEID != 0) echo 'start' ?>">
-	<a href="#main" class="skip-link button"><?= $this->I18N("common.skip-navigation") ?></a>
+<body>
+	<a href="#main" class="skip-link button">common.skip-navigation</a>
 
 	<!-- Main header -->
-	<?= $this->parsePHP(PATHTOWEBROOT . 'templates/partials/header.php') ?>
+	<?= $this->element('partials/header') ?>
 
 	<!-- Main Content -->
-	<?= $this->parsePHP(PATHTOWEBROOT . 'templates/partials/main.php') ?>
+	<?= $this->element('partials/main') ?>
 
 	<!-- Main footer -->
-	<?= $this->parsePHP(PATHTOWEBROOT . 'templates/partials/footer.php') ?>
+	<?= $this->element('partials/footer') ?>
 
-	<!-- If it's ok for JS to be excuted in Javascript omit the {IF..} -->
-	<?php if (!$this->isLayoutmode()) : ?>
-		<!-- Load main javascript -->
-		<script type="module" src="/dist/js/main.js?v=<?= CMT_RUNTIME_ENVIRONMENT != 'production' ? $_SERVER['REQUEST_TIME'] : 1 ?>"></script>
-	<?php else : ?>
-		<script>
-			console.info("Layoutmode detected: Main Javascript not loaded");
-		</script>
-	<?php endif ?>
-
-	<?= $this->parsePHP(PATHTOWEBROOT . 'templates/shapes/components/loading-screen.php') ?>
-
-	<?= $this->layoutmodeMenu() ?>
+	<!-- To do: add Loading screen -->
 </body>
-
 </html>

@@ -12,13 +12,13 @@
 /**
  * Import modules, modules are stored in `src/js/modules/`
  */
-import Nav from "/dist/js/vendor/nav.js";
-import LazyLoading from "/dist/js/vendor/lazyload.js";
-import Map from "/dist/js/vendor/map.js";
-import Slider from "/dist/js/vendor/slider.js";
-import FlashMessages from "/dist/js/vendor/flash-messages.js";
-import LightBox from "/dist/js/vendor/light-box.js";
-import Overlay from "/dist/js/vendor/overlay.js";
+import Nav from "/js/vendor/nav.js";
+import LazyLoading from "/js/vendor/lazyload.js";
+import Map from "/js/vendor/map.js";
+// import Slider from "/js/vendor/slider.js";
+import FlashMessages from "/js/vendor/flash-messages.js";
+import LightBox from "/js/vendor/light-box.js";
+import Overlay from "/js/vendor/overlay.js";
 // Ideas for further modules
 // - Slider / Carousel
 // - Lightbox
