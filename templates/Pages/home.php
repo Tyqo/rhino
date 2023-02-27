@@ -1,6 +1,4 @@
-<h1>Test</h1>
-<?= $foo ?><br>
-<?= $page ?><br>
-<?= $subpage ?><br>
-
-<?= $this->Html->link("Hello", ["customers", "new"]) ?>
+<div class="inner-bound">
+	<h1>Welcome to Rhino</h1>
+	<p>Frontend comming soon.</p>
+</div>

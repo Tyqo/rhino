@@ -333,15 +333,15 @@ body {
 * Common styles, like e.g. resets, basic styles...
 */
 :root {
-  --primary-color: #8D6BE9;
-  --primary-color-200: #d1c4f6;
-  --primary-color-300: #af97f0;
-  --primary-color-400: #8D6BE9;
-  --primary-color-500: #6b3fe2;
-  --primary-color-600: #4e1fcf;
-  --primary-color-700: #3e18a3;
-  --primary-color-800: #2d1276;
-  --primary-color-900: #0b041e;
+  --primary-color: #ac3e3e;
+  --primary-color-200: #d17f7f;
+  --primary-color-300: #c35a5a;
+  --primary-color-400: #ac3e3e;
+  --primary-color-500: #873030;
+  --primary-color-600: #612323;
+  --primary-color-700: #3c1515;
+  --primary-color-800: #160808;
+  --primary-color-900: black;
   --secondary-color: #5a74bd;
   --secondary-color-200: #a3b1da;
   --secondary-color-300: #7e93cc;
@@ -351,13 +351,13 @@ body {
   --secondary-color-700: #24325a;
   --secondary-color-800: #151e36;
   --secondary-color-900: black;
-  --background-color: #650e0e;
-  --background-color-200: #bf1a1a;
-  --background-color-300: #921414;
-  --background-color-400: #650e0e;
-  --background-color-500: #380808;
-  --background-color-600: #0b0202;
-  --background-color-700: black;
+  --background-color: #ae1717;
+  --background-color-200: #e64545;
+  --background-color-300: #db1d1d;
+  --background-color-400: #ae1717;
+  --background-color-500: #811111;
+  --background-color-600: #540b0b;
+  --background-color-700: #270505;
   --background-color-800: black;
   --background-color-900: black;
   --contrast-color: #fff;
@@ -575,11 +575,11 @@ body:not(.page-has-loaded):not(.cmt-layout) .main-content > * {
 .box--inverted {
   /* ↓ Padding set to the first point on the modular scale */
   padding: 1rem;
-  border: 0 #650e0e solid;
+  border: 0 #ae1717 solid;
   /* ↓ Always apply the transparent outline, for high contrast mode */
   outline: 0 transparent;
   outline-offset: calc(0 * -1);
-  color: #650e0e;
+  color: #ae1717;
   background-color: #5a74bd;
   border-radius: 0;
 }
@@ -591,9 +591,9 @@ body:not(.page-has-loaded):not(.cmt-layout) .main-content > * {
 
 .inverted {
   --primary-color: #5a74bd;
-  --secondary-color: #8D6BE9;
+  --secondary-color: #ac3e3e;
   --background-color: #fff;
-  --text-color: #650e0e;
+  --text-color: #ae1717;
   --contrast-color: #333;
 }
 
@@ -908,12 +908,12 @@ input {
 }
 
 .mobile-nav-is-open .main-header {
-  --header-background: #650e0e;
+  --header-background: #ae1717;
   --text-color: #fff;
 }
 
 .has-scrolled-past-header .main-header {
-  --header-background: #650e0e;
+  --header-background: #ae1717;
   --text-color: #fff;
 }
 .has-scrolled-past-header.has-scrolled-down:not(.mobile-nav-is-open) .main-header {
