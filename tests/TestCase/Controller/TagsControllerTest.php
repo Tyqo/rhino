@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\UsersController;
+use App\Controller\TagsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\UsersController Test Case
+ * App\Controller\TagsController Test Case
  *
- * @uses \App\Controller\UsersController
+ * @uses \App\Controller\TagsController
  */
-class UsersControllerTest extends TestCase
+class TagsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,15 +22,16 @@ class UsersControllerTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.Users',
+        'app.Tags',
         'app.Articles',
+        'app.ArticlesTags',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\UsersController::index()
+     * @uses \App\Controller\TagsController::index()
      */
     public function testIndex(): void
     {
@@ -41,7 +42,7 @@ class UsersControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\UsersController::view()
+     * @uses \App\Controller\TagsController::view()
      */
     public function testView(): void
     {
@@ -52,7 +53,7 @@ class UsersControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\UsersController::add()
+     * @uses \App\Controller\TagsController::add()
      */
     public function testAdd(): void
     {
@@ -63,7 +64,7 @@ class UsersControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\UsersController::edit()
+     * @uses \App\Controller\TagsController::edit()
      */
     public function testEdit(): void
     {
@@ -74,7 +75,7 @@ class UsersControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\UsersController::delete()
+     * @uses \App\Controller\TagsController::delete()
      */
     public function testDelete(): void
     {
