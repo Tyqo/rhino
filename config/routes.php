@@ -58,8 +58,6 @@ return static function (RouteBuilder $routes) {
          */
         $builder->connect('/pages/*', 'Pages::display');
 
-		$builder->connect('/users/*', ['plugin' => "Tusk"]);
-
         /*
          * Connect catchall routes for all controllers.
          *

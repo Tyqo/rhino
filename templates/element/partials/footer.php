@@ -1,6 +1,8 @@
 <footer class="main-footer box">
 	<div class="outer-bound inverted">
 		<div class="stack">
+			
+			<?= $this->Html->link("Login", ["plugin" => "Tusk"]) ?>
 			<!-- $this->getWidgetChannel(1) ?> -->
 		</div>
 

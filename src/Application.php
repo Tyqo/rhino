@@ -34,13 +34,23 @@ use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Routing\Router;
 use Psr\Http\Message\ServerRequestInterface;
+
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\AuthorizationServiceProviderInterface;
+use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Policy\OrmResolver;
+use Authorization\Policy\MapResolver;
+use Cake\Http\ServerRequest;
+use App\Policy\RequestPolicy;
+
 /**
  * Application setup class.
  *
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-class Application extends BaseApplication implements AuthenticationServiceProviderInterface
+class Application extends BaseApplication implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
 {
     /**
      * Load all the application configuration and bootstrap logic.
@@ -72,6 +82,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Load more plugins here
         $this->addPlugin('Tusk');
 		$this->addPlugin('Authentication');
+		$this->addPlugin('Authorization');
     }
 
     /**
@@ -111,9 +122,10 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 'httponly' => true,
 			]))
 
-			->add(new RoutingMiddleware($this))
-			->add(new BodyParserMiddleware())
-			->add(new AuthenticationMiddleware($this));
+			->add(new AuthenticationMiddleware($this))
+			->add(new AuthorizationMiddleware($this));
+
+		// $routes->registerMiddleware('authtorize', new AuthorizationMiddleware(Application));
 
         return $middlewareQueue;
     }
@@ -148,35 +160,61 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
 	public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
 	{
-		$authenticationService = new AuthenticationService([
-			'unauthenticatedRedirect' => Router::url('/tusk/users/login'),
-			'queryParam' => 'redirect',
-		]);
+		$path = $request->getPath();
 		
-		// Load identifiers, ensure we check email and password fields
-		$authenticationService->loadIdentifier('Authentication.Password', [
-			'fields' => [
-				'username' => 'email',
-				'password' => 'password',
-			],
-			'resolver' => [
-				'className' => 'Authentication.Orm',
-				'userModel' => 'Tusk.Users',
-				'finder' => 'all', // default: 'all'
-			]
-		]);
+		if (strpos($path, '/tusk') === 0) {
+			$authenticationService = new AuthenticationService([
+				'unauthenticatedRedirect' => Router::url(['plugin' => 'Tusk', 'controller' => 'Users', 'action' => 'login']),
+				'queryParam' => 'redirect',
+			]);
+			
+			// Load identifiers, ensure we check email and password fields
+			$authenticationService->loadIdentifier('Authentication.Password', [
+				'fields' => [
+					'username' => 'email',
+					'password' => 'password',
+				],
+				'resolver' => [
+					'className' => 'Authentication.Orm',
+					'userModel' => 'Tusk.Users',
+					'finder' => 'all', // alterenatively: 'active'
+				]
+			]);
 
+			// Load the authenticators, you want session first
+			$authenticationService->loadAuthenticator('Authentication.Session');
+
+			// Configure form data check to pick email and password
+			$authenticationService->loadAuthenticator('Authentication.Form', [
+				'fields' => [
+					'username' => 'email',
+					'password' => 'password',
+				],
+				'loginUrl' => Router::url(['plugin' => 'Tusk', 'controller' => 'Users', 'action' => 'login']),
+			]);
+			return $authenticationService;
+		}
+
+		$authenticationService = new AuthenticationService();
+		// Load identifiers, ensure we check email and password fields
+		$authenticationService->loadIdentifier('Authentication.Password');
 		// Load the authenticators, you want session first
 		$authenticationService->loadAuthenticator('Authentication.Session');
-		// Configure form data check to pick email and password
-		$authenticationService->loadAuthenticator('Authentication.Form', [
-			'fields' => [
-				'username' => 'email',
-				'password' => 'password',
-			],
-			'loginUrl' => Router::url('/tusk/users/login'),
-		]);
+
 
 		return $authenticationService;
+	}
+
+	public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
+	{
+		$path = $request->getPath();
+		if (strpos($path, '/tusk') === 0) {
+			$resolver = new OrmResolver();
+			return new AuthorizationService($resolver);
+		}
+
+		$mapResolver = new MapResolver();
+        $mapResolver->map(ServerRequest::class, RequestPolicy::class);
+        return new AuthorizationService($mapResolver);
 	}
 }

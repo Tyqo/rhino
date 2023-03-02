@@ -33,6 +33,9 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 use App\Application;
 use Cake\Http\Server;
 
+error_reporting(E_ALL);
+ini_set('display_errors', true);
+
 // Bind your application to the server.
 $server = new Server(new Application(dirname(__DIR__) . '/config'));
 
