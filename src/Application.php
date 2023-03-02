@@ -190,7 +190,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 					'username' => 'email',
 					'password' => 'password',
 				],
-				'loginUrl' => Router::url(['plugin' => 'Tusk', 'controller' => 'Users', 'action' => 'login']),
+				'loginUrl' => Router::url(['plugin' => 'Tusk', 'controller' => 'Users', 'action' => 'login'])
 			]);
 			return $authenticationService;
 		}
