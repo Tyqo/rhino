@@ -83,6 +83,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         $this->addPlugin('Tusk');
 		$this->addPlugin('Authentication');
 		$this->addPlugin('Authorization');
+        $this->addPlugin('Migrations');
     }
 
     /**
