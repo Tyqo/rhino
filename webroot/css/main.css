@@ -418,7 +418,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
-  background-color: pink;
 }
 
 .main-content {
