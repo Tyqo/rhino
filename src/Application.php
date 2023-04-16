@@ -215,7 +215,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 		}
 
 		$mapResolver = new MapResolver();
-        $mapResolver->map(ServerRequest::class, RequestPolicy::class);
+        // $mapResolver->map(ServerRequest::class, RequestPolicy::class);
         return new AuthorizationService($mapResolver);
 	}
 }

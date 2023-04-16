@@ -51,26 +51,30 @@ return static function (RouteBuilder $routes) {
          * to use (in this case, templates/Pages/home.php)...
          */
 
-        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
          */
-        $builder->connect('/pages/*', 'Pages::display');
-
-        /*
-         * Connect catchall routes for all controllers.
-         *
-         * The `fallbacks` method is a shortcut for
-         *
-         * ```
-         * $builder->connect('/{controller}', ['action' => 'index']);
-         * $builder->connect('/{controller}/{action}/*', []);
-         * ```
-         *
-         * You can remove these routes once you've connected the
-         * routes you want in your application.
-         */
+        $builder->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+        $builder->connect('/{lang}/{page}', ['controller' => 'Pages', 'action' => 'display'])
+			->setPass(['page', 'lang'])
+			->setPatterns(['lang' => 'en|fr|es|de'])
+			->setPersist(['lang']);
+		
+		/*
+		* Connect catchall routes for all controllers.
+		*
+		* The `fallbacks` method is a shortcut for
+		*
+		* ```
+		* $builder->connect('/{controller}', ['action' => 'index']);
+		* $builder->connect('/{controller}/{action}/*', []);
+		* ```
+		*
+		* You can remove these routes once you've connected the
+		* routes you want in your application.
+		*/
         $builder->fallbacks();
     });
 
