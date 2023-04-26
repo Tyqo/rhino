@@ -163,7 +163,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 	{
 		$path = $request->getPath();
 		
-		if (strpos($path, '/tusk') === 0) {
+		if (preg_match("*tusk*", $path)) {
 			$authenticationService = new AuthenticationService([
 				'unauthenticatedRedirect' => Router::url(['plugin' => 'Tusk', 'controller' => 'Users', 'action' => 'login']),
 				'queryParam' => 'redirect',
@@ -209,7 +209,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 	public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
 	{
 		$path = $request->getPath();
-		if (strpos($path, '/tusk') === 0) {
+
+		if (preg_match("*tusk*", $path)) {
 			$resolver = new OrmResolver();
 			return new AuthorizationService($resolver);
 		}
