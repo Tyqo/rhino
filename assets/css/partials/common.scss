@@ -172,6 +172,7 @@ body {
 
 .inner-bound {
   @include shapes.bound(var(--inner-bound-width), var(--gutter));
+  margin: 2rem auto;
 }
 
 .full-width {

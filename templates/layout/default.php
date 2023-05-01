@@ -4,9 +4,10 @@
 	<?= $this->element('partials/head') ?>
 </head>
 
+<?= $this->fetch('Tusk') ?>
 <body>
 	<a href="#main" class="skip-link button">common.skip-navigation</a>
-
+	
 	<!-- Main header -->
 	<?= $this->element('partials/header') ?>
 

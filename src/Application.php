@@ -41,6 +41,7 @@ use Authorization\AuthorizationServiceProviderInterface;
 use Authorization\Middleware\AuthorizationMiddleware;
 use Authorization\Policy\OrmResolver;
 use Authorization\Policy\MapResolver;
+use Authentication\Identifier\IdentifierInterface;
 use Cake\Http\ServerRequest;
 use App\Policy\RequestPolicy;
 
@@ -164,6 +165,14 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 		$path = $request->getPath();
 		
 		if (preg_match("*tusk*", $path)) {
+			// Reuse fields in multiple authenticators.
+			$fields = [
+				IdentifierInterface::CREDENTIAL_USERNAME => 'email',
+				IdentifierInterface::CREDENTIAL_PASSWORD => 'password',
+			];
+
+			$login = Router::url(['plugin' => 'Tusk', 'controller' => 'Users', 'action' => 'login']);
+
 			$authenticationService = new AuthenticationService([
 				'unauthenticatedRedirect' => Router::url(['plugin' => 'Tusk', 'controller' => 'Users', 'action' => 'login']),
 				'queryParam' => 'redirect',
@@ -171,28 +180,29 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 			
 			// Load identifiers, ensure we check email and password fields
 			$authenticationService->loadIdentifier('Authentication.Password', [
-				'fields' => [
-					'username' => 'email',
-					'password' => 'password',
-				],
+				'fields' => $fields,
 				'resolver' => [
 					'className' => 'Authentication.Orm',
 					'userModel' => 'Tusk.Users',
 					'finder' => 'all', // alterenatively: 'active'
 				]
 			]);
-
+			
+			// Configure form data check to pick email and password
+			$authenticationService->loadAuthenticator('Authentication.Form', [
+				'fields' => $fields,
+				'loginUrl' => $login
+			]);
+			
 			// Load the authenticators, you want session first
 			$authenticationService->loadAuthenticator('Authentication.Session');
 
-			// Configure form data check to pick email and password
-			$authenticationService->loadAuthenticator('Authentication.Form', [
-				'fields' => [
-					'username' => 'email',
-					'password' => 'password',
-				],
-				'loginUrl' => Router::url(['plugin' => 'Tusk', 'controller' => 'Users', 'action' => 'login'])
+			// If the user is on the login page, check for a cookie as well.
+			$authenticationService->loadAuthenticator('Authentication.Cookie', [
+				'fields' => $fields,
+				'loginUrl' => $login
 			]);
+
 			return $authenticationService;
 		}
 

@@ -689,6 +689,7 @@ body:not(.page-has-loaded):not(.cmt-layout) .main-content > * {
   margin-right: auto;
   padding-left: var(--gutter);
   padding-right: var(--gutter);
+  margin: 2rem auto;
 }
 
 .full-width {
