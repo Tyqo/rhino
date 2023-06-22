@@ -13,12 +13,12 @@
  * Import modules, modules are stored in `src/js/modules/`
  */
 import Nav from "/js/vendor/nav.js";
-import LazyLoading from "/js/vendor/lazyload.js";
-import Map from "/js/vendor/map.js";
-// import Slider from "/js/vendor/slider.js";
 import FlashMessages from "/js/vendor/flash-messages.js";
 import LightBox from "/js/vendor/light-box.js";
 import Overlay from "/js/vendor/overlay.js";
+// import LazyLoading from "/js/vendor/lazyload.js";
+// import Map from "/js/vendor/map.js";
+// import Slider from "/js/vendor/slider.js";
 // Ideas for further modules
 // - Slider / Carousel
 // - Lightbox
@@ -92,26 +92,26 @@ class MAIN {
 	 */
 	main() {
 		this.Nav = new Nav(this);
-		let lazyLoading = new LazyLoading();
-		lazyLoading.init();
 		this.FlashMessages = new FlashMessages(this);
-
+		
 		this.Overlay = new Overlay(this, {
-			closeButtonIcon: '/dist/icons/cross.svg',
+			closeButtonIcon: '/icon/cross.svg',
 			closeButtonTitle: 'Close Overlay'
 		});
-
-		this.Slider = new Slider(this);
+		
+		// this.Slider = new Slider(this);
 		this.LightBox = new LightBox(this, {
 			selector: '#main img',
 			prevTitle: 'zum vorherigem Bild',
 			nextTitle: 'zum nächsten Bild',
-			prevIcon: '/dist/icons/chevron-left.svg',
-			nextIcon: '/dist/icons/chevron-right.svg'
+			prevIcon: '/icon/chevron-left.svg',
+			nextIcon: '/icon/chevron-right.svg'
 		});
-
-		let mapEl = document.querySelector('#map');
-		let map = new Map(mapEl);
+		
+		// let lazyLoading = new LazyLoading();
+		// lazyLoading.init();
+		// let mapEl = document.querySelector('#map');
+		// let map = new Map(mapEl);
 	}
 
 	/*

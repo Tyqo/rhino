@@ -1,8 +1,15 @@
 export default class Nav {
 	constructor(main) {
+		this.main = main;
 		this.nav = document.getElementById('main-nav');
 		this.menuButton = document.getElementById('menu-button');
 
+		if (this.nav && this.menuButton) {
+			this.setup();
+		}
+	}
+
+	setup() {
 		let subNavButtons = this.nav.querySelectorAll('[name=subnav-button]');
 		subNavButtons.forEach((subnav) => {
 			subnav.addEventListener('click', () => {
@@ -23,14 +30,14 @@ export default class Nav {
 				this.open();
 			}
 		});
-		
+
 		window.addEventListener('keydown', (e) => {
 			if (e.key == "Escape") {
 				this.close();
 			}
 		});
 
-		main.onOutsideClick('.subnav', (event) => {
+		this.main.onOutsideClick('.subnav', (event) => {
 			let openNavs = this.nav.querySelectorAll('[name=subnav-button][aria-expanded=true]');
 			openNavs.forEach((subnav) => {
 				if (event.target !== subnav) {
@@ -39,7 +46,7 @@ export default class Nav {
 			});
 		});
 
-		main.onOutsideClick('#main-nav', (event) => {
+		this.main.onOutsideClick('#main-nav', (event) => {
 			let status = this.menuButton.getAttribute("aria-expanded");
 			if (status == 'true') {
 				this.close();
@@ -55,7 +62,7 @@ export default class Nav {
 			"false"
 		);
 	}
-	
+
 	open() {
 		// Small delay for onOutsideClick to work
 		setTimeout(() => {

@@ -208,6 +208,10 @@ return [
         'editor' => 'phpstorm',
     ],
 
+	'DebugKit' => [
+        'ignoreAuthorization' => true
+    ],
+
     /*
      * Email configuration.
      *

@@ -95,6 +95,9 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      */
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
+		$tuskAuthentication = new AuthenticationMiddleware($this);
+		$tuskAuthorization = new AuthorizationMiddleware($this);
+
         $middlewareQueue
             // Catch any exceptions in the lower layers,
             // and make an error page/response
