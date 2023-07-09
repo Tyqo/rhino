@@ -8,15 +8,17 @@ The framework source code can be found here: [cakephp/cakephp](https://github.co
 
 ## Installation
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Clone [this](https://github.com/Tyqo/rhino) Repo in the desired location.
-3. Clone [Tusk](https://github.com/Tyqo/tusk) in `plugins/Tusk`
-4. Run `composer install` for both.
-5. Run `npm install && gulp build` for both
-6. Make `tmp` writable.
-7. Configure `config/app_local.php`
-8. Run `bin/cake migrations migrate -p Tusk`
-9. Default Login:
+1. Clone [this](https://github.com/Tyqo/rhino) Repo in the desired location.
+2. Clone [Tusk](https://github.com/Tyqo/tusk) in `plugins/Tusk`
+3. Run `composer install` for both.
+4. Run `npm install && gulp build` for both
+
+   alternativly to 2 -4:
+   run: ./installer.sh
+5. Make `tmp` writable.
+6. Configure `config/app_local.php`
+7. Run `bin/cake migrations migrate -p Tusk`
+8. Default Login:
 
    ```
    User: rhino@example.com
