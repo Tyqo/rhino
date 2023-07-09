@@ -19,6 +19,6 @@ The framework source code can be found here: [cakephp/cakephp](https://github.co
 9. Default Login:
 
    ```
-   User: Rhino
-   Password: tusk
+   User: rhino@example.com
+   Password: #tusk
    ```
