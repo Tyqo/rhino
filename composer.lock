@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a8e9905c9e528656d05582fa9cc8e49",
+    "content-hash": "cba747362e58e232ba768e18276e13a3",
     "packages": [
         {
             "name": "cakephp/authentication",
@@ -494,6 +494,134 @@
                 }
             ],
             "time": "2023-06-06T12:02:59+00:00"
+        },
+        {
+            "name": "coullc/tusk",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Tyqo/tusk.git",
+                "reference": "f0ada6c27c18a5e1d03fb77a409b6942a9639423"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Tyqo/tusk/zipball/f0ada6c27c18a5e1d03fb77a409b6942a9639423",
+                "reference": "f0ada6c27c18a5e1d03fb77a409b6942a9639423",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5 || ^9.3"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Tusk\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Carsten Coull",
+                    "homepage": "https://coull.dev",
+                    "role": "Author"
+                }
+            ],
+            "description": "Tusk, a CMS and Application-Framework plugin for CakePHP",
+            "homepage": "https://rhino.coull.dev",
+            "keywords": [
+                "cakephp",
+                "cms"
+            ],
+            "support": {
+                "issues": "https://github.com/Tyqo/tusk/issues",
+                "source": "https://github.com/Tyqo/tusk/tree/1.0.4"
+            },
+            "time": "2023-07-21T10:22:43+00:00"
+        },
+        {
+            "name": "friendsofcake/cakephp-csvview",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfCake/cakephp-csvview.git",
+                "reference": "e88b165e554a835d02fd8561faae761c8d748e90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfCake/cakephp-csvview/zipball/e88b165e554a835d02fd8561faae761c8d748e90",
+                "reference": "e88b165e554a835d02fd8561faae761c8d748e90",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^4.2",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "cakephp/cakephp-codesniffer": "^4.0",
+                "phpunit/phpunit": "^9.5.0"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "CsvView\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jose Diaz-Gonzalez",
+                    "email": "email@josediazgonzalez.com",
+                    "homepage": "https://josediazgonzalez.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "ADmad",
+                    "homepage": "https://github.com/admad",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Mark Scherer",
+                    "homepage": "https://github.com/dereuromark",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Joshua Paling",
+                    "homepage": "https://github.com/joshuapaling",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Gaurish Sharma",
+                    "homepage": "https://github.com/gaurish",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Gregory Gaskill",
+                    "homepage": "https://github.com/chronon",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "A CSV View class for CakePHP",
+            "homepage": "https://github.com/friendsofcake/cakephp-csvview",
+            "keywords": [
+                "cakephp",
+                "csv",
+                "export",
+                "view"
+            ],
+            "support": {
+                "issues": "https://github.com/friendsofcake/cakephp-csvview/issues",
+                "source": "https://github.com/friendsofcake/cakephp-csvview"
+            },
+            "time": "2023-01-17T18:04:00+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -5990,5 +6118,5 @@
         "php": ">=7.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
