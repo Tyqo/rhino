@@ -26,7 +26,7 @@
         "cakephp/plugin-installer": "^1.3",
         "coullc/tusk": "1.0.4",
         "friendsofcake/cakephp-csvview": "^4.1",
-        "mobiledetect/mobiledetectlib": "^2.8"
+        "mobiledetect/mobiledetectlib": "^3.74"
     },
     "require-dev": {
         "cakephp/bake": "^2.8",
