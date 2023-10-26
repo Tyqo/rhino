@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @since     3.3.0
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App;
 
 use Cake\Core\Configure;
@@ -41,7 +42,7 @@ use Authorization\AuthorizationServiceProviderInterface;
 use Authorization\Middleware\AuthorizationMiddleware;
 use Authorization\Policy\OrmResolver;
 use Authorization\Policy\MapResolver;
-use Authentication\Identifier\IdentifierInterface;
+use Authentication\Identifier\AbstractIdentifier;
 use Cake\Http\ServerRequest;
 use App\Policy\RequestPolicy;
 
@@ -96,9 +97,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      */
     public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
-		$tuskAuthentication = new AuthenticationMiddleware($this);
-		$tuskAuthorization = new AuthorizationMiddleware($this);
-
         $middlewareQueue
             // Catch any exceptions in the lower layers,
             // and make an error page/response
@@ -171,8 +169,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 		if (preg_match("*tusk*", $path)) {
 			// Reuse fields in multiple authenticators.
 			$fields = [
-				IdentifierInterface::CREDENTIAL_USERNAME => 'email',
-				IdentifierInterface::CREDENTIAL_PASSWORD => 'password',
+				AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
+				AbstractIdentifier::CREDENTIAL_PASSWORD => 'password',
 			];
 
 			$login = Router::url(['plugin' => 'Tusk', 'controller' => 'Users', 'action' => 'login']);
@@ -215,7 +213,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 		$authenticationService->loadIdentifier('Authentication.Password');
 		// Load the authenticators, you want session first
 		$authenticationService->loadAuthenticator('Authentication.Session');
-
 
 		return $authenticationService;
 	}
