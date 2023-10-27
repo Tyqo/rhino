@@ -25,7 +25,7 @@
         "cakephp/migrations": "^4.0.0",
         "cakephp/plugin-installer": "^2.0",
         "mobiledetect/mobiledetectlib": "^4.8.03",
-        "coullc/tusk": "1.0.4"
+        "coullc/tusk": "2.0"
     },
     "require-dev": {
         "cakephp/bake": "^3.0.0",
