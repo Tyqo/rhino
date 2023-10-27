@@ -41,8 +41,11 @@ use Authorization\AuthorizationService;
 use Authorization\AuthorizationServiceInterface;
 use Authorization\AuthorizationServiceProviderInterface;
 use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Middleware\RequestAuthorizationMiddleware;
+use Authorization\Policy\ResolverCollection;
 use Authorization\Policy\OrmResolver;
 use Authorization\Policy\MapResolver;
+use Authorization\Exception\ForbiddenException;
 use Authentication\Identifier\AbstractIdentifier;
 use Cake\Http\ServerRequest;
 use App\Policy\RequestPolicy;
@@ -125,7 +128,18 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 			]))
 
 			->add(new AuthenticationMiddleware($this))
-			->add(new AuthorizationMiddleware($this));
+			->add(new AuthorizationMiddleware($this, [
+				'unauthorizedHandler' => [
+					'className' => 'Authorization.Redirect',
+					'url' => '/rhino/users/login',
+					'queryParam' => 'redirectUrl',
+					'exceptions' => [
+						MissingIdentityException::class,
+						ForbiddenException::class,
+					],
+				],
+			]))
+			->add(new RequestAuthorizationMiddleware());
 
 		// $routes->registerMiddleware('authtorize', new AuthorizationMiddleware(Application));
 
@@ -159,9 +173,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 	}
 
 	public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface {
-		$path = $request->getPath();
 
-		if (preg_match("*rhino*", $path)) {
+		if ($request->getParam('plugin') === "Rhino") {
 			// Reuse fields in multiple authenticators.
 			$fields = [
 				AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
@@ -171,8 +184,24 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 			$login = Router::url(['plugin' => 'Rhino', 'controller' => 'Users', 'action' => 'login']);
 
 			$authenticationService = new AuthenticationService([
-				'unauthenticatedRedirect' => Router::url(['plugin' => 'Rhino', 'controller' => 'Users', 'action' => 'login']),
+				'unauthenticatedRedirect' => $login,
 				'queryParam' => 'redirect',
+			]);
+
+
+
+			// Load the authenticators, you want session first
+			$authenticationService->loadAuthenticator('Authentication.Session');
+
+			// Configure form data check to pick email and password
+			$authenticationService->loadAuthenticator('Authentication.Form', [
+				'fields' => $fields
+			]);
+
+			// If the user is on the login page, check for a cookie as well.
+			$authenticationService->loadAuthenticator('Authentication.Cookie', [
+				'fields' => $fields,
+				'loginUrl' => $login
 			]);
 
 			// Load identifiers, ensure we check email and password fields
@@ -183,21 +212,6 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 					'userModel' => 'Rhino.Users',
 					'finder' => 'all', // alterenatively: 'active'
 				]
-			]);
-
-			// Configure form data check to pick email and password
-			$authenticationService->loadAuthenticator('Authentication.Form', [
-				'fields' => $fields,
-				'loginUrl' => $login
-			]);
-
-			// Load the authenticators, you want session first
-			$authenticationService->loadAuthenticator('Authentication.Session');
-
-			// If the user is on the login page, check for a cookie as well.
-			$authenticationService->loadAuthenticator('Authentication.Cookie', [
-				'fields' => $fields,
-				'loginUrl' => $login
 			]);
 
 			return $authenticationService;
@@ -213,15 +227,18 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 	}
 
 	public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface {
-		$path = $request->getPath();
-
-		if (preg_match("*rhino*", $path)) {
-			$resolver = new OrmResolver();
-			return new AuthorizationService($resolver);
+		if ($request->getParam('plugin') === "Rhino") {
+			$ormResolver = new OrmResolver();
+			$mapResolver = new MapResolver();
+			$mapResolver->map(ServerRequest::class, RequestPolicy::class);
+			// $resolver = new ResolverCollection([$mapResolver, $ormResolver]);
+			return new AuthorizationService($mapResolver);
 		}
 
+		// $ormResolver = new OrmResolver();
 		$mapResolver = new MapResolver();
-		// $mapResolver->map(ServerRequest::class, RequestPolicy::class);
+		$mapResolver->map(ServerRequest::class, RequestPolicy::class);
+		// $resolver = new ResolverCollection([$mapResolver, $ormResolver]);
 		return new AuthorizationService($mapResolver);
 	}
 }
