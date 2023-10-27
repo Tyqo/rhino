@@ -1,6 +1,6 @@
-import Modal from "/tusk/js/modules/modal.js";
-import LayoutElements from "/tusk/js/modules/elements.js";
-// import EditorJS from "/tusk/js/vendor/editor.js";
+import Modal from "/rhno/js/modules/modal.js";
+import LayoutElements from "/rhno/js/modules/elements.js";
+// import EditorJS from "/rhno/js/vendor/editor.js";
 
 class Layout {
 	constructor() {

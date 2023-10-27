@@ -13,7 +13,7 @@ $colors: (
 // change to path if needed
 @forward "shapes/lib/reset" with ($list-reset: false);
 
-@forward 'partials/root' with ($prefix: --tusk-, $colors: $colors);
+@forward 'partials/root' with ($prefix: --rhno-, $colors: $colors);
 
 @forward "partials";
 

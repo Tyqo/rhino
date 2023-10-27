@@ -2,8 +2,8 @@
 @use "shapes";
 
 
-$info-color: var(--tusk-text-color-100);
-$success-color: var(--tusk-primary-color-600);
+$info-color: var(--rhno-text-color-100);
+$success-color: var(--rhno-primary-color-600);
 $warning-color: rgb(238, 202, 57);
 $error-color: rgb(238, 84, 57);
 
@@ -19,26 +19,26 @@ $error-color: rgb(238, 84, 57);
   }
 	
   .message {
-	color: var(--tusk-text-color);
+	color: var(--rhno-text-color);
 	background-color: $info-color;
-	padding: var(--tusk-margin-200) 0;
+	padding: var(--rhno-margin-200) 0;
 		
     .icon {
 		font-size: 2rem;
     }
 
 	&.success {
-		color: var(--tusk-contrast-color);
+		color: var(--rhno-contrast-color);
 		background-color: $success-color;
 	}
 		
     &.error {
-      color: var(--tusk-background-color);
+      color: var(--rhno-background-color);
       background-color: $error-color;
     }
 
     &.warning {
-      color: var(--tusk-text-color);
+      color: var(--rhno-text-color);
       background-color: $warning-color;
     }
   }

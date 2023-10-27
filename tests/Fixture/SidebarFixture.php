@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Test\Fixture;
+namespace Rhno\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 

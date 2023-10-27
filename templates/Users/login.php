@@ -2,7 +2,7 @@
 
 <div class="box box--alt form stack">
 	<div class="center login-logo">
-		<?= $this->svg("Tusk.tusk-big") ?>
+		<?= $this->svg("Rhno.rhno-big") ?>
 	</div>
 	
     <?= $this->Form->create(null, ['class' => 'stack']) ?>

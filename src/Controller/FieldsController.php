@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Controller;
+namespace Rhno\Controller;
 
-use Tusk\Controller\AppController;
-use Tusk\Handlers\FieldHandler;
+use Rhno\Controller\AppController;
+use Rhno\Handlers\FieldHandler;
 use App\View\AjaxView;
 
 class FieldsController extends AppController
@@ -98,11 +98,11 @@ class FieldsController extends AppController
 			}
 
 			if ($this->Fields->save($entry)) {
-				$this->Flash->success(__('The field has been saved.'), ['plugin' => 'Tusk']);
+				$this->Flash->success(__('The field has been saved.'), ['plugin' => 'Rhno']);
 				return $this->redirect(['action' => 'index', $tableName]);
 			}
 
-			$this->Flash->error(__('The field could not be saved. Please, try again.'), ['plugin' => 'Tusk']);
+			$this->Flash->error(__('The field could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
 		}
 
 

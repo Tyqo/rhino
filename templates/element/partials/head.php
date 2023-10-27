@@ -1,7 +1,7 @@
 	<?= $this->Html->charset() ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Tusk | <?= h($this->fetch('title')) ?> </title>
+	<title>Rhno | <?= h($this->fetch('title')) ?> </title>
 
 	<script type="module">
 		document.documentElement.classList.remove('no-js');
@@ -11,17 +11,17 @@
 	<meta name="author" content="carsten.coull@swu.de">
 
 	<?= $this->Html->meta(
-		'/tusk/favicons/favicon.ico',
-		'/tusk/favicons/favicon.ico',
+		'/rhno/favicons/favicon.ico',
+		'/rhno/favicons/favicon.ico',
 		['type' => 'icon']
 	); ?>
 
 	<!-- To do: add Version Number to css -->
-	<?= $this->Html->css(['Tusk.webfonts', 'Tusk.pico', 'Tusk.' . (isset($user) ? $user->theme : 'tusk')]) ?>
-	<!--  $this->Html->css(['Tusk.webfonts', 'Tusk.main', 'Tusk.vendor/pico.min']) ?> -->
+	<?= $this->Html->css(['Rhno.webfonts', 'Rhno.pico', 'Rhno.' . (isset($user) ? $user->theme : 'rhno')]) ?>
+	<!--  $this->Html->css(['Rhno.webfonts', 'Rhno.main', 'Rhno.vendor/pico.min']) ?> -->
 
 	<!-- Load main javascript -->
-	<?= $this->Html->script(['Tusk.main'], ["type" => "module"]) ?>
+	<?= $this->Html->script(['Rhno.main'], ["type" => "module"]) ?>
 
 	<?= $this->fetch('meta') ?>
 	<?= $this->fetch('css') ?>

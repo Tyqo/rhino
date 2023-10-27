@@ -28,10 +28,10 @@ input[type=text], textarea {
 }
 
 input, textarea, select, input[type=file], input[input] {
-	background-color: var(--tusk-contrast-color);
-	color: var(--tusk-text-color);
-	border: var(--tusk-border-width) var(--tusk-border-type) var(--tusk-border-color);
-	border-radius: var(--tusk-border-radius);
+	background-color: var(--rhno-contrast-color);
+	color: var(--rhno-text-color);
+	border: var(--rhno-border-width) var(--rhno-border-type) var(--rhno-border-color);
+	border-radius: var(--rhno-border-radius);
 	@include shapes.type-setting(400);
 	@include padding;
 
@@ -61,7 +61,7 @@ label {
 
 .checkbox {
 	// display: flex;
-	// gap: var(--tusk-margin-200);
+	// gap: var(--rhno-margin-200);
 
 	label {
 		display: flex;
@@ -69,7 +69,7 @@ label {
 		align-items: center;
 
 		input {
-			margin-right: var(--tusk-margin-200);
+			margin-right: var(--rhno-margin-200);
 		}
 	}
 	
@@ -88,7 +88,7 @@ label {
 	// @include shapes.button-reset;
 	height: 2.7em;
 	display: flex;
-	gap: var(--tusk-margin-200);
+	gap: var(--rhno-margin-200);
 	justify-content: center;
 	align-items: center;
 
@@ -99,10 +99,10 @@ label {
 
 .alt-button {
 	@include shapes.button(
-		$background-color: var(--tusk-secondary-color),
-		$border-color: var(--tusk-secondary-color),
-		$color-hover: var(--tusk-secondary-color),
-		$border-color-hover: var(--tusk-secondary-color)
+		$background-color: var(--rhno-secondary-color),
+		$border-color: var(--rhno-secondary-color),
+		$color-hover: var(--rhno-secondary-color),
+		$border-color-hover: var(--rhno-secondary-color)
 	);
 
 	font-weight: 600;
@@ -118,20 +118,20 @@ label {
 
 // Link
 .body-text a {
-	color: var(--tusk-primary-color);
+	color: var(--rhno-primary-color);
 	font-weight: 600;
 
 	&:hover, &:focus {
-		color: var(--tusk-primary-color-500);
+		color: var(--rhno-primary-color-500);
 	}
 
 	&:focus {
-		outline: 2px solid var(--tusk-primary-color-500);
+		outline: 2px solid var(--rhno-primary-color-500);
 		outline-offset: 2px;
 	}
 
 	&:active {
-		color: var(--tusk-primary-color-800);
+		color: var(--rhno-primary-color-800);
 	}
 }
 
@@ -141,8 +141,8 @@ label {
 
 .editor {
 	box-shadow: 0 0 2rem #ddd;
-	border-radius: var(--tusk-tusk-border-radius);
-	padding: var(--tusk-tusk-margin-200) var(--tusk-tusk-margin-500);
+	border-radius: var(--rhno-rhno-border-radius);
+	padding: var(--rhno-rhno-margin-200) var(--rhno-rhno-margin-500);
 	min-height: 300px;
 
 	.codex-editor {

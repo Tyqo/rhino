@@ -1,7 +1,7 @@
 <div class="frame">
 	<!-- Main Sidebar -->
 	<nav id="main-nav" class="frame__sidebar">
-		<?= $this->cell('Tusk.Groups'); ?>
+		<?= $this->cell('Rhno.Groups'); ?>
 	</nav>
 	
 	<!-- Main Content -->

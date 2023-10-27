@@ -12,7 +12,7 @@ body {
 	&__sidebar {
 		flex: 0 0 auto;	
 		display: flex;
-		background-color: var(--tusk-contrast-color-400);
+		background-color: var(--rhno-contrast-color-400);
 		flex-direction: column;
 		gap: 2rem;
 		box-shadow: 0px 3px 6px #00000029;
@@ -65,7 +65,7 @@ body {
 		padding: 0 $padding;
 		font-weight: 600;
 		@include type-setting(300);
-		color: var(--tusk-background-color-300);
+		color: var(--rhno-background-color-300);
 	}
 
 	&__list {
@@ -79,7 +79,7 @@ body {
 		a, summary {
 			background-color: transparent;
 			border-color: transparent;
-			color: var(--tusk-text-color);
+			color: var(--rhno-text-color);
 			width: 100%;
 			padding: 0.75rem $padding;
 			
@@ -87,7 +87,7 @@ body {
 			font-weight: 600;
 			
 			&[aria-current]:hover {
-				color: var(--tusk-text-color);
+				color: var(--rhno-text-color);
 			}
 
 			&:hover {
@@ -96,12 +96,12 @@ body {
 		}
 
 		a[aria-current] {
-			background-color: var(--tusk-primary-color);
-			color: var(--tusk-contrast-color);
+			background-color: var(--rhno-primary-color);
+			color: var(--rhno-contrast-color);
 		}
 		
 		summary[aria-current] {
-			background-color: var(--tusk-primary-color-200);
+			background-color: var(--rhno-primary-color-200);
 		}
 
 		summary::after {
@@ -114,7 +114,7 @@ body {
 
 		details[open] {
 			ul {
-				border-left: solid var(--tusk-primary-color-200) 1rem;
+				border-left: solid var(--rhno-primary-color-200) 1rem;
 				list-style: none;
 			}
 
@@ -123,8 +123,8 @@ body {
 			}
 
 			summary {
-				background-color: var(--tusk-primary-color-200);
-				color: var(--tusk-text-color);
+				background-color: var(--rhno-primary-color-200);
+				color: var(--rhno-text-color);
 			
 				&::after {
 					transform: rotate(180deg);

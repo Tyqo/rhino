@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Model\Entity;
+namespace Rhno\Model\Entity;
 
 use Cake\ORM\Entity;
 
 /**
- * TuskGallery Entity
+ * RhnoGallery Entity
  *
  * @property int $id
  * @property string $name

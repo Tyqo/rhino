@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\View;
+namespace Rhno\View;
 
-use Tusk\Model\Table\PagesTable;
+use Rhno\Model\Table\PagesTable;
 use Cake\View\Exception\MissingLayoutException;
 use Cake\Core\Plugin;
 
-trait TuskView
+trait RhnoView
 {
 	public $svgFolder = "webroot/icon";
 	public $svgExtension = ".svg";

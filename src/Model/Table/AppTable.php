@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tusk\Model\Table;
+namespace Rhno\Model\Table;
 
 use Cake\ORM\Table;
-use Tusk\Handlers\FieldHandler;
+use Rhno\Handlers\FieldHandler;
 
 class AppTable extends Table {
 	/**

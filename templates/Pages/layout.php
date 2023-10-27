@@ -1,11 +1,11 @@
 <?php 
-	$this->append('css', $this->Html->css('Tusk.layout')); 
-	$this->append('script', $this->Html->script(['Tusk.layout'], ["type" => "module"]));
-	$this->append('script', $this->Html->script(['Tusk./vendor/editorjs/dist/editor.js']));
-	$this->append('script', $this->Html->script(['Tusk./vendor/header/dist/bundle.js']));
-	$this->append('script', $this->Html->script(['Tusk./vendor/list/dist/bundle.js']));
+	$this->append('css', $this->Html->css('Rhno.layout')); 
+	$this->append('script', $this->Html->script(['Rhno.layout'], ["type" => "module"]));
+	$this->append('script', $this->Html->script(['Rhno./vendor/editorjs/dist/editor.js']));
+	$this->append('script', $this->Html->script(['Rhno./vendor/header/dist/bundle.js']));
+	$this->append('script', $this->Html->script(['Rhno./vendor/list/dist/bundle.js']));
 	$this->assign('title', $page["name"]); 
-	$this->assign('Tusk', $this->element('Tusk.layout-menu')); 
+	$this->assign('Rhno', $this->element('Rhno.layout-menu')); 
 ?>
 
 <?php foreach ($page["contents"] as $content) : ?>
@@ -26,10 +26,10 @@
 						'value' => !$content['active']
 					]
 				],
-				['class' => 'tusk-button']
+				['class' => 'rhno-button']
 			) ?>
 			<button
-				class="tusk-button open-modal"
+				class="rhno-button open-modal"
 				name="Edit Content"
 				value="<?= $this->Url->build(['controller' => 'Contents', 'action' => 'edit',  $content['id']]) ?>"
 				data-dispatch="updateContent"
@@ -37,7 +37,7 @@
 				Edit
 			</button>
 			<button
-				class="tusk-button open-modal"
+				class="rhno-button open-modal"
 				name="Delete Content"
 				value="<?= $this->Url->build(['controller' => 'Contents', 'action' => 'delete', $content['id']]) ?>"
 				data-dispatch="updateContent"

@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Controller;
+namespace Rhno\Controller;
 
-use Tusk\Controller\AppController;
+use Rhno\Controller\AppController;
 
 /**
  * Users Controller
  *
- * @property \Tusk\Model\Table\UsersTable $Users
- * @method \Tusk\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property \Rhno\Model\Table\UsersTable $Users
+ * @method \Rhno\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class UsersController extends AppController
 {
@@ -90,7 +90,7 @@ class UsersController extends AppController
 			return $data;
 		}
 		
-		$this->Flash->error(__('Password does not match.'), ['plugin' => 'Tusk']);
+		$this->Flash->error(__('Password does not match.'), ['plugin' => 'Rhno']);
 		return false;
 	}
 
@@ -105,9 +105,9 @@ class UsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'), ['plugin' => 'Tusk']);
+            $this->Flash->success(__('The user has been deleted.'), ['plugin' => 'Rhno']);
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'), ['plugin' => 'Tusk']);
+            $this->Flash->error(__('The user could not be deleted. Please, try again.'), ['plugin' => 'Rhno']);
         }
 
         return $this->redirect(['action' => 'index']);
@@ -140,7 +140,7 @@ class UsersController extends AppController
 		}
 		// display error if user submitted and authentication failed
 		if ($this->request->is('post') && !$result->isValid()) {
-			$this->Flash->error(__('Invalid username or password'), ['plugin' => 'Tusk']);
+			$this->Flash->error(__('Invalid username or password'), ['plugin' => 'Rhno']);
 		}
 	}
 

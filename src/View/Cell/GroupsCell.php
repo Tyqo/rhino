@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tusk\View\Cell;
+namespace Rhno\View\Cell;
 
 use Cake\View\Cell;
 
@@ -24,8 +24,8 @@ class GroupsCell extends Cell {
 	 * @return void
 	 */
 	public function initialize(): void {
-		$this->Groups = $this->fetchTable('Tusk.Groups');
-		$this->Roles = $this->fetchTable('Tusk.Roles');
+		$this->Groups = $this->fetchTable('Rhno.Groups');
+		$this->Roles = $this->fetchTable('Rhno.Roles');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class GroupsCell extends Cell {
 					[
 						'name' => 'Dashboard',
 						'link' => ['controller' => 'Overview', 'action' => 'display', 'home'],
-						'icon' => "Tusk.home"
+						'icon' => "Rhno.home"
 					]
 				]
 			],
@@ -91,20 +91,20 @@ class GroupsCell extends Cell {
 					[
 						'name' => 'Seiten',
 						'link' => ['controller' => 'Pages', 'action' => 'index'],
-						'icon' => "Tusk.file",
-						'rights' => 'tusk_pages'
+						'icon' => "Rhno.file",
+						'rights' => 'rhno_pages'
 					],
 					[
 						'name' => 'Medien',
 						'link' => ['controller' => 'Media', 'action' => 'index'],
-						'icon' => "Tusk.image",
-						'rights' => 'tusk_media'
+						'icon' => "Rhno.image",
+						'rights' => 'rhno_media'
 					],
 					[
 						'name' => 'Widgets',
 						'link' => ['controller' => 'Widgets', 'action' => 'index'],
-						'icon' => "Tusk.sidebar",
-						'rights' => 'tusk_widgets'
+						'icon' => "Rhno.sidebar",
+						'rights' => 'rhno_widgets'
 					]
 				]
 			],
@@ -117,58 +117,58 @@ class GroupsCell extends Cell {
 				"buttons" => [
 					[
 						'name' => 'Templates',
-						'icon' => "Tusk.table",
+						'icon' => "Rhno.table",
 						'buttons' => [
 							[
 								'name' => 'Elements',
-								'icon' => "Tusk.book",
-								'link' => ['controller' => 'Tables', 'action' => 'index', 'tusk_elements'],
-								'rights' => 'tusk_elements'
+								'icon' => "Rhno.book",
+								'link' => ['controller' => 'Tables', 'action' => 'index', 'rhno_elements'],
+								'rights' => 'rhno_elements'
 							],
 							[
 								'name' => 'Layouts',
-								'icon' => "Tusk.book",
-								'link' => ['controller' => 'Tables', 'action' => 'index', 'tusk_layouts'],
-								'rights' => 'tusk_layouts'
+								'icon' => "Rhno.book",
+								'link' => ['controller' => 'Tables', 'action' => 'index', 'rhno_layouts'],
+								'rights' => 'rhno_layouts'
 							]
 						]
 					],
 					[
 						'name' => 'Admin',
-						'icon' => "Tusk.settings",
+						'icon' => "Rhno.settings",
 						'buttons' => [
 							[
 								'name' => 'Applikation-Manager',
-								'icon' => "Tusk.unlock",
+								'icon' => "Rhno.unlock",
 								'link' => ['controller' => 'Applications', "action" => "index"],
-								'rights' => 'tusk_apps'
+								'rights' => 'rhno_apps'
 							],
 							[
 								'name' => 'Nutzerverwaltung',
-								'icon' => "Tusk.users",
+								'icon' => "Rhno.users",
 								'link' => ['controller' => 'Users', 'action' => 'index'],
-								'rights' => 'tusk_users'
+								'rights' => 'rhno_users'
 							],
 							[
 								'name' => 'Rechteverwaltung',
-								'icon' => "Tusk.lock",
+								'icon' => "Rhno.lock",
 								'link' => ['controller' => 'Roles', 'action' => 'index'],
-								'rights' => 'tusk_roles'
+								'rights' => 'rhno_roles'
 							]
 						]
 					],
 					[
 						'name' => 'Profil',
-						'icon' => "Tusk.user",
+						'icon' => "Rhno.user",
 						'buttons' => [
 							[
 								'name' => 'Profil bearbeiten',
-								'icon' => "Tusk.edit",
+								'icon' => "Rhno.edit",
 								'link' => ["controller" => "Users", "action" => "edit", $this->user->id]
 							],
 							[
 								'name' => 'log-out',
-								'icon' => "Tusk.log-out",
+								'icon' => "Rhno.log-out",
 								'link' => ["controller" => "Users", "action" => "logout"]
 							]
 						]

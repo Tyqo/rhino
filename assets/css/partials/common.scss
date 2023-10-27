@@ -10,7 +10,7 @@
 
 html {
   scroll-behavior: smooth;
-//   @include shapes.scrollbars(var(--tusk-primary-color), var(--tusk-secondary-color), 1rem);
+//   @include shapes.scrollbars(var(--rhno-primary-color), var(--rhno-secondary-color), 1rem);
 }
 
 body {
@@ -24,13 +24,13 @@ body {
 	width: 100%;
 
 	& > *:first-of-type > *:first-child:not(.full-width) {
-		margin-top:  var(--tusk-header-height);
-		padding-top: var(--tusk-margin-400);
+		margin-top:  var(--rhno-header-height);
+		padding-top: var(--rhno-margin-400);
 	}
 	
 	h1, h2, h3, h4, h5, h6 {
 		& + .body-text {
-			margin-top: var(--tusk-margin-200);
+			margin-top: var(--rhno-margin-200);
 		}
 	}
 }
@@ -41,15 +41,15 @@ body {
 
 .box {
   @include shapes.box(
-	$color: var(--tusk-contrast-color)
+	$color: var(--rhno-contrast-color)
   );
 }
 
 .box--inverted, .box--alt {
 	@include shapes.box(
-		$color: var(--tusk-text-color),
-		$background: var(--tusk-contrast-color),
-		$border-color: var(--tusk-background-color)
+		$color: var(--rhno-text-color),
+		$background: var(--rhno-contrast-color),
+		$border-color: var(--rhno-background-color)
 	);
 }
 
@@ -74,15 +74,15 @@ body {
 }
 
 .cluster--100 {
-  @include shapes.cluster(var(--tusk-margin-100));
+  @include shapes.cluster(var(--rhno-margin-100));
 }
 
 .cluster--200 {
-  @include shapes.cluster(var(--tusk-margin-200));
+  @include shapes.cluster(var(--rhno-margin-200));
 }
 
 .cluster--600 {
-  @include shapes.cluster(var(--tusk-margin-200));
+  @include shapes.cluster(var(--rhno-margin-200));
 }
 
 .cluster-end {
@@ -98,15 +98,15 @@ body {
 }
 
 .stack--200 {
-  @include shapes.stack(var(--tusk-margin-200));
+  @include shapes.stack(var(--rhno-margin-200));
 }
 
 .stack--300 {
-  @include shapes.stack(var(--tusk-margin-300));
+  @include shapes.stack(var(--rhno-margin-300));
 }
 
 .stack--600 {
-  @include shapes.stack(var(--tusk-margin-600));
+  @include shapes.stack(var(--rhno-margin-600));
 }
 
 .icon {
@@ -139,15 +139,15 @@ body {
 }
 
 .outer-bound {
-  @include shapes.bound(var(--tusk-outer-bound-width), var(--tusk-outer-bound));
+  @include shapes.bound(var(--rhno-outer-bound-width), var(--rhno-outer-bound));
 }
 
 .inner-bound {
-  @include shapes.bound(var(--tusk-inner-bound-width), var(--tusk-outer-bound));
+  @include shapes.bound(var(--rhno-inner-bound-width), var(--rhno-outer-bound));
 }
 
 .full-width {
-  @include shapes.full-width(var(--tusk-scrollbarWidth));
+  @include shapes.full-width(var(--rhno-scrollbarWidth));
 }
 
 .list-style-none {
@@ -159,7 +159,7 @@ img {
 }
 
 .background {
-	background-color: var(--tusk-background-color);
-	color: var(--tusk-contrast-color);
+	background-color: var(--rhno-background-color);
+	color: var(--rhno-contrast-color);
 }
 

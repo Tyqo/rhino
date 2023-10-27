@@ -5,7 +5,7 @@
 	<?= $this->element('partials/head') ?>
 </head>
 
-<?= $this->fetch('Tusk') ?>
+<?= $this->fetch('Rhno') ?>
 
 <body>
 	<a href="#main" class="skip-link button">common.skip-navigation</a>

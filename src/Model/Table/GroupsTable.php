@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Model\Table;
+namespace Rhno\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -20,11 +20,11 @@ class GroupsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('tusk_groups');
+        $this->setTable('rhno_groups');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-		$this->hasMany('Tusk.Applications');
+		$this->hasMany('Rhno.Applications');
     }
 		
 	public function getGroups(): array {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk;
+namespace Rhno;
 
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
@@ -13,9 +13,9 @@ use Cake\Routing\RouteBuilder;
 use Authorization\Middleware\AuthorizationMiddleware;
 
 /**
- * Plugin for Tusk
+ * Plugin for Rhno
  */
-class TuskPlugin extends BasePlugin
+class RhnoPlugin extends BasePlugin
 {
     /**
      * Load all the plugin configuration and bootstrap logic.
@@ -43,13 +43,13 @@ class TuskPlugin extends BasePlugin
     {
 		// $routes->registerMiddleware('authtorize', new AuthorizationMiddleware(Application));
 
-		// $routes->scope('/tusk', function (RouteBuilder $builder) {
+		// $routes->scope('/rhno', function (RouteBuilder $builder) {
 		// 	$builder->applyMiddleware('authtorize');
 		// });
 
         $routes->plugin(
-            'Tusk',
-            ['path' => '/tusk'],
+            'Rhno',
+            ['path' => '/rhno'],
             function (RouteBuilder $builder) {
                 // Add custom routes here
 				$builder->connect('/', ['controller' => 'Users', 'action' => 'login']);

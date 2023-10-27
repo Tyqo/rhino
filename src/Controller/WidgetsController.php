@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Controller;
+namespace Rhno\Controller;
 
-use Tusk\Controller\AppController;
+use Rhno\Controller\AppController;
 
 /**
  * Widgets Controller
  *
- * @property \Tusk\Model\Table\WidgetsTable $Widgets
- * @method \Tusk\Model\Entity\Widget[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property \Rhno\Model\Table\WidgetsTable $Widgets
+ * @method \Rhno\Model\Entity\Widget[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class WidgetsController extends AppController
 {
@@ -50,11 +50,11 @@ class WidgetsController extends AppController
         if ($this->request->is('post')) {
             $widget = $this->Widgets->patchEntity($widget, $this->request->getData());
             if ($this->Widgets->save($widget)) {
-                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Tusk']);
+                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Rhno']);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Tusk']);
+            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
         }
         $this->set(compact('widget'));
     }
@@ -72,11 +72,11 @@ class WidgetsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $widget = $this->Widgets->patchEntity($widget, $this->request->getData());
             if ($this->Widgets->save($widget)) {
-                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Tusk']);
+                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Rhno']);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Tusk']);
+            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
         }
         $this->set(compact('widget'));
     }
@@ -93,9 +93,9 @@ class WidgetsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $widget = $this->Widgets->get($id);
         if ($this->Widgets->delete($widget)) {
-            $this->Flash->success(__('The widget has been deleted.'), ['plugin' => 'Tusk']);
+            $this->Flash->success(__('The widget has been deleted.'), ['plugin' => 'Rhno']);
         } else {
-            $this->Flash->error(__('The widget could not be deleted. Please, try again.'), ['plugin' => 'Tusk']);
+            $this->Flash->error(__('The widget could not be deleted. Please, try again.'), ['plugin' => 'Rhno']);
         }
 
         return $this->redirect(['action' => 'index']);

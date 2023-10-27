@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Model\Table;
+namespace Rhno\Model\Table;
 
 use Cake\ORM\Table;
 
@@ -68,7 +68,7 @@ class FieldsTable extends Table {
     public function initialize(array $config): void {
 		parent::initialize($config);
 
-		$this->setTable('tusk_fields');
+		$this->setTable('rhno_fields');
 		$this->setDisplayField('id');
 		$this->setPrimaryKey('id');
 

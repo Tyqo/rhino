@@ -1,14 +1,14 @@
-# Tusk plugin for CakePHP
+# Rhno plugin for CakePHP
 
 ## Quick Start:
 
 ```
 composer create-project --prefer-dist cakephp/app myapp
 cd myapp
-composer require coullc/tusk
-cp -aR vendor/coullc/tusk/skeleton/. .
+composer require coullc/rhno
+cp -aR vendor/coullc/rhno/skeleton/. .
 // create Database and set config/app_local.php
-bin/cake migrations migrate -p Tusk
+bin/cake migrations migrate -p Rhno
 ```
 
 ## Installation
@@ -18,30 +18,30 @@ You can install this plugin into your CakePHP application using [composer](https
 The recommended way to install composer packages is:
 
 ```
-composer require coullc/tusk
+composer require coullc/rhno
 ```
 
 after the Plugin is installed and the Application is connected to the Database, you can run the following in the root of the Application:
 
 ```
-cp -aR vendor/coullc/tusk/skeleton/. .
-bin/cake migrations migrate -p Tusk
+cp -aR vendor/coullc/rhno/skeleton/. .
+bin/cake migrations migrate -p Rhno
 ```
 
 ### Default login
 
-You find the Login under `/tusk`
+You find the Login under `/rhno`
 
 Email: 		rhino@example.com
 
-Password: 	#tusk
+Password: 	#rhno
 
 ---
 
 ## Development
 
 See [rhino](https://github.com/Tyqo/rhino).
-Clone Rhino, then Clone Tusk in the Plugins folder.
+Clone Rhino, then Clone Rhno in the Plugins folder.
 
 [mokup](https://xd.adobe.com/view/ee0ba304-8907-40aa-918f-b787c5dc5926-bb58/screen/a86c465f-e104-44b2-aea7-96f0ec6d08a2/specs/)
 
@@ -56,7 +56,7 @@ View needed for:
 - overview
 - readonly
 
-It's also important to keep in mind, that Tusk should always be able to work with native fields that are not in it's Tables.
+It's also important to keep in mind, that Rhno should always be able to work with native fields that are not in it's Tables.
 
 ### Next Up: Layoutmode Enhancment
 

@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Test\TestCase\Controller;
+namespace Rhno\Test\TestCase\Controller;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use Tusk\Controller\TagsController;
+use Rhno\Controller\TagsController;
 
 /**
- * Tusk\Controller\TagsController Test Case
+ * Rhno\Controller\TagsController Test Case
  *
- * @uses \Tusk\Controller\TagsController
+ * @uses \Rhno\Controller\TagsController
  */
 class TagsControllerTest extends TestCase
 {
@@ -22,15 +22,15 @@ class TagsControllerTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Tusk.Tags',
-        'plugin.Tusk.Articles',
+        'plugin.Rhno.Tags',
+        'plugin.Rhno.Articles',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \Tusk\Controller\TagsController::index()
+     * @uses \Rhno\Controller\TagsController::index()
      */
     public function testIndex(): void
     {
@@ -41,7 +41,7 @@ class TagsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \Tusk\Controller\TagsController::view()
+     * @uses \Rhno\Controller\TagsController::view()
      */
     public function testView(): void
     {
@@ -52,7 +52,7 @@ class TagsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \Tusk\Controller\TagsController::add()
+     * @uses \Rhno\Controller\TagsController::add()
      */
     public function testAdd(): void
     {
@@ -63,7 +63,7 @@ class TagsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \Tusk\Controller\TagsController::edit()
+     * @uses \Rhno\Controller\TagsController::edit()
      */
     public function testEdit(): void
     {
@@ -74,7 +74,7 @@ class TagsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \Tusk\Controller\TagsController::delete()
+     * @uses \Rhno\Controller\TagsController::delete()
      */
     public function testDelete(): void
     {

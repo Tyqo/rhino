@@ -1,1 +1,1 @@
--- Test database schema for Tusk
+-- Test database schema for Rhno

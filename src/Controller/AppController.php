@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Controller;
+namespace Rhno\Controller;
 
 use App\Controller\AppController as BaseController;
-use Tusk\Handlers\FieldHandler;
+use Rhno\Handlers\FieldHandler;
 use Cake\Http\Response;
-use Tusk\Model\Table\ApplicationsTable;
-use Tusk\Model\ApplicationTrait;
-use Tusk\Model\Table\RolesTable;
-use Tusk\Handlers\FilterHandler;
+use Rhno\Model\Table\ApplicationsTable;
+use Rhno\Model\ApplicationTrait;
+use Rhno\Model\Table\RolesTable;
+use Rhno\Handlers\FilterHandler;
 use Cake\ORM\Exception\MissingTableClassException;
 
 class AppController extends BaseController
@@ -88,7 +88,7 @@ class AppController extends BaseController
 		$this->useTable = false;
 		
 		try {
-			return $this->render('Tusk.App/no_access');
+			return $this->render('Rhno.App/no_access');
 		} catch (MissingTemplateException $exception) {
 			if (Configure::read('debug')) {
 				throw $exception;
@@ -159,7 +159,7 @@ class AppController extends BaseController
 		$entry = $this->Table->patchEntity($entry, $data);
 		
 		if ($this->Table->save($entry)) {
-			$this->Flash->success($params['success'], ['plugin' => 'Tusk']);
+			$this->Flash->success($params['success'], ['plugin' => 'Rhno']);
 			return true;
 		}
 
@@ -172,7 +172,7 @@ class AppController extends BaseController
 			$this->preRender();
 		}
 
-		$this->viewBuilder()->addHelper('Tusk.Fields');
+		$this->viewBuilder()->addHelper('Rhno.Fields');
 
 		if ($this->useTable) {
 			// if (!$this->get('tableName')) {

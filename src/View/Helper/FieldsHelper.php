@@ -1,9 +1,9 @@
 <?php
 
-namespace Tusk\View\Helper;
+namespace Rhno\View\Helper;
 
 use Cake\View\Helper;
-use Tusk\Handlers\FieldHandler;
+use Rhno\Handlers\FieldHandler;
 use Cake\View\Exception\MissingElementException;
 
 class FieldsHelper extends Helper {

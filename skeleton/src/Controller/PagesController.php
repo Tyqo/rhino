@@ -16,7 +16,7 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
-use Tusk\Controller\PagesController as BaseController;
+use Rhno\Controller\PagesController as BaseController;
 ;
 
 /**

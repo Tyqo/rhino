@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Model;
+namespace Rhno\Model;
 
 trait ApplicationTrait {
 	

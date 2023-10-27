@@ -4,7 +4,7 @@
 .tiles {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: var(--tusk-margin-300);
+	gap: var(--rhno-margin-300);
 }
 
 .tile {
@@ -18,13 +18,13 @@
 
 	&__caption {
 		position: absolute;
-		bottom: var(--tusk-margin-200);
-		left: var(--tusk-margin-300);
-		right: var(--tusk-margin-300);
+		bottom: var(--rhno-margin-200);
+		left: var(--rhno-margin-300);
+		right: var(--rhno-margin-300);
 
 		@include type-setting(600);
 		font-weight: 600;
-		color: var(--tusk-background-color);
+		color: var(--rhno-background-color);
 
 		overflow: hidden;
 		text-overflow: ellipsis;

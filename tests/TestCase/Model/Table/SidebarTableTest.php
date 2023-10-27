@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Test\TestCase\Model\Table;
+namespace Rhno\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Tusk\Model\Table\SidebarTable;
+use Rhno\Model\Table\SidebarTable;
 
 /**
- * Tusk\Model\Table\SidebarTable Test Case
+ * Rhno\Model\Table\SidebarTable Test Case
  */
 class SidebarTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Tusk\Model\Table\SidebarTable
+     * @var \Rhno\Model\Table\SidebarTable
      */
     protected $Sidebar;
 
@@ -24,7 +24,7 @@ class SidebarTableTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Tusk.Sidebar',
+        'plugin.Rhno.Sidebar',
     ];
 
     /**
@@ -55,7 +55,7 @@ class SidebarTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Tusk\Model\Table\SidebarTable::validationDefault()
+     * @uses \Rhno\Model\Table\SidebarTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Controller;
+namespace Rhno\Controller;
 
-use Tusk\Controller\AppController;
-use Tusk\Model\Table\GroupsTable;
+use Rhno\Controller\AppController;
+use Rhno\Model\Table\GroupsTable;
 
 /**
  * Tables Controller
  *
- * @method \Tusk\Model\Entity\Table[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \Rhno\Model\Entity\Table[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class ApplicationsController extends AppController {
 
@@ -29,7 +29,7 @@ class ApplicationsController extends AppController {
 
         $apps = $this->Applications->find()->where(
 			function ($exp) {
-				return $exp->isNotNull("tusk_group_id");
+				return $exp->isNotNull("rhno_group_id");
 			}
 		)->all()->toArray();
 
@@ -117,7 +117,7 @@ class ApplicationsController extends AppController {
 		if ($params['action'] == "add") {
 			$applications = $this->Applications->getList();
 			if (in_array($data['name'], $applications)) {
-				$this->Flash->error(__('The table ' . $data['name'] . ' already exists.'), ['plugin' => 'Tusk']);
+				$this->Flash->error(__('The table ' . $data['name'] . ' already exists.'), ['plugin' => 'Rhno']);
 				return;
 			}
 
@@ -133,12 +133,12 @@ class ApplicationsController extends AppController {
             $group = $this->Groups->patchEntity($entry, $this->request->getData());
             
 			if ($this->Groups->save($group)) {
-                $this->Flash->success(__('The table has been saved.'), ['plugin' => 'Tusk']);
+                $this->Flash->success(__('The table has been saved.'), ['plugin' => 'Rhno']);
 
                 return $this->redirect(['action' => 'index']);
             }
 
-            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Tusk']);
+            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
         }
 	}
 	
@@ -149,12 +149,12 @@ class ApplicationsController extends AppController {
             $group = $this->Groups->patchEntity($entry, $this->request->getData());
             
 			if ($this->Groups->save($group)) {
-                $this->Flash->success(__('The table has been saved.'), ['plugin' => 'Tusk']);
+                $this->Flash->success(__('The table has been saved.'), ['plugin' => 'Rhno']);
 
                 return $this->redirect(['action' => 'index']);
             }
 
-            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Tusk']);
+            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
         }
 
 		$this->set(['entity' => $entry]);
@@ -164,9 +164,9 @@ class ApplicationsController extends AppController {
 		$entry = $this->Groups->get($id);
 
 		if ($this->Groups->delete($entry)) {
-            $this->Flash->success(__('The user has been deleted.'), ['plugin' => 'Tusk']);
+            $this->Flash->success(__('The user has been deleted.'), ['plugin' => 'Rhno']);
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'), ['plugin' => 'Tusk']);
+            $this->Flash->error(__('The user could not be deleted. Please, try again.'), ['plugin' => 'Rhno']);
         }
 
         return $this->redirect(['action' => 'index']);

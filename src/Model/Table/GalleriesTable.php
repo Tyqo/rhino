@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Model\Table;
+namespace Rhno\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -9,21 +9,21 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * TuskGalleries Model
+ * RhnoGalleries Model
  *
- * @method \Tusk\Model\Entity\TuskGallery newEmptyEntity()
- * @method \Tusk\Model\Entity\TuskGallery newEntity(array $data, array $options = [])
- * @method \Tusk\Model\Entity\TuskGallery[] newEntities(array $data, array $options = [])
- * @method \Tusk\Model\Entity\TuskGallery get($primaryKey, $options = [])
- * @method \Tusk\Model\Entity\TuskGallery findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \Tusk\Model\Entity\TuskGallery patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Tusk\Model\Entity\TuskGallery[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \Tusk\Model\Entity\TuskGallery|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Tusk\Model\Entity\TuskGallery saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Tusk\Model\Entity\TuskGallery[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \Tusk\Model\Entity\TuskGallery[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \Tusk\Model\Entity\TuskGallery[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \Tusk\Model\Entity\TuskGallery[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery newEmptyEntity()
+ * @method \Rhno\Model\Entity\RhnoGallery newEntity(array $data, array $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery[] newEntities(array $data, array $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery get($primaryKey, $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Rhno\Model\Entity\RhnoGallery[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -39,7 +39,7 @@ class GalleriesTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('tusk_galleries');
+        $this->setTable('rhno_galleries');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 

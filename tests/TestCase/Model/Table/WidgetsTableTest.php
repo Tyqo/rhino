@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Test\TestCase\Model\Table;
+namespace Rhno\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Tusk\Model\Table\WidgetsTable;
+use Rhno\Model\Table\WidgetsTable;
 
 /**
- * Tusk\Model\Table\WidgetsTable Test Case
+ * Rhno\Model\Table\WidgetsTable Test Case
  */
 class WidgetsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Tusk\Model\Table\WidgetsTable
+     * @var \Rhno\Model\Table\WidgetsTable
      */
     protected $Widgets;
 
@@ -24,7 +24,7 @@ class WidgetsTableTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Tusk.Widgets',
+        'plugin.Rhno.Widgets',
     ];
 
     /**
@@ -55,7 +55,7 @@ class WidgetsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Tusk\Model\Table\WidgetsTable::validationDefault()
+     * @uses \Rhno\Model\Table\WidgetsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Model\Table;
+namespace Rhno\Model\Table;
 
 use Cake\ORM\Table;
 
@@ -12,18 +12,18 @@ class ApplicationsTable extends Table
 {
 	private $tableBlackList = [
 		"phinxlog",
-		"tusk_phinxlog",
-		'tusk_users',
-		'tusk_roles',
-		'tusk_groups',
-		'tusk_apps',
-		'tusk_fields',
-		'tusk_pages',
-		'tusk_layouts',
-		'tusk_elements',
-		'tusk_contents',
-		'tusk_media',
-		'tusk_widgets',
+		"rhno_phinxlog",
+		'rhno_users',
+		'rhno_roles',
+		'rhno_groups',
+		'rhno_apps',
+		'rhno_fields',
+		'rhno_pages',
+		'rhno_layouts',
+		'rhno_elements',
+		'rhno_contents',
+		'rhno_media',
+		'rhno_widgets',
 	];
 
     /**
@@ -36,7 +36,7 @@ class ApplicationsTable extends Table
     {
 		parent::initialize($config);
 
-        $this->setTable('tusk_apps');
+        $this->setTable('rhno_apps');
 		$this->setDisplayField('id');
         $this->setPrimaryKey('id');
 

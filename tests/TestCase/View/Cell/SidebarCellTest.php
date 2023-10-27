@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Test\TestCase\View\Cell;
+namespace Rhno\Test\TestCase\View\Cell;
 
 use Cake\TestSuite\TestCase;
-use Tusk\View\Cell\SidebarCell;
+use Rhno\View\Cell\SidebarCell;
 
 /**
- * Tusk\View\Cell\SidebarCell Test Case
+ * Rhno\View\Cell\SidebarCell Test Case
  */
 class SidebarCellTest extends TestCase
 {
@@ -28,7 +28,7 @@ class SidebarCellTest extends TestCase
     /**
      * Test subject
      *
-     * @var \Tusk\View\Cell\SidebarCell
+     * @var \Rhno\View\Cell\SidebarCell
      */
     protected $Sidebar;
 
@@ -61,7 +61,7 @@ class SidebarCellTest extends TestCase
      * Test display method
      *
      * @return void
-     * @uses \Tusk\View\Cell\SidebarCell::display()
+     * @uses \Rhno\View\Cell\SidebarCell::display()
      */
     public function testDisplay(): void
     {

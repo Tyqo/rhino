@@ -1,8 +1,8 @@
 <?php
 // src/Model/Entity/Article.php
-namespace Tusk\Model\Entity;
+namespace Rhno\Model\Entity;
 
-use Tusk\Model\Entity\AppEntity;
+use Rhno\Model\Entity\AppEntity;
 
 class Table extends AppEntity {
 	// protected $_virtual = array_merge([

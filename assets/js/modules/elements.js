@@ -63,7 +63,7 @@ export default class LayoutElements {
 			window.location.reload();
 		}
 
-		fetch('/tusk/contents/element/' + id, {
+		fetch('/rhno/contents/element/' + id, {
 			headers: {
 				'X-Requested-With': 'XMLHttpRequest'
 			}
@@ -93,7 +93,7 @@ export default class LayoutElements {
 			position = 0;
 		}
 
-		fetch('/tusk/contents/change/' + id + "?" + new URLSearchParams({
+		fetch('/rhno/contents/change/' + id + "?" + new URLSearchParams({
 			key: 'position',
 			value: position
 		}), {

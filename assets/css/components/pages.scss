@@ -1,8 +1,8 @@
 .pages {
 	h1 {
-		padding: var(--tusk-margin-300) var(--tusk-margin-300);
-		background-color: var(--tusk-secondary-color-600);
-		color: var(--tusk-contrast-color);
+		padding: var(--rhno-margin-300) var(--rhno-margin-300);
+		background-color: var(--rhno-secondary-color-600);
+		color: var(--rhno-contrast-color);
 		font-weight: 800;
 	}
 
@@ -11,7 +11,7 @@
 		
 		.page-item {
 			padding: 0.5rem 1rem;
-			background-color: var(--tusk-contrast-color);
+			background-color: var(--rhno-contrast-color);
 
 			&__body {
 				display: flex;
@@ -32,19 +32,19 @@
 
 		// TODO: Fix this.
 		li:nth-of-type(2n - 1) {
-			background-color: var(--tusk-secondary-color-200);
+			background-color: var(--rhno-secondary-color-200);
 			
 			li:nth-of-type(2n - 1) {
-				background-color: var(--tusk-contrast-color);
+				background-color: var(--rhno-contrast-color);
 
 				li:nth-of-type(2n - 1) {
-					background-color: var(--tusk-secondary-color-200);
+					background-color: var(--rhno-secondary-color-200);
 
 					li:nth-of-type(2n - 1) {
-						background-color: var(--tusk-contrast-color);
+						background-color: var(--rhno-contrast-color);
 
 						li:nth-of-type(2n - 1) {
-							background-color: var(--tusk-secondary-color-200);
+							background-color: var(--rhno-secondary-color-200);
 						}
 					}
 				}
@@ -59,5 +59,5 @@
 }
 
 .layout-element {
-	border: solid 4px var(--tusk-primary-color) !important;
+	border: solid 4px var(--rhno-primary-color) !important;
 }

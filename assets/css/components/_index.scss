@@ -6,7 +6,7 @@
 
 @forward '../shapes/components/loading-screen' with (
 	$loader: settings.$loader,
-	$background-color: var(--tusk-contrast-color-600),
+	$background-color: var(--rhno-contrast-color-600),
 );
 
 @forward '../shapes/components/nav';

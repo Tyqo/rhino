@@ -1,6 +1,6 @@
 <?php
 // src/Model/Entity/Article.php
-namespace Tusk\Model\Entity;
+namespace Rhno\Model\Entity;
 
 use Cake\ORM\Entity;
 

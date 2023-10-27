@@ -29,12 +29,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Tusk\\": "src/"
+			"Rhino\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Tusk\\Test\\": "tests/",
+			"Rhino\\Test\\": "tests/",
 			"Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
 		}
 	},

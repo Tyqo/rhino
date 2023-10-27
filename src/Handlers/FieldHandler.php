@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Handlers;
+namespace Rhno\Handlers;
 
-use Tusk\Model\Table\FieldsTable;
+use Rhno\Model\Table\FieldsTable;
 
 class FieldHandler {
 	public $customTypes = [

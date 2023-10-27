@@ -106,7 +106,7 @@ var settings = {
 		src: src + "css/**/*.scss",
 		dest: dist + "css/",
 		srcMain: [
-			src + "css/tusk.scss",
+			src + "css/rhino.scss",
 			src + "css/swu.scss",
 			src + "css/webfonts.scss",
 			src + "css/pico.scss",
@@ -213,7 +213,7 @@ var settings = {
 	},
 
 	favicon: {
-		src: src + "icon/tusk.svg",
+		src: src + "icon/rhino.svg",
 		dest: dist + "favicons/",
 		background: "#ffffff",
 	},

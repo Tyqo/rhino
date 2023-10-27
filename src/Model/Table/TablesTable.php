@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Model\Table;
+namespace Rhno\Model\Table;
 
-use Tusk\Model\Table\AppTable;
+use Rhno\Model\Table\AppTable;
 
 
 class TablesTable extends AppTable {

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Policy;
+namespace Rhno\Policy;
 
 use Authorization\IdentityInterface;
-// use Tusk\Model\Entity\Article;
+// use Rhno\Model\Entity\Article;
 
 /**
  * Article policy
@@ -15,7 +15,7 @@ class AppPolicy
      * Check if $user can add Article
      *
      * @param \Authorization\IdentityInterface $user The user.
-     * @param \Tusk\Model\Entity\Article $article
+     * @param \Rhno\Model\Entity\Article $article
      * @return bool
      */
     public function canAdd(IdentityInterface $user, Article $article)
@@ -28,7 +28,7 @@ class AppPolicy
      * Check if $user can edit Article
      *
      * @param \Authorization\IdentityInterface $user The user.
-     * @param \Tusk\Model\Entity\Article $article
+     * @param \Rhno\Model\Entity\Article $article
      * @return bool
      */
     public function canEdit(IdentityInterface $user, Article $article)
@@ -41,7 +41,7 @@ class AppPolicy
      * Check if $user can delete Article
      *
      * @param \Authorization\IdentityInterface $user The user.
-     * @param \Tusk\Model\Entity\Article $article
+     * @param \Rhno\Model\Entity\Article $article
      * @return bool
      */
     public function canDelete(IdentityInterface $user, Article $article)
@@ -54,7 +54,7 @@ class AppPolicy
      * Check if $user can view Article
      *
      * @param \Authorization\IdentityInterface $user The user.
-     * @param \Tusk\Model\Entity\Article $article
+     * @param \Rhno\Model\Entity\Article $article
      * @return bool
      */
     public function canView(IdentityInterface $user, Article $article)

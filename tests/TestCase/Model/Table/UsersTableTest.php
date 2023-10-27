@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Test\TestCase\Model\Table;
+namespace Rhno\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Tusk\Model\Table\UsersTable;
+use Rhno\Model\Table\UsersTable;
 
 /**
- * Tusk\Model\Table\UsersTable Test Case
+ * Rhno\Model\Table\UsersTable Test Case
  */
 class UsersTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Tusk\Model\Table\UsersTable
+     * @var \Rhno\Model\Table\UsersTable
      */
     protected $Users;
 
@@ -24,8 +24,8 @@ class UsersTableTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Tusk.Users',
-        'plugin.Tusk.Articles',
+        'plugin.Rhno.Users',
+        'plugin.Rhno.Articles',
     ];
 
     /**
@@ -56,7 +56,7 @@ class UsersTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Tusk\Model\Table\UsersTable::validationDefault()
+     * @uses \Rhno\Model\Table\UsersTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -67,7 +67,7 @@ class UsersTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \Tusk\Model\Table\UsersTable::buildRules()
+     * @uses \Rhno\Model\Table\UsersTable::buildRules()
      */
     public function testBuildRules(): void
     {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Migrations\AbstractMigration;
 
-class TuskInit extends AbstractMigration
+class RhnoInit extends AbstractMigration
 {
     /**
      * Change Method.
@@ -13,12 +13,12 @@ class TuskInit extends AbstractMigration
      * @return void
      */
     public function change(): void {
-		$usersTable = 'tusk_users';
-		$rolesTable = 'tusk_roles';
-		$layoutsTable = 'tusk_layouts';
-		$elementsTable = 'tusk_elements';
-		$contentsTable = 'tusk_contents';
-		$pagesTable = 'tusk_pages';
+		$usersTable = 'rhno_users';
+		$rolesTable = 'rhno_roles';
+		$layoutsTable = 'rhno_layouts';
+		$elementsTable = 'rhno_elements';
+		$contentsTable = 'rhno_contents';
+		$pagesTable = 'rhno_pages';
 		$options = [
 			"collation" => 'utf8mb4_unicode_ci'
 		];
@@ -40,7 +40,7 @@ class TuskInit extends AbstractMigration
 				'null' => false,
 			])
 			->addColumn('theme', 'string', [
-				'default' => 'tusk',
+				'default' => 'rhno',
 				'null' => false,
 			])
 			->addColumn('password', 'string', [
@@ -78,7 +78,7 @@ class TuskInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('tusk_fields', $options)
+		$this->table('rhno_fields', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
@@ -111,7 +111,7 @@ class TuskInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('tusk_apps', $options)
+		$this->table('rhno_apps', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
@@ -129,7 +129,7 @@ class TuskInit extends AbstractMigration
 			->addColumn('active', 'boolean', [
 				'default' => 1,
 			])
-			->addColumn('tusk_group_id', 'integer', [
+			->addColumn('rhno_group_id', 'integer', [
 				'null' => true
 			])
 			->addColumn('created', 'timestamp', [
@@ -141,7 +141,7 @@ class TuskInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('tusk_groups', $options)
+		$this->table('rhno_groups', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
@@ -159,7 +159,7 @@ class TuskInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('tusk_pages', $options)
+		$this->table('rhno_pages', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
@@ -257,7 +257,7 @@ class TuskInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('tusk_media', $options)
+		$this->table('rhno_media', $options)
 			->addColumn('filename', 'string')
 			->addColumn('filetype', 'string')
 			->addColumn('created', 'timestamp', [
@@ -269,7 +269,7 @@ class TuskInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('tusk_widgets', $options)
+		$this->table('rhno_widgets', $options)
 			->addColumn('name', 'string')
 			->addColumn('created', 'timestamp', [
 				'default' => 'CURRENT_TIMESTAMP'
@@ -287,7 +287,7 @@ class TuskInit extends AbstractMigration
 						'name' => 'Rhino',
 						'email' => 'rhino@example.com',
 						'password' => '$2y$10$D6POTVNQcplsR2bvLXiS3.fnS310gKtaWkLC.82MxMuzRQPhxpv46',
-						'theme' => 'tusk',
+						'theme' => 'rhno',
 						'role_id' => '1'
 					]
 				])

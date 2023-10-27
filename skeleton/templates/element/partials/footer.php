@@ -2,7 +2,7 @@
 	<div class="outer-bound inverted">
 		<div class="stack">
 			
-			<?= $this->Html->link("Login", ["plugin" => "Tusk", 'controller' => 'overview', 'action' => 'display', 'home']) ?>
+			<?= $this->Html->link("Login", ["plugin" => "Rhno", 'controller' => 'overview', 'action' => 'display', 'home']) ?>
 			<!-- $this->getWidgetChannel(1) ?> -->
 		</div>
 

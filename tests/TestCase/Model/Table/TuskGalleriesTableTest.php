@@ -1,22 +1,22 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Test\TestCase\Model\Table;
+namespace Rhno\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Tusk\Model\Table\TuskGalleriesTable;
+use Rhno\Model\Table\RhnoGalleriesTable;
 
 /**
- * Tusk\Model\Table\TuskGalleriesTable Test Case
+ * Rhno\Model\Table\RhnoGalleriesTable Test Case
  */
-class TuskGalleriesTableTest extends TestCase
+class RhnoGalleriesTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Tusk\Model\Table\TuskGalleriesTable
+     * @var \Rhno\Model\Table\RhnoGalleriesTable
      */
-    protected $TuskGalleries;
+    protected $RhnoGalleries;
 
     /**
      * Fixtures
@@ -24,7 +24,7 @@ class TuskGalleriesTableTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Tusk.TuskGalleries',
+        'plugin.Rhno.RhnoGalleries',
     ];
 
     /**
@@ -35,8 +35,8 @@ class TuskGalleriesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('TuskGalleries') ? [] : ['className' => TuskGalleriesTable::class];
-        $this->TuskGalleries = $this->getTableLocator()->get('TuskGalleries', $config);
+        $config = $this->getTableLocator()->exists('RhnoGalleries') ? [] : ['className' => RhnoGalleriesTable::class];
+        $this->RhnoGalleries = $this->getTableLocator()->get('RhnoGalleries', $config);
     }
 
     /**
@@ -46,7 +46,7 @@ class TuskGalleriesTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->TuskGalleries);
+        unset($this->RhnoGalleries);
 
         parent::tearDown();
     }
@@ -55,7 +55,7 @@ class TuskGalleriesTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Tusk\Model\Table\TuskGalleriesTable::validationDefault()
+     * @uses \Rhno\Model\Table\RhnoGalleriesTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

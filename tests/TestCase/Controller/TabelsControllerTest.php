@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Test\TestCase\Controller;
+namespace Rhno\Test\TestCase\Controller;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use Tusk\Controller\TabelsController;
+use Rhno\Controller\TabelsController;
 
 /**
- * Tusk\Controller\TabelsController Test Case
+ * Rhno\Controller\TabelsController Test Case
  *
- * @uses \Tusk\Controller\TabelsController
+ * @uses \Rhno\Controller\TabelsController
  */
 class TabelsControllerTest extends TestCase
 {
@@ -22,14 +22,14 @@ class TabelsControllerTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Tusk.Tabels',
+        'plugin.Rhno.Tabels',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \Tusk\Controller\TabelsController::index()
+     * @uses \Rhno\Controller\TabelsController::index()
      */
     public function testIndex(): void
     {
@@ -40,7 +40,7 @@ class TabelsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \Tusk\Controller\TabelsController::view()
+     * @uses \Rhno\Controller\TabelsController::view()
      */
     public function testView(): void
     {
@@ -51,7 +51,7 @@ class TabelsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \Tusk\Controller\TabelsController::add()
+     * @uses \Rhno\Controller\TabelsController::add()
      */
     public function testAdd(): void
     {
@@ -62,7 +62,7 @@ class TabelsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \Tusk\Controller\TabelsController::edit()
+     * @uses \Rhno\Controller\TabelsController::edit()
      */
     public function testEdit(): void
     {
@@ -73,7 +73,7 @@ class TabelsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \Tusk\Controller\TabelsController::delete()
+     * @uses \Rhno\Controller\TabelsController::delete()
      */
     public function testDelete(): void
     {

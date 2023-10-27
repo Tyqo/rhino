@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Test\Fixture;
+namespace Rhno\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * TuskGalleriesFixture
+ * RhnoGalleriesFixture
  */
-class TuskGalleriesFixture extends TestFixture
+class RhnoGalleriesFixture extends TestFixture
 {
     /**
      * Init method

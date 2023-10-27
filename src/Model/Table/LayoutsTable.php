@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Model\Table;
+namespace Rhno\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -18,12 +18,12 @@ class LayoutsTable extends Table {
     public function initialize(array $config): void {
         parent::initialize($config);
 
-        $this->setTable('tusk_layouts');
+        $this->setTable('rhno_layouts');
         // $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-		// $this->hasMany('Tusk.Elements');
-		// $this->hasMany('Tusk.Pages');
+		// $this->hasMany('Rhno.Elements');
+		// $this->hasMany('Rhno.Pages');
     }
 		
 	public function getEntry(int $id = null): object {

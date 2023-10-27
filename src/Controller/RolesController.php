@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tusk\Controller;
+namespace Rhno\Controller;
 
-use Tusk\Controller\AppController;
+use Rhno\Controller\AppController;
 
 /**
  * Tables Controller
  *
- * @method \Tusk\Model\Entity\Table[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \Rhno\Model\Entity\Table[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class RolesController extends AppController {
 	public function index() {
@@ -29,7 +29,7 @@ class RolesController extends AppController {
 	}
 
 	public function preCompose() {
-		$applications = $this->Roles->Applications->getList(["phinxlog", "tusk_phinxlog"], false);
+		$applications = $this->Roles->Applications->getList(["phinxlog", "rhno_phinxlog"], false);
 		$this->set([
 			'accessTypes' => $this->Roles->accessTypes,
 			'applications' => $applications
