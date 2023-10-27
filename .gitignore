@@ -54,11 +54,6 @@ yarn-error.log
 
 ### Custom ###
 plugins/
-webroot/css
-webroot/js
-webroot/icon
-webroot/img
-webroot/font
 .history/
 
 /composer.lock
