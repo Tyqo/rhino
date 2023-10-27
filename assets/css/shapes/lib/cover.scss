@@ -1,7 +1,7 @@
 @mixin cover {
   display: flex;
   flex-direction: column;
-  min-block-size: var(--screen-height, 100vh);
+  min-block-size: var(--tusk-screen-height, 100vh);
   padding: 1rem;
 
   & > * {

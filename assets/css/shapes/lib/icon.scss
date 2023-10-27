@@ -22,5 +22,5 @@
 	/* ↓ Set the `inline-flex` context,  which eliminates the word space */
 	display: inline-flex;
 	align-items: center;
-  gap: var(--space, #{$space});
+  gap: var(--tusk-space, #{$space});
 }

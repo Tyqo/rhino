@@ -23,13 +23,13 @@
 
 	&__caption {
 		position: absolute;
-		bottom: var(--margin-400);
-		left: var(--margin-300);
-		right: var(--margin-300);
+		bottom: var(--tusk-margin-400);
+		left: var(--tusk-margin-300);
+		right: var(--tusk-margin-300);
 
 		@include shapes.type-setting(800);
 		font-weight: 600;
-		color: var(--background-color);
+		color: var(--tusk-background-color);
 
 		overflow: hidden;
 		text-overflow: ellipsis;

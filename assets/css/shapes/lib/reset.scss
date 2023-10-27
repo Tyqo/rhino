@@ -7,6 +7,9 @@
  * @package libhalma
  * @version 2020-11-09
  */
+
+$list-reset: true !default;
+
 *, *::before, *::after {
 	box-sizing: border-box;
 	margin: 0;
@@ -39,29 +42,30 @@ img, picture, video {
 ///////////////////
 //  List styles  //
 ///////////////////
-
-ol, ul {
-	list-style: none;
-	counter-reset: li;
-
-	> li {
-		position: relative;
-		padding-left: 2ch;
-
-		&::before {
-			position: absolute;
-			left: 0;
+@if $list-reset {
+	ol, ul {
+		list-style: none;
+		counter-reset: li;
+		
+		> li {
+			position: relative;
+			padding-left: 2ch;
+			
+			&::before {
+				position: absolute;
+				left: 0;
+			}
 		}
 	}
-}
-
-ol > li::before {
-	content: counter(li)'.';
-	counter-increment: li;
-}
-
-ul > li::before {
-	content: var(--bullet-list-char, '•');
+	
+	ol > li::before {
+		content: counter(li)'.';
+		counter-increment: li;
+	}
+	
+	ul > li::before {
+		content: var(--tusk-bullet-list-char, '•');
+	}
 }
 
 input, button, textarea, select {

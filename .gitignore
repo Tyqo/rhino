@@ -60,3 +60,15 @@ webroot/icon
 webroot/img
 webroot/font
 .history/
+
+/composer.lock
+/composer.phar
+/phpunit.xml
+/.phpunit.result.cache
+/phpunit.phar
+/config/Migrations/schema-dump-default.lock
+/vendor/
+/.idea/
+node_modules
+.history/
+.vscode/

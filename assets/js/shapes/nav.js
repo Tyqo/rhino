@@ -62,7 +62,7 @@ export default class Nav {
 			"false"
 		);
 	}
-
+	
 	open() {
 		// Small delay for onOutsideClick to work
 		setTimeout(() => {

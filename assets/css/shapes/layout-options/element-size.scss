@@ -10,22 +10,22 @@
 
 .element-size {
 	&--fill-screen {
-		height: var(--screen-height);
+		height: var(--tusk-screen-height);
 		@include cover;
 	}
 	
 	&--half-screen {
-		height: calc(var(--screen-height) / 2);
+		height: calc(var(--tusk-screen-height) / 2);
 		@include cover;
 	}
 	
 	&--third-screen {
-		height: calc(var(--screen-height) / 3);
+		height: calc(var(--tusk-screen-height) / 3);
 		@include cover;
 	}
 	
 	&--two-third-screen {
-		height: calc((var(--screen-height) / 3) * 2);
+		height: calc((var(--tusk-screen-height) / 3) * 2);
 		@include cover;
 	}
 	

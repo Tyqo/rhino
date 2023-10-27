@@ -6,15 +6,15 @@
 	text-align: center;
 	align-items: center;
 	justify-content: center;
-	padding-top: var(--margin-800);
-	padding-bottom: var(--margin-800);
+	padding-top: var(--tusk-margin-800);
+	padding-bottom: var(--tusk-margin-800);
 
 	&[style*=custom-background] {
-		background-image: var(--custom-background);
+		background-image: var(--tusk-custom-background);
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		color: var(--contrast-color);
+		color: var(--tusk-contrast-color);
 	}
 
 	&__block {
@@ -34,10 +34,10 @@
 
 	&__figure,
 	&__figcaption {
-		padding: 0 var(--gutter);
+		padding: 0 var(--tusk-gutter);
 	}
 
 	&>*+* {
-		margin-top: var(--margin-400);
+		margin-top: var(--tusk-margin-400);
 	}
 }

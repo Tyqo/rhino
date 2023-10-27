@@ -1,7 +1,7 @@
 	<?= $this->Html->charset() ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Rhino | <?= $this->fetch('title') ?> </title>
+	<title>Tusk | <?= h($this->fetch('title')) ?> </title>
 
 	<script type="module">
 		document.documentElement.classList.remove('no-js');
@@ -10,20 +10,26 @@
 
 	<meta name="author" content="carsten.coull@swu.de">
 
-	<!-- To do: add Version Number to css -->
-	<?= $this->Html->css(['webfonts', 'main']) ?>
+	<?= $this->Html->meta(
+		'/tusk/favicons/favicon.ico',
+		'/tusk/favicons/favicon.ico',
+		['type' => 'icon']
+	); ?>
 
-		<!-- Load main javascript -->
-	<?= $this->Html->script(['main'], ["type" => "module"]) ?>
+	<!-- To do: add Version Number to css -->
+	<?= $this->Html->css(['Tusk.webfonts', 'Tusk.pico', 'Tusk.' . (isset($user) ? $user->theme : 'tusk')]) ?>
+	<!--  $this->Html->css(['Tusk.webfonts', 'Tusk.main', 'Tusk.vendor/pico.min']) ?> -->
+
+	<!-- Load main javascript -->
+	<?= $this->Html->script(['Tusk.main'], ["type" => "module"]) ?>
 
 	<?= $this->fetch('meta') ?>
 	<?= $this->fetch('css') ?>
 	<?= $this->fetch('script') ?>
 
-
 	<!-- To do: check for OG support -->
 	<!-- og:title, og:description, og:image, og:locale, og:type, og:url -->
-	
+
 	<meta name="theme-color" content="#ffffff">
 
 	<!-- Schema.org JSON+LD -->

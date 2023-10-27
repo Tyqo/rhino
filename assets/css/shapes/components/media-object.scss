@@ -30,7 +30,7 @@
 		
 		&--fill-screen {
 			img, video {
-				height: var(--screen-height);
+				height: var(--tusk-screen-height);
 				object-fit: cover;
 				object-position: center;
 			}
@@ -41,7 +41,7 @@
 @if $full-width-fix {
 	.full-width {
 		&.media-object .body-text > * {
-			max-width: calc(var(--outer-bound-width) / 2);
+			max-width: calc(var(--tusk-outer-bound-width) / 2);
 			padding-right: $gutter;
 		}
 

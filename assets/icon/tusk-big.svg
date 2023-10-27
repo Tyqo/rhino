@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="227.765" height="50" viewBox="0 0 227.765 50">
+  <g transform="translate(-423.235 -214)">
+    <text transform="translate(514 214)" fill="currentColor" font-size="37" font-family="Manrope-ExtraBold, Manrope" font-weight="800" letter-spacing="0.1em"><tspan x="0" y="39">RHINO</tspan></text>
+    <g>
+      <path d="M2492.571,457.178l11.948-2.714,8.956,15.26-13.76,9.608H2489l8.843-18.693V459.42Z" transform="translate(-2063.396 -224.332)" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M2513,451.292l32.652-9.692-6.292,36h-11.054Z" transform="translate(-2066.989 -222.6)" fill="none" stroke="currentColor" stroke-width="3"/>
+      <path d="M2554.832,451.861l4.578,5.659-.5,3.813,17.676-7.967-7.682,11.551v8.393l-16.691-5Z" transform="translate(-2072.753 -223.981)" fill="none" stroke="currentColor" stroke-width="3"/>
+    </g>
+  </g>
+</svg>

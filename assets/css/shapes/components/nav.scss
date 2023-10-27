@@ -26,8 +26,8 @@
 
 
 	svg {
-		width: calc(var(--header-height) - (var(--gutter) * 3));
-		height: calc(var(--header-height) - (var(--gutter) * 3));
+		width: calc(var(--tusk-header-height) - (var(--tusk-gutter) * 3));
+		height: calc(var(--tusk-header-height) - (var(--tusk-gutter) * 3));
 		fill: currentColor;
 	}
 
@@ -72,7 +72,7 @@
 		&.nav {
 			position: fixed;
 			right: 0;
-			top: var(--header-height);
+			top: var(--tusk-header-height);
 			bottom: 0;
 
 			display: flex;
@@ -82,7 +82,7 @@
 			padding: $gutter * 2 $gutter;
 			text-align: right;
 
-			background-color: var(--background-color);
+			background-color: var(--tusk-background-color);
 			box-shadow: -$gutter 0 $gutter $gutter * -0.5 rgba(0, 0, 0, 0.2);
 
 			overflow-y: auto;
@@ -139,7 +139,7 @@
 		align-items: stretch;
 		padding: $gutter * 0.5 0;
 		gap: 0;
-		border-radius: var(--border-radius);
+		border-radius: var(--tusk-border-radius);
 
 		.nav__item {
 			width: 100%;

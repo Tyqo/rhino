@@ -1,0 +1,19 @@
+.pill {
+	display: flex;
+	gap: var(--tusk-border-width);
+
+	:first-child:not(:only-child) {
+		// outline: 4px pink solid;
+		border-top-right-radius: 0 !important;
+		border-bottom-right-radius: 0 !important;
+	}
+	
+	:last-child:not(:only-child) {
+		border-top-left-radius: 0 !important;
+		border-bottom-left-radius: 0 !important;
+	}
+
+	*:not(:only-child):not(:last-child):not(:first-child) {
+		border-radius: 0 !important;
+	}
+}

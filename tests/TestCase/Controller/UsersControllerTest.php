@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Test\TestCase\Controller;
+namespace Tusk\Test\TestCase\Controller;
 
-use App\Controller\UsersController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
+use Tusk\Controller\UsersController;
 
 /**
- * App\Controller\UsersController Test Case
+ * Tusk\Controller\UsersController Test Case
  *
- * @uses \App\Controller\UsersController
+ * @uses \Tusk\Controller\UsersController
  */
 class UsersControllerTest extends TestCase
 {
@@ -21,16 +21,15 @@ class UsersControllerTest extends TestCase
      *
      * @var array<string>
      */
-    protected $fixtures = [
-        'app.Users',
-        'app.Articles',
+    protected array $fixtures = [
+        'plugin.Tusk.Users',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \App\Controller\UsersController::index()
+     * @uses \Tusk\Controller\UsersController::index()
      */
     public function testIndex(): void
     {
@@ -41,7 +40,7 @@ class UsersControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \App\Controller\UsersController::view()
+     * @uses \Tusk\Controller\UsersController::view()
      */
     public function testView(): void
     {
@@ -52,7 +51,7 @@ class UsersControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \App\Controller\UsersController::add()
+     * @uses \Tusk\Controller\UsersController::add()
      */
     public function testAdd(): void
     {
@@ -63,7 +62,7 @@ class UsersControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \App\Controller\UsersController::edit()
+     * @uses \Tusk\Controller\UsersController::edit()
      */
     public function testEdit(): void
     {
@@ -74,7 +73,7 @@ class UsersControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \App\Controller\UsersController::delete()
+     * @uses \Tusk\Controller\UsersController::delete()
      */
     public function testDelete(): void
     {

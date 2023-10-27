@@ -2,41 +2,107 @@
 @use "shapes";
 
 @mixin padding {
-	padding: 0.25em 0.5em;
+	--form-element-spacing-vertical: 0.25em;
+	--form-element-spacing-horizontal: 0.25em;
+	padding: var(--form-element-spacing-vertical) var(--form-element-spacing-horizontal);
 }
 
 a, button, input, select, textarea {
 	font: inherit;
 	cursor: pointer;
-	
+	color: inherit;
+
 	&:focus {
 		outline: none;
 	}
 }
 
-input {
-	background-color: var(--text-color);
-	color: var(--background-color);
+[disabled] {
+	opacity: 0.6;
+	pointer-events: none;
+	cursor: default;
+}
+
+input[type=text], textarea {
+	cursor: text;
+}
+
+input, textarea, select, input[type=file], input[input] {
+	background-color: var(--tusk-contrast-color);
+	color: var(--tusk-text-color);
+	border: var(--tusk-border-width) var(--tusk-border-type) var(--tusk-border-color);
+	border-radius: var(--tusk-border-radius);
 	@include shapes.type-setting(400);
 	@include padding;
+
+	&[readonly] {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
 }
 
-.icon-button {
-	@include shapes.icon;
-	@include shapes.button-reset;
+input[type=checkbox] {
+	width: auto;
+	display: inline-block;
 }
 
-.button {
+label {
+	font-weight: 600;
+}
+
+.input {
+	display: flex;
+	flex-direction: column;
+	min-width: 32ex;
+	width: fit-content;
+	align-items: flex-start;
+	gap: 0.25rem;
+}
+
+.checkbox {
+	// display: flex;
+	// gap: var(--tusk-margin-200);
+
+	label {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		input {
+			margin-right: var(--tusk-margin-200);
+		}
+	}
+	
+}
+
+.button, button {
 	@include shapes.button;
 	font-weight: 600;
 }
 
+.button-reset {
+	@include shapes.button-reset;
+}
+
+.icon-button {
+	// @include shapes.button-reset;
+	height: 2.7em;
+	display: flex;
+	gap: var(--tusk-margin-200);
+	justify-content: center;
+	align-items: center;
+
+	* {
+		display: inline-block;
+	}
+}
+
 .alt-button {
 	@include shapes.button(
-		$background-color: var(--secondary-color),
-		$border-color: var(--secondary-color),
-		$color-hover: var(--secondary-color),
-		$border-color-hover: var(--secondary-color)
+		$background-color: var(--tusk-secondary-color),
+		$border-color: var(--tusk-secondary-color),
+		$color-hover: var(--tusk-secondary-color),
+		$border-color-hover: var(--tusk-secondary-color)
 	);
 
 	font-weight: 600;
@@ -52,23 +118,34 @@ input {
 
 // Link
 .body-text a {
-	color: var(--primary-color);
+	color: var(--tusk-primary-color);
 	font-weight: 600;
 
 	&:hover, &:focus {
-		color: var(--primary-color-500);
+		color: var(--tusk-primary-color-500);
 	}
 
 	&:focus {
-		outline: 2px solid var(--primary-color-500);
+		outline: 2px solid var(--tusk-primary-color-500);
 		outline-offset: 2px;
 	}
 
 	&:active {
-		color: var(--primary-color-800);
+		color: var(--tusk-primary-color-800);
 	}
 }
 
 .skip-link {
 	@include shapes.skip-link;
+}
+
+.editor {
+	box-shadow: 0 0 2rem #ddd;
+	border-radius: var(--tusk-tusk-border-radius);
+	padding: var(--tusk-tusk-margin-200) var(--tusk-tusk-margin-500);
+	min-height: 300px;
+
+	.codex-editor {
+		height: 100%;
+	}
 }

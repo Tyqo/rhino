@@ -40,7 +40,8 @@ const $ = require('gulp-load-plugins')({
 	scope: ['devDependencies'],
 	rename: {
 		'fancy-log': 'log',
-		'sass': 'dartSass'
+		'sass': 'dartSass',
+		'gulp-typescript': 'ts'
 	}
 });
 
@@ -105,10 +106,11 @@ var settings = {
 		src: src + "css/**/*.scss",
 		dest: dist + "css/",
 		srcMain: [
-			src + "css/main.scss",
+			src + "css/tusk.scss",
+			src + "css/swu.scss",
 			src + "css/webfonts.scss",
-			src + "css/cake/cake.css",
-			src + "css/cake/home.css",
+			src + "css/pico.scss",
+			src + "css/layout.scss"
 			// './src/css/email.scss',
 			// You can add more files here that will be built seperately,
 			// f.e. newsletter.scss
@@ -132,12 +134,18 @@ var settings = {
 		src: src + "js/**/*.js",
 		srcMain: [
 			src + "js/main.js",
+			src + "js/layout.js",
 			// You can add more files here that will be built seperately,
 			// f.e. newsletter.js
 		],
 		concat: false,
 		dest: dist + "js/",
 		destFile: "main.js",
+	},
+
+	ts: {
+		src: src + "js/**/*.ts",
+		dest: dist + "js/",
 	},
 
 	jsModules: {
@@ -149,6 +157,9 @@ var settings = {
 		src: [
 			src + "js/vendor/**/*.js",
 			src + "js/shapes/**/*.js",
+			"./node_modules/@editorjs/editorjs/dist/editor.js",
+			"./node_modules/@editorjs/header/dist/bundle.js",
+			// "./node_modules/@editorjs/list/dist/bundle.js"
 			// "./shapes/src/js/**/*.js",
 			// Add single vendor files here,
 			// they will be copied as is to `{prefix}/js/vendor/`,
@@ -160,11 +171,22 @@ var settings = {
 	cssVendor: {
 		src: [
 			src + "css/vendor/**/*.css",
+			// "./node_modules/@picocss/pico/css/pico.min.css"
 			// Add single vendor files here,
 			// they will be copied as is to `{prefix}/css/vendor/`,
 			// e.g. './node_modules/flickity/dist/flickity.min.css'
 		],
 		dest: dist + "css/vendor/",
+	},
+
+	vendor: {
+		src: [
+			// end in "src/path*/**" to copy all contents to the folder "dist/path"
+			"./node_modules/@editorjs/editorjs*/**",
+			"./node_modules/@editorjs/header*/**",
+			"./node_modules/@editorjs/list*/**",
+		],
+		dest: dist + "vendor/"
 	},
 
 	fonts: {
@@ -182,19 +204,22 @@ var settings = {
 	},
 
 	icons: {
-		src: src + "icon/**/*.svg",
+		src: [
+			src + "icon/**/*.svg",
+			'./node_modules/feather-icons/dist/icons/*.svg'
+		],
 		dest: dist + "icon/",
 		options: [$.imagemin.svgo(svgoOptions)],
 	},
 
 	favicon: {
-		src: src + "img/logo.svg",
-		dest: dist + "img/favicons/",
+		src: src + "icon/tusk.svg",
+		dest: dist + "favicons/",
 		background: "#ffffff",
 	},
 
 	clean: {
-		folders: dist + '/(css|font|icon|img|js)'
+		folders: dist + '/(css|font|icon|img|js|vendor)'
 	}
 };
 
@@ -275,6 +300,41 @@ function js() {
 	return stream;
 }
 
+function ts() {
+	$.log("Converting Typescript" + ((isProduction) ? " [production build]" : " [development build]"));
+	var tsProject = $.ts.createProject("tsconfig.json");
+	var stream = tsProject.src()
+		.pipe($.plumber({ errorHandler: $.notify.onError("Error: <%= error.message %>") }))
+		.pipe(tsProject())
+		.js
+		.pipe($.jsvalidate());
+
+	if (settings.js.concat) {
+		stream = stream.pipe($.concat(settings.js.destFile));
+	}
+
+	if (isProduction) {
+		stream = stream
+			.pipe($.terser({ compress: { drop_console: true } }))
+			.on('error', function (error) {
+				if (error.plugin !== "gulp-terser-js") {
+					console.log(error.message);
+				}
+				this.emit('end');
+			})
+			.pipe($.header(banner, { pkg: pkg }));
+	}
+
+	stream = stream
+		.pipe(gulp.dest(settings.ts.dest, {
+			sourcemaps: (!isProduction ? '.' : false)
+		}))
+		.pipe($.browserSync.stream());
+
+	return stream;
+}
+
+
 function jsModules() {
 	$.log("Building Javascript modules " + ((isProduction) ? " [production build]" : " [development build]"));
 
@@ -310,6 +370,11 @@ function jsVendor() {
 		.pipe(gulp.dest(settings.jsVendor.dest));
 }
 
+function vendor() {
+	return gulp.src(settings.vendor.src)
+		.pipe($.plumber({ errorHandler: $.notify.onError("Error: <%= error.message %>") }))
+		.pipe(gulp.dest(settings.vendor.dest));
+}
 
 function fonts() {
 	return gulp.src(settings.fonts.src)
@@ -348,7 +413,6 @@ function templates(done) {
 	done();
 }
 
-
 /*
  * Default TASK: Watch SASS and JAVASCRIPT files for changes,
  * build CSS file and inject into browser
@@ -360,6 +424,7 @@ function gulpDefault(done) {
 	gulp.watch(settings.css.src, css);
 	gulp.watch(settings.jsModules.src, jsModules);
 	gulp.watch(settings.js.src, js);
+	gulp.watch(settings.ts.src, ts);
 
 	if (settings.templates.active) {
 		gulp.watch(settings.templates.src, templates);
@@ -424,7 +489,7 @@ function checkKey() {
 /*
  * Task: Build all
  */
-exports.build = series(cleanDist, js, jsModules, jsVendor, css, cssVendor, images, icons, fonts, favicon);
+exports.build = series(cleanDist, ts, js, jsModules, jsVendor, css, cssVendor, vendor, images, icons, fonts, favicon);
 
 exports.default = gulpDefault;
 exports.cleanDist = cleanDist;
@@ -438,3 +503,5 @@ exports.icons = icons;
 exports.favicon = favicon;
 exports.jsModules = jsModules;
 exports.templates = templates;
+exports.ts = ts;
+exports.vendor = vendor;

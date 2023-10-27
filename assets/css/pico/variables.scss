@@ -1,0 +1,69 @@
+// Config
+// ––––––––––––––––––––
+
+// Set the root element for $enable-semantic-container and $enable-responsive-spacings
+$semantic-root-element: "body";
+
+// Enable <header>, <main>, <footer> inside $semantic-root-element as containers
+$enable-semantic-container: false;
+
+// Enable .container and .container-fluid
+$enable-class-container: true;
+
+// Enable a centered viewport for <header>, <main>, <footer> inside $enable-semantic-container 
+// Fluid layout if disabled
+$enable-viewport: true;
+
+// Enable responsive spacings for <header>, <main>, <footer>, <section>, <article>
+// Fixed spacings if disabled
+$enable-responsive-spacings: true;
+
+// Enable responsive typography
+// Fixed root element size if disabled
+$enable-responsive-typography: true;
+
+// Enable .classes
+// .classless version if disabled
+$enable-classes: true;
+
+// Enable .grid class
+$enable-grid: true;
+
+// Enable transitions
+$enable-transitions: true;
+
+// Enable overriding with !important
+$enable-important: true;
+
+// Responsive
+// ––––––––––––––––––––
+
+// xs: Extra small (portrait phones)
+// sm: Small(landscape phones)
+// md: Medium(tablets)
+// lg: Large(desktops)
+// xl: Extra large (large desktops)
+
+// NOTE:
+// To provide an easy and fine styling on each breakpoint
+// we didn't use @each, @mixin or @include.
+// That means you need to edit each CSS selector file to add a breakpoint
+
+// Breakpoints
+// 'null' disable the breakpoint
+$breakpoints: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+);
+
+// Viewports
+$viewports: (
+	// 'null' disable the viewport on a breakpoint
+	sm: 510px,
+	md: 700px,
+	lg: 920px,
+	xl: 1130px
+);

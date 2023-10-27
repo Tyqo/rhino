@@ -1,0 +1,8 @@
+{
+	"files": ["assets/js/ts_main.ts"],
+	"compilerOptions": {
+		"noImplicitAny": true,
+		"skipLibCheck": true,
+		"sourceMap": true
+	}
+}

@@ -1,0 +1,115 @@
+@use "settings" as *;
+@use 'sass:map';
+@use "shapes";
+
+$prefix: -- !default;
+$colors: (
+	primary: #4ADCB1,
+	secondary: #c2c1bf,
+	background: #0c0e26,
+	contrast: #F9F9F9,
+	// color-for-bg(var(--primary-color), var(--background-color), $text-color)
+	text: #0c0e26 // #333
+) !default;
+
+@function color($key) {
+	@return map.get($colors, $key);
+}
+
+:root {
+	@each $color,
+	$value in $colors {
+		#{$prefix}#{$color}-color: #{$value};
+		
+		@each $shade,
+		$weight in $shades {
+			@if $shade < 400 {
+				#{$prefix}#{$color}-color-#{$shade}: #{lighten($value, $weight)};
+			}
+			
+			@else if $shade >400 {
+				#{$prefix}#{$color}-color-#{$shade}: #{darken($value, $weight)};
+			}
+			
+			@else {
+				#{$prefix}#{$color}-color-#{$shade}: #{$value};
+			}
+		}
+	}
+
+	#{$prefix}primary: var(#{$prefix}primary-color) !important;
+	#{$prefix}primary-hover: var(#{$prefix}primary-color-500) !important;
+	#{$prefix}primary-focus: var(#{$prefix}primary-color-200) !important;
+
+	#{$prefix}margin: map.get($margins, 400);
+
+	@each $key,
+	$margin in $margins {
+		#{$prefix}margin-#{$key}: #{$margin};
+	}
+
+	@each $key,
+	$value in $border {
+		#{$prefix}border-#{$key}: #{$value};
+	}
+
+	#{$prefix}border: var(#{$prefix}border-color) var(#{$prefix}border-width) var(#{$prefix}border-type) var(#{$prefix}border-radius);
+
+	#{$prefix}gutter: 1rem;
+	#{$prefix}vertical-unit: #{$vertical-unit};
+	
+	#{$prefix}outer-bound: #{2 * $gutter};
+	#{$prefix}inner-bound-width: #{$inner-bound-width};
+	#{$prefix}outer-bound-width: #{$outer-bound-width};
+	#{$prefix}header-height: #{shapes.slope-rem-minmax($min-header-height, $max-header-height, $min-supported-screen-width, $max-supported-screen-width)};
+
+	@if $substract-header-height {
+		#{$prefix}screen-height: calc(100vh - var(#{$prefix}header-height));
+	}
+
+	@else {
+		#{$prefix}screen-height: 100vh;
+	}
+}
+
+@if $fade-in-transition {
+	.main-content>* {
+		transition-duration: 750ms;
+		transition-timing-function: ease-out, linear;
+		transition-property: transform, opacity;
+	}
+
+	body:not(.page-has-loaded):not(.cmt-layout) {
+		.main-content>* {
+			transform: translateY(20vh);
+			opacity: 0;
+		}
+	}
+}
+
+.margin#{$prefix} {
+	margin-bottom: var(#{$prefix}margin);
+}
+
+@each $key,
+$margin in $margins {
+	.margin#{$prefix}#{$key} {
+		margin-bottom: var(#{$prefix}margin-#{$key});
+	}
+
+	.margin-bottom#{$prefix}#{$key} {
+		margin-bottom: var(#{$prefix}margin-#{$key});
+	}
+
+	.margin-top#{$prefix}#{$key} {
+		margin-top: var(#{$prefix}margin-#{$key});
+	}
+
+	.gap#{$prefix}#{$key} {
+		gap: var(#{$prefix}margin-#{$key});
+	}
+
+	.stack#{$prefix}#{$key} {
+		@include shapes.stack(var(#{$prefix}margin-#{$key}));
+	}
+}

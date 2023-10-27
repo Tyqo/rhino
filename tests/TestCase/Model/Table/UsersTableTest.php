@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Test\TestCase\Model\Table;
+namespace Tusk\Test\TestCase\Model\Table;
 
-use App\Model\Table\UsersTable;
 use Cake\TestSuite\TestCase;
+use Tusk\Model\Table\UsersTable;
 
 /**
- * App\Model\Table\UsersTable Test Case
+ * Tusk\Model\Table\UsersTable Test Case
  */
 class UsersTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\UsersTable
+     * @var \Tusk\Model\Table\UsersTable
      */
     protected $Users;
 
@@ -23,8 +23,9 @@ class UsersTableTest extends TestCase
      *
      * @var array<string>
      */
-    protected $fixtures = [
-        'app.Users',
+    protected array $fixtures = [
+        'plugin.Tusk.Users',
+        'plugin.Tusk.Articles',
     ];
 
     /**
@@ -55,7 +56,7 @@ class UsersTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\UsersTable::validationDefault()
+     * @uses \Tusk\Model\Table\UsersTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -66,7 +67,7 @@ class UsersTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\UsersTable::buildRules()
+     * @uses \Tusk\Model\Table\UsersTable::buildRules()
      */
     public function testBuildRules(): void
     {

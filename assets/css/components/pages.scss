@@ -1,0 +1,63 @@
+.pages {
+	h1 {
+		padding: var(--tusk-margin-300) var(--tusk-margin-300);
+		background-color: var(--tusk-secondary-color-600);
+		color: var(--tusk-contrast-color);
+		font-weight: 800;
+	}
+
+	.page-list {
+		list-style: none;
+		
+		.page-item {
+			padding: 0.5rem 1rem;
+			background-color: var(--tusk-contrast-color);
+
+			&__body {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.page-item:first-of-type {
+				margin-top: 0.5rem;
+			}
+			
+			.page-item {
+				margin-left: 1rem;
+				padding-right: 0;
+			}
+		}
+
+
+		// TODO: Fix this.
+		li:nth-of-type(2n - 1) {
+			background-color: var(--tusk-secondary-color-200);
+			
+			li:nth-of-type(2n - 1) {
+				background-color: var(--tusk-contrast-color);
+
+				li:nth-of-type(2n - 1) {
+					background-color: var(--tusk-secondary-color-200);
+
+					li:nth-of-type(2n - 1) {
+						background-color: var(--tusk-contrast-color);
+
+						li:nth-of-type(2n - 1) {
+							background-color: var(--tusk-secondary-color-200);
+						}
+					}
+				}
+			}
+		}
+
+
+		ul {
+			list-style: none;
+		}
+	}
+}
+
+.layout-element {
+	border: solid 4px var(--tusk-primary-color) !important;
+}

@@ -5,7 +5,7 @@
  * @package libhalma
  * @version 2021-05-31
  */
-@mixin media-object($space: var(--gutter)) {
+@mixin media-object($space: var(--tusk-gutter)) {
   display: flex;
   // flex-wrap: wrap;
   gap: $space;

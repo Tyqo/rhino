@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Test\Fixture;
+namespace Tusk\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
@@ -21,8 +21,8 @@ class TagsFixture extends TestFixture
             [
                 'id' => 1,
                 'title' => 'Lorem ipsum dolor sit amet',
-                'created' => '2023-02-28 09:17:13',
-                'modified' => '2023-02-28 09:17:13',
+                'created' => '2023-02-28 09:17:40',
+                'modified' => '2023-02-28 09:17:40',
             ],
         ];
         parent::init();

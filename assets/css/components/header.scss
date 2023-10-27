@@ -1,0 +1,65 @@
+@use 'settings' as *;
+@use "shapes" as *;
+
+.main-header {
+	// position: sticky;
+	// top: 0;
+	// z-index: 600;
+
+	background-color: var(--tusk-text-color);
+	color: var(--tusk-contrast-color);
+	padding: 1rem;
+	display: flex;
+	
+	&>div {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
+#main-nav {
+	transition: transform 250ms ease-in-out;
+
+	@include for-size(desktop-down) {
+		transform: translateX(-100%);
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		
+		&.nav--open {
+			transform: translateX(0);
+		}
+	}
+}
+
+#menu-button {
+	position: relative;
+
+	@include for-size(desktop-up) {
+		display: none;
+	}
+
+	.icon {
+		position: absolute;
+		right: 0;
+	}
+
+	.cross {
+		opacity: 0;
+	}
+}
+
+.mobile-nav-is-open #menu-button {
+	.cross {
+		opacity: 1;
+	}
+
+	.menu {
+		opacity: 0;
+	}
+}
+
+#home:focus {
+	filter: brightness(0.8);
+}

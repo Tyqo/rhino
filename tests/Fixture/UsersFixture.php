@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Test\Fixture;
+namespace Tusk\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
@@ -22,8 +22,8 @@ class UsersFixture extends TestFixture
                 'id' => 1,
                 'email' => 'Lorem ipsum dolor sit amet',
                 'password' => 'Lorem ipsum dolor sit amet',
-                'created' => '2023-02-28 07:51:01',
-                'modified' => '2023-02-28 07:51:01',
+                'created' => '2023-02-28 12:09:17',
+                'modified' => '2023-02-28 12:09:17',
             ],
         ];
         parent::init();

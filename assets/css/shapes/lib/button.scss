@@ -22,7 +22,7 @@
 
 $color: #333 !default;
 $background-color: #fff !default;
-$padding: 1rem !default;
+$padding: 1rem 0.5rem !default;
 $border-radius: 4px !default;
 $border-width: 2px !default;
 $border-color: currentColor !default;
@@ -44,7 +44,7 @@ $background-color-hover: $color !default;
   @include button-reset;
 
   // margin: $border-width 0;
-  padding: math.div($padding, 2) $padding;
+  padding: $padding;
 
   color: $color;
   background-color: $background-color;

@@ -10,16 +10,17 @@
  * Colors *
  **********/
 
-$colors: (
-	primary: #ac3e3e,
-	secondary: #5a74bd,
-	background: #ae1717,
-	contrast: #fff, // color-for-bg(var(--primary-color), var(--background-color), $text-color)
-	text: #333
-);
+// $colors: (
+// 	primary: #4ADCB1,
+// 	secondary: #89a4ef,
+// 	background: #837c7c,
+// 	contrast: #F9F9F9, // color-for-bg(var(--primary-color), var(--background-color), $text-color)
+// 	text: #0c0e26 // #333
+// );
 
 $shades: (
-	200: 20%,
+	100: 55%,
+	200: 25%,
 	300: 10%,
 	400: 0%,
 	500: 10%,
@@ -29,13 +30,9 @@ $shades: (
 	900: 60%,
 );
 
-@function color($key) {
-	@return map.get($colors, $key);
-}
-
 $border: (
 	width: 2px,
-	radius: 4px,
+	radius: 0.5rem,
 	color: currentColor,
 	type: solid,
 );
@@ -45,7 +42,7 @@ $border: (
  ********/
 
 $use-type-scale: true;
-$vertical-unit: 2rem;
+$vertical-unit: 1.55rem;
 $modular-scale-ratio: 1.125;
 
 $font-sizes: (
@@ -66,8 +63,8 @@ $font-sizes: (
 $min-header-height: 5rem;
 $max-header-height: 6.5rem;
 
-$inner-bound-width: 58rem;
-$outer-bound-width: 78rem;
+$inner-bound-width: 52rem;
+$outer-bound-width: 64rem;
 
 $min-supported-screen-width: 320px;
 $max-supported-screen-width: 3440px;
@@ -75,13 +72,15 @@ $max-supported-screen-width: 3440px;
 $gutter: 1rem;
 
 $margins: (
+	100: $gutter * 0.25,
 	200: $gutter * 0.5,
 	300: $gutter,
 	400: $gutter * 2,
 	500: $gutter * 4,
 	600: $gutter * 6,
-	800: $gutter * 9,
-	900: $gutter * 12,
+	700: $gutter * 8,
+	800: $gutter * 10,
+	900: $gutter * 14,
 );
 
 /********************
@@ -93,7 +92,7 @@ $font-path: '/dist/fonts/';
 $full-width-fix: true; // body-text in full-width containers aligns with outer-bound
 $collapsable-header: true; // header collapses on scroll-down
 $substract-header-height: false; // subtracts header height from screen-heighht
-$fade-in-transition: true; // fade in elements when page has loaded
+$fade-in-transition: false; // fade in elements when page has loaded
 $loader: 'spinner'; // loading screen type [spinner, dots, bars]
 $start-dark-background: false; // sets the color for header and hero to contrast-color
 $nav-style: 'default'; // sets the style for the navbar [default, folding]

@@ -3,8 +3,8 @@
 
 .hero {
 	position: relative;
-	// height: calc(var(--screen-height));
-	// height: calc(var(--screen-height) - var(--header-height));
+	// height: calc(var(--tusk-screen-height));
+	// height: calc(var(--tusk-screen-height) - var(--tusk-header-height));
 	overflow: hidden;
 	
 	&__background {
@@ -29,8 +29,8 @@
 		z-index: 1;
 		margin-top: auto;
 		margin-bottom: auto;
-		padding-top: var(--margin-600);
-		padding-bottom: var(--margin-600);
+		padding-top: var(--tusk-margin-600);
+		padding-bottom: var(--tusk-margin-600);
 		
 		@include shapes.for-size(tablet-landscape-up) {
 			width: 50%;

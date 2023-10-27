@@ -9,6 +9,7 @@
  */
 
 @use 'settings';
+@use 'sass:map';
 
 // Edit as needed
 
@@ -32,26 +33,26 @@
 @forward"shapes/lib/utils";
 
 @forward"shapes/lib/button" with (
-  $color: var(--background-color),
-  $background-color: var(--primary-color),
-  $padding: settings.$gutter,
-  $border-radius: var(--border-radius),
-  $border-width: var(--border-width),
-  $border-color: var(--primary-color),
-  $border-color-hover: var(--primary-color),
-	$background-color-hover: transparent
+  $color: var(--tusk-contrast-color),
+  $background-color: var(--tusk-primary-color),
+  $padding: var(--tusk-margin-100) var(--tusk-margin-300),
+  $border-radius: calc(var(--tusk-border-radius) * 0.5),
+  $border-width: var(--tusk-border-width),
+  $border-color: var(--tusk-primary-color),
+  $border-color-hover: var(--tusk-primary-color),
+  $background-color-hover: transparent
 );
 
 @forward"shapes/lib/box" with (
-  $box-color: var(--contrast-color),
-  $box-background: var(--background-color),
-  $box-padding: settings.$gutter,
-  $box-border-color: var(--primary-color),
-  $box-border-width: 0, //settings.$border-width,
-  $box-border-radius: 0
+  $box-color: var(--tusk-text-color),
+  $box-background: var(--tusk-background-color),
+  $box-padding: settings.$gutter * 2,
+  $box-border-color: none,
+  $box-border-width: 0,
+  $box-border-radius: var(--tusk-border-radius)
 );
 
-@forward"shapes/lib/stack" with ($stack-spacing: var(--margin-400));
+@forward"shapes/lib/stack" with ($stack-spacing: var(--tusk-margin-400));
 
 @forward"shapes/lib/center";
 

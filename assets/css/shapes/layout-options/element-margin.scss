@@ -1,27 +1,27 @@
 // Only use weight of margin, so we can do calculations on them
 @mixin element-margin($margin) {
 	&.background {
-		padding-bottom: var(--margin-#{$margin});
+		padding-bottom: var(--tusk-margin-#{$margin});
 
 		&+*:not(.background) {
-			padding-top: var(--margin-#{$margin});
+			padding-top: var(--tusk-margin-#{$margin});
 		}
 		
 		&+.background { // gives all background elements the right spacing
-			padding-top: var(--margin-#{$margin});
-			margin-top: calc(var(--margin-#{$margin}) * -1) !important;
+			padding-top: var(--tusk-margin-#{$margin});
+			margin-top: calc(var(--tusk-margin-#{$margin}) * -1) !important;
 		}
 	}
 
 	&:not(.background) {
 
 		&+*.background {
-			margin-top: var(--margin-#{$margin});
-			padding-top: var(--margin-#{$margin});
+			margin-top: var(--tusk-margin-#{$margin});
+			padding-top: var(--tusk-margin-#{$margin});
 		}
 
 		&+*:not(.background) {
-			margin-top: var(--margin-#{$margin});
+			margin-top: var(--tusk-margin-#{$margin});
 		}
 	}
 }
@@ -57,22 +57,22 @@ body:not(.cmt-layout) {
 
 	#main .element-margin--default { // using id to raise specificity
 		&.element-headline+*[class~='element'] {
-			padding-top: var(--vertical-unit);
+			padding-top: var(--tusk-vertical-unit);
 			margin-top: 0;
 		}
 	
 		&.element-paragraph+.element-paragraph {
-			padding-top: var(--vertical-unit);
+			padding-top: var(--tusk-vertical-unit);
 			margin-top: 0;
 		}
 		
 		&.element-paragraph+.element-html {
-			padding-top: var(--vertical-unit);
+			padding-top: var(--tusk-vertical-unit);
 			margin-top: 0;
 		}
 
 		&:not(.background) + .footer-margin {
-			margin-top: var(--margin-800);
+			margin-top: var(--tusk-margin-800);
 		}
 
 		&.background + .footer-margin {
@@ -91,5 +91,5 @@ body:not(.cmt-layout) {
 
 // fallback for Pageless Actions or other
 *:not(.element)+.footer-margin {
-	margin-top: var(--margin-800);
+	margin-top: var(--tusk-margin-800);
 }
