@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Table;
+namespace Rhino\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -18,12 +18,12 @@ class LayoutsTable extends Table {
     public function initialize(array $config): void {
         parent::initialize($config);
 
-        $this->setTable('rhno_layouts');
+        $this->setTable('rhino_layouts');
         // $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-		// $this->hasMany('Rhno.Elements');
-		// $this->hasMany('Rhno.Pages');
+		// $this->hasMany('Rhino.Elements');
+		// $this->hasMany('Rhino.Pages');
     }
 		
 	public function getEntry(int $id = null): object {

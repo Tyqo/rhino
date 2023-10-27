@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Table;
+namespace Rhino\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -9,21 +9,21 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * RhnoGalleries Model
+ * RhinoGalleries Model
  *
- * @method \Rhno\Model\Entity\RhnoGallery newEmptyEntity()
- * @method \Rhno\Model\Entity\RhnoGallery newEntity(array $data, array $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery[] newEntities(array $data, array $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery get($primaryKey, $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \Rhno\Model\Entity\RhnoGallery[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery newEmptyEntity()
+ * @method \Rhino\Model\Entity\RhinoGallery newEntity(array $data, array $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery[] newEntities(array $data, array $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery get($primaryKey, $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Rhino\Model\Entity\RhinoGallery[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -39,7 +39,7 @@ class GalleriesTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('rhno_galleries');
+        $this->setTable('rhino_galleries');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 

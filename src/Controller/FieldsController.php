@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Controller;
+namespace Rhino\Controller;
 
-use Rhno\Controller\AppController;
-use Rhno\Handlers\FieldHandler;
+use Rhino\Controller\AppController;
+use Rhino\Handlers\FieldHandler;
 use App\View\AjaxView;
 
 class FieldsController extends AppController
@@ -98,11 +98,11 @@ class FieldsController extends AppController
 			}
 
 			if ($this->Fields->save($entry)) {
-				$this->Flash->success(__('The field has been saved.'), ['plugin' => 'Rhno']);
+				$this->Flash->success(__('The field has been saved.'), ['plugin' => 'Rhino']);
 				return $this->redirect(['action' => 'index', $tableName]);
 			}
 
-			$this->Flash->error(__('The field could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
+			$this->Flash->error(__('The field could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
 		}
 
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Rhno\View\Helper;
+namespace Rhino\View\Helper;
 
 use Cake\View\Helper;
-use Rhno\Handlers\FieldHandler;
+use Rhino\Handlers\FieldHandler;
 use Cake\View\Exception\MissingElementException;
 
 class FieldsHelper extends Helper {

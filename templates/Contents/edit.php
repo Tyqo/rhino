@@ -3,7 +3,7 @@
 
 <div id="editor" class="editor"></div>
 
-<?= $this->Form->button(__('Save'), ['class' => 'rhno-button']); ?>
+<?= $this->Form->button(__('Save'), ['class' => 'rhino-button']); ?>
 <?= $this->Form->hidden('html'); ?>
 
 <?= $this->Form->end(); ?>

@@ -1,7 +1,7 @@
 <div class="cluster-end pill">
 	<?php if (isset($view) && $view['valid']) {
 		echo $this->Html->link(
-			$this->svg("Rhno.eye"),
+			$this->svg("Rhino.eye"),
 			$view['link'],
 			[
 				'escape' => false,
@@ -13,7 +13,7 @@
 	?>
 	<?php if (isset($edit) && $edit['valid']) {
 		echo $this->Html->link(
-			$this->svg("Rhno.edit"),
+			$this->svg("Rhino.edit"),
 			$edit['link'],
 			[
 				'escape' => false,
@@ -24,7 +24,7 @@
 	} ?>
 	<?php if (isset($delete) && $delete['valid']) {
 		echo $this->Form->postLink(
-			$this->svg("Rhno.trash"),
+			$this->svg("Rhino.trash"),
 			$delete['link'],
 			[
 				'confirm' => $delete['confirm'],

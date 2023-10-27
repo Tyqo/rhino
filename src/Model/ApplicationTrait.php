@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model;
+namespace Rhino\Model;
 
 trait ApplicationTrait {
 	

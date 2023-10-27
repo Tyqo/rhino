@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Test\TestCase\Controller;
+namespace Rhino\Test\TestCase\Controller;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use Rhno\Controller\UsersController;
+use Rhino\Controller\UsersController;
 
 /**
- * Rhno\Controller\UsersController Test Case
+ * Rhino\Controller\UsersController Test Case
  *
- * @uses \Rhno\Controller\UsersController
+ * @uses \Rhino\Controller\UsersController
  */
 class UsersControllerTest extends TestCase
 {
@@ -22,14 +22,14 @@ class UsersControllerTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Rhno.Users',
+        'plugin.Rhino.Users',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \Rhno\Controller\UsersController::index()
+     * @uses \Rhino\Controller\UsersController::index()
      */
     public function testIndex(): void
     {
@@ -40,7 +40,7 @@ class UsersControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \Rhno\Controller\UsersController::view()
+     * @uses \Rhino\Controller\UsersController::view()
      */
     public function testView(): void
     {
@@ -51,7 +51,7 @@ class UsersControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \Rhno\Controller\UsersController::add()
+     * @uses \Rhino\Controller\UsersController::add()
      */
     public function testAdd(): void
     {
@@ -62,7 +62,7 @@ class UsersControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \Rhno\Controller\UsersController::edit()
+     * @uses \Rhino\Controller\UsersController::edit()
      */
     public function testEdit(): void
     {
@@ -73,7 +73,7 @@ class UsersControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \Rhno\Controller\UsersController::delete()
+     * @uses \Rhino\Controller\UsersController::delete()
      */
     public function testDelete(): void
     {

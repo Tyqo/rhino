@@ -1,22 +1,22 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Test\TestCase\Model\Table;
+namespace Rhino\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Rhno\Model\Table\RhnoGalleriesTable;
+use Rhino\Model\Table\RhinoGalleriesTable;
 
 /**
- * Rhno\Model\Table\RhnoGalleriesTable Test Case
+ * Rhino\Model\Table\RhinoGalleriesTable Test Case
  */
-class RhnoGalleriesTableTest extends TestCase
+class RhinoGalleriesTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Rhno\Model\Table\RhnoGalleriesTable
+     * @var \Rhino\Model\Table\RhinoGalleriesTable
      */
-    protected $RhnoGalleries;
+    protected $RhinoGalleries;
 
     /**
      * Fixtures
@@ -24,7 +24,7 @@ class RhnoGalleriesTableTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Rhno.RhnoGalleries',
+        'plugin.Rhino.RhinoGalleries',
     ];
 
     /**
@@ -35,8 +35,8 @@ class RhnoGalleriesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('RhnoGalleries') ? [] : ['className' => RhnoGalleriesTable::class];
-        $this->RhnoGalleries = $this->getTableLocator()->get('RhnoGalleries', $config);
+        $config = $this->getTableLocator()->exists('RhinoGalleries') ? [] : ['className' => RhinoGalleriesTable::class];
+        $this->RhinoGalleries = $this->getTableLocator()->get('RhinoGalleries', $config);
     }
 
     /**
@@ -46,7 +46,7 @@ class RhnoGalleriesTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->RhnoGalleries);
+        unset($this->RhinoGalleries);
 
         parent::tearDown();
     }
@@ -55,7 +55,7 @@ class RhnoGalleriesTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Rhno\Model\Table\RhnoGalleriesTable::validationDefault()
+     * @uses \Rhino\Model\Table\RhinoGalleriesTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

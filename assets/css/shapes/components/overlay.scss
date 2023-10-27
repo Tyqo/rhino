@@ -13,7 +13,7 @@
 
   padding: $gutter;
   background-color: rgba(#000, 0.6);
-	color: var(--rhno-contrast-color);
+	color: var(--rhino-contrast-color);
 
 	pointer-events: none;
 	visibility: hidden;
@@ -22,7 +22,7 @@
 	transition: opacity 500ms ease-in-out;
 	
 	&__wrapper {
-		max-width: var(--rhno-outer-bound-width);
+		max-width: var(--rhino-outer-bound-width);
 		
 		> *:not(.overlay--target) {
 			display: none;
@@ -44,8 +44,8 @@
 		border: none;
 		@include type-setting(900);
 		margin: 0;
-		right: calc(var(--rhno-outer-bound));
-		top: calc(var(--rhno-outer-bound));
+		right: calc(var(--rhino-outer-bound));
+		top: calc(var(--rhino-outer-bound));
 		color: inherit;
 		
 		svg {

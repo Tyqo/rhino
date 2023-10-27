@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Test\TestCase\Controller;
+namespace Rhino\Test\TestCase\Controller;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use Rhno\Controller\TagsController;
+use Rhino\Controller\TagsController;
 
 /**
- * Rhno\Controller\TagsController Test Case
+ * Rhino\Controller\TagsController Test Case
  *
- * @uses \Rhno\Controller\TagsController
+ * @uses \Rhino\Controller\TagsController
  */
 class TagsControllerTest extends TestCase
 {
@@ -22,15 +22,15 @@ class TagsControllerTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Rhno.Tags',
-        'plugin.Rhno.Articles',
+        'plugin.Rhino.Tags',
+        'plugin.Rhino.Articles',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \Rhno\Controller\TagsController::index()
+     * @uses \Rhino\Controller\TagsController::index()
      */
     public function testIndex(): void
     {
@@ -41,7 +41,7 @@ class TagsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \Rhno\Controller\TagsController::view()
+     * @uses \Rhino\Controller\TagsController::view()
      */
     public function testView(): void
     {
@@ -52,7 +52,7 @@ class TagsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \Rhno\Controller\TagsController::add()
+     * @uses \Rhino\Controller\TagsController::add()
      */
     public function testAdd(): void
     {
@@ -63,7 +63,7 @@ class TagsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \Rhno\Controller\TagsController::edit()
+     * @uses \Rhino\Controller\TagsController::edit()
      */
     public function testEdit(): void
     {
@@ -74,7 +74,7 @@ class TagsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \Rhno\Controller\TagsController::delete()
+     * @uses \Rhino\Controller\TagsController::delete()
      */
     public function testDelete(): void
     {

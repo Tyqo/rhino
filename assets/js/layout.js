@@ -1,6 +1,6 @@
-import Modal from "/rhno/js/modules/modal.js";
-import LayoutElements from "/rhno/js/modules/elements.js";
-// import EditorJS from "/rhno/js/vendor/editor.js";
+import Modal from "/rhino/js/modules/modal.js";
+import LayoutElements from "/rhino/js/modules/elements.js";
+// import EditorJS from "/rhino/js/vendor/editor.js";
 
 class Layout {
 	constructor() {

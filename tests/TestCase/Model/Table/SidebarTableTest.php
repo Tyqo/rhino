@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Test\TestCase\Model\Table;
+namespace Rhino\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Rhno\Model\Table\SidebarTable;
+use Rhino\Model\Table\SidebarTable;
 
 /**
- * Rhno\Model\Table\SidebarTable Test Case
+ * Rhino\Model\Table\SidebarTable Test Case
  */
 class SidebarTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Rhno\Model\Table\SidebarTable
+     * @var \Rhino\Model\Table\SidebarTable
      */
     protected $Sidebar;
 
@@ -24,7 +24,7 @@ class SidebarTableTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Rhno.Sidebar',
+        'plugin.Rhino.Sidebar',
     ];
 
     /**
@@ -55,7 +55,7 @@ class SidebarTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Rhno\Model\Table\SidebarTable::validationDefault()
+     * @uses \Rhino\Model\Table\SidebarTable::validationDefault()
      */
     public function testValidationDefault(): void
     {

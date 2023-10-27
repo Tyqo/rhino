@@ -21,38 +21,38 @@
 	th,
 	td,
 	caption, .caption {
-		padding: var(--rhno-margin-200) var(--rhno-margin-200);
+		padding: var(--rhino-margin-200) var(--rhino-margin-200);
 		text-align: left;
 	}
 	
 	caption, .caption {
-		padding: var(--rhno-margin-300) var(--rhno-margin-300);
-		background-color: var(--rhno-secondary-color-600);
-		color: var(--rhno-contrast-color);
+		padding: var(--rhino-margin-300) var(--rhino-margin-300);
+		background-color: var(--rhino-secondary-color-600);
+		color: var(--rhino-contrast-color);
 		font-weight: 800;
 		@include type-setting(600);
 	}
 	
 	th {
-		background-color: var(--rhno-secondary-color-300);
-		color: var(--rhno-text-color);
+		background-color: var(--rhino-secondary-color-300);
+		color: var(--rhino-text-color);
 		font-weight: 600;
 		font-weight: 800;
 	}
 
 	tr {
-		background-color: var(--rhno-secondary-color-200);
+		background-color: var(--rhino-secondary-color-200);
 	}
 	
 	tr:nth-of-type(2n + 2) {
-		background-color: var(--rhno-contrast-color);
+		background-color: var(--rhino-contrast-color);
 	}
 
 	td {
 		min-width: max-content;
-		color: var(--rhno-color);
-		font-weight: var(--rhno-font-weight);
-		font-size: var(--rhno-font-size);
+		color: var(--rhino-color);
+		font-weight: var(--rhino-font-weight);
+		font-size: var(--rhino-font-size);
 	}
 
 	[align=center] {
@@ -80,7 +80,7 @@
 
 	@include for-size(tablet-landscape-down) {
 	// @include for-size(desktop-down) {
-		$padding: var(--rhno-margin-300);
+		$padding: var(--rhino-margin-300);
 
 		caption {
 			overflow-x: auto;

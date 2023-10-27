@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\View;
+namespace Rhino\View;
 
-use Rhno\Model\Table\PagesTable;
+use Rhino\Model\Table\PagesTable;
 use Cake\View\Exception\MissingLayoutException;
 use Cake\Core\Plugin;
 
-trait RhnoView
+trait RhinoView
 {
 	public $svgFolder = "webroot/icon";
 	public $svgExtension = ".svg";

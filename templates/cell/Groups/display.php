@@ -1,6 +1,6 @@
 <a id="home" href="<?= $this->Url->build(['controller' => 'Overview', 'action' => 'display', 'home']) ?>">
 	<div class="logo">
-		<?= $this->svg("Rhno." . $user->theme . "-big") ?>
+		<?= $this->svg("Rhino." . $user->theme . "-big") ?>
 	</div>
 	<span class="sr-only">Rhino</span>
 </a>
@@ -23,7 +23,7 @@
 
 					<?php if (isset($button['link'])) : ?>
 						<a <?= $this->getCurrent($button['link']) ?> class="button button--icon" href="<?= $this->Url->build($button['link']) ?>">
-							<?= $this->svg($button['icon'] ?: "Rhno.book") ?>
+							<?= $this->svg($button['icon'] ?: "Rhino.book") ?>
 							<span><?= $button['name'] ?></span>
 						</a>
 					<?php endif ?>
@@ -45,7 +45,7 @@
 						?>
 						<details <?= $check ? 'open' : '' ?>>
 							<summary <?= $check ? 'aria-current="page"' : '' ?> class="button button--icon">
-								<?= $this->svg($button['icon'] ?: "Rhno.folder") ?>
+								<?= $this->svg($button['icon'] ?: "Rhino.folder") ?>
 								<span><?= $button['name'] ?></span>
 							</summary>
 
@@ -58,7 +58,7 @@
 									?>
 									<li class="nav-block__item">
 										<a <?= $this->getCurrent($item['link']) ?> class="button button--icon" href="<?= $this->Url->build($item['link']) ?>">
-											<?= $this->svg($item['icon'] ?: "Rhno.folder") ?>
+											<?= $this->svg($item['icon'] ?: "Rhino.folder") ?>
 											<span><?= $item['name'] ?></span>
 										</a>
 									</li>

@@ -64,7 +64,7 @@ img, picture, video {
 	}
 	
 	ul > li::before {
-		content: var(--rhno-bullet-list-char, '•');
+		content: var(--rhino-bullet-list-char, '•');
 	}
 }
 

@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Test\TestCase\Model\Table;
+namespace Rhino\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Rhno\Model\Table\UsersTable;
+use Rhino\Model\Table\UsersTable;
 
 /**
- * Rhno\Model\Table\UsersTable Test Case
+ * Rhino\Model\Table\UsersTable Test Case
  */
 class UsersTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Rhno\Model\Table\UsersTable
+     * @var \Rhino\Model\Table\UsersTable
      */
     protected $Users;
 
@@ -24,8 +24,8 @@ class UsersTableTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Rhno.Users',
-        'plugin.Rhno.Articles',
+        'plugin.Rhino.Users',
+        'plugin.Rhino.Articles',
     ];
 
     /**
@@ -56,7 +56,7 @@ class UsersTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Rhno\Model\Table\UsersTable::validationDefault()
+     * @uses \Rhino\Model\Table\UsersTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -67,7 +67,7 @@ class UsersTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \Rhno\Model\Table\UsersTable::buildRules()
+     * @uses \Rhino\Model\Table\UsersTable::buildRules()
      */
     public function testBuildRules(): void
     {

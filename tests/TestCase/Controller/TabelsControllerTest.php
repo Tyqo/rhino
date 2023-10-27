@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Test\TestCase\Controller;
+namespace Rhino\Test\TestCase\Controller;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use Rhno\Controller\TabelsController;
+use Rhino\Controller\TabelsController;
 
 /**
- * Rhno\Controller\TabelsController Test Case
+ * Rhino\Controller\TabelsController Test Case
  *
- * @uses \Rhno\Controller\TabelsController
+ * @uses \Rhino\Controller\TabelsController
  */
 class TabelsControllerTest extends TestCase
 {
@@ -22,14 +22,14 @@ class TabelsControllerTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Rhno.Tabels',
+        'plugin.Rhino.Tabels',
     ];
 
     /**
      * Test index method
      *
      * @return void
-     * @uses \Rhno\Controller\TabelsController::index()
+     * @uses \Rhino\Controller\TabelsController::index()
      */
     public function testIndex(): void
     {
@@ -40,7 +40,7 @@ class TabelsControllerTest extends TestCase
      * Test view method
      *
      * @return void
-     * @uses \Rhno\Controller\TabelsController::view()
+     * @uses \Rhino\Controller\TabelsController::view()
      */
     public function testView(): void
     {
@@ -51,7 +51,7 @@ class TabelsControllerTest extends TestCase
      * Test add method
      *
      * @return void
-     * @uses \Rhno\Controller\TabelsController::add()
+     * @uses \Rhino\Controller\TabelsController::add()
      */
     public function testAdd(): void
     {
@@ -62,7 +62,7 @@ class TabelsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
-     * @uses \Rhno\Controller\TabelsController::edit()
+     * @uses \Rhino\Controller\TabelsController::edit()
      */
     public function testEdit(): void
     {
@@ -73,7 +73,7 @@ class TabelsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
-     * @uses \Rhno\Controller\TabelsController::delete()
+     * @uses \Rhino\Controller\TabelsController::delete()
      */
     public function testDelete(): void
     {

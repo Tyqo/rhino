@@ -1,5 +1,5 @@
 <?php
-namespace Rhno\Handlers;
+namespace Rhino\Handlers;
 
 use Cake\Database\Expression\QueryExpression;
 use Cake\ORM\Query;

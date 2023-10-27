@@ -17,7 +17,7 @@ namespace App\View;
 
 use Cake\Core\Configure;
 use Cake\View\View;
-use Rhno\View\RhnoView;
+use Rhino\View\RhinoView;
 
 /**
  * Application View
@@ -28,7 +28,7 @@ use Rhno\View\RhnoView;
  */
 class AppView extends View
 {
-	use RhnoView;
+	use RhinoView;
     /**
      * Initialization hook method.
      *

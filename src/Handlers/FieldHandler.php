@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Handlers;
+namespace Rhino\Handlers;
 
-use Rhno\Model\Table\FieldsTable;
+use Rhino\Model\Table\FieldsTable;
 
 class FieldHandler {
 	public $customTypes = [

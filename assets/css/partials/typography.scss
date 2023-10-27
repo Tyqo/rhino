@@ -42,7 +42,7 @@ html {
 
 body {
 	@include type-setting(400);
-	color: var(--rhno-text-color);
+	color: var(--rhino-text-color);
 	font-family: 'Manrope', sans-serif;
 }
 
@@ -72,7 +72,7 @@ body {
 
 .body-text {
 	h1, h2, h3, h4, h5, h6 {
-		margin-bottom: var(--rhno-vertical-unit);
+		margin-bottom: var(--rhino-vertical-unit);
 	}
 
 	p {

@@ -1,14 +1,14 @@
-# Rhno plugin for CakePHP
+# Rhino plugin for CakePHP
 
 ## Quick Start:
 
 ```
 composer create-project --prefer-dist cakephp/app myapp
 cd myapp
-composer require coullc/rhno
-cp -aR vendor/coullc/rhno/skeleton/. .
+composer require coullc/rhino
+cp -aR vendor/coullc/rhino/skeleton/. .
 // create Database and set config/app_local.php
-bin/cake migrations migrate -p Rhno
+bin/cake migrations migrate -p Rhino
 ```
 
 ## Installation
@@ -18,30 +18,30 @@ You can install this plugin into your CakePHP application using [composer](https
 The recommended way to install composer packages is:
 
 ```
-composer require coullc/rhno
+composer require coullc/rhino
 ```
 
 after the Plugin is installed and the Application is connected to the Database, you can run the following in the root of the Application:
 
 ```
-cp -aR vendor/coullc/rhno/skeleton/. .
-bin/cake migrations migrate -p Rhno
+cp -aR vendor/coullc/rhino/skeleton/. .
+bin/cake migrations migrate -p Rhino
 ```
 
 ### Default login
 
-You find the Login under `/rhno`
+You find the Login under `/rhino`
 
 Email: 		rhino@example.com
 
-Password: 	#rhno
+Password: 	#rhino
 
 ---
 
 ## Development
 
 See [rhino](https://github.com/Tyqo/rhino).
-Clone Rhino, then Clone Rhno in the Plugins folder.
+Clone Rhino, then Clone Rhino in the Plugins folder.
 
 [mokup](https://xd.adobe.com/view/ee0ba304-8907-40aa-918f-b787c5dc5926-bb58/screen/a86c465f-e104-44b2-aea7-96f0ec6d08a2/specs/)
 
@@ -56,7 +56,7 @@ View needed for:
 - overview
 - readonly
 
-It's also important to keep in mind, that Rhno should always be able to work with native fields that are not in it's Tables.
+It's also important to keep in mind, that Rhino should always be able to work with native fields that are not in it's Tables.
 
 ### Next Up: Layoutmode Enhancment
 

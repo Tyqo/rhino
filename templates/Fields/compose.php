@@ -55,7 +55,7 @@
 	type.addEventListener('change', () => setOptions());
 
 	function setOptions() {
-		geOptions("/rhno/fields/get_options/" + table + "/" + type.value + "/" + name, options);
+		geOptions("/rhino/fields/get_options/" + table + "/" + type.value + "/" + name, options);
 	}
 
 	async function geOptions(url, element) {

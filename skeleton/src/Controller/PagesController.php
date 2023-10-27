@@ -16,7 +16,7 @@ declare(strict_types=1);
  */
 namespace App\Controller;
 
-use Rhno\Controller\PagesController as BaseController;
+use Rhino\Controller\PagesController as BaseController;
 ;
 
 /**

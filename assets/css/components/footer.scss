@@ -3,14 +3,14 @@
 .main-footer {
 	padding-left: 0;
 	padding-right: 0;
-	padding-top: var(--rhno-margin-400);
-	padding-bottom: var(--rhno-margin-400);
+	padding-top: var(--rhino-margin-400);
+	padding-bottom: var(--rhino-margin-400);
 
 	& > div {
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
 		flex-wrap: wrap;
-		gap: var(--rhno-margin-400);
+		gap: var(--rhino-margin-400);
 	}
 }

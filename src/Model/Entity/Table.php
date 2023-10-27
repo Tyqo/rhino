@@ -1,8 +1,8 @@
 <?php
 // src/Model/Entity/Article.php
-namespace Rhno\Model\Entity;
+namespace Rhino\Model\Entity;
 
-use Rhno\Model\Entity\AppEntity;
+use Rhino\Model\Entity\AppEntity;
 
 class Table extends AppEntity {
 	// protected $_virtual = array_merge([

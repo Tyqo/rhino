@@ -63,7 +63,7 @@ export default class LayoutElements {
 			window.location.reload();
 		}
 
-		fetch('/rhno/contents/element/' + id, {
+		fetch('/rhino/contents/element/' + id, {
 			headers: {
 				'X-Requested-With': 'XMLHttpRequest'
 			}
@@ -93,7 +93,7 @@ export default class LayoutElements {
 			position = 0;
 		}
 
-		fetch('/rhno/contents/change/' + id + "?" + new URLSearchParams({
+		fetch('/rhino/contents/change/' + id + "?" + new URLSearchParams({
 			key: 'position',
 			value: position
 		}), {

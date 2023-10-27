@@ -23,13 +23,13 @@
 
 	&__caption {
 		position: absolute;
-		bottom: var(--rhno-margin-400);
-		left: var(--rhno-margin-300);
-		right: var(--rhno-margin-300);
+		bottom: var(--rhino-margin-400);
+		left: var(--rhino-margin-300);
+		right: var(--rhino-margin-300);
 
 		@include shapes.type-setting(800);
 		font-weight: 600;
-		color: var(--rhno-background-color);
+		color: var(--rhino-background-color);
 
 		overflow: hidden;
 		text-overflow: ellipsis;

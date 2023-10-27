@@ -1,7 +1,7 @@
 @use "settings" as *;
 @use "shapes";
 
-@use 'partials/root' with ($prefix: --rhno-);
+@use 'partials/root' with ($prefix: --rhino-);
 @forward 'components/modal';
 @forward 'partials/input';
 // @use 'partials/common';
@@ -27,15 +27,15 @@ body {
 
 	&__button {
 		display: inline-block;
-		background-color: var(--rhno-primary-color);
-		color: var(--rhno-contrast-color);
+		background-color: var(--rhino-primary-color);
+		color: var(--rhino-contrast-color);
 		font-weight: 800;
 		text-decoration: none;
 		border: none;
-		padding: 0 var(--rhno-margin-400);
+		padding: 0 var(--rhino-margin-400);
 		
 		&:focus, &:hover {
-			background-color: var(--rhno-primary-color-500);
+			background-color: var(--rhino-primary-color-500);
 		}
 
 		& + * {
@@ -52,7 +52,7 @@ body {
 	transition: 150ms border-color;
 	
 	&:hover, &:focus-within { 
-		border: solid 4px var(--rhno-primary-color);
+		border: solid 4px var(--rhino-primary-color);
 	
 		.layout-handle {
 			opacity: 1;
@@ -69,17 +69,17 @@ body {
 	display: flex;
 }
 
-.rhno-button {
+.rhino-button {
 	display: inline-block;
-	background-color: var(--rhno-primary-color);
-	color: var(--rhno-contrast-color);
+	background-color: var(--rhino-primary-color);
+	color: var(--rhino-contrast-color);
 	font-weight: 800;
 	text-decoration: none;
 	border: none;
-	padding: var(--rhno-margin-200) var(--rhno-margin-400);
+	padding: var(--rhino-margin-200) var(--rhino-margin-400);
 	
 	&:focus, &:hover {
-		background-color: var(--rhno-primary-color-500);
+		background-color: var(--rhino-primary-color-500);
 	}
 }
 
@@ -99,18 +99,18 @@ body {
 	}
 	
 	input[type='text'], input[type='number'], select, textarea {
-		color: var(--rhno-text-color);
-		padding: var(--rhno-margin-200);
+		color: var(--rhino-text-color);
+		padding: var(--rhino-margin-200);
 		box-shadow: 0 0 2rem #ddd;
 		border-radius: 0.5rem;
-		border-radius: var(--rhno-border-radius);
+		border-radius: var(--rhino-border-radius);
 		border: none;
 	}
 
 	input[type='checkbox'] {
 		width: 1em;
 		height: 1em;
-		accent-color: var(--rhno-primary-color);
+		accent-color: var(--rhino-primary-color);
 		margin-right: 0.5rem;
 	}
 }

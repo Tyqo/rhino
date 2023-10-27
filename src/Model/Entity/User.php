@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Entity;
+namespace Rhino\Model\Entity;
 
 use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\ORM\Entity;
@@ -15,7 +15,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\DateTime|null $created
  * @property \Cake\I18n\DateTime|null $modified
  *
- * @property \Rhno\Model\Entity\Article[] $articles
+ * @property \Rhino\Model\Entity\Article[] $articles
  */
 class User extends Entity
 {
@@ -58,7 +58,7 @@ class User extends Entity
 
 	protected function _getTheme($theme) {
 		if (empty($theme)) {
-			return 'rhno';
+			return 'rhino';
 		}
 
 		return $theme;

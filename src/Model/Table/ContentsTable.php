@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Table;
+namespace Rhino\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -19,12 +19,12 @@ class ContentsTable extends Table {
     public function initialize(array $config): void {
         parent::initialize($config);
 
-        $this->setTable('rhno_contents');
+        $this->setTable('rhino_contents');
         $this->setDisplayField('content');
         $this->setPrimaryKey('id');
 
-		$this->belongsTo('Rhno.Pages');
-		$this->belongsTo('Rhno.Elements');
+		$this->belongsTo('Rhino.Pages');
+		$this->belongsTo('Rhino.Elements');
     }
 		
 	public function beforeSave($event, $entity, $options) {

@@ -9,7 +9,7 @@
 	<?= $this->Form->control('name') ?>
 	<?= $this->Form->control('alias') ?>
 
-	<?= $this->Form->control('rhno_group_id', [
+	<?= $this->Form->control('rhino_group_id', [
 		"type" => "select",
 		"options" => $groups
 	]); ?>

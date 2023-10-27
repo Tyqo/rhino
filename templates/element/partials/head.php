@@ -1,7 +1,7 @@
 	<?= $this->Html->charset() ?>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Rhno | <?= h($this->fetch('title')) ?> </title>
+	<title>Rhino | <?= h($this->fetch('title')) ?> </title>
 
 	<script type="module">
 		document.documentElement.classList.remove('no-js');
@@ -11,17 +11,17 @@
 	<meta name="author" content="carsten.coull@swu.de">
 
 	<?= $this->Html->meta(
-		'/rhno/favicons/favicon.ico',
-		'/rhno/favicons/favicon.ico',
+		'/rhino/favicons/favicon.ico',
+		'/rhino/favicons/favicon.ico',
 		['type' => 'icon']
 	); ?>
 
 	<!-- To do: add Version Number to css -->
-	<?= $this->Html->css(['Rhno.webfonts', 'Rhno.pico', 'Rhno.' . (isset($user) ? $user->theme : 'rhno')]) ?>
-	<!--  $this->Html->css(['Rhno.webfonts', 'Rhno.main', 'Rhno.vendor/pico.min']) ?> -->
+	<?= $this->Html->css(['Rhino.webfonts', 'Rhino.pico', 'Rhino.' . (isset($user) ? $user->theme : 'rhino')]) ?>
+	<!--  $this->Html->css(['Rhino.webfonts', 'Rhino.main', 'Rhino.vendor/pico.min']) ?> -->
 
 	<!-- Load main javascript -->
-	<?= $this->Html->script(['Rhno.main'], ["type" => "module"]) ?>
+	<?= $this->Html->script(['Rhino.main'], ["type" => "module"]) ?>
 
 	<?= $this->fetch('meta') ?>
 	<?= $this->fetch('css') ?>

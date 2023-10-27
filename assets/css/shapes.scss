@@ -33,26 +33,26 @@
 @forward"shapes/lib/utils";
 
 @forward"shapes/lib/button" with (
-  $color: var(--rhno-contrast-color),
-  $background-color: var(--rhno-primary-color),
-  $padding: var(--rhno-margin-100) var(--rhno-margin-300),
-  $border-radius: calc(var(--rhno-border-radius) * 0.5),
-  $border-width: var(--rhno-border-width),
-  $border-color: var(--rhno-primary-color),
-  $border-color-hover: var(--rhno-primary-color),
+  $color: var(--rhino-contrast-color),
+  $background-color: var(--rhino-primary-color),
+  $padding: var(--rhino-margin-100) var(--rhino-margin-300),
+  $border-radius: calc(var(--rhino-border-radius) * 0.5),
+  $border-width: var(--rhino-border-width),
+  $border-color: var(--rhino-primary-color),
+  $border-color-hover: var(--rhino-primary-color),
   $background-color-hover: transparent
 );
 
 @forward"shapes/lib/box" with (
-  $box-color: var(--rhno-text-color),
-  $box-background: var(--rhno-background-color),
+  $box-color: var(--rhino-text-color),
+  $box-background: var(--rhino-background-color),
   $box-padding: settings.$gutter * 2,
   $box-border-color: none,
   $box-border-width: 0,
-  $box-border-radius: var(--rhno-border-radius)
+  $box-border-radius: var(--rhino-border-radius)
 );
 
-@forward"shapes/lib/stack" with ($stack-spacing: var(--rhno-margin-400));
+@forward"shapes/lib/stack" with ($stack-spacing: var(--rhino-margin-400));
 
 @forward"shapes/lib/center";
 

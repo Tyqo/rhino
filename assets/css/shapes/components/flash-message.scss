@@ -2,8 +2,8 @@
 @use "shapes";
 
 
-$info-color: var(--rhno-text-color-100);
-$success-color: var(--rhno-primary-color-600);
+$info-color: var(--rhino-text-color-100);
+$success-color: var(--rhino-primary-color-600);
 $warning-color: rgb(238, 202, 57);
 $error-color: rgb(238, 84, 57);
 
@@ -19,26 +19,26 @@ $error-color: rgb(238, 84, 57);
   }
 	
   .message {
-	color: var(--rhno-text-color);
+	color: var(--rhino-text-color);
 	background-color: $info-color;
-	padding: var(--rhno-margin-200) 0;
+	padding: var(--rhino-margin-200) 0;
 		
     .icon {
 		font-size: 2rem;
     }
 
 	&.success {
-		color: var(--rhno-contrast-color);
+		color: var(--rhino-contrast-color);
 		background-color: $success-color;
 	}
 		
     &.error {
-      color: var(--rhno-background-color);
+      color: var(--rhino-background-color);
       background-color: $error-color;
     }
 
     &.warning {
-      color: var(--rhno-text-color);
+      color: var(--rhino-text-color);
       background-color: $warning-color;
     }
   }

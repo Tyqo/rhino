@@ -93,7 +93,7 @@ class MAIN {
 		this.FlashMessages = new FlashMessages(this);
 
 		this.Overlay = new Overlay(this, {
-			closeButtonIcon: '/rhno/icon/cross.svg',
+			closeButtonIcon: '/rhino/icon/cross.svg',
 			closeButtonTitle: 'Close Overlay'
 		});
 

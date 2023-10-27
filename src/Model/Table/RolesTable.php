@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Table;
+namespace Rhino\Model\Table;
 
 use Cake\ORM\Table;
 
@@ -17,14 +17,14 @@ class RolesTable extends Table {
 	public function initialize(array $config): void {
 		parent::initialize($config);
 
-		$this->setTable('rhno_roles');
+		$this->setTable('rhino_roles');
 		$this->setDisplayField('id');
 		$this->setPrimaryKey('id');
 
 		$this->addBehavior('Timestamp');
 
-		$this->belongsToMany('Users', ['className' => 'Rhno.Users']);
-		$this->hasMany('Applications', ['className' => 'Rhno.Applications']);
+		$this->belongsToMany('Users', ['className' => 'Rhino.Users']);
+		$this->hasMany('Applications', ['className' => 'Rhino.Applications']);
 	}
 
 	public function beforeMarshal($event, $data, $options) {

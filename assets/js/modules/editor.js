@@ -1,5 +1,5 @@
 // import * as EditorJS from '../vendor/editor.js';
-// import * as Header from '/rhno/js/vendor/bundle.js';
+// import * as Header from '/rhino/js/vendor/bundle.js';
 // import List from '@editorjs/list';
 
 // Todo: Implement:

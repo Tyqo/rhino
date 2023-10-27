@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Entity;
+namespace Rhino\Model\Entity;
 
 use Cake\ORM\Entity;
 

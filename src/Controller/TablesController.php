@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Controller;
+namespace Rhino\Controller;
 
-use Rhno\Controller\AppController;
+use Rhino\Controller\AppController;
 use InvalidArgumentException;
 /**
  * Tables Controller
  *
- * @method \Rhno\Model\Entity\Table[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method \Rhino\Model\Entity\Table[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class TablesController extends AppController
 {
@@ -107,9 +107,9 @@ class TablesController extends AppController
 		$this->request->allowMethod(['post', 'delete']);
 		$entry = $this->Table->get($id);
 		if ($this->Table->delete($entry)) {
-			$this->Flash->success(__('The table has been deleted.'), ['plugin' => 'Rhno']);
+			$this->Flash->success(__('The table has been deleted.'), ['plugin' => 'Rhino']);
 		} else {
-			$this->Flash->error(__('The table could not be deleted. Please, try again.'), ['plugin' => 'Rhno']);
+			$this->Flash->error(__('The table could not be deleted. Please, try again.'), ['plugin' => 'Rhino']);
 		}
 
 		return $this->redirect(['action' => 'index', $tableName]);

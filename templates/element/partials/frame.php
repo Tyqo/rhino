@@ -1,7 +1,7 @@
 <div class="frame">
 	<!-- Main Sidebar -->
 	<nav id="main-nav" class="frame__sidebar">
-		<?= $this->cell('Rhno.Groups'); ?>
+		<?= $this->cell('Rhino.Groups'); ?>
 	</nav>
 	
 	<!-- Main Content -->

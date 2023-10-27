@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Table;
+namespace Rhino\Model\Table;
 
 use Cake\ORM\Table;
 
@@ -12,18 +12,18 @@ class ApplicationsTable extends Table
 {
 	private $tableBlackList = [
 		"phinxlog",
-		"rhno_phinxlog",
-		'rhno_users',
-		'rhno_roles',
-		'rhno_groups',
-		'rhno_apps',
-		'rhno_fields',
-		'rhno_pages',
-		'rhno_layouts',
-		'rhno_elements',
-		'rhno_contents',
-		'rhno_media',
-		'rhno_widgets',
+		"rhino_phinxlog",
+		'rhino_users',
+		'rhino_roles',
+		'rhino_groups',
+		'rhino_apps',
+		'rhino_fields',
+		'rhino_pages',
+		'rhino_layouts',
+		'rhino_elements',
+		'rhino_contents',
+		'rhino_media',
+		'rhino_widgets',
 	];
 
     /**
@@ -36,7 +36,7 @@ class ApplicationsTable extends Table
     {
 		parent::initialize($config);
 
-        $this->setTable('rhno_apps');
+        $this->setTable('rhino_apps');
 		$this->setDisplayField('id');
         $this->setPrimaryKey('id');
 

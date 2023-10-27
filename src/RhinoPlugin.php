@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno;
+namespace Rhino;
 
 use Cake\Console\CommandCollection;
 use Cake\Core\BasePlugin;
@@ -13,9 +13,9 @@ use Cake\Routing\RouteBuilder;
 use Authorization\Middleware\AuthorizationMiddleware;
 
 /**
- * Plugin for Rhno
+ * Plugin for Rhino
  */
-class RhnoPlugin extends BasePlugin
+class RhinoPlugin extends BasePlugin
 {
     /**
      * Load all the plugin configuration and bootstrap logic.
@@ -43,13 +43,13 @@ class RhnoPlugin extends BasePlugin
     {
 		// $routes->registerMiddleware('authtorize', new AuthorizationMiddleware(Application));
 
-		// $routes->scope('/rhno', function (RouteBuilder $builder) {
+		// $routes->scope('/rhino', function (RouteBuilder $builder) {
 		// 	$builder->applyMiddleware('authtorize');
 		// });
 
         $routes->plugin(
-            'Rhno',
-            ['path' => '/rhno'],
+            'Rhino',
+            ['path' => '/rhino'],
             function (RouteBuilder $builder) {
                 // Add custom routes here
 				$builder->connect('/', ['controller' => 'Users', 'action' => 'login']);

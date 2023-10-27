@@ -1,20 +1,20 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Test\TestCase\Model\Table;
+namespace Rhino\Test\TestCase\Model\Table;
 
 use Cake\TestSuite\TestCase;
-use Rhno\Model\Table\TagsTable;
+use Rhino\Model\Table\TagsTable;
 
 /**
- * Rhno\Model\Table\TagsTable Test Case
+ * Rhino\Model\Table\TagsTable Test Case
  */
 class TagsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \Rhno\Model\Table\TagsTable
+     * @var \Rhino\Model\Table\TagsTable
      */
     protected $Tags;
 
@@ -24,8 +24,8 @@ class TagsTableTest extends TestCase
      * @var array<string>
      */
     protected array $fixtures = [
-        'plugin.Rhno.Tags',
-        'plugin.Rhno.Articles',
+        'plugin.Rhino.Tags',
+        'plugin.Rhino.Articles',
     ];
 
     /**
@@ -56,7 +56,7 @@ class TagsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \Rhno\Model\Table\TagsTable::validationDefault()
+     * @uses \Rhino\Model\Table\TagsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -67,7 +67,7 @@ class TagsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \Rhno\Model\Table\TagsTable::buildRules()
+     * @uses \Rhino\Model\Table\TagsTable::buildRules()
      */
     public function testBuildRules(): void
     {

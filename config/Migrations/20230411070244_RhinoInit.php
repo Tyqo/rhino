@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Migrations\AbstractMigration;
 
-class RhnoInit extends AbstractMigration
+class RhinoInit extends AbstractMigration
 {
     /**
      * Change Method.
@@ -13,12 +13,12 @@ class RhnoInit extends AbstractMigration
      * @return void
      */
     public function change(): void {
-		$usersTable = 'rhno_users';
-		$rolesTable = 'rhno_roles';
-		$layoutsTable = 'rhno_layouts';
-		$elementsTable = 'rhno_elements';
-		$contentsTable = 'rhno_contents';
-		$pagesTable = 'rhno_pages';
+		$usersTable = 'rhino_users';
+		$rolesTable = 'rhino_roles';
+		$layoutsTable = 'rhino_layouts';
+		$elementsTable = 'rhino_elements';
+		$contentsTable = 'rhino_contents';
+		$pagesTable = 'rhino_pages';
 		$options = [
 			"collation" => 'utf8mb4_unicode_ci'
 		];
@@ -40,7 +40,7 @@ class RhnoInit extends AbstractMigration
 				'null' => false,
 			])
 			->addColumn('theme', 'string', [
-				'default' => 'rhno',
+				'default' => 'rhino',
 				'null' => false,
 			])
 			->addColumn('password', 'string', [
@@ -78,7 +78,7 @@ class RhnoInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('rhno_fields', $options)
+		$this->table('rhino_fields', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
@@ -111,7 +111,7 @@ class RhnoInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('rhno_apps', $options)
+		$this->table('rhino_apps', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
@@ -129,7 +129,7 @@ class RhnoInit extends AbstractMigration
 			->addColumn('active', 'boolean', [
 				'default' => 1,
 			])
-			->addColumn('rhno_group_id', 'integer', [
+			->addColumn('rhino_group_id', 'integer', [
 				'null' => true
 			])
 			->addColumn('created', 'timestamp', [
@@ -141,7 +141,7 @@ class RhnoInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('rhno_groups', $options)
+		$this->table('rhino_groups', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
@@ -159,7 +159,7 @@ class RhnoInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('rhno_pages', $options)
+		$this->table('rhino_pages', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
@@ -257,7 +257,7 @@ class RhnoInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('rhno_media', $options)
+		$this->table('rhino_media', $options)
 			->addColumn('filename', 'string')
 			->addColumn('filetype', 'string')
 			->addColumn('created', 'timestamp', [
@@ -269,7 +269,7 @@ class RhnoInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('rhno_widgets', $options)
+		$this->table('rhino_widgets', $options)
 			->addColumn('name', 'string')
 			->addColumn('created', 'timestamp', [
 				'default' => 'CURRENT_TIMESTAMP'
@@ -287,7 +287,7 @@ class RhnoInit extends AbstractMigration
 						'name' => 'Rhino',
 						'email' => 'rhino@example.com',
 						'password' => '$2y$10$D6POTVNQcplsR2bvLXiS3.fnS310gKtaWkLC.82MxMuzRQPhxpv46',
-						'theme' => 'rhno',
+						'theme' => 'rhino',
 						'role_id' => '1'
 					]
 				])

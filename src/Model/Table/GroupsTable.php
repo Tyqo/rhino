@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Table;
+namespace Rhino\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -20,11 +20,11 @@ class GroupsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('rhno_groups');
+        $this->setTable('rhino_groups');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-		$this->hasMany('Rhno.Applications');
+		$this->hasMany('Rhino.Applications');
     }
 		
 	public function getGroups(): array {

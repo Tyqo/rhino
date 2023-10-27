@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Rhno\Model\Table;
+namespace Rhino\Model\Table;
 
 use Cake\ORM\Table;
-use Rhno\Handlers\FieldHandler;
+use Rhino\Handlers\FieldHandler;
 
 class AppTable extends Table {
 	/**

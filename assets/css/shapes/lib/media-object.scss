@@ -5,7 +5,7 @@
  * @package libhalma
  * @version 2021-05-31
  */
-@mixin media-object($space: var(--rhno-gutter)) {
+@mixin media-object($space: var(--rhino-gutter)) {
   display: flex;
   // flex-wrap: wrap;
   gap: $space;

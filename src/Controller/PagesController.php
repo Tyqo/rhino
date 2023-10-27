@@ -14,17 +14,17 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace Rhno\Controller;
+namespace Rhino\Controller;
 
 use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
-use Rhno\Controller\AppController as BaseController;
+use Rhino\Controller\AppController as BaseController;
 
-use Rhno\Model\Table\ContentsTable;
-use Rhno\Model\Table\PagesTable;
+use Rhino\Model\Table\ContentsTable;
+use Rhino\Model\Table\PagesTable;
 
 /**
  * Static content controller
@@ -64,11 +64,11 @@ class PagesController extends BaseController {
 			$page = $this->Pages->patchEntity($entry, $this->request->getData());
             
 			if ($this->Pages->save($page)) {
-				$this->Flash->success(__('The table has been saved.'), ['plugin' => 'Rhno']);
+				$this->Flash->success(__('The table has been saved.'), ['plugin' => 'Rhino']);
                 return $this->redirect(['action' => 'index']);
             }
 			
-            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
+            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
         }
 		
 		$filter = !empty($id) ? ['id !=' => $id] : Null;
@@ -89,9 +89,9 @@ class PagesController extends BaseController {
 		$entry = $this->Pages->get($id);
 
 		if ($this->Pages->delete($entry)) {
-			$this->Flash->success(__('The Page has been deleted.'), ['plugin' => 'Rhno']);
+			$this->Flash->success(__('The Page has been deleted.'), ['plugin' => 'Rhino']);
 		} else {
-			$this->Flash->error(__('The Page could not be deleted. Please, try again.'), ['plugin' => 'Rhno']);
+			$this->Flash->error(__('The Page could not be deleted. Please, try again.'), ['plugin' => 'Rhino']);
 		}
 
 		return $this->redirect(['action' => 'index']);
@@ -117,7 +117,7 @@ class PagesController extends BaseController {
 		$this->viewBuilder()->setLayout($page->layout->layout);
 		 
 		try {
-            return $this->render('Rhno.layout');
+            return $this->render('Rhino.layout');
         } catch (MissingTemplateException $exception) {
             if (Configure::read('debug')) {
                 throw $exception;
@@ -134,11 +134,11 @@ class PagesController extends BaseController {
 			$content = $this->Contents->patchEntity($entry, $this->request->getData());
             
 			if ($this->Pages->save($content)) {
-				$this->Flash->success(__('The table has been saved.'), ['plugin' => 'Rhno']);
+				$this->Flash->success(__('The table has been saved.'), ['plugin' => 'Rhino']);
                 return $this->redirect(['action' => 'index']);
             }
 			
-            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
+            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
         }
 		
 		$this->set([
@@ -181,7 +181,7 @@ class PagesController extends BaseController {
 		
         try {
 			$this->viewBuilder()->setLayout($page->layout->layout);
-            return $this->render('Rhno.display');
+            return $this->render('Rhino.display');
         } catch (MissingTemplateException $exception) {
             if (Configure::read('debug')) {
                 throw $exception;

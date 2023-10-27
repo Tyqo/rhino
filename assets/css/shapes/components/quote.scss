@@ -6,15 +6,15 @@
 	text-align: center;
 	align-items: center;
 	justify-content: center;
-	padding-top: var(--rhno-margin-800);
-	padding-bottom: var(--rhno-margin-800);
+	padding-top: var(--rhino-margin-800);
+	padding-bottom: var(--rhino-margin-800);
 
 	&[style*=custom-background] {
-		background-image: var(--rhno-custom-background);
+		background-image: var(--rhino-custom-background);
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		color: var(--rhno-contrast-color);
+		color: var(--rhino-contrast-color);
 	}
 
 	&__block {
@@ -34,10 +34,10 @@
 
 	&__figure,
 	&__figcaption {
-		padding: 0 var(--rhno-gutter);
+		padding: 0 var(--rhino-gutter);
 	}
 
 	&>*+* {
-		margin-top: var(--rhno-margin-400);
+		margin-top: var(--rhino-margin-400);
 	}
 }

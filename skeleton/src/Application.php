@@ -81,7 +81,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 		}
 
 		// Load more plugins here
-		$this->addPlugin('Rhno');
+		$this->addPlugin('Rhino');
 		$this->addPlugin('Authentication');
 		$this->addPlugin('Authorization');
 		$this->addPlugin('Migrations');
@@ -161,17 +161,17 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 	public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface {
 		$path = $request->getPath();
 
-		if (preg_match("*rhno*", $path)) {
+		if (preg_match("*rhino*", $path)) {
 			// Reuse fields in multiple authenticators.
 			$fields = [
 				AbstractIdentifier::CREDENTIAL_USERNAME => 'email',
 				AbstractIdentifier::CREDENTIAL_PASSWORD => 'password',
 			];
 
-			$login = Router::url(['plugin' => 'Rhno', 'controller' => 'Users', 'action' => 'login']);
+			$login = Router::url(['plugin' => 'Rhino', 'controller' => 'Users', 'action' => 'login']);
 
 			$authenticationService = new AuthenticationService([
-				'unauthenticatedRedirect' => Router::url(['plugin' => 'Rhno', 'controller' => 'Users', 'action' => 'login']),
+				'unauthenticatedRedirect' => Router::url(['plugin' => 'Rhino', 'controller' => 'Users', 'action' => 'login']),
 				'queryParam' => 'redirect',
 			]);
 
@@ -180,7 +180,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 				'fields' => $fields,
 				'resolver' => [
 					'className' => 'Authentication.Orm',
-					'userModel' => 'Rhno.Users',
+					'userModel' => 'Rhino.Users',
 					'finder' => 'all', // alterenatively: 'active'
 				]
 			]);
@@ -215,7 +215,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 	public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface {
 		$path = $request->getPath();
 
-		if (preg_match("*rhno*", $path)) {
+		if (preg_match("*rhino*", $path)) {
 			$resolver = new OrmResolver();
 			return new AuthorizationService($resolver);
 		}

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Table;
+namespace Rhino\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -18,16 +18,16 @@ class PagesTable extends Table {
     public function initialize(array $config): void {
         parent::initialize($config);
 
-        $this->setTable('rhno_pages');
+        $this->setTable('rhino_pages');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-		$this->hasMany('Rhno.Contents')
+		$this->hasMany('Rhino.Contents')
 			->setForeignKey('page_id')
             ->setDependent(true);
 
-		$this->hasOne('Rhno.Pages');
-		$this->belongsTo('Rhno.Layouts');
+		$this->hasOne('Rhino.Pages');
+		$this->belongsTo('Rhino.Layouts');
     }
 
 	public function afterSave($event, $entity, $options) {

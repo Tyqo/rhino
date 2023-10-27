@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Controller;
+namespace Rhino\Controller;
 
 use App\Controller\AppController as BaseController;
-use Rhno\Handlers\FieldHandler;
+use Rhino\Handlers\FieldHandler;
 use Cake\Http\Response;
-use Rhno\Model\Table\ApplicationsTable;
-use Rhno\Model\ApplicationTrait;
-use Rhno\Model\Table\RolesTable;
-use Rhno\Handlers\FilterHandler;
+use Rhino\Model\Table\ApplicationsTable;
+use Rhino\Model\ApplicationTrait;
+use Rhino\Model\Table\RolesTable;
+use Rhino\Handlers\FilterHandler;
 use Cake\ORM\Exception\MissingTableClassException;
 
 class AppController extends BaseController
@@ -88,7 +88,7 @@ class AppController extends BaseController
 		$this->useTable = false;
 		
 		try {
-			return $this->render('Rhno.App/no_access');
+			return $this->render('Rhino.App/no_access');
 		} catch (MissingTemplateException $exception) {
 			if (Configure::read('debug')) {
 				throw $exception;
@@ -159,7 +159,7 @@ class AppController extends BaseController
 		$entry = $this->Table->patchEntity($entry, $data);
 		
 		if ($this->Table->save($entry)) {
-			$this->Flash->success($params['success'], ['plugin' => 'Rhno']);
+			$this->Flash->success($params['success'], ['plugin' => 'Rhino']);
 			return true;
 		}
 
@@ -172,7 +172,7 @@ class AppController extends BaseController
 			$this->preRender();
 		}
 
-		$this->viewBuilder()->addHelper('Rhno.Fields');
+		$this->viewBuilder()->addHelper('Rhino.Fields');
 
 		if ($this->useTable) {
 			// if (!$this->get('tableName')) {

@@ -1,1 +1,1 @@
--- Test database schema for Rhno
+-- Test database schema for Rhino

@@ -1,6 +1,6 @@
 <?php
 // src/Model/Entity/Article.php
-namespace Rhno\Model\Entity;
+namespace Rhino\Model\Entity;
 
 use Cake\ORM\Entity;
 

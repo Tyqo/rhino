@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Controller;
+namespace Rhino\Controller;
 
-use Rhno\Controller\AppController;
+use Rhino\Controller\AppController;
 
 /**
  * Widgets Controller
  *
- * @property \Rhno\Model\Table\WidgetsTable $Widgets
- * @method \Rhno\Model\Entity\Widget[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property \Rhino\Model\Table\WidgetsTable $Widgets
+ * @method \Rhino\Model\Entity\Widget[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class WidgetsController extends AppController
 {
@@ -50,11 +50,11 @@ class WidgetsController extends AppController
         if ($this->request->is('post')) {
             $widget = $this->Widgets->patchEntity($widget, $this->request->getData());
             if ($this->Widgets->save($widget)) {
-                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Rhno']);
+                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Rhino']);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
+            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
         }
         $this->set(compact('widget'));
     }
@@ -72,11 +72,11 @@ class WidgetsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $widget = $this->Widgets->patchEntity($widget, $this->request->getData());
             if ($this->Widgets->save($widget)) {
-                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Rhno']);
+                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Rhino']);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Rhno']);
+            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
         }
         $this->set(compact('widget'));
     }
@@ -93,9 +93,9 @@ class WidgetsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $widget = $this->Widgets->get($id);
         if ($this->Widgets->delete($widget)) {
-            $this->Flash->success(__('The widget has been deleted.'), ['plugin' => 'Rhno']);
+            $this->Flash->success(__('The widget has been deleted.'), ['plugin' => 'Rhino']);
         } else {
-            $this->Flash->error(__('The widget could not be deleted. Please, try again.'), ['plugin' => 'Rhno']);
+            $this->Flash->error(__('The widget could not be deleted. Please, try again.'), ['plugin' => 'Rhino']);
         }
 
         return $this->redirect(['action' => 'index']);

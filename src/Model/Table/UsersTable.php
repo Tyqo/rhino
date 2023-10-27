@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Rhno\Model\Table;
+namespace Rhino\Model\Table;
 
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -11,21 +11,21 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
- * @property \Rhno\Model\Table\ArticlesTable&\Cake\ORM\Association\HasMany $Articles
+ * @property \Rhino\Model\Table\ArticlesTable&\Cake\ORM\Association\HasMany $Articles
  *
- * @method \Rhno\Model\Entity\User newEmptyEntity()
- * @method \Rhno\Model\Entity\User newEntity(array $data, array $options = [])
- * @method \Rhno\Model\Entity\User[] newEntities(array $data, array $options = [])
- * @method \Rhno\Model\Entity\User get($primaryKey, $options = [])
- * @method \Rhno\Model\Entity\User findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \Rhno\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \Rhno\Model\Entity\User[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \Rhno\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Rhno\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \Rhno\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \Rhno\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \Rhno\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \Rhno\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @method \Rhino\Model\Entity\User newEmptyEntity()
+ * @method \Rhino\Model\Entity\User newEntity(array $data, array $options = [])
+ * @method \Rhino\Model\Entity\User[] newEntities(array $data, array $options = [])
+ * @method \Rhino\Model\Entity\User get($primaryKey, $options = [])
+ * @method \Rhino\Model\Entity\User findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \Rhino\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \Rhino\Model\Entity\User[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \Rhino\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Rhino\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \Rhino\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \Rhino\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \Rhino\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \Rhino\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
@@ -41,13 +41,13 @@ class UsersTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('rhno_users');
+        $this->setTable('rhino_users');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Roles', ['className' => 'Rhno.Roles']);
+        $this->belongsTo('Roles', ['className' => 'Rhino.Roles']);
     }
 
     /**

@@ -1,9 +1,9 @@
 $size: 120px;
 $padding: 1rem;
-$color: var(--rhno-primary-color);
+$color: var(--rhino-primary-color);
 
 $loader: 'spinner' !default;
-$background-color: var(--rhno-background-color-600) !default;
+$background-color: var(--rhino-background-color-600) !default;
 
 body:not(.cmt-layout) .loading-screen {
 	position: fixed;
@@ -49,8 +49,8 @@ body.is-loading .loading-screen {
 	--_m:
 		conic-gradient(#0000, #000),
 		linear-gradient(#000 0 0) content-box;
-	-webkit-mask: var(--rhno-_m);
-	mask: var(--rhno-_m);
+	-webkit-mask: var(--rhino-_m);
+	mask: var(--rhino-_m);
 	-webkit-mask-composite: source-out;
 	mask-composite: subtract;
 	box-sizing: border-box;
@@ -73,8 +73,8 @@ body.is-loading .loading-screen {
 		aspect-ratio: .5;
 		display: grid;
 		background: radial-gradient($color 68%, #0000 72%) center/100% 50% no-repeat;
-		animation: load-dots 1.2s infinite linear calc(var(--rhno-_s, 0)*.4s);
-		transform: translate(calc(var(--rhno-_s, 0)*150%));
+		animation: load-dots 1.2s infinite linear calc(var(--rhino-_s, 0)*.4s);
+		transform: translate(calc(var(--rhino-_s, 0)*150%));
 	}
 
 	&:before,
@@ -111,9 +111,9 @@ body.is-loading .loading-screen {
 	aspect-ratio: 1;
 	--c: no-repeat linear-gradient(#{$color}, #{$color});
 	background:
-		var(--rhno-c) 0% 50%,
-		var(--rhno-c) 50% 50%,
-		var(--rhno-c) 100% 50%;
+		var(--rhino-c) 0% 50%,
+		var(--rhino-c) 50% 50%,
+		var(--rhino-c) 100% 50%;
 	background-size: 20% 100%;
 	animation: load-bars 1s infinite linear;
 }

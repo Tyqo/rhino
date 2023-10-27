@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rhno\View\Cell;
+namespace Rhino\View\Cell;
 
 use Cake\View\Cell;
 
@@ -24,8 +24,8 @@ class GroupsCell extends Cell {
 	 * @return void
 	 */
 	public function initialize(): void {
-		$this->Groups = $this->fetchTable('Rhno.Groups');
-		$this->Roles = $this->fetchTable('Rhno.Roles');
+		$this->Groups = $this->fetchTable('Rhino.Groups');
+		$this->Roles = $this->fetchTable('Rhino.Roles');
 	}
 
 	/**
@@ -81,7 +81,7 @@ class GroupsCell extends Cell {
 					[
 						'name' => 'Dashboard',
 						'link' => ['controller' => 'Overview', 'action' => 'display', 'home'],
-						'icon' => "Rhno.home"
+						'icon' => "Rhino.home"
 					]
 				]
 			],
@@ -91,20 +91,20 @@ class GroupsCell extends Cell {
 					[
 						'name' => 'Seiten',
 						'link' => ['controller' => 'Pages', 'action' => 'index'],
-						'icon' => "Rhno.file",
-						'rights' => 'rhno_pages'
+						'icon' => "Rhino.file",
+						'rights' => 'rhino_pages'
 					],
 					[
 						'name' => 'Medien',
 						'link' => ['controller' => 'Media', 'action' => 'index'],
-						'icon' => "Rhno.image",
-						'rights' => 'rhno_media'
+						'icon' => "Rhino.image",
+						'rights' => 'rhino_media'
 					],
 					[
 						'name' => 'Widgets',
 						'link' => ['controller' => 'Widgets', 'action' => 'index'],
-						'icon' => "Rhno.sidebar",
-						'rights' => 'rhno_widgets'
+						'icon' => "Rhino.sidebar",
+						'rights' => 'rhino_widgets'
 					]
 				]
 			],
@@ -117,58 +117,58 @@ class GroupsCell extends Cell {
 				"buttons" => [
 					[
 						'name' => 'Templates',
-						'icon' => "Rhno.table",
+						'icon' => "Rhino.table",
 						'buttons' => [
 							[
 								'name' => 'Elements',
-								'icon' => "Rhno.book",
-								'link' => ['controller' => 'Tables', 'action' => 'index', 'rhno_elements'],
-								'rights' => 'rhno_elements'
+								'icon' => "Rhino.book",
+								'link' => ['controller' => 'Tables', 'action' => 'index', 'rhino_elements'],
+								'rights' => 'rhino_elements'
 							],
 							[
 								'name' => 'Layouts',
-								'icon' => "Rhno.book",
-								'link' => ['controller' => 'Tables', 'action' => 'index', 'rhno_layouts'],
-								'rights' => 'rhno_layouts'
+								'icon' => "Rhino.book",
+								'link' => ['controller' => 'Tables', 'action' => 'index', 'rhino_layouts'],
+								'rights' => 'rhino_layouts'
 							]
 						]
 					],
 					[
 						'name' => 'Admin',
-						'icon' => "Rhno.settings",
+						'icon' => "Rhino.settings",
 						'buttons' => [
 							[
 								'name' => 'Applikation-Manager',
-								'icon' => "Rhno.unlock",
+								'icon' => "Rhino.unlock",
 								'link' => ['controller' => 'Applications', "action" => "index"],
-								'rights' => 'rhno_apps'
+								'rights' => 'rhino_apps'
 							],
 							[
 								'name' => 'Nutzerverwaltung',
-								'icon' => "Rhno.users",
+								'icon' => "Rhino.users",
 								'link' => ['controller' => 'Users', 'action' => 'index'],
-								'rights' => 'rhno_users'
+								'rights' => 'rhino_users'
 							],
 							[
 								'name' => 'Rechteverwaltung',
-								'icon' => "Rhno.lock",
+								'icon' => "Rhino.lock",
 								'link' => ['controller' => 'Roles', 'action' => 'index'],
-								'rights' => 'rhno_roles'
+								'rights' => 'rhino_roles'
 							]
 						]
 					],
 					[
 						'name' => 'Profil',
-						'icon' => "Rhno.user",
+						'icon' => "Rhino.user",
 						'buttons' => [
 							[
 								'name' => 'Profil bearbeiten',
-								'icon' => "Rhno.edit",
+								'icon' => "Rhino.edit",
 								'link' => ["controller" => "Users", "action" => "edit", $this->user->id]
 							],
 							[
 								'name' => 'log-out',
-								'icon' => "Rhno.log-out",
+								'icon' => "Rhino.log-out",
 								'link' => ["controller" => "Users", "action" => "logout"]
 							]
 						]
