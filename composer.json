@@ -1,6 +1,6 @@
 {
-	"name": "coullc/tusk",
-	"description": "Tusk, a CMS and Application-Framework plugin for CakePHP",
+	"name": "coull/rhino",
+	"description": "Rhino, a CMS and Application-Framework plugin for CakePHP",
 	"type": "cakephp-plugin",
 	"keywords": [
 		"cakephp",
