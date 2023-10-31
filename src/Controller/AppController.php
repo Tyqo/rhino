@@ -121,7 +121,8 @@ class AppController extends BaseController
 		
 			$check = $this->save($entry, $params, $data);
 			if ($check) {
-				return $this->redirect($params['redirect']);
+				$redirect =	$this->redirect($params['redirect']); 
+				return $redirect;
 			}
 		}
 

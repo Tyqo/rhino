@@ -430,7 +430,7 @@ button,
 }
 
 button, .button {
-  width: 100%;
+  width: auto;
   display: block;
   margin-bottom: var(--spacing);
 }
@@ -2435,7 +2435,7 @@ body {
   --vertical-unit: 1.5rem;
   --outer-bound: 2rem;
   --inner-bound-width: 68rem;
-  --outer-bound-width: 104rem;
+  --outer-bound-width: 86rem;
   --header-height: clamp(5rem, (100vw * 0.0076923077) - -4.8461538462rem, 6.5rem);
   --screen-height: 100vh;
   --spacing: 1rem;
