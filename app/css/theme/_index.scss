@@ -1,0 +1,205 @@
+/* Custom version */
+@import "root";
+
+// Variables
+@import "colors";
+@import "typography";
+
+// Light theme (Default)
+// Can be forced with data-theme="light"
+@import "light";
+
+// Dark theme (Auto)
+// Automatically enabled if user has Dark mode enabled
+@import "dark";
+@media only screen and (prefers-color-scheme: dark) {
+	:root:not([data-theme]) {
+		@include dark;
+	}
+}
+
+// Dark theme (Forced)
+// Enabled if forced with data-theme="dark"
+[data-theme="dark"] {
+	@include dark;
+}
+
+// Light theme (Default)
+// Can be forced with data-theme="light"
+@import "light";
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+	@include light;
+}
+
+// Dark theme (Auto)
+// Automatically enabled if user has Dark mode enabled
+@import "dark";
+@media only screen and (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		@include dark;
+	}
+}
+
+// Dark theme (Forced)
+// Enabled if forced with data-theme="dark"
+[data-theme="dark"] {
+	@include dark;
+}
+
+// Accent-color
+progress,
+[type="checkbox"],
+[type="radio"],
+[type="range"] {
+	accent-color: var(--primary);
+}
+
+body:not(.page-has-loaded) {
+	background-color: #ddd;
+}
+
+body {
+	transition: background-color 500ms;
+	display: flex;
+	flex-direction: column;
+	@include type-setting(200, 0);
+}
+
+.main-content {
+	margin-top: calc(var(--typography-spacing-vertical) * 4);
+	flex: 1 1 100%;
+	display: flex;
+	flex-direction: column;
+	
+	& > * {
+		width: 100%;
+	}
+}
+
+hr {
+	margin-top: var(--typography-spacing-vertical);
+	margin-bottom: var(--typography-spacing-vertical);
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+dialog {
+	max-width: 52rem;
+	margin: auto;
+	border: none;
+	padding: var(--typography-spacing-vertical);
+	
+	&::backdrop {
+		--modal-overlay-background-color: rgba(0, 0, 0, 0.2);
+		background-color: var(--modal-overlay-background-color);
+		
+		--modal-overlay-backdrop-filter: blur(0.25rem);
+		-webkit-backdrop-filter: var(--modal-overlay-backdrop-filter);
+		backdrop-filter: var(--modal-overlay-backdrop-filter);
+	}
+
+	.close, [aria-label="close"] {
+		position: sticky;
+		display: block;
+
+		right: 0;
+		margin-left: auto;
+		top: 0;
+
+		width: 1rem;
+		height: 1rem;
+		background-image: var(--icon-close);
+		background-position: center;
+		background-size: auto 1rem;
+		background-repeat: no-repeat;
+		opacity: .5;
+	}
+
+	&>article {
+		margin: calc(var(--typography-spacing-vertical) * -1);
+		
+		& > footer {
+			margin-top: var(--block-spacing-vertical);
+			margin-bottom: calc(var(--block-spacing-vertical) * -1);
+			margin-right: calc(var(--outer-bound) * -1);
+			margin-left: calc(var(--outer-bound) * -1);
+
+			@include cluster($spacing * 0.5);
+			justify-content: flex-end;
+		}
+	}
+}
+
+.hidden {
+	display: none;
+}
+
+.box {
+	@include box();
+}
+
+.center {
+	@include center;
+}
+
+.icon {
+	display: inline-block;
+	height: 100%;
+
+	svg {
+		display: inline-block;
+		height: 100%;
+		width: auto;
+		vertical-align: text-top;
+
+		margin: 1px;
+		overflow: visible;
+	}
+}
+
+.with-icon {
+	@include with-icon($spacing * 0.5);
+}
+
+.cover {
+	object-position: center;
+	object-fit: cover;
+	height: 100%;
+}
+
+.skip-link {
+	@include skip-link;
+}
+
+.sr-only {
+	@include sr-only(true);
+}
+
+.bound {
+	padding-left: var(--outer-bound);
+	padding-right: var(--outer-bound);
+}
+
+.outer-bound, .container, section {
+	@include bound(var(--outer-bound-width), var(--outer-bound));
+}
+
+.inner-bound, article {
+	@include bound(var(--inner-bound-width), var(--outer-bound));
+}
+
+.full-width {
+	@include full-width(var(--scrollbarWidth));
+}
+
+.list-style-none {
+	@include list-style-none;
+}
+
+.stack--clean>* {
+	margin-bottom: 0 !important;
+}

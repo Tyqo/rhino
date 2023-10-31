@@ -42,7 +42,7 @@
   },
   "project_settings": {
     "prefix": "./webroot/",
-    "source": "./assets/"
+    "source": "./app/"
   },
   "browserslist": [
     "> 2% in DE and not dead"

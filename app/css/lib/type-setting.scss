@@ -1,0 +1,97 @@
+/**
+ * src/css/libhalma/_vertical_rhythm.scss
+ *
+ * @author Carsten Coull <c.coull@agentur-halma.de>
+ * @package libhalma
+ */
+@use "sass:math";
+@use "sass:map";
+
+$use-type-scale: true !default;
+$vertical-unit: 2rem !default;
+$modular-scale-ratio: 1.125 !default;
+
+$font-sizes: (
+	100: 0.5,
+	200: 0.8,
+	400: 1,
+	500: 1.2,
+	600: 1.4,
+	700: 1.75,
+	800: 2.1,
+	900: 3.8,
+) !default;
+
+@if $use-type-scale {
+
+	$weight: 100;
+	$font-sizes: ();
+
+	@for $weight from 1 to 10 {
+		$delta: $weight - 4;
+		$value: math.pow($modular-scale-ratio, $delta);
+		$font-sizes: map-merge($font-sizes, ($weight * 100: $value));
+	}
+}
+
+
+@mixin type-setting($level: 400, $margin-bottom: 0) {
+
+	$font-size: map-get($font-sizes, $level);
+
+	@if type-of($font-size) != 'number' {
+		@debug "Could not get font-size vor level " + $level;
+	}
+
+	// Strip unit
+	$vu: math.div($vertical-unit, $vertical-unit * 0 + 1);
+	$line-height: math.div($vu, $font-size);
+
+	// Make sure line-height is at least 1 times the vertical unit
+	@if $line-height > 0 { // prevent endless loop if somehow line-height is zero or negative
+		@while $line-height < 1 {
+			$line-height: $line-height * 1.5; // Steps up half a vertical unit at each step
+		}
+		// $line-height: math.div($line-height, 1.41421);
+	}
+
+	font-size: $font-size + rem;
+	line-height: $line-height + em;
+	margin-bottom: ($line-height * $margin-bottom) + rem;
+}
+
+
+$debug-base-line-grid: true;
+$visual-base-line-grid-offset: -16px !default;
+$visual-base-line-grid-above: true !default;
+
+// Visual baseline grid for debugging ("Grundlinienraster")
+@if $debug-base-line-grid {
+	body {
+		position: relative;
+	}
+	.debug-base-line-grid {
+		background-image: linear-gradient(
+			to bottom,
+			transparent 0,
+			transparent calc(#{$vertical-unit}),
+			rgba(tomato, 0.1) calc(#{$vertical-unit}),
+			rgba(tomato, 0.1)
+		);
+		background-size: 100% (2 * $vertical-unit);
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		pointer-events: none;
+		@if $visual-base-line-grid-above {
+			z-index: 32766;
+		}
+		@else {
+			z-index: 0;
+		}
+		top: $visual-base-line-grid-offset;
+	}
+}
+

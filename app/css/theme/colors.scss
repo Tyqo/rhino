@@ -1,0 +1,216 @@
+@use 'sass:color';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:map';
+
+// Black & White
+$black: #0C0E26 !default;
+$white: #fff !default;
+
+// #9798a7
+
+$default-colors: (
+	primary: hsl(162, 68%, 58%),
+	secondary: hsl(194, 53%, 55%),
+	background: hsl(218, 13.2%, 39%), // 800
+	neutral: hsl(235, 5%, 98% - 38), // 50
+	warning: #ffca28,
+	error: #e53935,
+	success: #43a047,
+) !default;
+ 
+$saturation-multiplication: (
+	primary: 0,
+	secondary: 0.5,
+	background: 0,
+	neutral: 0,
+	warning: -1,
+	error: -1,
+	success: 0,
+);
+
+$weights: (
+	50,
+	100,
+	200,
+	300,
+	400,
+	500,
+	600,
+	700,
+	800,
+	900,
+);
+
+$lightness: (
+	50: 36%,
+	100: 27%,
+	200: 18%,
+	300: 9%,
+	400: 0%,
+	500: -12%,
+	600: -18%,
+	700: -22%,
+	800: -26%,
+	900: -32%,
+);
+
+$saturation: (
+	50: 30%,
+	100: 28%,
+	200: 26%,
+	300: 24%,
+	400: 22%,
+	500: 18%,
+	600: 14%,
+	700: 8%,
+	800: 0%,
+	900: -6%,
+);
+
+@function color($name, $weight) {
+	$multi: map.get($saturation-multiplication, $name);
+	$shade: clamp(map.get($saturation, $weight) * $multi, -100%, 100%);
+	$light: map.get($lightness, $weight);
+	$color: map.get($default-colors, $name);
+	$return: color.adjust($color, $lightness: $light, $saturation: $shade);
+
+	@if type-of($return)=="color" {
+		// @debug "is a Color!";
+		@return $return;
+	}
+
+	@else {
+		@error "not a Color!";
+	}
+
+	@return "";
+}
+
+:root {
+	@each $key, $color in $default-colors {
+		@each $weight in $weights {
+			// $multi: map.get($saturation-multiplication, $key);
+			// $shade: clamp(map.get($saturation, $weight) * $multi, -100%, 100%);
+			// $light: map.get($lightness, $weight);
+
+			$current-color: color($key, $weight);
+			// $current-color: #{color.adjust($color, $lightness: $light, $saturation: $shade)};
+			
+			--#{$key}-#{$weight}: #{$current-color};
+
+			@if $weight == 400 {
+				--#{$key}: #{$current-color};
+			}
+		}
+	}
+
+	--white: #{$white};
+	--black: #{$black};
+}
+
+$grey-50: color("neutral", 50);
+$grey-100: color("neutral", 100);
+$grey-200: color("neutral", 200);
+$grey-300: color("neutral", 300);
+$grey-400: color("neutral", 400);
+$grey-500: color("neutral", 500);
+$grey-600: color("neutral", 600);
+$grey-700: color("neutral", 700);
+$grey-800: color("neutral", 800);
+$grey-900: color("neutral", 900);
+
+$primary-600: color("primary", 400);
+$primary-700: color("primary", 700);
+
+$secondary-500: color("secondary", 500);
+$secondary-600: color("secondary", 400);
+$secondary-700: color("secondary", 700);
+
+$amber-50: color("warning", 50);
+$amber-100: color("warning", 100);
+$amber-300: color("warning", 300);
+$amber-900: color("warning", 900);
+
+$green-600: color("success", 600);
+$green-700: color("success", 700);
+$green-800: color("success", 800);
+
+$red-700: color("error", 700);
+$red-800: color("error", 800);
+$red-900: color("error", 900);
+
+
+// $primary-50: hsl($primary-hue, 32%, 10%) !default;
+// $primary-100: hsl($primary-hue, 38%, 18%) !default;
+// $primary-200: hsl($primary-hue, 44%, 26%) !default;
+// $primary-300: hsl($primary-hue, 50%, 34%) !default;
+// $primary-400: hsl($primary-hue, 56%, 42%) !default;
+// $primary-500: hsl($primary-hue, 62%, 50%) !default;
+// $primary-600: hsl($primary-hue, 68%, 58%) !default;
+// $primary-700: hsl($primary-hue, 74%, 64%) !default;
+// $primary-800: hsl($primary-hue, 82%, 74%) !default;
+// $primary-900: hsl($primary-hue, 96%, 82%) !default;
+
+// $secondary-hue: 194 !default;
+// $secondary: hsl(194, 53%, 55%) !default;
+// $secondary-50: hsl($secondary-hue, 18%, 12%) !default;
+// $secondary-100: hsl($secondary-hue, 26%, 18%) !default;
+// $secondary-200: hsl($secondary-hue, 32%, 21%) !default;
+// $secondary-300: hsl($secondary-hue, 38%, 27%) !default;
+// $secondary-400: hsl($secondary-hue, 46%, 38%) !default;
+// $secondary-500: hsl($secondary-hue, 52%, 43%) !default;
+// $secondary-600: hsl($secondary-hue, 53%, 55%) !default;
+// $secondary-700: hsl($secondary-hue, 62%, 56%) !default;
+// $secondary-800: hsl($secondary-hue, 72%, 68%) !default;
+// $secondary-900: hsl($secondary-hue, 84%, 94%) !default;
+
+// // Grey
+// $grey-hue: 205 !default;
+// $color: hsl(235, 52%, 10%);
+// $grey-50: hsl($grey-hue, 20%, 94%) !default;
+// $grey-100: hsl($grey-hue, 18%, 86%) !default;
+// $grey-200: hsl($grey-hue, 16%, 77%) !default;
+// $grey-300: hsl($grey-hue, 14%, 68%) !default;
+// $grey-400: hsl($grey-hue, 12%, 59%) !default;
+// $grey-500: hsl($grey-hue, 10%, 50%) !default;
+// $grey-600: hsl($grey-hue, 52%, 10%) !default;
+// $grey-700: hsl($grey-hue, 20%, 32%) !default;
+// $grey-800: hsl($grey-hue, 25%, 23%) !default;
+// $grey-900: hsl($grey-hue, 30%, 15%) !default;
+
+// // Amber -> warning / attention
+// $amber-50: #fff8e1 !default;
+// $amber-100: #ffecb3 !default;
+// $amber-200: #ffe082 !default;
+// $amber-300: #ffd54f !default;
+// $amber-400: #ffca28 !default;
+// $amber-500: #ffc107 !default;
+// $amber-600: #ffb300 !default;
+// $amber-700: #ffa000 !default;
+// $amber-800: #ff8f00 !default;
+// $amber-900: #ff6f00 !default;
+
+// // Green -> valid / success
+// $green-50: #e8f5e9 !default;
+// $green-100: #c8e6c9 !default;
+// $green-200: #a5d6a7 !default;
+// $green-300: #81c784 !default;
+// $green-400: #66bb6a !default;
+// $green-500: #4caf50 !default;
+// $green-600: #43a047 !default;
+// $green-700: #388e3c !default;
+// $green-800: #2e7d32 !default;
+// $green-900: #1b5e20 !default;
+
+// // Red -> invalid / error
+// $red-50: #ffebee !default;
+// $red-100: #ffcdd2 !default;
+// $red-200: #ef9a9a !default;
+// $red-300: #e57373 !default;
+// $red-400: #ef5350 !default;
+// $red-500: #f44336 !default;
+// $red-600: #e53935 !default;
+// $red-700: #d32f2f !default;
+// $red-800: #c62828 !default;
+// $red-900: #b71c1c !default;

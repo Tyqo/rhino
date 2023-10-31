@@ -1,0 +1,90 @@
+/**
+* src/css/partials/_webfonts.scss
+*
+* @author Carsten Coull <c.coull@agentur-halma.de>
+* @author Johannes Braun <j.braun@agentur-halma.de>
+* @package halma-kickstart
+* @version 2021-05-28
+*/
+
+/************
+ * Webfonts *
+ ************/
+
+// Woff2 is preferered and - if available - the only format needed.
+// Use a font-face include line for each font face (regular, bold, italic, bold-italic, like shown below
+
+/**
+ * @example
+ *
+ * @include font-face('FontName', '../fonts/FontName-Regular', normal, normal, $file-types: woff2);
+ * @include font-face('FontName', '../fonts/FontName-Bold', bold, normal, $file-types: woff2);
+ * @include font-face('FontName', '../fonts/FontName-Italic', normal, italic, $file-types: woff2);
+ */
+
+// HOW-TO:
+//
+// Use
+// https://google-webfonts-helper.herokuapp.com/fonts
+//
+// - Enter #{$font-path} in "path" input
+// - Download the fonts and put in `src/fonts/`
+// - gulp build
+// - Paste CSS here
+// - add 'font-display: swap;' to each!!!
+// - Enjoy your fonts :-)
+
+$path: '../font/';
+
+
+/* manrope-regular - latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Manrope';
+	font-style: normal;
+	font-weight: 400;
+	src: url('#{$path}manrope-v13-latin/manrope-v13-latin-regular.woff2') format('woff2'),
+	/* Chrome 36+, Opera 23+, Firefox 39+ */
+	url('#{$path}manrope-v13-latin/manrope-v13-latin-regular.woff') format('woff');
+	/* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* manrope-600 - latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Manrope';
+	font-style: normal;
+	font-weight: 600;
+	src: url('#{$path}manrope-v13-latin/manrope-v13-latin-600.woff2') format('woff2'),
+	/* Chrome 36+, Opera 23+, Firefox 39+ */
+	url('#{$path}manrope-v13-latin/manrope-v13-latin-600.woff') format('woff');
+	/* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* manrope-700 - latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Manrope';
+	font-style: normal;
+	font-weight: 700;
+	src: url('#{$path}manrope-v13-latin/manrope-v13-latin-700.woff2') format('woff2'),
+	/* Chrome 36+, Opera 23+, Firefox 39+ */
+	url('#{$path}manrope-v13-latin/manrope-v13-latin-700.woff') format('woff');
+	/* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* manrope-800 - latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: 'Manrope';
+	font-style: normal;
+	font-weight: 800;
+	src: url('#{$path}manrope-v13-latin/manrope-v13-latin-800.woff2') format('woff2'),
+	/* Chrome 36+, Opera 23+, Firefox 39+ */
+	url('#{$path}manrope-v13-latin/manrope-v13-latin-800.woff') format('woff');
+	/* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}

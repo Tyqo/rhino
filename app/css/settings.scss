@@ -1,0 +1,166 @@
+/**
+ * _settings.scss
+ *
+ * Use Sass variables and custom properties as appropriate, both are possible
+ */
+
+/**********
+ * Border *
+ **********/
+
+$border: (
+	width: 2px,
+	radius: 4px,
+	color: currentColor,
+	type: solid,
+);
+
+$outline: (
+	width: 4px
+);
+
+/********
+ * Typo *
+ ********/
+
+$use-type-scale: false;
+$vertical-unit: 1.5rem;
+$modular-scale-ratio: 1.125;
+
+$font-sizes: (
+	100: 0.8,
+	200: 1,
+	300: 1.125,
+	400: 1.2,
+	500: 1.4,
+	600: 1.75,
+	700: 2.1,
+	800: 2.8,
+	900: 3.2,
+);
+
+
+/************
+ * Measures *
+ ************/
+$min-header-height: 5rem;
+$max-header-height: 6.5rem;
+
+$inner-bound-width: 68rem;
+$outer-bound-width: 104rem;
+
+$min-supported-screen-width: 320px;
+$max-supported-screen-width: 3440px;
+
+$spacing: 1rem;
+
+$margins: (
+	100: $spacing * 0.25,
+	200: $spacing * 0.5,
+	300: $spacing,
+	400: $spacing * 2,
+	500: $spacing * 4,
+	600: $spacing * 6,
+	700: $spacing * 8,
+	800: $spacing * 10,
+	900: $spacing * 14,
+);
+
+/********************
+ * Options/Switches *
+ ********************/
+$debug-base-line-grid: false;
+
+// body-text in full-width containers aligns with outer-bound
+$full-width-fix: true;
+
+// header collapses on scroll-down
+$collapsable-header: true;
+
+// subtracts header height from screen-heighht
+$substract-header-height: false;
+
+ // fade in elements when page has loaded
+$fade-in-transition: false;
+
+// loading screen type [spinner, dots, bars]
+$loader: 'spinner';
+
+ // sets the color for header and hero to contrast-color
+$start-dark-background: false;
+
+ // sets the style for the navbar [default, folding]
+$nav-style: 'default';
+
+// Toggle wether all ul & ol elements will recive an Overwrite
+$list-reset: false;
+
+// --- pico ---
+
+// Set the root element for $enable-semantic-container and $enable-responsive-spacings
+$semantic-root-element: "body";
+
+// Enable <header>, <main>, <footer> inside $semantic-root-element as containers
+$enable-semantic-container: true;
+
+// Enable .container and .container-fluid
+$enable-class-container: true;
+
+// Enable a centered viewport for <header>, <main>, <footer> inside $enable-semantic-container 
+// Fluid layout if disabled
+$enable-viewport: true;
+
+// Enable responsive spacings for <header>, <main>, <footer>, <section>, <article>
+// Fixed spacings if disabled
+$enable-responsive-spacings: true;
+
+// Enable responsive typography
+// Fixed root element size if disabled
+$enable-responsive-typography: true;
+
+// Enable .classes
+// .classless version if disabled
+$enable-classes: true;
+
+// Enable .grid class
+$enable-grid: true;
+
+// Enable transitions
+$enable-transitions: true;
+
+// Enable overriding with !important
+$enable-important: true;
+
+/*****************
+ *  Breakpoints  *
+ *****************/
+
+// xs: Extra small (portrait phones)
+// sm: Small(landscape phones)
+// md: Medium(tablets)
+// lg: Large(desktops)
+// xl: Extra large (large desktops)
+
+// NOTE:
+// To provide an easy and fine styling on each breakpoint
+// we didn't use @each, @mixin or @include.
+// That means you need to edit each CSS selector file to add a breakpoint
+
+// Breakpoints
+// 'null' disable the breakpoint
+$breakpoints: (
+	xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+);
+
+// Viewports
+$viewports: (
+	// 'null' disable the viewport on a breakpoint
+	sm: 510px,
+	md: 700px,
+	lg: 920px,
+	xl: 1130px
+);

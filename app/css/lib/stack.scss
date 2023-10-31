@@ -1,0 +1,15 @@
+/**
+ * The Stack
+ *
+ * Spacing for vertically stacked blocks
+ */
+
+$stack-spacing: 1rem !default;
+
+@mixin stack($spacing: $stack-spacing) {
+	> * + * {
+		margin-top: $spacing;
+	}
+}
+
+

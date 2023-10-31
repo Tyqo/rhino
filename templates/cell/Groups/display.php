@@ -1,9 +1,3 @@
-<a id="home" href="<?= $this->Url->build(['controller' => 'Overview', 'action' => 'display', 'home']) ?>">
-	<div class="logo">
-		<?= $this->svg("Rhino." . $user->theme . "-big") ?>
-	</div>
-	<span class="sr-only">Rhino</span>
-</a>
 
 <?php foreach ($navs as $nav) : ?>
 	<?php

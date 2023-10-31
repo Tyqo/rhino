@@ -1,0 +1,44 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	&:last-child {
+		margin-bottom: 0 !important;
+	}
+}
+
+h1 {
+	@include type-setting(900, 1);
+}
+
+h2 {
+	@include type-setting(800, 1);
+}
+
+h3 {
+	@include type-setting(600, 1);
+}
+
+h4 {
+	@include type-setting(400, 1);
+}
+
+h5 {
+	@include type-setting(300, 1);
+}
+
+h6 {
+	@include type-setting(200, 1);
+}
+
+p {
+	@include type-setting(200, 1);
+}
+
+small,
+sub,
+sup {
+	@include type-setting(100, 1);
+}

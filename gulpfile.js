@@ -88,7 +88,7 @@ var settings = {
 	browserSync: {
 		proxy:
 			"https://" +
-			pkg.name +
+			"tusk" +
 			".localhost",
 		open: false, // Don't open browser, change to "local" if you want or see https://browsersync.io/docs/options#option-open
 		notify: false, // Don't notify on every change
@@ -106,11 +106,12 @@ var settings = {
 		src: src + "css/**/*.scss",
 		dest: dist + "css/",
 		srcMain: [
-			src + "css/rhino.scss",
-			src + "css/swu.scss",
+			// src + "css/rhino.scss",
+			// src + "css/swu.scss",
 			src + "css/webfonts.scss",
-			src + "css/pico.scss",
-			src + "css/layout.scss"
+			// src + "css/pico.scss",
+			// src + "css/layout.scss"
+			src + "css/main.scss",
 			// './src/css/email.scss',
 			// You can add more files here that will be built seperately,
 			// f.e. newsletter.scss
@@ -134,7 +135,7 @@ var settings = {
 		src: src + "js/**/*.js",
 		srcMain: [
 			src + "js/main.js",
-			src + "js/layout.js",
+			// src + "js/layout.js",
 			// You can add more files here that will be built seperately,
 			// f.e. newsletter.js
 		],
@@ -149,7 +150,12 @@ var settings = {
 	},
 
 	jsModules: {
-		src: src + "js/modules/**/*.js",
+		srcMain: [
+			src + "js/modules/**/*.js",
+			src + "js/modules/**/*.mjs",
+			// You can add more files here that will be built seperately,
+			// f.e. newsletter.js
+		],
 		dest: dist + "js/modules/",
 	},
 
@@ -336,11 +342,12 @@ function ts() {
 
 
 function jsModules() {
-	$.log("Building Javascript modules " + ((isProduction) ? " [production build]" : " [development build]"));
+	$.log("Building Javascript" + ((isProduction) ? " [production build]" : " [development build]"));
 
-	var stream = gulp.src(settings.jsModules.src, { sourcemaps: !isProduction })
-		.pipe($.plumber({ errorHandler: $.notify.onError("Error: <%= error.message %>") }))
-		.pipe($.jsvalidate());
+	var stream =
+		gulp.src(settings.jsModules.srcMain, { sourcemaps: !isProduction })
+			.pipe($.plumber({ errorHandler: $.notify.onError("Error: <%= error.message %>") }))
+			.pipe($.jsvalidate());
 
 	if (isProduction) {
 		stream = stream
@@ -413,6 +420,7 @@ function templates(done) {
 	done();
 }
 
+
 /*
  * Default TASK: Watch SASS and JAVASCRIPT files for changes,
  * build CSS file and inject into browser
@@ -422,9 +430,9 @@ function gulpDefault(done) {
 	$.browserSync.init(settings.browserSync);
 
 	gulp.watch(settings.css.src, css);
-	gulp.watch(settings.jsModules.src, jsModules);
+	gulp.watch(settings.jsModules.srcMain, jsModules);
 	gulp.watch(settings.js.src, js);
-	gulp.watch(settings.ts.src, ts);
+	gulp.watch(settings.icons.src, icons);
 
 	if (settings.templates.active) {
 		gulp.watch(settings.templates.src, templates);
@@ -489,7 +497,7 @@ function checkKey() {
 /*
  * Task: Build all
  */
-exports.build = series(cleanDist, ts, js, jsModules, jsVendor, css, cssVendor, vendor, images, icons, fonts, favicon);
+exports.build = series(cleanDist, js, jsModules, jsVendor, css, cssVendor, images, icons, fonts, favicon);
 
 exports.default = gulpDefault;
 exports.cleanDist = cleanDist;
@@ -503,5 +511,3 @@ exports.icons = icons;
 exports.favicon = favicon;
 exports.jsModules = jsModules;
 exports.templates = templates;
-exports.ts = ts;
-exports.vendor = vendor;

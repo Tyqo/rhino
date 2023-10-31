@@ -6,33 +6,37 @@
  */
 
 ?>
-<div class="tables index content stack">
+<section class="tables">
 
 	<?= $this->Form->create(null, [
-			'url' => [
-				'action' => 'setFilter',
-				$tableName
-			], 'type' => 'post', 'class' => 'cluster']) 
-		?>
+		'url' => [
+			'action' => 'setFilter',
+			$tableName
+		], 'type' => 'post', 'class' => 'grid'
+	])
+	?>
 
-		<div class="cluster cluster--even pill">
-			<?= $this->Form->select("field", $columns, ['value' => $field]) ?>
-			<?= $this->Form->select("operator", $operators, ['value' => $operator]) ?>
-			<?= $this->Form->input("query", ['value' => $query]) ?>
-		</div>
+	<div class="cluster">
+		<?= $this->Form->select("field", $columns, ['value' => $field]) ?>
+		<?= $this->Form->select("operator", $operators, ['value' => $operator]) ?>
+		<?= $this->Form->input("query", ['value' => $query]) ?>
+	</div>
 
-		<div class="cluster pill">
-			<?= $this->Form->button("Filter") ?>
-			<?= $this->Html->Link('clear Filter', [
+	<div class="cluster">
+		<?= $this->Form->button("Filter") ?>
+		<?= $this->Html->Link(
+			'clear Filter',
+			[
 				'action' => 'clearFilter',
 				$tableName
 			],
-			['class' => 'alt-button'])
-			?>
-		</div>
+			['class' => 'button']
+		)
+		?>
+	</div>
 	<?= $this->Form->end() ?>
 
-	<div class="table-wrapper">
+	<figure>
 		<table>
 			<caption class="caption"><?= __(!empty($app['alias']) ? $app['alias'] : $app['name']) ?></caption>
 			<thead>
@@ -84,7 +88,7 @@
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-	</div>
+	</figure>
 
 	<div class="cluster pill">
 		<?php
@@ -99,4 +103,4 @@
 
 
 	<?= $this->element('pagination') ?>
-</div>
+</section>

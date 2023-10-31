@@ -156,22 +156,6 @@ class GroupsCell extends Cell {
 								'rights' => 'rhino_roles'
 							]
 						]
-					],
-					[
-						'name' => 'Profil',
-						'icon' => "Rhino.user",
-						'buttons' => [
-							[
-								'name' => 'Profil bearbeiten',
-								'icon' => "Rhino.edit",
-								'link' => ["controller" => "Users", "action" => "edit", $this->user->id]
-							],
-							[
-								'name' => 'log-out',
-								'icon' => "Rhino.log-out",
-								'link' => ["controller" => "Users", "action" => "logout"]
-							]
-						]
 					]
 				],
 			]

@@ -1,0 +1,13 @@
+.flash-messages {
+	position: absolute;
+	width: 100%;
+
+	.message > * {
+		@include bound(var(--outer-bound-width), var(--outer-bound));
+	}
+
+	.error {
+		background-color: red;
+		color: white;
+	}
+}

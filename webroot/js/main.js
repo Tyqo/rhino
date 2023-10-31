@@ -1,25 +1,19 @@
 /**
- * src/js/main.js
+ * app/js/main.js
  *
  * Main javascript file
  *
- * @author Johannes Braun <j.braun@agentur-halma.de>
- * @author Carsten Coull <c.coull@agentur-halma.de>
- * @package halma-kickstart
- * @version 2021-05-28
+ * @author Carsten Coull <carsten.coull@swu.de>
+ * @package vt-dispo
+ * @version 2023-10-25
  */
 
 /**
- * Import modules, modules are stored in `src/js/modules/`
+ * Import modules, modules are stored in `app/js/modules/`
  */
-import Nav from "./vendor/nav.js";
-import FlashMessages from "./vendor/flash-messages.js";
-import LightBox from "./vendor/light-box.js";
-import Overlay from "./vendor/overlay.js";
-// import LazyLoading from "/js/vendor/lazyload.js";
-// import Map from "/js/vendor/map.js";
-// import Slider from "/js/vendor/slider.js";
-
+import ThemeSwitcher from "/rhino/js/modules/theme-switcher.js";
+import Modal from "/rhino/js/modules/modal.js";
+import Menu from "/rhino/js/modules/menu.js";
 
 /**
  * Application main class
@@ -29,10 +23,10 @@ class MAIN {
 	 * Constructor
 	 */
 	constructor() {
-		// Class properties, can only be declared inside a method … :-(
 		this.debug = false;
+
 		document.addEventListener("DOMContentLoaded", () => this.init());
-		window.onload = () => this.pageInit();
+		window.onload = () => this.main();
 	}
 
 	/**
@@ -44,17 +38,35 @@ class MAIN {
 		if (this.debug) {
 			console.debug("MAIN::init");
 		}
-
+		
+		// Init Moduls that need to start before the page is visible here:
+		this.ThemeSwitcher = new ThemeSwitcher(this);
+		
 		document.body.classList.add("page-has-loaded");
-
-		// get scrollbar width to be able to use .full-width
-		// @see https://destroytoday.com/blog/100vw-and-the-horizontal-overflow-you-probably-didnt-know-about
-		const scrollbarWidth = window.innerWidth - document.body.clientWidth;
-		document.body.style.setProperty("--scrollbarWidth", scrollbarWidth + "px");
-
 		window.addEventListener("resize", () => this.throttle(this.resizeHandler), { passive: true });
 		window.addEventListener("scroll", () => this.throttle(this.scrollHandler), { passive: true });
 	}
+
+	/**
+	 * Main method
+	 * Put main business logic here
+	 *
+	 * @return void
+	 */
+	main() {
+		this.pageInit();
+		if (this.debug) {
+			console.debug("MAIN::main");
+		}
+
+		// Init Moduls here:
+		this.ThemeSwitcher.init();
+		this.Modal = new Modal(this);
+		this.Menu = new Menu(this);
+
+		document.body.classList.add("page-has-rendered");
+	}
+
 
 	/**
 	 * pageInit
@@ -68,8 +80,6 @@ class MAIN {
 			console.debug("MAIN::pageInit");
 		}
 
-		document.body.classList.add("page-has-rendered");
-
 		// Let's see if we have a header element and get it's height (for
 		// detecting scroll past header, see `App.scrollHandler`
 		this.header = document.querySelector("header");
@@ -77,34 +87,6 @@ class MAIN {
 			let rect = this.header.getBoundingClientRect();
 			this.headerBottom = rect.top + rect.height;
 		}
-
-		this.main();
-	}
-
-	/**
-	 * Main method
-	 * Put main business logic here
-	 *
-	 * @return void
-	 */
-	main() {
-		this.Nav = new Nav(this);
-		
-		this.FlashMessages = new FlashMessages(this);
-
-		this.Overlay = new Overlay(this, {
-			closeButtonIcon: '/rhino/icon/cross.svg',
-			closeButtonTitle: 'Close Overlay'
-		});
-
-		// this.Slider = new Slider(this);
-		this.LightBox = new LightBox(this, {
-			selector: '#main img',
-			prevTitle: 'zum vorherigem Bild',
-			nextTitle: 'zum nächsten Bild',
-			prevIcon: '/dist/icons/chevron-left.svg',
-			nextIcon: '/dist/icons/chevron-right.svg'
-		});
 	}
 
 	/*
@@ -201,10 +183,6 @@ class MAIN {
 				callback(event, target);
 			}
 		});
-	}
-
-	hideElement() {
-
 	}
 }
 

@@ -1,4 +1,4 @@
-<div class="cluster-end pill">
+<div class="cluster pill">
 	<?php if (isset($view) && $view['valid']) {
 		echo $this->Html->link(
 			$this->svg("Rhino.eye"),

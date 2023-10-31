@@ -1,0 +1,14 @@
+.users {
+	flex: 1 1 100%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	article {
+		padding: var(--block-spacing-horizontal);
+		flex: 1 1 100%;
+		max-width: 32rem;
+		margin: auto;
+	}
+}

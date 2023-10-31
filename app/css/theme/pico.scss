@@ -1,0 +1,54 @@
+
+// Import needed components
+// Layout
+@import "../../node_modules/@picocss/pico/scss/layout/document"; // html
+// @import "../../node_modules/@picocss/pico/scss/layout/sectioning"; // body, header, main, footer
+// @import "../../node_modules/@picocss/pico/scss/layout/container"; // .container, .container-fluid
+@import "../../node_modules/@picocss/pico/scss/layout/section"; // section
+@import "../../node_modules/@picocss/pico/scss/layout/grid"; // .grid
+@import "../../node_modules/@picocss/pico/scss/layout/scroller"; // figure
+
+// Content
+@import "../../node_modules/@picocss/pico/scss/content/typography"; // a, headings, p, ul, blockquote, ...
+@import "../../node_modules/@picocss/pico/scss/content/embedded"; // audio, canvas, iframe, img, svg, video
+// @import "../../node_modules/@picocss/pico/scss/content/button"; // button, a[role=button], type=button, type=submit ...
+@import "button"; // .button
+@import "../../node_modules/@picocss/pico/scss/content/form"; // input, select, textarea, label, fieldset, legend
+@import "../../node_modules/@picocss/pico/scss/content/form-checkbox-radio"; // type=checkbox, type=radio, role=switch !Optional
+@import "../../node_modules/@picocss/pico/scss/content/form-alt-input-types"; // type=color, type=date, type=file, type=search, ... !Optional
+
+// should be in content/form-alt-input-types ???
+// Calendar icons are hidden in Firefox
+@if $enable-important {
+  @-moz-document url-prefix() {
+    [type="date"],
+    [type="datetime-local"],
+    [type="month"],
+    [type="time"],
+    [type="week"] {
+      padding-right: var(--form-element-spacing-horizontal) !important;
+      background-image: none !important;
+    }
+  }
+}
+
+@import "../../node_modules/@picocss/pico/scss/content/table"; // table, tr, td, ...
+@import "../../node_modules/@picocss/pico/scss/content/code"; // pre, code, ... !Optional
+@import "../../node_modules/@picocss/pico/scss/content/miscs"; // hr, template, [hidden], dialog, canvas !Optional
+
+// Components
+@import "../../node_modules/@picocss/pico/scss/components/accordion"; // details, summary !Optional
+@import "../../node_modules/@picocss/pico/scss/components/card"; // article !Optional
+// @import "../../node_modules/@picocss/pico/scss/components/modal"; // dialog !Optional
+@import "../../node_modules/@picocss/pico/scss/components/nav"; // nav !Optional
+@import "../../node_modules/@picocss/pico/scss/components/progress"; // progress !Optional
+@import "../../node_modules/@picocss/pico/scss/components/dropdown"; // dropdown !Optional
+
+// Utilities
+@import "../../node_modules/@picocss/pico/scss/utilities/loading"; // aria-busy=true
+@import "../../node_modules/@picocss/pico/scss/utilities/tooltip"; // data-tooltip
+@import "../../node_modules/@picocss/pico/scss/utilities/accessibility"; // -ms-touch-action, aria-* !Optional
+@import "../../node_modules/@picocss/pico/scss/utilities/reduce-motion"; // prefers-reduced-motion !Optional
+
+// Styles
+@import "../../node_modules/@picocss/pico/scss/themes/default/styles";

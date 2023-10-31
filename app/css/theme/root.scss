@@ -1,0 +1,131 @@
+@use 'sass:map';
+
+:root {
+	--font-family: 'Manrope', sans-serif;
+	--line-height: 1.5;
+	--font-weight: 400;
+	--font-size: 1rem;
+
+	--margin: #{map.get($margins, 400)};
+
+	@each $key,
+	$margin in $margins {
+		--margin-#{$key}: #{$margin};
+	}
+
+	@each $key,
+	$value in $border {
+		--border-#{$key}: #{$value};
+	}
+
+	--border: var(--border-color) var(--border-width) var(--border-type) var(--border-radius);
+	--outline-width: #{map.get($outline, width)};
+
+	--gutter: $spacing;
+	--vertical-unit: #{$vertical-unit};
+
+
+	--outer-bound: #{2 * $spacing};
+	@include for-size(md-down) {
+		--outer-bound: #{$spacing};
+	}
+
+
+	--inner-bound-width: #{$inner-bound-width};
+	--outer-bound-width: #{$outer-bound-width};
+	--header-height: #{slope-rem-minmax($min-header-height, $max-header-height, $min-supported-screen-width, $max-supported-screen-width)};
+
+	@if $substract-header-height {
+		--screen-height: calc(100vh - var(--header-height));
+	}
+
+	@else {
+		--screen-height: 100vh;
+	}
+
+	// Spacings
+	--spacing: #{$spacing};
+
+	// Spacings for typography elements
+	--typography-spacing-vertical: #{$vertical-unit};
+
+	// Spacings for body > header, body > main, body > footer, section, article
+	--block-spacing-vertical: #{$spacing * 2};
+	--block-spacing-horizontal: #{$spacing};
+
+	// Spacings for form elements and button
+	--form-element-spacing-vertical:  #{$spacing * 0.75};
+	--form-element-spacing-horizontal: #{$spacing};
+
+	--grid-spacing-vertical: 0;
+	--grid-spacing-horizontal: #{$spacing};
+
+	// Spacings for nav component
+	--nav-element-spacing-vertical: #{$spacing};
+	--nav-element-spacing-horizontal: #{$spacing * 0.5};
+	--nav-link-spacing-vertical: #{$spacing * 0.5};
+	--nav-link-spacing-horizontal: #{$spacing * 0.5};
+
+	// Font weight for form labels & fieldsets legend
+	--form-label-font-weight: var(--font-weight);
+
+	// Transitions
+	--transition: 200ms ease-in-out;
+}
+
+@if $fade-in-transition {
+	.main-content>* {
+		transition-duration: 750ms;
+		transition-timing-function: ease-out, linear;
+		transition-property: transform, opacity;
+	}
+
+	body:not(.page-has-loaded):not(.cmt-layout) {
+		.main-content>* {
+			transform: translateY(20vh);
+			opacity: 0;
+		}
+	}
+}
+
+.margin {
+	margin-bottom: var(--margin);
+}
+
+.margin-top {
+	margin-top: var(--margin);
+}
+
+.stack {
+	@include stack(var(--margin));
+}
+
+.cluster {
+	@include cluster($spacing * 0.5);
+	& > * {
+		flex: 1 1 0%;
+	}
+}
+
+@each $key,
+$margin in $margins {
+	.margin-#{$key} {
+		margin-bottom: var(--margin-#{$key});
+	}
+
+	.margin-top-#{$key} {
+		margin-top: var(--margin-#{$key});
+	}
+
+	.gap-#{$key} {
+		gap: var(--margin-#{$key});
+	}
+
+	.stack-#{$key} {
+		@include stack(var(--margin-#{$key}));
+	}
+
+	.cluster-#{$key} {
+		@include cluster(var(--margin-#{$key}));
+	}
+}
