@@ -37,7 +37,7 @@
 	<?= $this->Form->end() ?>
 
 	<figure>
-		<table>
+		<table role="grid">
 			<caption class="caption"><?= __(!empty($app['alias']) ? $app['alias'] : $app['name']) ?></caption>
 			<thead>
 				<tr>
@@ -45,7 +45,7 @@
 						<?php if (!empty($app->overviewData) && !in_array($column, $app->overviewData)) {
 							continue;
 						} ?>
-						<th data-cell="<?= h(ucfirst($column)) ?>"><?= $this->Paginator->sort($column) ?></th>
+						<th scope="col" data-cell="<?= h(ucfirst($column)) ?>"><?= $this->Paginator->sort($column) ?></th>
 					<?php endforeach ?>
 
 					<th align="right" data-cell="Actions"><?= __('Actions') ?></th>

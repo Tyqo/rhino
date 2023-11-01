@@ -1,6 +1,6 @@
 <?php $this->assign('title', 'login') ?>
 
-<div class="users">
+<div class="login">
 	<article>
 		<div class="center">
 			<?= $this->svg("Rhino.rhino-big") ?>

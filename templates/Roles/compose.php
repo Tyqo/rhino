@@ -1,10 +1,11 @@
-	<h1>Edit User</h1>
+<section>
+	<h1><?= _($action) ?> Role</h1>
 	<?= $this->Form->create($entry, ["class" => "stack"]); ?>
 
 	<?= $this->Form->control('name'); ?>
 
-	<div class="table">
-		<table>
+	<figure class="table">
+		<table role="grid">
 			<tr>
 				<th></th>
 				<?php foreach ($accessTypes as $type) : ?>
@@ -17,16 +18,17 @@
 				<tr>
 					<th><?= $application ?></th>
 					<?php foreach ($accessTypes as $type) : ?>
-						<th>
-							<?= $this->Form->checkbox($application . "_" . $type, ['checked' => isset($entry->accessData[$application . "_" . $type]) ? $entry->accessData[$application . "_" . $type] : 1 ]) ?>
-						</th>
+						<td>
+							<?= $this->Form->checkbox($application . "_" . $type, ['checked' => isset($entry->accessData[$application . "_" . $type]) ? $entry->accessData[$application . "_" . $type] : 1]) ?>
+						</td>
 					<?php endforeach ?>
 				</tr>
 			<?php endforeach ?>
 		</table>
-	</div>
+	</figure>
 
 	<?= $this->Form->button(__('Submit')) ?>
 	<?= $this->Form->end() ?>
 
 	</div>
+</section>

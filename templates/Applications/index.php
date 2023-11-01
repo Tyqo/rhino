@@ -1,7 +1,7 @@
-<div class="tables index content stack">
+<section class="index content stack">
 
-	<div class="table-wrapper">
-		<table>
+	<figure>
+		<table role="grid">
 			<caption><?= __('Application-Manager') ?></caption>
 			<thead>
 				<tr>
@@ -73,8 +73,8 @@
 				<?php endforeach ?>
 			</tbody>
 		</table>
-	</div>
+	</figure>
 
 	<?= $this->Html->link("Create new Table", ["action" => "add"], ["class" => "button"]) ?>
 	<?= $this->Html->link("Create new Group", ["action" => "newGroup"], ["class" => "button"]) ?>
-</div>
+</section>

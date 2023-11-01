@@ -1,6 +1,6 @@
-<div class="tables index content stack">
-	<div class="table-wrapper">
-		<table>
+<section class="roles">
+	<figure>
+		<table role="grid">
 			<caption><?= __('Roles') ?></caption>
 			<thead>
 				<tr>
@@ -42,9 +42,9 @@
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-	</div>
+	</figure>
 
 	<?= $this->Html->link(__('New Role'), ['action' => 'add'], ['class' => 'button float-right']) ?>
 
 	<?= $this->element('pagination') ?>
-</div>
+</section>

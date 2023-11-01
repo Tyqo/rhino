@@ -6,9 +6,9 @@
  */
 ?>
 
-<div>
+<section>
 	<h1><?= __($action) ?> User</h1>
-	<?= $this->Form->create($user, ["class" => "stack"]); ?>
+	<?= $this->Form->create($user); ?>
 
 	<?php
 		echo $this->Form->control('name');
@@ -26,4 +26,4 @@
 	<?= $this->Form->button(__('Submit')) ?>
 	<?= $this->Form->end() ?>
 
-</div>
+</section>

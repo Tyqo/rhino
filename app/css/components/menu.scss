@@ -210,6 +210,7 @@
 			padding: 0.75rem $padding;
 			line-height: 1;
 			font-weight: 600;
+			--color: inherit;
 			
 			&:focus, &:hover {
 				color: var(--primary);

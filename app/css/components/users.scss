@@ -1,5 +1,6 @@
-.users {
+.login {
 	flex: 1 1 100%;
+	transform: translateY(calc(var(--typography-spacing-vertical) * -4));
 
 	display: flex;
 	justify-content: center;

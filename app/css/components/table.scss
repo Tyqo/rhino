@@ -1,0 +1,82 @@
+table {
+
+	th,
+	td,
+	caption,
+	.caption {
+		text-align: left;
+	}
+
+	caption,
+	.caption {
+		padding: $spacing;
+		font-weight: 800;
+		@include type-setting(600);
+	}
+
+	th {
+		font-weight: 800;
+	}
+
+	[align=center] {
+		text-align: center;
+	}
+
+	[align=right] {
+		text-align: right;
+	}
+
+	[align=left] {
+		text-align: left;
+	}
+
+	[data-cell="Id"] {
+		opacity: 0.5;
+	}
+
+	[data-cell="Actions"] {
+		.cluster {
+			flex-wrap: nowrap;
+			justify-content: right;
+		}
+	}
+
+	@include for-size(lg-down) {
+		$padding: var(--margin-300);
+
+		caption {
+			overflow-x: auto;
+			position: sticky;
+			top: 0;
+			z-index: 200;
+		}
+
+		th {
+			display: none;
+		}
+
+		td {
+			border: none;
+			width: 100%;
+			display: grid;
+			justify-content: space-between;
+			grid-template-columns: 15ch auto;
+
+			&::before {
+				content: attr(data-cell) ": ";
+				font-weight: 800;
+			}
+
+			padding-left: $padding;
+			padding-right: $padding;
+		}
+
+		td:first-child {
+			padding-top: $padding;
+		}
+
+		td:last-child {
+			padding-bottom: $padding;
+		}
+	}
+}

@@ -1,13 +1,26 @@
 .flash-messages {
+	top: 0;
 	position: absolute;
 	width: 100%;
 
 	.message > * {
 		@include bound(var(--outer-bound-width), var(--outer-bound));
+		padding-top: $spacing* 0.5;
+		padding-bottom: $spacing * 0.5;
+	}
+
+	p {
+		margin-bottom: 0;
+		font-weight: 600;
 	}
 
 	.error {
-		background-color: red;
-		color: white;
+		background-color: color("error", 400);
+			--color: white;
+	}
+
+	.success {
+		background-color: color("success", 400);
+		--color: white;
 	}
 }
