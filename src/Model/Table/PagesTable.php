@@ -22,6 +22,10 @@ class PagesTable extends Table {
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+		$this->addBehavior('Tree', [
+			'level' => 'level'
+		]);
+
 		$this->hasMany('Rhino.Contents')
 			->setForeignKey('page_id')
             ->setDependent(true);
@@ -86,7 +90,7 @@ class PagesTable extends Table {
 		$children = [];
 
 		foreach ($pages as $page) {
-			if ($page['parent'] != $parentId) {
+			if ($page['parent_id'] != $parentId) {
 				continue;
 			}
 		

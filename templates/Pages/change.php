@@ -4,8 +4,8 @@
 	<?= $this->Form->control('name'); ?>
 	<?= $this->Form->control('active'); ?>
 	<?= $this->Form->control('is_homepage'); ?>
-	<?= $this->Form->control('type'); ?>
-	<?= $this->Form->control('parent', ['options' => $pages]); ?>
+	<?= $this->Form->control('page_type', ['options' => $pageTypes]); ?>
+	<?= $this->Form->control('parent_id', ['options' => $pages, 'escape' => false]); ?>
 	<?= $this->Form->control('layout_id', ['options' => $layouts]); ?>
 
 	<div class="grid">

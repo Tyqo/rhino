@@ -1,4 +1,4 @@
-<div class="stack">
+<section class="stack">
 	<h1><?= $tableName ?></h1>
 	<div class="table-wrapper">
 		<table>
@@ -41,4 +41,4 @@
 
 	<?= $this->Html->link("Add Cloumn", ["controller" => "Fields", "action" => "add", $tableName], ["class" => "button"]) ?>
 	<?= $this->Html->link("Back", ['controller' => 'applications'], ["class" => "button"]); ?>
-</div>
+</section>

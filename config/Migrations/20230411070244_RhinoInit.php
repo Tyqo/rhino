@@ -171,22 +171,46 @@ class RhinoInit extends AbstractMigration
 			->addColumn('is_homepage', 'boolean', [
 				'default' => 0,
 			])
-			->addColumn('type', 'integer', [
+			->addColumn('page_type', 'integer', [
 				'default' => 0,
 			])
-			->addColumn('parent', 'integer', [
+			->addColumn('parent_id', 'integer', [
+				'default' => null,
+				'limit' => 11,
+				'null' => true,
+			])
+			->addColumn('lft', 'integer', [
+				'default' => null,
+				'limit' => 10,
+				'null' => false,
+			])
+			->addColumn('rght', 'integer', [
+				'default' => null,
+				'limit' => 10,
+				'null' => false,
+			])
+			->addColumn('level', 'integer', [
 				'default' => 0,
+				'limit' => 10,
+				'null' => false,
+			])
+			->addColumn('url', 'string', [
+				'null' => true,
 			])
 			->addColumn('layout_id', 'integer', [
 				'default' => 0,
 			])
 			->addColumn('created', 'timestamp', [
-				'default' => 'CURRENT_TIMESTAMP'
+				'null' => false,
+				'default' => 'CURRENT_TIMESTAMP',
 			])
 			->addColumn('modified', 'timestamp', [
+				'null' => false,
 				'default' => 'CURRENT_TIMESTAMP',
-				'update' => 'CURRENT_TIMESTAMP'
+				'update' => 'CURRENT_TIMESTAMP',
 			])
+			->addIndex(['lft'], ['name' => 'idx_lft'])
+			->addIndex(['parent_id'])
 			->create();
 
 		$this->table($layoutsTable, $options)
@@ -334,6 +358,8 @@ class RhinoInit extends AbstractMigration
 						'name' => 'Home',
 						'is_homepage' => 1,
 						'layout_id' => 1,
+						'lft' => '0',
+						'rght' => '0',
 					]
 				])
 				->saveData();

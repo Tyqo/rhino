@@ -35,7 +35,13 @@ use Rhino\Model\Table\PagesTable;
  */
 class PagesController extends BaseController {
 	
-	private $root = [0 => 'Root'];
+	private $root = [null => 'Root'];
+
+	protected $pageTypes = [
+		0 => "Page",
+		1 => "Link",
+		2 => "Folder"
+	];
 	
 	public function initialize(): void {
 		parent::initialize();
@@ -51,10 +57,34 @@ class PagesController extends BaseController {
 	}
 
     public function index() {
-		$_pages = $this->Pages->find('all')->toArray();
+		$_pages = $this->Pages->find('all')->order(["lft" => 'ASC'])->toArray();
 		$pages = $this->Pages->getChildren(0, $_pages);
 
-		$this->set(['pages' => $pages]);
+		$this->set([
+			'pages' => $pages,
+		]);
+	}
+
+	public function moveUp($id = null) {
+		// $this->request->allowMethod(['post', 'put']);
+		$page = $this->Pages->get($id);
+		if ($this->Pages->moveUp($page)) {
+			$this->Flash->success('The category has been moved Up.');
+		} else {
+			$this->Flash->error('The category could not be moved up. Please, try again.');
+		}
+		return $this->redirect($this->referer(['action' => 'index']));
+	}
+
+	public function moveDown($id = null) {
+		// $this->request->allowMethod(['post', 'put']);
+		$page = $this->Pages->get($id);
+		if ($this->Pages->moveDown($page)) {
+			$this->Flash->success('The category has been moved down.');
+		} else {
+			$this->Flash->error('The category could not be moved down. Please, try again.');
+		}
+		return $this->redirect($this->referer(['action' => 'index']));
 	}
 
 	public function change(int $id = null) {
@@ -71,15 +101,18 @@ class PagesController extends BaseController {
             $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
         }
 		
-		$filter = !empty($id) ? ['id !=' => $id] : Null;
+		// $filter = !empty($id) ? ['id !=' => $id] : Null;
 		$layouts = $this->Pages->Layouts->find('list')->all();
-		$pages = $this->Pages->find('list')->where($filter)->all();
+		$pages = $this->Pages->find('treeList', [
+			'spacer' => str_repeat("&nbsp", 3)
+		])->all();
 		$pages = $this->root + $pages->toArray();
 
 		$this->set([
 			'entry' => $entry,
 			'pages' => $pages,
-			'layouts' => $layouts
+			'layouts' => $layouts,
+			"pageTypes" => $this->pageTypes
 		]);
 	}
 
@@ -88,7 +121,10 @@ class PagesController extends BaseController {
 		$this->request->allowMethod(['post', 'delete']);
 		$entry = $this->Pages->get($id);
 
+		$this->Pages->removeFromTree($entry);
+
 		if ($this->Pages->delete($entry)) {
+			$this->Pages->recover();
 			$this->Flash->success(__('The Page has been deleted.'), ['plugin' => 'Rhino']);
 		} else {
 			$this->Flash->error(__('The Page could not be deleted. Please, try again.'), ['plugin' => 'Rhino']);

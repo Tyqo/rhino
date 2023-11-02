@@ -4,14 +4,16 @@ import LayoutElements from "/rhino/js/modules/elements.js";
 
 class Layout {
 	constructor() {
+		this.debug = false;
 		window.onload = () => this.init();
 	}
 	
 	init() {
-		this.modal = new Modal(this);
+		this.Modal = new Modal(this);
 		this.elements = new LayoutElements();
-		this.elements.setModal(this.modal.modal);
+		// this.elements.setModal(this.Modal.modal);
 	}
 }
 
 new Layout();
+//# sourceMappingURL=layout.js.map

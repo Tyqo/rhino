@@ -6,11 +6,11 @@
 	--font-weight: 400;
 	--font-size: 1rem;
 
-	--margin: #{map.get($margins, 400)};
+	--margin: #{map.get($spacings, 400)};
 
 	@each $key,
-	$margin in $margins {
-		--margin-#{$key}: #{$margin};
+	$spacing in $spacings {
+		--spacing-#{$key}: #{$spacing};
 	}
 
 	@each $key,
@@ -89,15 +89,15 @@
 }
 
 .margin {
-	margin-bottom: var(--margin);
+	margin-bottom: var(--spacing);
 }
 
 .margin-top {
-	margin-top: var(--margin);
+	margin-top: var(--spacing);
 }
 
 .stack {
-	@include stack(var(--margin));
+	@include stack(var(--spacing));
 }
 
 .cluster {
@@ -108,24 +108,24 @@
 }
 
 @each $key,
-$margin in $margins {
+$margin in $spacings {
 	.margin-#{$key} {
-		margin-bottom: var(--margin-#{$key});
+		margin-bottom: var(--spacing-#{$key});
 	}
 
 	.margin-top-#{$key} {
-		margin-top: var(--margin-#{$key});
+		margin-top: var(--spacing-#{$key});
 	}
 
 	.gap-#{$key} {
-		gap: var(--margin-#{$key});
+		gap: var(--spacing-#{$key});
 	}
 
 	.stack-#{$key} {
-		@include stack(var(--margin-#{$key}));
+		@include stack(var(--spacing-#{$key}));
 	}
 
 	.cluster-#{$key} {
-		@include cluster(var(--margin-#{$key}));
+		@include cluster(var(--spacing-#{$key}));
 	}
 }

@@ -1,0 +1,92 @@
+body {
+  padding-top: 2rem;
+}
+
+.layout-menu {
+  background-color: grey;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 2rem;
+}
+.layout-menu__button {
+  display: inline-block;
+  background-color: var(--rhino-primary-color);
+  color: var(--rhino-contrast-color);
+  font-weight: 800;
+  text-decoration: none;
+  border: none;
+  padding: 0 var(--rhino-margin-400);
+}
+.layout-menu__button:focus, .layout-menu__button:hover {
+  background-color: var(--rhino-primary-color-500);
+}
+.layout-menu__button + * {
+  margin-left: auto;
+}
+
+.layout-element {
+  position: relative;
+  border: solid 4px transparent;
+  margin-top: -4px;
+  margin-bottom: -4px;
+  transition: 150ms border-color;
+}
+.layout-element:hover, .layout-element:focus-within {
+  border: solid 4px var(--rhino-primary-color);
+}
+.layout-element:hover .layout-handle, .layout-element:focus-within .layout-handle {
+  opacity: 1;
+}
+
+.layout-handle {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  transition: 150ms opacity;
+  display: flex;
+}
+
+.rhino-button {
+  display: inline-block;
+  background-color: var(--rhino-primary-color);
+  color: var(--rhino-contrast-color);
+  font-weight: 800;
+  text-decoration: none;
+  border: none;
+  padding: var(--rhino-margin-200) var(--rhino-margin-400);
+}
+.rhino-button:focus, .rhino-button:hover {
+  background-color: var(--rhino-primary-color-500);
+}
+
+.modal-form fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: none;
+}
+.modal-form .input {
+  display: flex;
+  flex-direction: column;
+  min-width: 12ex;
+  width: 100%;
+}
+.modal-form input[type=text], .modal-form input[type=number], .modal-form select, .modal-form textarea {
+  color: var(--rhino-text-color);
+  padding: var(--rhino-margin-200);
+  box-shadow: 0 0 2rem #ddd;
+  border-radius: 0.5rem;
+  border-radius: var(--rhino-border-radius);
+  border: none;
+}
+.modal-form input[type=checkbox] {
+  width: 1em;
+  height: 1em;
+  accent-color: var(--rhino-primary-color);
+  margin-right: 0.5rem;
+}
+/*# sourceMappingURL=layout.css.map */
