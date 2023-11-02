@@ -9,6 +9,14 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 class PagesTable extends Table {
+	public array $root = [null => 'Root'];
+
+	public array $pageTypes = [
+		0 => "Page",
+		1 => "Link",
+		2 => "Folder"
+	];
+
     /**
      * Initialize method
      *
@@ -86,18 +94,13 @@ class PagesTable extends Table {
 		return $query->first();
 	}
 	
-	public function getChildren($parentId, $pages) {
-		$children = [];
+	public function getMenu(?int $root = null) {
+		$menu = $this->find('threaded')->where(['active' => 1])->orderBy(["lft" => 'ASC']);
 
-		foreach ($pages as $page) {
-			if ($page['parent_id'] != $parentId) {
-				continue;
-			}
-		
-			$page['children'] = $this->getChildren($page['id'], $pages);
-			$children[] = $page;
+		if (!empty($root)) {
+			$menu->find('children', for: $root);
 		}
 
-		return $children;
+		return $menu;
 	}
 }

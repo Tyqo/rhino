@@ -35,14 +35,6 @@ use Rhino\Model\Table\PagesTable;
  */
 class PagesController extends BaseController {
 	
-	private $root = [null => 'Root'];
-
-	protected $pageTypes = [
-		0 => "Page",
-		1 => "Link",
-		2 => "Folder"
-	];
-	
 	public function initialize(): void {
 		parent::initialize();
 		$this->Contents = new ContentsTable();
@@ -57,8 +49,7 @@ class PagesController extends BaseController {
 	}
 
     public function index() {
-		$_pages = $this->Pages->find('all')->order(["lft" => 'ASC'])->toArray();
-		$pages = $this->Pages->getChildren(0, $_pages);
+		$pages = $this->Pages->find('threaded')->orderBy(["lft" => 'ASC']);
 
 		$this->set([
 			'pages' => $pages,
@@ -106,13 +97,13 @@ class PagesController extends BaseController {
 		$pages = $this->Pages->find('treeList', [
 			'spacer' => str_repeat("&nbsp", 3)
 		])->all();
-		$pages = $this->root + $pages->toArray();
+		$pages = $this->Pages->root + $pages->toArray();
 
 		$this->set([
 			'entry' => $entry,
 			'pages' => $pages,
 			'layouts' => $layouts,
-			"pageTypes" => $this->pageTypes
+			"pageTypes" => $this->Pages->pageTypes
 		]);
 	}
 
