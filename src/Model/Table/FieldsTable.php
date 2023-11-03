@@ -46,9 +46,7 @@ class FieldsTable extends Table {
 		"Field",
 		"Type",
 		"Null",
-		"Key",
-		"Default",
-		"Extra"
+		"Default"
 	];
 
 	private $fieldValues = [

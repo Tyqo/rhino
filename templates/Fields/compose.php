@@ -3,7 +3,7 @@
 
 	<?= $this->Form->create($entry, ["class" => "stack"]); ?>
 
-	<div class="media-object">
+	<div class="grid">
 		<div class="stack">
 			<div class="stack--200">
 				<?= $this->Form->control('type', ["type" => "select", "options" => $types, "required", 'value' => $entry->Type]); ?>

@@ -1,4 +1,4 @@
-<div>
+<section>
 	<h1>New Group</h1>
 	
 	<?= $this->Form->create(null, ["class" => "stack"]); ?>
@@ -10,4 +10,4 @@
 		</div>
 		
 	<?= $this->Form->end(); ?>
-</div>
+</section>

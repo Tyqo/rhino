@@ -9,6 +9,7 @@
 .pill {
 	display: flex;
 	gap: var(--spacing-200);
+	width: fit-content;
 
 	:first-child:not(:only-child) {
 		// outline: 4px pink solid;

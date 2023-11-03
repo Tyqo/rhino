@@ -3583,6 +3583,8 @@ dialog > article > footer {
 .pill {
   display: flex;
   gap: var(--spacing-200);
+  width: -moz-fit-content;
+  width: fit-content;
 }
 .pill :first-child:not(:only-child) {
   border-top-right-radius: 0 !important;

@@ -1,4 +1,4 @@
-<div>
+<section>
 	<?php if ($action == "edit") : ?>
 		<h1>Edit Table: <i><?= $tableName ?></i></h1>
 	<?php else : ?>
@@ -17,7 +17,7 @@
 	<?= $this->Form->control('active', ["type" => "checkbox"]) ?>
 
 	<?php if (isset($appFields)) : ?>
-	<?= $this->Form->control('overviewFields', ["type" => "select", "options" => $appFields, "multiple" => true]) ?>
+		<?= $this->Form->control('overviewFields', ["type" => "select", "options" => $appFields, "multiple" => true]) ?>
 	<?php endif ?>
 
 	<?= $this->Form->hidden('currentName', ["value" => isset($tableName) ? $tableName : '']) ?>
@@ -29,4 +29,4 @@
 	</div>
 
 	<?= $this->Form->end(); ?>
-</div>
+</section>
