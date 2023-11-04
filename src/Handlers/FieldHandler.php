@@ -7,60 +7,67 @@ use Rhino\Model\Table\FieldsTable;
 
 class FieldHandler {
 	public $customTypes = [
-		"upload" => [
-			"alias" => "Upload",
+		"string" => [
+			"alias" => "String",
 			"type" => "string",
-			"settings" => [
-				'destination' => [
-					'type' => 'string',
-					'description' => 'Set the Upload Destination',
-					'default' => 'media'
-				] 
-			]
+		],
+		"text" => [
+			"alias" => "Text",
+			"type" => "text",
+		],
+		"float" => [
+			"alias" => "Number (float)",
+			"type" => "float",
+		],
+		"integer" => [
+			"alias" => "Number (integer)",
+			"type" => "integer",
 		],
 		"checkbox" => [
 			"alias" => "Checkbox",
 			"type" => "boolean",
-			"settings" => [
-				'defaults' => [
-					'type' => 'text',
-					'description' => 'Default options',
-					'default' => 1
-				],
-			]
 		],
 		"select" => [
 			"alias" => "Select",
 			"type" => "string",
-			"settings" => [
-				'options' => [
-					'type' => 'text',
-					'description' => 'Komma separated List',
-					'default' => ''
-				],
-				'applications' => [
-					'type' => 'select',
-					'description' => 'Applications',
-					'default' => '',
-					'settings' => ['options' => '', 'multiSelect' => false, 'allowEmpty' => false]
-				],
-				'defaults' => [
-					'type' => 'text',
-					'description' => 'Default options',
-					'default' => ''
-				],
-				'multiSelect' => [
-					'type' => 'checkbox',
-					'description' => 'Allows multiple Options',
-					'default' => 'checked'
-				],
-				'allowEmpty' => [
-					'type' => 'checkbox',
-					'description' => 'Allows an Empty Option',
-					'default' => 'checked'
-				]
-			]
 		],
+		"upload" => [
+			"alias" => "Upload",
+			"type" => "string",
+		],
+		
+		// "select" => [
+		// 	"alias" => "Select",
+		// 	"type" => "string",
+		// 	"settings" => [
+		// 		'options' => [
+		// 			'type' => 'text',
+		// 			'description' => 'Komma separated List',
+		// 			'default' => ''
+		// 		],
+		// 		'applications' => [
+		// 			'type' => 'select',
+		// 			'description' => 'Applications',
+		// 			'default' => '',
+		// 			'settings' => ['options' => '', 'multiSelect' => false, 'allowEmpty' => false]
+		// 		],
+		// 		'defaults' => [
+		// 			'type' => 'text',
+		// 			'description' => 'Default options',
+		// 			'default' => ''
+		// 		],
+		// 		'multiSelect' => [
+		// 			'type' => 'checkbox',
+		// 			'description' => 'Allows multiple Options',
+		// 			'default' => 'checked'
+		// 		],
+		// 		'allowEmpty' => [
+		// 			'type' => 'checkbox',
+		// 			'description' => 'Allows an Empty Option',
+		// 			'default' => 'checked'
+		// 		]
+		// 	]
+		// ],
 	];
 
 	public function __construct() {
@@ -94,18 +101,11 @@ class FieldHandler {
 	}
 
 	public function getTypes() {
-		return [
-			"Custom Types" => $this->prepareForSelect($this->customTypes),
-			"All Types" => $this->prepareForSelect($this->types)
-		];
-	}
-
-	public function getSettings($type) {
-		if (isset($this->customTypes[$type])) {
-			return $this->customTypes[$type]['settings'];
-		}
-
-		return null;
+		return $this->prepareForSelect($this->customTypes);
+		// return [
+		// 	"Custom Types" => $this->prepareForSelect($this->customTypes),
+		// 	"All Types" => $this->prepareForSelect($this->types)
+		// ];
 	}
 
 	private function prepareForSelect($values) {
@@ -130,37 +130,45 @@ class FieldHandler {
 	}
 
 	public function getDefaults(string $tableName) {
-		$fields = $this->Fields->find()->select(['name', 'standart'])->where(['tableName' => $tableName])->toArray();
+		$fields = $this->Fields->find()->select(['name', 'standard'])->where(['tableName' => $tableName])->toArray();
 		$defaults = [];
 		foreach ($fields as $field) {
-			if (empty($field['standart'])) {
+			if (empty($field['standard'])) {
 				continue;
 			}
 
-			$defaults[$field['name']] = $field['standart'];
+			$defaults[$field['name']] = $field['standard'];
 		}
 		return $defaults;
 	}
 
 	public function setFiledData($data) {
-		$settings = [];
-		$_settings = $this->getSettings($data['type']);
-		
-		if (isset($_settings)) {
-			foreach (array_keys($_settings) as $setting) {
-				if (isset($data[$setting])) {
-					$settings[$setting] = $data[$setting];
-					unset($data[$setting]);
-				}
-			}
-		}
-		$data['settings'] = json_encode($settings);
-
 		if (isset($data['default'])) {
-			$data['standart'] = $data['default'];
+			$data['standard'] = $data['default'];
 		}
 
 		return $data;
+	}
+
+	public function loadFiledOptions() {
+		$return = [];
+		foreach ($this->customTypes as $key => $type) {
+			$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($key));
+			if (class_exists($fieldClass)) {
+				$return += $fieldClass::loadOption();
+			}
+		}
+		return $return;
+	}
+
+	public function prepareFields($fields) {
+		foreach ($fields as $key => $field) {
+			$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
+			if (class_exists($fieldClass)) {
+				$fields[$key] = $fieldClass::prepareField($field);
+			}
+		}
+		return $fields;
 	}
 
 	public function setFields(string $tableName, $entity) {
@@ -177,41 +185,13 @@ class FieldHandler {
 	}
 
 	private function setField($field, $value) {
-		$saveFunction = 'save' . $field['type'];
-		if (!empty($field['settings'])) {
-			$field['settings'] = json_decode($field['settings'], true);
-		}
-		if (method_exists($this, $saveFunction)) {
-			$value = $this->$saveFunction($value, $field);
-		}
-
 		return $value;
 	}
 
-	private function saveCheckbox($value, $field) : int {
-		if (!empty($value)) {
-			$value = 1;
-		} else {
-			$value = 0;
-		}
-
-		return $value;
-	}
-
-	private function saveUpload($value, $field) : string {
-		if (!is_string($value)) {
-			$fileObject = $value;
-			$value = $fileObject->getClientFilename();
-			$destination = $field['settings']['destination'] . DS . $value;
-			$fileObject->moveTo($destination);
-		}
-
-		return $value;
-	}
-
-	private function saveSelect($value, $field): string {
-		if (!empty($field['settings']['multiSelect'])) {
-			return implode(', ', $value);
+	public function display($field, $value) {
+		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
+		if (class_exists($fieldClass)) {
+			return $fieldClass::displayField($field, $value);
 		}
 
 		return $value;

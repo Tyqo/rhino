@@ -5,19 +5,19 @@ namespace Rhino\Model;
 
 trait ApplicationTrait {
 	
-	public $emptyString = "-- empty --";
+	public static string $emptyString = "-- empty --";
 
-	public function prepareSelect(array $options) : array {
-		$_options = $this->setValueAsKey($options);
-		return $this->addEmptyOption($_options);
+	public static function prepareSelect(array $options) : array {
+		$_options = self::setValueAsKey($options);
+		return self::addEmptyOption($_options);
 	}
 
-	public function setValueAsKey(array $options) : array {
+	public static function setValueAsKey(array $options) : array {
 		return array_combine($options, $options);
 	}
 
-	public function addEmptyOption(array $options) : array {
+	public static function addEmptyOption(array $options) : array {
 		// combine with "+" insted of array_merge to keep the keys
-		return ["" => $this->emptyString] + $options;
+		return ["" => self::$emptyString] + $options;
 	}
 }

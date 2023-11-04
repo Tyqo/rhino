@@ -6,6 +6,7 @@ namespace Rhino\View\Helper;
 use Cake\View\Helper;
 use Rhino\Model\Table\PagesTable;
 use Cake\View\StringTemplateTrait;
+use Rhino\Handlers\FieldHandler;
 use Generator;
 use Cake\Core\App;
 use Cake\View\Exception\MissingElementException;
@@ -40,6 +41,10 @@ class RhinoHelper extends Helper {
 	 * @var array
 	 */
 	protected array $helpers = ['Form'];
+
+	public function initialize(array $config): void {
+		$this->FieldHandler = new FieldHandler();
+	}
 
 	public function sectionHeader(string $title, ?array $options = []) {
 		return $this->formatTemplate('sectionHeader', [
@@ -79,5 +84,26 @@ class RhinoHelper extends Helper {
 			'content' => $content,
 			'tabGroup' => $tabGroupName 
 		]);
+	}
+
+	public function render($fields, $values, $options = []) {
+		$content = '';
+
+		foreach ($fields as $field) {
+			$content .= $this->editField($field);
+		}
+
+		return $content;
+	}
+
+	public function editField($field) {
+		$name = $field['name'];
+		$options = $field->displayOptions;
+		$options['type'] = $field['type'];
+		return $this->Form->control($name, $options);
+	}
+
+	public function displayField($value, $field) {
+		return $this->FieldHandler->display($field, $value);
 	}
 }

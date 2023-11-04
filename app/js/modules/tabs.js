@@ -16,7 +16,7 @@ export default class Tabs {
 
 		this.tabGroups = document.querySelectorAll(this.Config.tabGroupSelector);
 
-		if (this.tabGroups) {
+		if (this.tabGroups.length > 0) {
 			this.setup();
 		}
 	}
@@ -52,6 +52,8 @@ export default class Tabs {
 				});
 			});
 		});
+
+		window.addEventListener("layout-update", () => this.refresh());
 	}
 	
 	toggle(tabButton, tabGroup) {
@@ -77,5 +79,13 @@ export default class Tabs {
 
 		button.classList.add(this.Config.activeButtonClass);
 		target.classList.add(this.Config.activeTabClass);
+	}
+
+	refresh() {
+		this.tabGroups = document.querySelectorAll(this.Config.tabGroupSelector);
+		this.tabGroups.forEach(tabGroup => {
+			let tabButton = tabGroup.querySelector(this.Config.tabButtonSelector);
+			this.open(tabButton);
+		});
 	}
 }

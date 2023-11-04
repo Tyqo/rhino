@@ -15,6 +15,8 @@ import ThemeSwitcher from "/rhino/js/modules/theme-switcher.js";
 import Modal from "/rhino/js/modules/modal.js";
 import Menu from "/rhino/js/modules/menu.js";
 import Tabs from "/rhino/js/modules/tabs.js";
+import FieldOptions from "/rhino/js/modules/field-options.js";
+import HooksHandler from "/rhino/js/modules/hooks-handler.js";
 
 /**
  * Application main class
@@ -41,7 +43,11 @@ class MAIN {
 		}
 		
 		// Init Moduls that need to start before the page is visible here:
+		this._layoutUpdate = new CustomEvent("layout-update", {});
+
+		this.Hooks = new HooksHandler(this);
 		this.ThemeSwitcher = new ThemeSwitcher(this);
+		this.FieldOptions = new FieldOptions(this);
 		this.Tabs = new Tabs(this);
 		
 		document.body.classList.add("page-has-loaded");
@@ -49,6 +55,9 @@ class MAIN {
 		window.addEventListener("scroll", () => this.throttle(this.scrollHandler), { passive: true });
 	}
 
+	layoutUpdate() {
+		window.dispatchEvent(this._layoutUpdate);
+	}
 	/**
 	 * Main method
 	 * Put main business logic here
@@ -63,10 +72,10 @@ class MAIN {
 
 		// Init Moduls here:
 		this.ThemeSwitcher.init();
+		this.FieldOptions.init();
 		this.Tabs.init();
 		this.Modal = new Modal(this);
 		this.Menu = new Menu(this);
-		
 
 		document.body.classList.add("page-has-rendered");
 	}

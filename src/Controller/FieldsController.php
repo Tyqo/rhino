@@ -33,27 +33,32 @@ class FieldsController extends AppController
 	
 	public function edit(string $tableName, string $field) {
 		$entry = $this->Fields->getByName($field, $tableName);
-		// echo '<pre>';
-		// var_dump($entry);
-		// die;
+
 		$this->set(['title' => 'Edit']);
 		$this->compose($entry, ["redirect" => ['action' => 'index', $tableName]]);
 	}
 
 	public function preCompose($entry, $tableName, $field = null) {
-		$settings = $this->getOptions($tableName, $entry['type'], $entry['name']);
+		// $settings = $this->getOptions($tableName, $entry['type'], $entry['name']);
 		$types = $this->FieldHandler->getTypes();
+		
 		$apps = ['test', 'alt'];
-
+		
+		
 		$this->set([
 			"tableName" => $tableName,
 			"types" => $types,
-			'settings' => $settings,
+			'settings' => $entry->settings,
 			'applications' => $apps
 		]);
+
+		$options = $this->FieldHandler->loadFiledOptions();
+		$this->set($options);
 	}
 
 	public function preSave($data, $params) {
+		$data['settings'] = json_encode($data['settings']);
+
 		$pass = $this->request->getParam('pass');
 		$tableName = $pass[0];
 		$data = $this->FieldHandler->setFiledData($data);
@@ -69,7 +74,6 @@ class FieldsController extends AppController
 			}
 			$this->Fields->update($tableName, $dbData["name"], $dbData);
 		}
-
 		return $data;
 	}
 
@@ -130,13 +134,14 @@ class FieldsController extends AppController
 	}
 
 	public function getOptions($tableName, $type, $fieldName = null) {
-		$settings = $this->FieldHandler->getSettings($type);
+		// $settings = $this->FieldHandler->getSettings($type);
 
 		if (isset($fieldName)) {
 			$field = $this->Fields->getByName($fieldName, $tableName);
 
 			if (isset($field['settings'])) {
-				$values = json_decode($field['settings'], true);
+				$values = $field['settings'];
+				// $values = json_decode($field['settings'], true);
 				// foreach ($settings as $key => $setting) {
 				// 	if (isset($values[$key])) {
 				// 		$settings[$key]['value'] = $values[$key];

@@ -4,6 +4,7 @@ $options = [];
 if (isset($readonly) && $readonly) {
 	$options['readonly'] = true;
 }
+
 ?>
 
 <section class="stack">
@@ -13,12 +14,12 @@ if (isset($readonly) && $readonly) {
 
 	<?php if ($action != 'add') : ?>
 		<div class="cluster pill">
-			<?= $this->Html->link("prev", ["controller" => "tables", "action" => $action, $tableName, $prevId], ["class" => "button", "disabled" => empty($prevId)]) ?>
-			<?= $this->Html->link("next", ["controller" => "tables", "action" => $action, $tableName, $nextId], ["class" => "button", "disabled" => empty($nextId)]) ?>
+			<?= $this->Html->link("prev", ["controller" => "tables", "action" => $action, $currentTable, $prevId], ["class" => "button", "disabled" => empty($prevId)]) ?>
+			<?= $this->Html->link("next", ["controller" => "tables", "action" => $action, $currentTable, $nextId], ["class" => "button", "disabled" => empty($nextId)]) ?>
 		</div>
 	<?php endif ?>
 
-	<?= $this->Fields->render($fields, $entry, $options) ?>
+	<?= $this->Rhino->render($fields, $entry, $options) ?>
 
 	<?php if ($entry->getVirtual() > 0) {
 		foreach ($entry->getVirtual() as $virtual) {
