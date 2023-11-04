@@ -5,25 +5,27 @@
 	<?= $this->element('../layout/partials/head') ?>
 </head>
 
-<body class="menu-wrapper <?= h($this->classSave($this->fetch('title'))) ?>">
+<body <?= h($this->classSave($this->fetch('title'))) ?>">
 	<a href="#main" class="button skip-link">Navigation Überspringen</a>
 
-	<?= $this->element('../layout/partials/menu') ?>
+	<div class="menu-wrapper">
+		<?= $this->element('../layout/partials/menu') ?>
 
-	<div class="menu-page">
-		<!-- Main header -->
-		<?= $this->element('../layout/partials/header') ?>
+		<div class=" menu-page">
+			<!-- Main header -->
+			<?= $this->element('../layout/partials/header') ?>
 
-		<main id="main" class="main-content">
-			<?= $this->fetch('content') ?>
+			<main id="main" class="main-content">
+				<?= $this->fetch('content') ?>
 
-			<div id="flash-messages" class="flash-messages">
-				<?= $this->Flash->render() ?>
-			</div>
-		</main>
+				<div id="flash-messages" class="flash-messages">
+					<?= $this->Flash->render() ?>
+				</div>
+			</main>
 
-		<!-- Main footer -->
-		<?= $this->element('../layout/partials/footer') ?>
+			<!-- Main footer -->
+			<?= $this->element('../layout/partials/footer') ?>
+		</div>
 	</div>
 
 </body>

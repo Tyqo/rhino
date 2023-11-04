@@ -147,19 +147,21 @@ class FieldsTable extends Table {
 		return false;
 	}
 
-	public function getByName($fieldName, $tableName, $column = null) {
+	public function getByName(string $fieldName, string $tableName) {
 		$entry = $this->checkForEntry($fieldName, $tableName);
 
 		if (empty($entry)) {
 			$entry = $this->newEmptyEntity();
 			$entry->name = $fieldName;
 			$entry->tableName = $tableName;
-			
-			if (isset($column)) {
-				$entry->alias = $column['Field'];
-				$entry->type = $this->getHumanType($column['Type']);
-				$entry->standart = $column['Default'];
-			}
+
+		}
+		
+		$column = $this->getColumn($tableName, $fieldName);
+		if (isset($column)) {
+			$entry->alias = $entry->alias ?? $column['Field'];
+			$entry->type = $this->getHumanType($column['Type']);
+			$entry->standard = $column['Default'];
 		}
 
 		return $entry;

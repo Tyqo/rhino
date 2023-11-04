@@ -4,7 +4,7 @@
  * @var iterable<\Cake\Datasource\EntityInterface> $widgets
  */
 ?>
-<div class="widgets index content">
+<section class="widgets index content">
     <?= $this->Html->link(__('New Widget'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Widgets') ?></h3>
     <div class="table-responsive">
@@ -41,4 +41,4 @@
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
-</div>
+</section>

@@ -31,7 +31,7 @@ if (isset($readonly) && $readonly) {
 			<?= $this->Form->button(__('Save Entry'), ['name' => 'save', 'type' => 'button']); ?>
 			<?= $this->Form->button(__('Save & Exit')); ?>
 		<?php endif ?>
-		<?= $this->Html->link("Exit", ["action" => "index", $tableName], ["class" => "button"]) ?>
+		<?= $this->Html->link("Exit", ["action" => "index", $currentTable], ["class" => "button"]) ?>
 	</div>
 
 	<?= $this->Form->end(); ?>

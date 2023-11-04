@@ -6,7 +6,7 @@
 			<thead>
 				<tr>
 					<th colspan="2">Table</th>
-					<th class="actions" align="right">Actions</th>
+					<th data-cell="Actions" align="right">Actions</th>
 				</tr>
 			</thead>
 
@@ -22,18 +22,24 @@
 				<?php foreach ($groups as $group) : ?>
 					<tr>
 						<td colspan="2"><b><?= $group['name'] ?></b></td>
-						<td>
+						<td data-cell="Actions">
 							<?php if (isset($group['id'])) : ?>
-								<?= $this->Html->link(
-									"edit",
-									["action" => 'renameGroup', $group['id']],
-									['class' => 'button']
-								) ?>
-								<?= $this->Html->link(
-									"delete",
-									["action" => 'deleteGroup', $group['id']],
-									['class' => 'button']
-								) ?>
+								<?php
+								$this->start('actions');
+								echo $this->element("layout-elements/actions", [
+									"edit" => [
+										"link" => ['action' => 'renameGroup', $group['id']],
+										"valid" => in_array('edit', $rights)
+									],
+									"delete" => [
+										"link" => ['action' => 'deleteGroup', $group['id']],
+										"valid" => in_array('edit', $rights),
+										"confirm" => __('Are you sure you want to delete the group: {0}?', $group['name']),
+									],
+								]);
+								$this->end();
+								?>
+								<?= $this->fetch('actions'); ?>
 							<?php endif ?>
 						</td>
 					</tr>
@@ -46,7 +52,7 @@
 									// ['class' => 'button']
 								) ?>
 							</td>
-							<td colspan="2">
+							<td data-cell="Actions" colspan="2">
 								<?php
 								$this->start('actions');
 								echo $this->element("layout-elements/actions", [

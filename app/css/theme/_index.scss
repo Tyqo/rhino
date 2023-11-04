@@ -59,6 +59,10 @@ body:not(.page-has-loaded) {
 	background-color: #ddd;
 }
 
+* {
+	scroll-margin: var(--spacing-700);
+}
+
 body {
 	transition: background-color 500ms;
 	display: flex;
@@ -204,6 +208,6 @@ dialog {
 	@include list-style-none;
 }
 
-.stack--clean>* {
+.stack--clean * {
 	margin-bottom: 0 !important;
 }

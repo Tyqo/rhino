@@ -14,6 +14,7 @@
 import ThemeSwitcher from "/rhino/js/modules/theme-switcher.js";
 import Modal from "/rhino/js/modules/modal.js";
 import Menu from "/rhino/js/modules/menu.js";
+import Tabs from "/rhino/js/modules/tabs.js";
 
 /**
  * Application main class
@@ -41,6 +42,7 @@ class MAIN {
 		
 		// Init Moduls that need to start before the page is visible here:
 		this.ThemeSwitcher = new ThemeSwitcher(this);
+		this.Tabs = new Tabs(this);
 		
 		document.body.classList.add("page-has-loaded");
 		window.addEventListener("resize", () => this.throttle(this.resizeHandler), { passive: true });
@@ -61,8 +63,10 @@ class MAIN {
 
 		// Init Moduls here:
 		this.ThemeSwitcher.init();
+		this.Tabs.init();
 		this.Modal = new Modal(this);
 		this.Menu = new Menu(this);
+		
 
 		document.body.classList.add("page-has-rendered");
 	}

@@ -4,7 +4,8 @@
 	--backdrop-color: #{color("neutral", 50)};
 
 	// Texts colors
-	--color: #{$black};
+	--text-color: #{$black};
+	--color: var(--text-color);
 	--h1-color: #{color("neutral", 900)};
 	--h2-color: #{color("neutral", 900)};
 	--h3-color: #{color("neutral", 900)};

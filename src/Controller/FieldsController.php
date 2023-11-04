@@ -33,6 +33,9 @@ class FieldsController extends AppController
 	
 	public function edit(string $tableName, string $field) {
 		$entry = $this->Fields->getByName($field, $tableName);
+		// echo '<pre>';
+		// var_dump($entry);
+		// die;
 		$this->set(['title' => 'Edit']);
 		$this->compose($entry, ["redirect" => ['action' => 'index', $tableName]]);
 	}
@@ -134,11 +137,11 @@ class FieldsController extends AppController
 
 			if (isset($field['settings'])) {
 				$values = json_decode($field['settings'], true);
-				foreach ($settings as $key => $setting) {
-					if (isset($values[$key])) {
-						$settings[$key]['value'] = $values[$key];
-					}
-				}
+				// foreach ($settings as $key => $setting) {
+				// 	if (isset($values[$key])) {
+				// 		$settings[$key]['value'] = $values[$key];
+				// 	}
+				// }
 			}
 		}
 

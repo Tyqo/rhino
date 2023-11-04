@@ -35,9 +35,26 @@ table {
 	}
 
 	[data-cell="Actions"] {
+		// display: flex;
+		// // justify-content: flex-end;
+		// // align-items: center;
+
+		// float: right;
+		// width: 100%;
+		// align: right;
+		// height: 100%;
+
+		& > * {
+			float: right;
+		}
+
 		.cluster {
 			flex-wrap: nowrap;
 			justify-content: right;
+		}
+
+		.button {
+			margin-bottom: 0;
 		}
 	}
 

@@ -179,7 +179,7 @@ class AppController extends BaseController
 			// if (!$this->get('tableName')) {
 				$tableName = $this->Table->getTable();
 				$this->set([
-					'table' => $tableName
+					'currentTable' => $tableName
 				]);
 			// }
 			

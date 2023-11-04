@@ -22,7 +22,7 @@
 		<?= $this->Form->input("query", ['value' => $query]) ?>
 	</div>
 
-	<div class="cluster">
+	<div class="cluster pill">
 		<?= $this->Form->button("Filter") ?>
 		<?= $this->Html->Link(
 			'clear Filter',
