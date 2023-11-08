@@ -97,23 +97,33 @@ class PagesTable extends Table {
 		return $query->first();
 	}
 
-	public function getMenu(?int $root = null) {
+	public function getMenu(?int $root = null, ?int $limit = null) {
 		$_menu = $this->find('threaded')->orderBy(["lft" => 'ASC']);
 		if (!empty($root)) {
 			$_menu->find('children', for: $root);
 		}
 
+		$menu = $_menu->toArray();
+
+		if (isset($limit)) {
+			$limit = $menu[0]->level + $limit;
+		}
+
 		// Todo: do this in Query
-		$menu = $this->filterInactive($_menu->toArray());
+		$menu = $this->filterInactive($menu, $limit ?? null);
 
 		return $menu;
 	}
 
-	private function filterInactive($input) {
+	private function filterInactive($input, $limit = null) {
 		$output = [];
 		foreach ($input as $page) {
+			if (isset($limit) && $page->level > $limit) {
+				continue;
+			}
+
 			if ($page->active) {
-				$page->children = $this->filterInactive($page->children);
+				$page->children = $this->filterInactive($page->children, $limit);
 				$output[] = $page;
 			}
 		}

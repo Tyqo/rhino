@@ -46,11 +46,12 @@ class MenuHelper extends Helper {
 	}
 
 	public function get(?int $root = null, ?array $options = null) {
-		$menu = $this->Pages->getMenu($root);
-	
-		if (isset($options['limit'])) {
-			$this->maxLevel = $menu[0]->level + $options['limit'];
-		}
+		$menu = $this->Pages->getMenu($root, $options['limit'] ?? null);
+		unset($options['limit']);
+
+		// if (isset($options['limit'])) {
+		// 	$this->maxLevel = $menu[0]->level + $options['limit'];
+		// }
 
 		$out = $this->nestedList($menu, $options);
 		return $out;
@@ -73,7 +74,7 @@ class MenuHelper extends Helper {
 		$itemOut = '';
 		$children = '';
 
-		if ($this->hasChildren($item)) {
+		if (!empty($item->children)) {
 			$children .= $this->nestedList($item->children, $options);
 		}
 
@@ -113,18 +114,5 @@ class MenuHelper extends Helper {
 			'attrs' => $this->templater()->formatAttributes($options['li'] ?? []),
 			'content' => $itemOut,
 		]);
-	}
-
-	private function hasChildren($item) {
-		
-		if (!isset($item->children)) {
-			return false;
-		}
-		
-		if (isset($this->maxLevel)) {
-			return $item->level < $this->maxLevel;
-		}
-
-		return true;
 	}
 }
