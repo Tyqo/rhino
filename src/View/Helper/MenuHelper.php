@@ -46,7 +46,7 @@ class MenuHelper extends Helper {
 	}
 
 	public function get(?int $root = null, ?array $options = null) {
-		$menu = $this->Pages->getMenu($root)->toArray();
+		$menu = $this->Pages->getMenu($root);
 	
 		if (isset($options['limit'])) {
 			$this->maxLevel = $menu[0]->level + $options['limit'];
