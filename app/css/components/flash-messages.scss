@@ -1,26 +1,33 @@
 .flash-messages {
-	top: 0;
+	top: var(--spacing-300);
 	position: absolute;
 	width: 100%;
-
-	.message > * {
-		@include bound(var(--outer-bound-width), var(--outer-bound));
-		padding-top: $spacing* 0.5;
-		padding-bottom: $spacing * 0.5;
+	@include bound(var(--outer-bound-width), var(--outer-bound));
+	right: 0;
+	left: 0;
+	
+	.message {
+		padding: $spacing* 0.5 $spacing;
+		border-width: var(--border-width);
+		border-style: solid;
+		border-color: transparent;
+		border-radius: var(--border-radius);
 	}
 
 	p {
+		padding: 0;
 		margin-bottom: 0;
 		font-weight: 600;
 	}
 
 	.error {
 		background-color: color("error", 400);
-			--color: white;
+		--color: white;
 	}
-
+	
 	.success {
 		background-color: color("success", 400);
+		// border-color: color("success", 100);
 		--color: white;
 	}
 }

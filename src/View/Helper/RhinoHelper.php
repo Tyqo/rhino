@@ -4,15 +4,8 @@
 namespace Rhino\View\Helper;
 
 use Cake\View\Helper;
-use Rhino\Model\Table\PagesTable;
 use Cake\View\StringTemplateTrait;
 use Rhino\Handlers\FieldHandler;
-use Generator;
-use Cake\Core\App;
-use Cake\View\Exception\MissingElementException;
-use LogicException;
-use Throwable;
-use Cake\Core\Plugin;
 
 class RhinoHelper extends Helper {
 	use StringTemplateTrait;
@@ -86,24 +79,25 @@ class RhinoHelper extends Helper {
 		]);
 	}
 
-	public function render($fields, $values, $options = []) {
+	public function render($fields, $options) {
 		$content = '';
 
 		foreach ($fields as $field) {
-			$content .= $this->editField($field);
+			$content .= $this->editField($field, $options);
 		}
 
 		return $content;
 	}
 
-	public function editField($field) {
+	public function editField($field, $options = []) {
 		$name = $field['name'];
-		$options = $field->displayOptions;
-		$options['type'] = $field['type'];
+		$field = $this->FieldHandler->prepareField($field);
+		$options = array_merge($field->displayOptions ?? [], $options);
+
 		return $this->Form->control($name, $options);
 	}
 
 	public function displayField($value, $field) {
-		return $this->FieldHandler->display($field, $value);
+		return $this->FieldHandler->display($value, $field);
 	}
 }

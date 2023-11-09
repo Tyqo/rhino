@@ -39,14 +39,15 @@ class FieldsController extends AppController
 	}
 
 	public function preCompose($entry, $tableName, $field = null) {
-		// $settings = $this->getOptions($tableName, $entry['type'], $entry['name']);
-		$types = $this->FieldHandler->getTypes();
+		$types = $this->FieldHandler->customTypes;
+		$typeOptions = $this->FieldHandler->getTypes();
 		
 		$apps = ['test', 'alt'];
 		
 		
 		$this->set([
 			"tableName" => $tableName,
+			"typeOptions" => $typeOptions,
 			"types" => $types,
 			'settings' => $entry->settings,
 			'applications' => $apps

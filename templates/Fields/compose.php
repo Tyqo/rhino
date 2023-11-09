@@ -14,14 +14,14 @@
 		</div>
 
 		<div class="stack--200">
-			<?= $this->Form->control('type', ["type" => "select", "options" => $types, "required", 'value' => $entry->Type]); ?>
+			<?= $this->Form->control('type', ["type" => "select", "options" => $typeOptions, "required", 'value' => $entry->Type]); ?>
 		</div>
 	</div>
 
 	<fieldset id="field-options">
 		<?php foreach ($types as $type) : ?>
-			<div id="<?= $type ?>-options">
-				<?= $this->element("FieldOptions/" . $type) ?>
+			<div id="<?= $type['name'] ?>-options">
+				<?= $this->element("FieldOptions/" . $type['name']) ?>
 			</div>
 		<?php endforeach ?>
 	</fieldset>

@@ -49,7 +49,7 @@
 								<?= $this->Html->link(
 									isset($table['alias']) ? $table['alias'] : $table['name'],
 									["controller" => "Tables", "action" => 'index', $table['name']],
-									// ['class' => 'button']
+									['class' => 'button outline']
 								) ?>
 							</td>
 							<td data-cell="Actions" colspan="2">

@@ -184,7 +184,6 @@ class AppController extends BaseController
 			// }
 			
 			$fields = $this->FieldHandler->getFields($tableName);
-			$fields = $this->FieldHandler->prepareFields($fields);
 			$app = $this->Apps->getByName($tableName);
 			
 			if (empty($app)) {

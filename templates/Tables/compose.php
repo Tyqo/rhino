@@ -2,7 +2,7 @@
 $options = [];
 
 if (isset($readonly) && $readonly) {
-	$options['readonly'] = true;
+	$options['disabled'] = true;
 }
 
 ?>
@@ -19,7 +19,7 @@ if (isset($readonly) && $readonly) {
 		</div>
 	<?php endif ?>
 
-	<?= $this->Rhino->render($fields, $entry, $options) ?>
+	<?= $this->Rhino->render($fields, $options) ?>
 
 	<?php if ($entry->getVirtual() > 0) {
 		foreach ($entry->getVirtual() as $virtual) {

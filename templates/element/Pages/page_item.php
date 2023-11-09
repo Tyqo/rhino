@@ -1,9 +1,16 @@
 <?php foreach ($pages as $page) : ?>
 	<li class="page-item">
 		<div class="page-item__body">
-			<?= $this->Html->link($page['name'], ['action' => 'layout', $page['id']]) ?>
+			<?= $this->Html->link($page['name'], ['action' => 'layout', $page['id']], ['class' => 'button outline']) ?>
 
-			<div class="cluster">
+			<div class="page-item__actions">
+
+				<div class="cluster pill">
+					<?php
+					echo $this->Html->Link($this->Icon->svg('arrow-up'), ['action' => 'moveUp', $page->id], ['escape' => false, 'class' => 'button']);
+					echo $this->Html->Link($this->Icon->svg('arrow-down'), ['action' => 'moveDown', $page->id], ['escape' => false, 'class' => 'button']);
+					?>
+				</div>
 
 				<?php
 				$this->start('actions');
@@ -28,13 +35,6 @@
 				<?= $this->fetch('actions'); ?>
 			</div>
 
-
-			<div class="cluster">
-				<?php
-				echo $this->Html->Link($this->Icon->svg('arrow-up'), ['action' => 'moveUp', $page->id], ['escape' => false, 'class' => 'button']);
-				echo $this->Html->Link($this->Icon->svg('arrow-down'), ['action' => 'moveDown', $page->id], ['escape' => false, 'class' => 'button']);
-				?>
-			</div>
 		</div>
 
 		<?php if (!empty($page['children'])) : ?>

@@ -30,6 +30,10 @@
 [data-theme="light"],
 :root:not([data-theme="dark"]) {
 	@include light;
+	
+	input[type=checkbox][disabled] {
+		background-color: var(--form-element-disabled-border-color);
+	}
 }
 
 // Dark theme (Auto)

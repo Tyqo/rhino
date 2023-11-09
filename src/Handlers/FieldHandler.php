@@ -7,72 +7,54 @@ use Rhino\Model\Table\FieldsTable;
 
 class FieldHandler {
 	public $customTypes = [
-		"string" => [
+		[
+			"name" => "string",
 			"alias" => "String",
-			"type" => "string",
 		],
-		"text" => [
+		[
+			'name' => 'text',
 			"alias" => "Text",
-			"type" => "text",
 		],
-		"float" => [
+		[
+			'name' => 'float',
 			"alias" => "Number (float)",
-			"type" => "float",
 		],
-		"integer" => [
+		[
+			'name' => 'integer',
 			"alias" => "Number (integer)",
-			"type" => "integer",
 		],
-		"checkbox" => [
+		[
+			'name' => 'checkbox',
 			"alias" => "Checkbox",
 			"type" => "boolean",
 		],
-		"select" => [
+		[
+			'name' => 'select',
 			"alias" => "Select",
 			"type" => "string",
 		],
-		"upload" => [
+		[
+			'name' => 'dateTime',
+			"alias" => "Date & Time",
+			"type" => "datetime",
+		],
+		[
+			"name" => "upload",
 			"alias" => "Upload",
 			"type" => "string",
-		],
-		
-		// "select" => [
-		// 	"alias" => "Select",
-		// 	"type" => "string",
-		// 	"settings" => [
-		// 		'options' => [
-		// 			'type' => 'text',
-		// 			'description' => 'Komma separated List',
-		// 			'default' => ''
-		// 		],
-		// 		'applications' => [
-		// 			'type' => 'select',
-		// 			'description' => 'Applications',
-		// 			'default' => '',
-		// 			'settings' => ['options' => '', 'multiSelect' => false, 'allowEmpty' => false]
-		// 		],
-		// 		'defaults' => [
-		// 			'type' => 'text',
-		// 			'description' => 'Default options',
-		// 			'default' => ''
-		// 		],
-		// 		'multiSelect' => [
-		// 			'type' => 'checkbox',
-		// 			'description' => 'Allows multiple Options',
-		// 			'default' => 'checked'
-		// 		],
-		// 		'allowEmpty' => [
-		// 			'type' => 'checkbox',
-		// 			'description' => 'Allows an Empty Option',
-		// 			'default' => 'checked'
-		// 		]
-		// 	]
-		// ],
+		]
 	];
 
 	public function __construct() {
 		$this->Fields = new FieldsTable();
-		$this->types = $this->Fields->types;
+	}
+
+	private function executeFieldClass($field, $function, &$params = null) {
+		$className = sprintf('\Rhino\Fields\%s', ucfirst($field['name']));
+		if (class_exists($className)) {
+			return $className::$function($params);
+		}
+		return;
 	}
 
 	public function listColumns(string $tableName): array {
@@ -102,29 +84,32 @@ class FieldHandler {
 
 	public function getTypes() {
 		return $this->prepareForSelect($this->customTypes);
-		// return [
-		// 	"Custom Types" => $this->prepareForSelect($this->customTypes),
-		// 	"All Types" => $this->prepareForSelect($this->types)
-		// ];
 	}
 
 	private function prepareForSelect($values) {
+		// echo '<pre>';
+		// var_dump($values);
+		// die;
 		$selectOptions = [];
 
 		foreach ($values as $key => $value) {
-			if (is_string($key)) {
-				$value =  $key;
+			$type = $value['name'];
+
+			if (isset($value['type'])) {
+				$type = $value['type'];
 			}
 
-			$selectOptions[$value] = $value;
+			$selectOptions[$value['name']] = $value['alias'];
 		}
 
 		return $selectOptions;
 	}
 
 	public function getDatabaseType($type) {
-		if (isset($this->customTypes[$type])) {
-			return $this->customTypes[$type]["type"];
+		$types = array_column($this->customTypes, "type", "name");
+		
+		if (isset($types[$type])) {
+			return $types[$type];
 		}
 		return $type;
 	}
@@ -153,22 +138,22 @@ class FieldHandler {
 	public function loadFiledOptions() {
 		$return = [];
 		foreach ($this->customTypes as $key => $type) {
-			$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($key));
-			if (class_exists($fieldClass)) {
-				$return += $fieldClass::loadOption();
+			$loadOptions = $this->executeFieldClass($type, 'loadOption');
+			if (empty($loadOptions)) {
+				continue;
 			}
+
+			$return += $loadOptions;
 		}
 		return $return;
 	}
 
-	public function prepareFields($fields) {
-		foreach ($fields as $key => $field) {
-			$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
-			if (class_exists($fieldClass)) {
-				$fields[$key] = $fieldClass::prepareField($field);
-			}
+	public function prepareField($field) {
+		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
+		if (class_exists($fieldClass)) {
+			$field = $fieldClass::prepareField($field);
 		}
-		return $fields;
+		return $field;
 	}
 
 	public function setFields(string $tableName, $entity) {
@@ -188,10 +173,10 @@ class FieldHandler {
 		return $value;
 	}
 
-	public function display($field, $value) {
+	public function display($value, $field) {
 		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
 		if (class_exists($fieldClass)) {
-			return $fieldClass::displayField($field, $value);
+			return $fieldClass::displayField($value, $field);
 		}
 
 		return $value;

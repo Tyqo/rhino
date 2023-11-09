@@ -4,12 +4,10 @@ declare(strict_types=1);
 namespace Rhino\Fields;
 
 use Rhino\Model\Table\ApplicationsTable;
-use Rhino\Model\ApplicationTrait;
+use Rhino\Fields\Field;
 use Cake\ORM\TableRegistry;
 
-class Select {
-	use ApplicationTrait;
-
+class Select extends Field {
 	static public function loadOption() {
 		$Apps = new ApplicationsTable();
 		$tables = self::prepareSelect($Apps->getList());
@@ -26,7 +24,7 @@ class Select {
 		return $field;
 	}
 
-	static public function displayField($field, $value) {
+	static public function displayField($value, $field) {
 		$options = self::getOptions($field->options);
 		return $options[$value];
 	}

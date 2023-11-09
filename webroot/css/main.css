@@ -3137,6 +3137,10 @@ sup {
   --icon-valid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(67, 160, 71)' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
   color-scheme: light;
 }
+[data-theme=light] input[type=checkbox][disabled],
+:root:not([data-theme=dark]) input[type=checkbox][disabled] {
+  background-color: var(--form-element-disabled-border-color);
+}
 
 @media only screen and (prefers-color-scheme: dark) {
   :root:not([data-theme=light]) {
@@ -3617,6 +3621,10 @@ dialog > article > footer {
   border-bottom: var(--color) var(--outline-width) solid;
 }
 
+table .button {
+  margin-bottom: 0;
+}
+
 .tab-group {
   margin-bottom: var(--spacing-500);
 }
@@ -3841,6 +3849,11 @@ dialog > article > footer {
   color: var(--primary);
   border-color: var(--primary);
 }
+.nav-block__item a:focus[aria-current], .nav-block__item a:hover[aria-current],
+.nav-block__item summary:focus[aria-current],
+.nav-block__item summary:hover[aria-current] {
+  color: var(--text-color);
+}
 .nav-block__item summary[aria-current], .nav-block__item a[aria-current] {
   background-color: var(--primary);
 }
@@ -3856,25 +3869,31 @@ dialog > article > footer {
 }
 
 .flash-messages {
-  top: 0;
+  top: var(--spacing-300);
   position: absolute;
   width: 100%;
-}
-.flash-messages .message > * {
   max-width: var(--outer-bound-width);
   margin-left: auto;
   margin-right: auto;
   padding-left: var(--outer-bound);
   padding-right: var(--outer-bound);
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  right: 0;
+  left: 0;
 }
 @media screen and (min-width: var(--outer-bound-width)) {
-  .flash-messages .message > * {
+  .flash-messages {
     box-sizing: content-box;
   }
 }
+.flash-messages .message {
+  padding: 0.5rem 1rem;
+  border-width: var(--border-width);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: var(--border-radius);
+}
 .flash-messages p {
+  padding: 0;
   margin-bottom: 0;
   font-weight: 600;
 }
@@ -4013,6 +4032,7 @@ table [data-cell=Actions] .button {
   background-color: var(--backdrop-color);
 }
 .pages .page-item__body a {
+  font-weight: 800;
   margin-bottom: 0;
 }
 .pages .page-item__body::before {
@@ -4024,5 +4044,9 @@ table [data-cell=Actions] .button {
   position: absolute;
   top: 50%;
   left: calc(var(--spacing) * -1);
+}
+.pages .page-item__actions {
+  display: flex;
+  gap: var(--spacing-400);
 }
 /*# sourceMappingURL=main.css.map */
