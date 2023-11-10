@@ -58,7 +58,9 @@ class FieldsController extends AppController
 	}
 
 	public function preSave($data, $params) {
-		$data['settings'] = json_encode($data['settings']);
+		if (isset($data['settings'])) {
+			$data['settings'] = json_encode($data['settings']);
+		}
 
 		$pass = $this->request->getParam('pass');
 		$tableName = $pass[0];

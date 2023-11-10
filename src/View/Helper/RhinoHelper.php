@@ -90,11 +90,11 @@ class RhinoHelper extends Helper {
 	}
 
 	public function editField($field, $options = []) {
-		$name = $field['name'];
+		$options['label'] = $field['alias'];
 		$field = $this->FieldHandler->prepareField($field);
-		$options = array_merge($field->displayOptions ?? [], $options);
 
-		return $this->Form->control($name, $options);
+		$options = array_merge($field->displayOptions ?? [], $options);
+		return $this->Form->control($field['name'], $options);
 	}
 
 	public function displayField($value, $field) {

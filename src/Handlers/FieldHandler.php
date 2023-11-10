@@ -16,8 +16,9 @@ class FieldHandler {
 			"alias" => "Text",
 		],
 		[
-			'name' => 'float',
-			"alias" => "Number (float)",
+			'name' => 'decimal',
+			"alias" => "Decimal (float)",
+			"type" => 'float'
 		],
 		[
 			'name' => 'integer',
@@ -37,6 +38,24 @@ class FieldHandler {
 			'name' => 'dateTime',
 			"alias" => "Date & Time",
 			"type" => "datetime",
+		],
+		[
+			'name' => 'date',
+			"alias" => "Date",
+		],
+		[
+			'name' => 'time',
+			"alias" => "Time",
+		],
+		[
+			'name' => 'color',
+			"alias" => "Color",
+			"type" => "string",
+		],
+		[
+			'name' => 'position',
+			"alias" => "Position",
+			"type" => "int",
 		],
 		[
 			"name" => "upload",
@@ -138,7 +157,7 @@ class FieldHandler {
 	public function loadFiledOptions() {
 		$return = [];
 		foreach ($this->customTypes as $key => $type) {
-			$loadOptions = $this->executeFieldClass($type, 'loadOption');
+			$loadOptions = $this->executeFieldClass($type, 'loadOptions');
 			if (empty($loadOptions)) {
 				continue;
 			}
@@ -151,25 +170,36 @@ class FieldHandler {
 	public function prepareField($field) {
 		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
 		if (class_exists($fieldClass)) {
-			$field = $fieldClass::prepareField($field);
+			$field = $fieldClass::loadField($field);
 		}
 		return $field;
 	}
 
 	public function setFields(string $tableName, $entity) {
 		$fields = $this->getFields($tableName);
-
+		
 		foreach ($fields as $field) {
 			$key = $field['name'];
-			$value = isset($entity[$key]) ? $entity[$key] : Null;
-			$value = $this->setField($field, $value);
+			$value = $entity[$key] ?? Null;
+			$value = $this->setField($value, $field);
+			if ($value === null) {
+				unset($entity[$key]);
+				continue;
+			}
 			$entity[$key] =	$value;
 		}
+
+		// dd($entity);
 
 		return $entity;
 	}
 
-	private function setField($field, $value) {
+	private function setField($value, $field) {
+		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
+		if (class_exists($fieldClass)) {
+			return $fieldClass::saveField($value, $field);
+		}
+
 		return $value;
 	}
 

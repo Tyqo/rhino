@@ -46,7 +46,8 @@ class FieldsTable extends Table {
 		"Field",
 		"Type",
 		"Null",
-		"Default"
+		"Default",
+		"Extra"
 	];
 
 	private $fieldValues = [
@@ -94,6 +95,7 @@ class FieldsTable extends Table {
 	public function update($tableName, $fieldName, $data) {
 		$type = $data["type"];
 		$table = $this->abstract->table($tableName);
+
 		$table->changeColumn($fieldName, $type, $this->prepareFieldOptions($data));
 		$table->update();
 	}
@@ -162,6 +164,7 @@ class FieldsTable extends Table {
 			$entry->alias = $entry->alias ?? $column['Field'];
 			$entry->type = $this->getHumanType($column['Type']);
 			$entry->standard = $column['Default'];
+			$entry->extra = $column['Extra'];
 		}
 
 		return $entry;
@@ -194,22 +197,31 @@ class FieldsTable extends Table {
 			}
 		}
 
-		if (isset($data['default']) && $data['default'] === 'false') {
-			$options['default'] = 0;
-		}
+		// if ($data['type'] == 'checkbox') {
+		// 	# code...
+		// 	if (isset($data['default']) && $data['default'] === 'false') {
+		// 		$options['default'] = 0;
+		// 	}
 
-		if (isset($data['default']) && $data['default'] === 'true') {
-			$options['default'] = 1;
-		}
+		// 	if (isset($data['default']) && $data['default'] === 'true') {
+		// 		$options['default'] = 1;
+		// 	}
+		// }
 
-		if (isset($data['current_time']) && $data["current_time"]) {
-			$options["default"] = "CURRENT_TIMESTAMP";
-		}
+		if (in_array($data['type'], ['datetime', 'date', 'time'])) {
+			// if ($options['default'] === '0') {
+			// 	$options['default'] = null;
+			// }
 
-		if (isset($data['update']) && $data["update"]) {
-			$options["update"] = "CURRENT_TIMESTAMP";
+			if (isset($data['current_time']) && $data["current_time"]) {
+				$options["default"] = "CURRENT_TIMESTAMP";
+			}
+			
+			if (isset($data['update_time']) && $data["update_time"]) {
+				$options["update"] = "CURRENT_TIMESTAMP";
+			}
 		}
-
+			
 		return $options;
 	}
 }

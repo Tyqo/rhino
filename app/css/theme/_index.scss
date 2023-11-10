@@ -31,7 +31,7 @@
 :root:not([data-theme="dark"]) {
 	@include light;
 	
-	input[type=checkbox][disabled] {
+	input[type=checkbox][disabled]:not([role]) {
 		background-color: var(--form-element-disabled-border-color);
 	}
 }

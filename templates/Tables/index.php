@@ -41,11 +41,11 @@
 			<caption class="caption"><?= __(!empty($app['alias']) ? $app['alias'] : $app['name']) ?></caption>
 			<thead>
 				<tr>
-					<?php foreach ($columns as $column) : ?>
-						<?php if (!empty($app->overviewData) && !in_array($column, $app->overviewData)) {
+					<?php foreach ($fields as $column) : ?>
+						<?php if (!empty($app->overviewData) && !in_array($column['name'], $app->overviewData)) {
 							continue;
 						} ?>
-						<th scope="col" data-cell="<?= h(ucfirst($column)) ?>"><?= $this->Paginator->sort($column) ?></th>
+						<th scope="col" data-cell="<?= h(ucfirst($column['name'])) ?>"><?= $this->Paginator->sort($column['name'], $column['alias']) ?></th>
 					<?php endforeach ?>
 
 					<th align="right" data-cell="Actions"><?= __('Actions') ?></th>
