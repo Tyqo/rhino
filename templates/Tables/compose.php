@@ -18,8 +18,8 @@ if (isset($readonly) && $readonly) {
 			<?= $this->Html->link("next", ["controller" => "tables", "action" => $action, $currentTable, $nextId], ["class" => "button", "disabled" => empty($nextId)]) ?>
 		</div>
 	<?php endif ?>
-
-	<?= $this->Rhino->render($fields, $options) ?>
+	
+	<?= $this->Rhino->render($fields, $entry, $options) ?>
 
 	<?php if ($entry->getVirtual() > 0) {
 		foreach ($entry->getVirtual() as $virtual) {

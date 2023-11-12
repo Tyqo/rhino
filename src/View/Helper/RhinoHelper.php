@@ -19,10 +19,11 @@ class RhinoHelper extends Helper {
 		'templates' => [
 			'tag' => '<{{tag}}{{attrs}}>{{content}}</{{tag}}>',
 			'sectionHeader' => '<div class="section-header"><h3{{attrs}}>{{content}}</h3></div>',
-			'control' => '<div>{{content}}<p>{{description}}</p></div>',
+			'control' => '<div>{{content}}{{description}}</div>',
 			'tabButton' => '<li><button role="radio" name="{{tabGroup}}" class="tab-button" data-target="{{tab}}">{{content}}</button></li>',
 			'tabGroup' => '<div id="{{tabGroup}}" class="tab-group"><ul class="tab-group__header">{{tabButtons}}</ul><div class="tab-group__body">{{content}}</div></div>',
 			'tab' => '<div id="{{tab}}" class="tab">{{content}}</div>',
+			'details' => '<details{{attrs}}><summary>{{summary}}</summary>{{content}}</details>',
 		]
 	];
 
@@ -47,11 +48,27 @@ class RhinoHelper extends Helper {
 	}
 
 	public function control(string $name, ?array $options = []) {
-		$content = $this->Form->control($name, $options);
+		if (isset($options['description'])) {
+			$description = $this->formatTemplate('tag', [
+				'content' => $options['description'],
+				'tag' => 'p',
+			]);
 
+			unset($options['description']);
+		}
+
+		// if ($name == 'category_id') {
+		// 	dd($options);
+		// }
+
+		if (isset($options['multiple']) && $options['multiple']) {
+			$content = $this->multiSelect($name, $options);
+		} else {
+			$content = $this->Form->control($name, $options);
+		}
 		return $this->formatTemplate('control', [
 			'content' => $content,
-			'description' => $options['description'] ?? '',
+			'description' => $description ?? '',
 		]);
 	}
 
@@ -79,25 +96,67 @@ class RhinoHelper extends Helper {
 		]);
 	}
 
-	public function render($fields, $options) {
+	public function render($fields, $entity, $options) {
 		$content = '';
 
 		foreach ($fields as $field) {
-			$content .= $this->editField($field, $options);
+			$content .= $this->editField($field, $entity[$field->name], $options);
 		}
 
 		return $content;
 	}
 
-	public function editField($field, $options = []) {
+	public function editField($field, $value, $options = []) {
 		$options['label'] = $field['alias'];
-		$field = $this->FieldHandler->prepareField($field);
+		$field = $this->FieldHandler->loadField($field, $value);
 
-		$options = array_merge($field->displayOptions ?? [], $options);
-		return $this->Form->control($field['name'], $options);
+		$options = array_merge($field['displayOptions'] ?? [], $options);
+		return $this->control($field['name'], $options);
 	}
 
 	public function displayField($value, $field) {
 		return $this->FieldHandler->display($value, $field);
+	}
+
+	private function multiSelect(string $fieldName, array $options = []): string {
+		$content = '';
+		$selectOptions = $options['options'];
+		$options['type'] = 'checkbox';
+		$templater = $this->templater();
+		$values = $options['value'] ?? [];
+
+		$empty = $this->Form->hidden($fieldName, ['value' => '']);
+
+		foreach ($selectOptions as $key => $value) {
+			if (empty($key) && $key != 0) {
+				continue;
+			}
+
+			$id = $key;
+			$checkboxOptions = [
+				'name' => $fieldName . '[]',
+				'value' => $key,
+				'checked' => in_array($key, $values),
+				'id' => $id,
+				'hiddenField' => false
+			];
+
+			$checkbox = $this->Form->checkbox($id, $checkboxOptions);
+			$content .= $this->Form->label($id, $checkbox . $value, [
+				'escape' => false
+			]);
+		}
+
+		$legend = $templater->format('tag', [
+			'content' => $options['label'],
+			'tag' => 'legend',
+		]);
+
+		$list = $templater->format('tag', [
+			'content' => $legend . $empty . $content,
+			'tag' => 'fieldset',
+		]);
+
+		return $list;
 	}
 }

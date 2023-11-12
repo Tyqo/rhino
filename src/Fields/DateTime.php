@@ -14,7 +14,7 @@ class Datetime extends Field {
 		return null;
 	}
 
-	static public function loadField($field) {
+	static public function loadField($field, $value = null) {
 		$current = $field->standard == 'current_timestamp()';
 		$update = $field->extra == 'on update current_timestamp()';
 		if ($current || $update) {
@@ -32,7 +32,7 @@ class Datetime extends Field {
 		return $value;
 	}
 
-	static public function displayField($value, $field) {
+	static public function displayField($value, $field, $entry) {
 		if (empty($value)) {
 			return;
 		}

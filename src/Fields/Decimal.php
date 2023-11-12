@@ -14,7 +14,7 @@ class Decimal extends Field {
 		return null;
 	}
 
-	static public function loadField($field) {
+	static public function loadField($field, $value = null) {
 		return $field;
 	}
 
@@ -23,7 +23,7 @@ class Decimal extends Field {
 		return $value;
 	}
 
-	static public function displayField($value, $field) {
+	static public function displayField($value, $field, $entry) {
 		if (empty($value)) {
 			return 0;
 		}

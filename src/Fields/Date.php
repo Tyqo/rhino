@@ -13,7 +13,7 @@ class Date extends Field {
 		return null;
 	}
 
-	static public function loadField($field) {
+	static public function loadField($field, $value = null) {
 		return $field;
 	}
 
@@ -21,7 +21,7 @@ class Date extends Field {
 		return $value;
 	}
 
-	static public function displayField($value, $field) {
+	static public function displayField($value, $field, $entry) {
 		if (empty($value)) {
 			return;
 		}

@@ -55,7 +55,7 @@ class FieldHandler {
 		[
 			'name' => 'position',
 			"alias" => "Position",
-			"type" => "int",
+			"type" => "integer",
 		],
 		[
 			"name" => "upload",
@@ -167,10 +167,10 @@ class FieldHandler {
 		return $return;
 	}
 
-	public function prepareField($field) {
+	public function loadField($field, $value) {
 		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
 		if (class_exists($fieldClass)) {
-			$field = $fieldClass::loadField($field);
+			$field = $fieldClass::loadField($field, $value);
 		}
 		return $field;
 	}
@@ -203,10 +203,11 @@ class FieldHandler {
 		return $value;
 	}
 
-	public function display($value, $field) {
+	public function display($entry, $field) {
+		$value = $entry[$field->name] ?? null;
 		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
 		if (class_exists($fieldClass)) {
-			return $fieldClass::displayField($value, $field);
+			return $fieldClass::displayField($value, $field, $entry);
 		}
 
 		return $value;

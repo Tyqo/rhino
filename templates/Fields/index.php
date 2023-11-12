@@ -15,7 +15,9 @@
 						<?php foreach ($rows as $row) : ?>
 							<td><?= $column[$row] ?></td>
 						<?php endforeach ?>
+
 						<td data-cell="Actions">
+							<?php if ($column['Field'] != 'id') : ?>
 							<?php
 							$this->start('actions');
 							echo $this->element("layout-elements/actions", [
@@ -32,6 +34,7 @@
 							$this->end();
 							?>
 							<?= $this->fetch('actions'); ?>
+							<?php endif ?>
 						</td>
 					</tr>
 				<?php endforeach ?>

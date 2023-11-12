@@ -1,26 +1,53 @@
 <div>
 	<?= $this->Rhino->sectionHeader("Select Settings") ?>
 
-	<?php $this->start('settings'); ?>
 	<div>
 		<?= $this->Rhino->control("default", [
 			"value" => $entry->standard,
 			'description' => "Standard value to use in a new Entry."
 		]) ?>
 	</div>
-	<?php $this->end('settings'); ?>
+
+	<div>
+		<?= $this->Rhino->control("Allow Empty", [
+			"checked" => !empty($entry->options['selectEmpty']),
+			'name' => 'settings[selectEmpty]',
+			'type' => 'checkbox',
+			'description' => "Allow empty values."
+		]) ?>
+	</div>
+
+	<div>
+		<?= $this->Rhino->control("Multi Select", [
+			"checked" => !empty($entry->options['selectMultiple']),
+			'name' => 'settings[selectMultiple]',
+			'type' => 'checkbox',
+			'description' => "Allow multiple Options."
+		]) ?>
+	</div>
+
+	<div>
+		<?= $this->Rhino->control("Separator", [
+			"checked" => !empty($entry->options['selectSeparator']),
+			'name' => 'settings[selectSeparator]',
+			'value' => ',',
+			'maxlength' => 1,
+			'type' => 'text',
+			'description' => "Separator to use in Data, use ',' for SQL operations."
+		]) ?>
+	</div>
 
 	<?php $this->start('simpleSelect'); ?>
 	<div class="grid">
-		<?= $this->Rhino->control("keys", [
-			"value" => $entry->options['keys'] ?? '',
-			"name" => "settings[keys]",
+		<?= $this->Rhino->control("selectKeys", [
+			"value" => $entry->options['selectKeys'] ?? '',
+			"name" => "settings[selectKeys]",
 			"type" => "textarea",
 			'description' => "List of possible Autosuggestions."
 		]) ?>
-		<?= $this->Rhino->control("values", [
-			"value" => $entry->options['values'] ?? '',
-			"name" => "settings[values]",
+		<?= $this->Rhino->control("selectValues", [
+			"value" => $entry->options['selectValues'] ?? '',
+			"name" => "settings[selectValues]",
 			"type" => "textarea",
 			'description' => "List of possible Autosuggestions."
 		]) ?>
@@ -51,7 +78,6 @@
 	<?php $this->end('fromDataTable'); ?>
 
 	<?= $this->Rhino->getTab([
-		'Settings' => 'settings',
 		'Simple Select' => 'simpleSelect',
 		'Select from DataTable' => 'fromDataTable',
 	]); ?>

@@ -85,10 +85,12 @@ class FieldsTable extends Table {
 
 	public function create(string $tableName, array $data): void {
 		$table = $this->abstract->table($tableName);
+		
+		$name = $data['name'];
+		$type = $data['type'];
 
-		$data['type'] = $data['type'];
-
-		$table->addColumn($data['name'], $data['type'], $this->prepareFieldOptions($data));
+		$data = $this->prepareFieldOptions($data);
+		$table->addColumn($name, $type, $data);
 		$table->save();
 	}
 
@@ -96,7 +98,8 @@ class FieldsTable extends Table {
 		$type = $data["type"];
 		$table = $this->abstract->table($tableName);
 
-		$table->changeColumn($fieldName, $type, $this->prepareFieldOptions($data));
+		$data = $this->prepareFieldOptions($data);
+		$table->changeColumn($fieldName, $type, $data);
 		$table->update();
 	}
 
@@ -207,6 +210,10 @@ class FieldsTable extends Table {
 		// 		$options['default'] = 1;
 		// 	}
 		// }
+
+		if (isset($data['null'])) {
+			$options['null'] = (bool)$data['null'];
+		}
 
 		if (in_array($data['type'], ['datetime', 'date', 'time'])) {
 			// if ($options['default'] === '0') {

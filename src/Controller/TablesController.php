@@ -94,6 +94,30 @@ class TablesController extends AppController
 		return $data;
 	}
 
+	public function moveUp($tableName, $field, $id = null) {
+		// $this->request->allowMethod(['post', 'put']);
+		$this->setTable($tableName);
+		$entry = $this->Table->get($id);
+		if ($this->Table->moveUp($entry, $field)) {
+			$this->Flash->success('The category has been moved Up.');
+		} else {
+			$this->Flash->error('The category could not be moved up. Please, try again.');
+		}
+		return $this->redirect($this->referer(['action' => 'index', $tableName]));
+	}
+
+	public function moveDown($tableName, $field, $id = null) {
+		// $this->request->allowMethod(['post', 'put']);
+		$this->setTable($tableName);
+		$entry = $this->Table->get($id);
+		if ($this->Table->moveDown($entry, $field)) {
+			$this->Flash->success('The category has been moved down.');
+		} else {
+			$this->Flash->error('The category could not be moved down. Please, try again.');
+		}
+		return $this->redirect($this->referer(['action' =>'index', $tableName]));
+	}
+
 
 	/**
 	 * Delete method

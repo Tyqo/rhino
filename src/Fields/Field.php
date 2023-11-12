@@ -13,11 +13,11 @@ class Field {
 		return null;
 	}
 
-	static public function loadField($field) {
+	static public function loadField($field, $value = null) {
 		return $field;
 	}
 
-	static public function displayField($value, $field) {
+	static public function displayField($value, $field, $entry) {
 		return $value;
 	}
 
