@@ -2,7 +2,13 @@ import DragDrop from "./dragdrop.js";
 import Editor from "./editor.js";
 
 export default class LayoutElements {
-	constructor() {
+	constructor(main) {
+		this.main = main;
+
+		if (this.main.debug) {
+			console.debug("LayoutElements::const");
+		}
+
 		this.DragDrop = new DragDrop();
 		this.elements = document.querySelectorAll('.layout-element');
 		this.DragDrop.loadElements(this.elements, this.setPosition);
@@ -14,29 +20,55 @@ export default class LayoutElements {
 	}
 
 	initForm(event) {
-		this.modal = event.detail;
-		let form = this.modal.modalMain.querySelector('form');
-		let html = form.querySelector('[name=html]');
-
-		if (html) {
-			this.editor = new Editor('editor', html.value);
-		} else {
-			this.editor = null;
+		if (this.main.debug) {
+			console.debug("LayoutElements::initForm");
 		}
+		this.modal = event.detail;
+		this.modalForm = this.modal.modalMain.querySelector('form');
+		let switcher = document.getElementById('element-id');
+		this.container = document.getElementById('elements-container');
+		this.fetchElement(switcher.value);
+		
+		switcher.addEventListener('change', (event) => {
+			this.fetchElement(event.target.value);
+		})
 
-		form.addEventListener('submit', (event) => {
+		this.modalForm.addEventListener('submit', (event) => {
 			event.preventDefault();
+			let html = this.modalForm.querySelector('[name=html]');
 
-			if (this.editor) {
+			if (this.editor && html) {
 				this.editor.save().then((data) => {
 					html.value = JSON.stringify(data);
 					this.editor.destroy();
-					this.sendFrom(form);
+					this.sendFrom(this.modalForm);
 				});
 			} else {
-				this.sendFrom(form);
+				this.sendFrom(this.modalForm);
 			}
 		})
+	}
+
+	fetchElement(elementId) {
+		let url = this.container.dataset.request + '?';
+		url += new URLSearchParams({
+			layoutmode: true,
+			elementId: elementId
+		}).toString();
+		fetch(url)
+		.then(response => response.text())
+		.then((element) => {
+			console.log(element);
+			this.container.innerHTML = element;
+
+			let html = this.modalForm.querySelector('[name=html]');
+			if (html) {
+				this.editor = new Editor('editor', html.value);
+			} else {
+				this.editor = null;
+			}
+		})
+		.catch(err => console.log(err))
 	}
 
 	sendFrom(form) {
@@ -55,6 +87,10 @@ export default class LayoutElements {
 	}
 
 	onDispatch(event) {
+		if (this.main.debug) {
+			console.debug("LayoutElements::dispatch");
+		}
+
 		let button = event.detail;
 		this.element = button.parentNode.parentNode;
 		let id = this.readId(this.element);

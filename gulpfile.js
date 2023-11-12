@@ -497,7 +497,7 @@ function checkKey() {
 /*
  * Task: Build all
  */
-exports.build = series(cleanDist, js, jsModules, jsVendor, css, cssVendor, images, icons, fonts, favicon);
+exports.build = series(cleanDist, js, jsModules, jsVendor, css, cssVendor, vendor, images, icons, fonts, favicon);
 
 exports.default = gulpDefault;
 exports.cleanDist = cleanDist;
@@ -505,6 +505,7 @@ exports.css = css;
 exports.js = js;
 exports.jsVendor = jsVendor;
 exports.cssVendor = cssVendor;
+exports.vendor = vendor;
 exports.fonts = fonts;
 exports.images = images;
 exports.icons = icons;

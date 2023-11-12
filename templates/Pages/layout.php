@@ -23,7 +23,8 @@
 					$content['id'],
 					'?' => [
 						'key' => 'active',
-						'value' => !$content['active']
+						'value' => !$content['active'],
+						'modal' => true
 					]
 				],
 				['class' => 'rhino-button']
@@ -31,7 +32,9 @@
 			<button
 				class="rhino-button open-modal"
 				name="Edit Content"
-				value="<?= $this->Url->build(['controller' => 'Contents', 'action' => 'edit',  $content['id']]) ?>"
+				value="<?= $this->Url->build(['controller' => 'Contents', 'action' => 'edit', '?' => [
+						'modal' => true
+					],  $content['id']]) ?>"
 				data-dispatch="updateContent"
 				>
 				Edit
@@ -39,7 +42,9 @@
 			<button
 				class="rhino-button open-modal"
 				name="Delete Content"
-				value="<?= $this->Url->build(['controller' => 'Contents', 'action' => 'delete', $content['id']]) ?>"
+				value="<?= $this->Url->build(['controller' => 'Contents', 'action' => 'delete', '?' => [
+						'modal' => true
+					], $content['id']]) ?>"
 				data-dispatch="updateContent"
 				>
 				Delete

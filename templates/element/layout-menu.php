@@ -13,7 +13,10 @@
 				name="New Content"
 				value="<?= $this->Url->build([
 					'controller' => 'Contents',
-					'action' => 'new', 
+					'action' => 'new',
+					'?' => [
+						'modal' => true
+					],
 					$page['id']]) ?>"
 				data-dispatch="updateContent"
 				>

@@ -38,6 +38,10 @@ class ContentsController extends BaseController {
 	public function initialize(): void {
 		parent::initialize();
 		$this->Pages = new PagesTable();
+
+		if ($this->request->getQuery('modal')) {
+			$this->viewBuilder()->disableAutoLayout();
+		}
     }
 
 	public function edit(int $id) {
@@ -101,7 +105,7 @@ class ContentsController extends BaseController {
 			]));
 			return $response;
         }
-		
+
 		$this->set([
 			'entry' => $entry,
 			'elements' => $elements,
@@ -153,11 +157,26 @@ class ContentsController extends BaseController {
 		$this->set(['entry' => $entry]);
     }
 
-	public function element($id) {
+	public function element($id = null) {
+		$this->viewBuilder()->disableAutoLayout();
 		$this->setPlugin(null);
+		$elementId = $this->request->getQuery('elementId') ?? null;
+
 		try {
-			$entry = $this->Contents->get($id, ['contain' => 'Elements']);
-			$this->set(['entry' => $entry]);
+			if (!empty($id)) {
+				$entry = $this->Contents->get($id, ['contain' => 'Elements']);
+			} else {
+				$entry = $this->Contents->find()->contain(["Elements"])->first();
+			}
+
+			if (!empty($elementId)) {
+				$entry->element = $this->Contents->Elements->get($elementId);
+			}
+
+			$this->set([
+				'entry' => $entry,
+				'layoutmode' => $this->request->getQuery('layoutmode') ?? false
+			]);
 		} catch(RecordNotFoundException $e) {
 			exit();
 		}

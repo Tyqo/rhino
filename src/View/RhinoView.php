@@ -79,13 +79,14 @@ trait RhinoView
 		return 'aria-current="page"';
 	}
 
-	public function parseEditor(string $json) : string {
+	public function parseEditor(string $json, $edit = false) : string {
 		$object = json_decode($json);
 
+		if ($edit) {
+			return '<div id="editor" class="editor"></div>';
+		}
+
 		$content = '';
-		// echo '<pre>';
-		// var_dump($object->blocks);
-		// die;
 		foreach ($object->blocks as $key => $block) {
 			$data = $block->data;
 
