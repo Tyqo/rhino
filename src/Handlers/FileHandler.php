@@ -34,11 +34,9 @@ class FileHandler {
 
 			$dirs[] = [
 				'name' => $dir,
-				'path' => $path,
+				'path' => str_replace(ROOT, '', $path),
 				'children' => $children
 			];
-
-			// $dirs[$dir] = $children;
 		}
 
 		return $dirs;

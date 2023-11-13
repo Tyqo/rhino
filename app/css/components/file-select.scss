@@ -2,8 +2,7 @@
 	--border-color: var(--muted-color);
 	border: var(--border-width) solid var(--border-color);
 	border-radius: var(--border-radius);
-	// box-shadow: var(--box-shadow);
-	padding: var(--form-element-spacing-vertical) var(--form-element-spacing-horizontal);
+	padding: var(--spacing) var(--form-element-spacing-horizontal);
 
 	details {
 		border: none;
@@ -20,6 +19,10 @@
 		position: relative;
 	}
 
+	li + li {
+		margin-top: calc(var(--typography-spacing-vertical) * 0.25);
+	}
+
 	li > details > summary, li > svg {
 		position: absolute;
 		left: -1rem;
@@ -29,11 +32,11 @@
 
 	svg path {
 		stroke: currentColor !important;
-		// fill: currentColor;
 	}
 
 	ul, li {
 		list-style: none;
+		margin-bottom: 0;
 	}
 	
 	label {
@@ -41,9 +44,17 @@
 		border-radius: var(--border-radius);
 		@extend .outline;
 		@extend .button;
-		border-radius: 0;
 		display: inline-block;
 		margin-bottom: 0;
 		text-align: left;
+	}
+		
+	input[type=radio] {
+		display: none;
+	}
+
+	input[type=radio]:checked + label {
+		background-color: var(--primary);
+		color: var(--white);
 	}
 }

@@ -5,11 +5,14 @@ namespace Rhino\View\Helper;
 
 use Cake\View\Helper;
 use Cake\View\StringTemplateTrait;
+use Cake\Utility\Inflector;
 use Rhino\Handlers\FieldHandler;
 use Rhino\Handlers\FileHandler;
+use Cake\View\Helper\IdGeneratorTrait;
 
 class RhinoHelper extends Helper {
 	use StringTemplateTrait;
+	use IdGeneratorTrait;
 
 	/**
 	 * Default config for this class
@@ -200,7 +203,7 @@ class RhinoHelper extends Helper {
 	public function displayDirectory(array $list, array $options = [], array $itemOptions = []): string {
 		$items = $this->_directoryItems($list, $options, $itemOptions);
 		return $this->formatTemplate('ul', [
-			'attrs' => $this->templater()->formatAttributes(['tag']),
+			'attrs' => $this->templater()->formatAttributes([]),
 			'content' => $items,
 		]);
 	}
@@ -210,19 +213,32 @@ class RhinoHelper extends Helper {
 
 		$index = 1;
 		foreach ($items as $item) {
-			$radio = $this->Form->radio('selected', [
-				$item['path'] => $item['name']
+			// Form->control type radio, outputs: input with type hidden?
+			// Form->radio escapes leading slash and can not be matched by label???
+			$radio = $this->formatTemplate('tag', [
+				'tag' => 'input',
+				'attrs' => $this->templater()->formatAttributes([
+					'type' => 'radio',
+					'value' => $item['path'],
+					'id' => $this->_domId($item['name']),
+					'name' => 'selected'
+				]),
+			]);
+			$label = $this->Form->label($item['name'], $item['name']);
+			$container = $this->formatTemplate('tag', [
+				'tag' => 'div',
+				'content' => $radio . $label
 			]);
 
 			if (!empty($item['children'])) {
 				$list = $this->displayDirectory($item['children'], $options, $itemOptions);
-				$item = $radio . $this->formatTemplate('details', [
+				$item = $container . $this->formatTemplate('details', [
 					'attrs' => $this->templater()->formatAttributes(['role' => 'listbox', 'open' => true]),
 					'summary' => $this->Icon->svg('folder-plus'),
 					'content' => $list,
 				]);
 			} else {
-				$item = $this->Icon->svg('folder') . $radio;
+				$item = $this->Icon->svg('folder') . $container;
 			}
 
 			if (isset($itemOptions['even']) && $index % 2 === 0) {

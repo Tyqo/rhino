@@ -4092,7 +4092,7 @@ table [data-cell=Actions] .button, table [data-cell=Actions] .file-select label,
   --border-color: var(--muted-color);
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius);
-  padding: var(--form-element-spacing-vertical) var(--form-element-spacing-horizontal);
+  padding: var(--spacing) var(--form-element-spacing-horizontal);
 }
 .file-select details {
   border: none;
@@ -4106,6 +4106,9 @@ table [data-cell=Actions] .button, table [data-cell=Actions] .file-select label,
   margin-left: 2rem;
   position: relative;
 }
+.file-select li + li {
+  margin-top: calc(var(--typography-spacing-vertical) * 0.25);
+}
 .file-select li > details > summary, .file-select li > svg {
   position: absolute;
   left: -1rem;
@@ -4117,13 +4120,20 @@ table [data-cell=Actions] .button, table [data-cell=Actions] .file-select label,
 }
 .file-select ul, .file-select li {
   list-style: none;
+  margin-bottom: 0;
 }
 .file-select label {
   border: var(--border-width) solid var(--primary);
   border-radius: var(--border-radius);
-  border-radius: 0;
   display: inline-block;
   margin-bottom: 0;
   text-align: left;
+}
+.file-select input[type=radio] {
+  display: none;
+}
+.file-select input[type=radio]:checked + label {
+  background-color: var(--primary);
+  color: var(--white);
 }
 /*# sourceMappingURL=main.css.map */
