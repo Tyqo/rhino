@@ -13,6 +13,7 @@
  */
 import ThemeSwitcher from "/rhino/js/modules/theme-switcher.js";
 import Modal from "/rhino/js/modules/modal.js";
+import Files from "/rhino/js/modules/files.js";
 import Menu from "/rhino/js/modules/menu.js";
 import Tabs from "/rhino/js/modules/tabs.js";
 import FieldOptions from "/rhino/js/modules/field-options.js";
@@ -26,7 +27,7 @@ class MAIN {
 	 * Constructor
 	 */
 	constructor() {
-		this.debug = false;
+		this.debug = true;
 
 		document.addEventListener("DOMContentLoaded", () => this.init());
 		window.onload = () => this.main();
@@ -76,6 +77,7 @@ class MAIN {
 		this.Tabs.init();
 		this.Modal = new Modal(this);
 		this.Menu = new Menu(this);
+		this.Files = new Files(this);
 
 		document.body.classList.add("page-has-rendered");
 	}

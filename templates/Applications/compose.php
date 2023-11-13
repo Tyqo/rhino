@@ -17,7 +17,14 @@
 	<?= $this->Form->control('active', ["type" => "checkbox"]) ?>
 
 	<?php if (isset($appFields)) : ?>
-		<?= $this->Form->control('overviewFields', ["type" => "select", "options" => $appFields, "multiple" => true]) ?>
+		<?= $this->Rhino->control('overviewFields', [
+			'label' => 'Overview Fields',
+			"type" => "select",
+			"options" => $appFields,
+			"multiple" => true,
+			'value' => $entry->overviewData
+
+		]) ?>
 	<?php endif ?>
 
 	<?= $this->Form->hidden('currentName', ["value" => isset($tableName) ? $tableName : '']) ?>

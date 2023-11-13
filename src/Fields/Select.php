@@ -16,7 +16,8 @@ class Select extends Field {
 
 	static public function loadField($field, $value = null) {
 		$options = $field->options;
-		$field['displayOptions'] = [];
+		$field['displayOptions'] = ['type' => 'select'];
+		$displayOptions = [];
 		
 		if (!empty($options["selectFromTable"])) {
 			$displayOptions = self::getTableOptions($field->options);

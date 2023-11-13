@@ -6,6 +6,7 @@ namespace Rhino\View\Helper;
 use Cake\View\Helper;
 use Cake\View\StringTemplateTrait;
 use Rhino\Handlers\FieldHandler;
+use Rhino\Handlers\FileHandler;
 
 class RhinoHelper extends Helper {
 	use StringTemplateTrait;
@@ -24,6 +25,8 @@ class RhinoHelper extends Helper {
 			'tabGroup' => '<div id="{{tabGroup}}" class="tab-group"><ul class="tab-group__header">{{tabButtons}}</ul><div class="tab-group__body">{{content}}</div></div>',
 			'tab' => '<div id="{{tab}}" class="tab">{{content}}</div>',
 			'details' => '<details{{attrs}}><summary>{{summary}}</summary>{{content}}</details>',
+			'ul' => '<ul{{attrs}}>{{content}}</ul>',
+			'li' => '<li{{attrs}}>{{content}}</li>',
 		]
 	];
 
@@ -34,10 +37,11 @@ class RhinoHelper extends Helper {
 	 *
 	 * @var array
 	 */
-	protected array $helpers = ['Form'];
+	protected array $helpers = ['Form', 'Html', 'Icon'];
 
 	public function initialize(array $config): void {
 		$this->FieldHandler = new FieldHandler();
+		$this->FileHandler = new FileHandler();
 	}
 
 	public function sectionHeader(string $title, ?array $options = []) {
@@ -57,15 +61,14 @@ class RhinoHelper extends Helper {
 			unset($options['description']);
 		}
 
-		// if ($name == 'category_id') {
-		// 	dd($options);
-		// }
-
 		if (isset($options['multiple']) && $options['multiple']) {
 			$content = $this->multiSelect($name, $options);
+		} else if (isset($options['type']) && $options['type'] == 'directory') {
+			$content = $this->directory($name, $options);
 		} else {
 			$content = $this->Form->control($name, $options);
 		}
+
 		return $this->formatTemplate('control', [
 			'content' => $content,
 			'description' => $description ?? '',
@@ -152,11 +155,89 @@ class RhinoHelper extends Helper {
 			'tag' => 'legend',
 		]);
 
+		$content = $templater->format('tag', [
+			'content' => $content,
+			'tag' => 'div',
+			'attrs' => $templater->formatAttributes(['role' => 'list']),
+		]);
+
 		$list = $templater->format('tag', [
 			'content' => $legend . $empty . $content,
 			'tag' => 'fieldset',
+			'attrs' => $templater->formatAttributes(['role' => 'multiselect']),
 		]);
 
 		return $list;
+	}
+
+	public function directory(string $fieldName, array $options = []): string {
+		if (!isset($options['id'])) {
+			$options['id'] = $fieldName;
+		}
+
+
+		// 		class="rhino-button open-modal"
+		// 		name="Edit Content"
+		// 		value="?= $this->Url->build(['controller' => 'Contents', 'action' => 'edit', '?' => [
+		// 				'modal' => true
+		// 			],  $content['id']])"?
+		// 		data-dispatch="updateContent"
+
+		$templater = $this->templater();
+		$input = $this->Form->input($fieldName, $options);
+		$button = $this->Form->button(_("Select Directory"), [
+			'name' => 'fileSelect',
+			'type' => 'directory',
+			'data-target' => $options['id']
+		]);
+		return $templater->format('tag', [
+			'content' => $input . $button,
+			'tag' => 'div',
+			'attrs' => $templater->formatAttributes(['class' => 'cluster']),
+		]);
+	}
+
+	public function displayDirectory(array $list, array $options = [], array $itemOptions = []): string {
+		$items = $this->_directoryItems($list, $options, $itemOptions);
+		return $this->formatTemplate('ul', [
+			'attrs' => $this->templater()->formatAttributes(['tag']),
+			'content' => $items,
+		]);
+	}
+
+	protected function _directoryItems(array $items, array $options, array $itemOptions): string {
+		$out = '';
+
+		$index = 1;
+		foreach ($items as $item) {
+			$radio = $this->Form->radio('selected', [
+				$item['path'] => $item['name']
+			]);
+
+			if (!empty($item['children'])) {
+				$list = $this->displayDirectory($item['children'], $options, $itemOptions);
+				$item = $radio . $this->formatTemplate('details', [
+					'attrs' => $this->templater()->formatAttributes(['role' => 'listbox', 'open' => true]),
+					'summary' => $this->Icon->svg('folder-plus'),
+					'content' => $list,
+				]);
+			} else {
+				$item = $this->Icon->svg('folder') . $radio;
+			}
+
+			if (isset($itemOptions['even']) && $index % 2 === 0) {
+				$itemOptions['class'] = $itemOptions['even'];
+			} elseif (isset($itemOptions['odd']) && $index % 2 !== 0) {
+				$itemOptions['class'] = $itemOptions['odd'];
+			}
+
+			$out .= $this->formatTemplate('li', [
+				'attrs' => $this->templater()->formatAttributes($itemOptions, ['even', 'odd']),
+				'content' => $item,
+			]);
+			$index++;
+		}
+
+		return $out;
 	}
 }

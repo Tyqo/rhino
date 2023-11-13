@@ -7,7 +7,7 @@ namespace Rhino\Fields;
 use Rhino\Model\ApplicationTrait;
 use Cake\ORM\TableRegistry;
 
-class Position {
+class Position extends Field {
 	use ApplicationTrait;
 
 	static public function loadOptions() {

@@ -413,7 +413,7 @@
 <!-- Modal example -->
 <dialog id="modal-example">
 	<article>
-		<a href="#close" aria-label="Close" class="close" data-target="modal-example"></a>
+		<button aria-label="Close" class="close button outline contrast" data-target="modal-example"></button>
 		<h3>Confirm your action!</h3>
 		<p>
 			Cras sit amet maximus risus. Pellentesque sodales odio sit amet augue finibus

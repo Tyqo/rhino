@@ -1,0 +1,49 @@
+.file-select {
+	--border-color: var(--muted-color);
+	border: var(--border-width) solid var(--border-color);
+	border-radius: var(--border-radius);
+	// box-shadow: var(--box-shadow);
+	padding: var(--form-element-spacing-vertical) var(--form-element-spacing-horizontal);
+
+	details {
+		border: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	summary::after {
+		display: none;
+	}
+
+	li {
+		margin-left: 2rem;
+		position: relative;
+	}
+
+	li > details > summary, li > svg {
+		position: absolute;
+		left: -1rem;
+		top: 0.75rem;
+		transform: translateX(-100%);
+	}
+
+	svg path {
+		stroke: currentColor !important;
+		// fill: currentColor;
+	}
+
+	ul, li {
+		list-style: none;
+	}
+	
+	label {
+		border: var(--border-width) solid var(--primary);
+		border-radius: var(--border-radius);
+		@extend .outline;
+		@extend .button;
+		border-radius: 0;
+		display: inline-block;
+		margin-bottom: 0;
+		text-align: left;
+	}
+}
