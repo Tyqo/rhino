@@ -9,34 +9,56 @@ class FileHandler {
 			
 	}
 
-	public function getSubDirs($directory = null) {
+	public function get($directory = null, $types = []) {
 		if (empty($directory)) {
-			$directory = RESOURCES;
+			$directory = WWW_ROOT;
+		} else {
+			$directory = WWW_ROOT . $directory . DS;
 		}
 
-		$dirs = $this->subDir($directory);
+		if (!is_dir($directory)) {
+			return [];
+		}
+
+		$dirs = $this->subDir($directory, $types);
 
 		return $dirs;
 	}
 
-	private function subDir($directory) {
+	private function subDir($directory, $types = []) {
+
 		$_dirs = array_diff(scandir($directory), array('..', '.'));
 		$dirs = [];
 
-		foreach ($_dirs as $dir) {
-
-			if (!is_dir($directory . $dir)) {
-				continue;
+		foreach ($_dirs as $dir) {			
+			$path = $directory . $dir;
+			
+			$file = [
+				'name' => $dir,
+			];
+				
+			if (is_dir($directory . $dir)) {
+				$path .= DS;
+				$file['type'] = 'folder';
+				$file['path'] = str_replace(WWW_ROOT, '', $path);
+				$file["children"] = $this->subDir($path, $types);
+			} else {
+				$pathinfo = pathinfo($path);
+				$file['type'] = $pathinfo['extension'];
+				$file['path'] = str_replace(WWW_ROOT, '', $path);
 			}
 
-			$path = $directory . $dir . DS;
-			$children = $this->subDir($path);
+			if (!empty($types) && !in_array($file['type'], $types)) {
+				if ($file['type'] != 'folder' && !in_array('file', $types)) {
+					continue;
+				}
 
-			$dirs[] = [
-				'name' => $dir,
-				'path' => str_replace(ROOT, '', $path),
-				'children' => $children
-			];
+				if ($file['type'] == 'folder') {
+					$file['options'] = ['disabled' => true];
+				}
+			}
+
+			$dirs[] = $file;
 		}
 
 		return $dirs;

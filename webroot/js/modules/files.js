@@ -7,7 +7,7 @@ export default class Files {
 			console.debug("Files::const");
 		}
 
-		this.buttons = document.querySelectorAll('[name=fileSelect]');
+		this.buttons = document.querySelectorAll('[type=directory]');
 		if (this.buttons.length > 0) {
 			this.init();
 		}
@@ -23,12 +23,20 @@ export default class Files {
 				console.log(selected.value);
 				let input = document.getElementById(button.name);
 				input.value = selected.value;
-			})
+			});
+
+			modal.addEventListener('close', (e) => {
+				this.reset(modal);
+			});
 
 			button.addEventListener('click', (event) => {
 				event.preventDefault();
-				let url = '/rhino/files/get?';
-				url += new URLSearchParams({modal: true});
+				let url = button.value + '?';
+				url += new URLSearchParams({
+					modal: true,
+					dir: button.dataset.dir,
+					types: button.dataset.types
+				});
 				
 				fetch(url, {
 						headers: {
@@ -46,6 +54,10 @@ export default class Files {
 					.catch(err => console.log(err))
 			})
 		});
+	}
+
+	reset(modal) {
+		this.Modal.addContent(modal, '');
 	}
 }
 //# sourceMappingURL=files.js.map

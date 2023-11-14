@@ -5,6 +5,8 @@
 <div>
 	<?= $this->Rhino->control("default", [
 		"value" => $entry->standard,
+		"type" => 'directory',
+		'types' => 'file',
 		'description' => "Standard value to use in a new Entry."
 	]) ?>
 </div>
@@ -14,7 +16,16 @@
 		"value" => $entry->options['uploadDirectory'] ?? '',
 		"name" => "settings[uploadDirectory]",
 		"type" => 'directory',
+		'types' => 'folder',
 		'description' => "Path where the files will be saved."
+	]) ?>
+</div>
+
+<div>
+	<?= $this->Rhino->control("fileTypes", [
+		"value" => $entry->options['uploadTypes'] ?? '',
+		"name" => "settings[uploadTypes]",
+		'description' => "The selectable File Types."
 	]) ?>
 </div>
 

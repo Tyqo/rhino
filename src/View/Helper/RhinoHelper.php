@@ -27,7 +27,7 @@ class RhinoHelper extends Helper {
 			'tabButton' => '<li><button role="radio" name="{{tabGroup}}" class="tab-button" data-target="{{tab}}">{{content}}</button></li>',
 			'tabGroup' => '<div id="{{tabGroup}}" class="tab-group"><ul class="tab-group__header">{{tabButtons}}</ul><div class="tab-group__body">{{content}}</div></div>',
 			'tab' => '<div id="{{tab}}" class="tab">{{content}}</div>',
-			'details' => '<details{{attrs}}><summary>{{summary}}</summary>{{content}}</details>',
+			'details' => '<details{{attrs}}><summary role>{{summary}}</summary>{{content}}</details>',
 			'ul' => '<ul{{attrs}}>{{content}}</ul>',
 			'li' => '<li{{attrs}}>{{content}}</li>',
 		]
@@ -40,7 +40,7 @@ class RhinoHelper extends Helper {
 	 *
 	 * @var array
 	 */
-	protected array $helpers = ['Form', 'Html', 'Icon'];
+	protected array $helpers = ['Form', 'Html', 'Icon', 'Url'];
 
 	public function initialize(array $config): void {
 		$this->FieldHandler = new FieldHandler();
@@ -178,25 +178,40 @@ class RhinoHelper extends Helper {
 			$options['id'] = $fieldName;
 		}
 
-
-		// 		class="rhino-button open-modal"
-		// 		name="Edit Content"
-		// 		value="?= $this->Url->build(['controller' => 'Contents', 'action' => 'edit', '?' => [
-		// 				'modal' => true
-		// 			],  $content['id']])"?
-		// 		data-dispatch="updateContent"
+		$url = $this->Url->build([
+			'controller' => 'files',
+			'action' => 'get',
+		]);
 
 		$templater = $this->templater();
-		$input = $this->Form->input($fieldName, $options);
-		$button = $this->Form->button(_("Select Directory"), [
-			'name' => 'fileSelect',
-			'type' => 'directory',
-			'data-target' => $options['id']
+		$input = $this->Form->input($fieldName, [
+			'type' => 'text',
+			'id' => $options["id"],
+			"value" => $options['value'],
+			'name' => $options['name'] ?? $fieldName,
 		]);
-		return $templater->format('tag', [
+		$name = __(Inflector::humanize(Inflector::underscore($fieldName)));
+		$label = $this->Form->label($options["id"], $name);
+
+		$button = $this->Form->button(_("Select " . $name), [
+			'name' => $fieldName,
+			'type' => 'directory',
+			'value' => $url,
+			'data-target' => $options['id'],
+			'data-dir' => $options['directory'] ?? '',
+			'data-types' => $options['types'] ?? ''
+		]);
+
+		$box = $templater->format('tag', [
 			'content' => $input . $button,
 			'tag' => 'div',
 			'attrs' => $templater->formatAttributes(['class' => 'cluster']),
+		]);
+
+		return $templater->format('tag', [
+			'content' => $label . $box,
+			'tag' => 'div',
+			'attrs' => $templater->formatAttributes(['class' => 'input directory']),
 		]);
 	}
 
@@ -217,12 +232,13 @@ class RhinoHelper extends Helper {
 			// Form->radio escapes leading slash and can not be matched by label???
 			$radio = $this->formatTemplate('tag', [
 				'tag' => 'input',
-				'attrs' => $this->templater()->formatAttributes([
+				'attrs' => $this->templater()->formatAttributes(array_merge([
 					'type' => 'radio',
 					'value' => $item['path'],
 					'id' => $this->_domId($item['name']),
-					'name' => 'selected'
-				]),
+					'name' => 'selected',
+					'data-type' => $item['type']
+				], $item['options'] ?? [])),
 			]);
 			$label = $this->Form->label($item['name'], $item['name']);
 			$container = $this->formatTemplate('tag', [
@@ -230,7 +246,7 @@ class RhinoHelper extends Helper {
 				'content' => $radio . $label
 			]);
 
-			if (!empty($item['children'])) {
+			if (isset($item['children']) && !empty($item['children'])) {
 				$list = $this->displayDirectory($item['children'], $options, $itemOptions);
 				$item = $container . $this->formatTemplate('details', [
 					'attrs' => $this->templater()->formatAttributes(['role' => 'listbox', 'open' => true]),
@@ -238,7 +254,11 @@ class RhinoHelper extends Helper {
 					'content' => $list,
 				]);
 			} else {
-				$item = $this->Icon->svg('folder') . $container;
+				if ($item['type'] == 'folder') {
+					$item = $this->Icon->svg('folder') . $container;
+				} else {
+					$item = $this->Icon->svg('file') . $container;
+				}
 			}
 
 			if (isset($itemOptions['even']) && $index % 2 === 0) {

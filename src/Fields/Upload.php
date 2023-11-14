@@ -14,15 +14,30 @@ class Upload extends Field {
 	}
 
 	static public function loadField($field, $value = null) {
+		$field['displayOptions'] = [
+			"type" => 'file',
+			'value' => $value
+		];
 		return $field;
 	}
 
 	static public function displayField($value, $field, $entry) {
-		return $value;
+		if (empty($value)) {
+			return;
+		}
+
+		$image = '<img src="' . DS . $field['options']['uploadDirectory'] . $value . '" />';
+		return $image;
 	}
 
 	static public function saveField($value, $field) {
-		return $value;
+		if ($value->getSize() == 0) {
+			return '';
+		}
+
+		$name = $value->getClientFilename();
+		$value->moveTo(WWW_ROOT . $field['options']['uploadDirectory'] . $name);
+		return $name;
 	}
 
 	static public function getLocal() {

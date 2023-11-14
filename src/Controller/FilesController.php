@@ -39,8 +39,15 @@ class FilesController extends BaseController {
 		}
 	}
 
-	public function get(?string $directory = null) {
-		$dirs = $this->Files->getSubDirs($directory);
+	public function get() {
+		$directory = $this->request->getQuery('dir');
+		$types = $this->request->getQuery('types');
+
+		if (!empty($types)) {
+			$types = explode(',', $types);
+		}
+
+		$dirs = $this->Files->get($directory, $types ?? []);
 		$this->set(compact('dirs'));
 	}
 }

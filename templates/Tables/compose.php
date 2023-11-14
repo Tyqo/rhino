@@ -10,7 +10,7 @@ if (isset($readonly) && $readonly) {
 <section class="stack">
 	<h1><?= $title ?></h1>
 
-	<?= $this->Form->create($entry, ["class" => "stack"]); ?>
+	<?= $this->Form->create($entry, ['type' => 'file', "class" => "stack"]); ?>
 
 	<?php if ($action != 'add') : ?>
 		<div class="cluster pill">

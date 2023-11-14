@@ -4134,6 +4134,10 @@ table [data-cell=Actions] .button, table [data-cell=Actions] .file-select label,
 }
 .file-select input[type=radio]:checked + label {
   background-color: var(--primary);
-  color: var(--white);
+  color: var(--text-color);
+}
+.file-select input[type=radio]:disabled + label {
+  color: var(--text-color);
+  border-color: var(--text-color);
 }
 /*# sourceMappingURL=main.css.map */
