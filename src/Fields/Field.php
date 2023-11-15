@@ -38,6 +38,7 @@ class Field {
 			'tag' => '<{{tag}}{{attrs}}>{{content}}</{{tag}}>',
 			'input' => '<input{{attrs}}/>',
 			'label' => '<label{{attrs}}>{{content}}</label>',
+			'image' => '<img{{attrs}}/>',
 		]
 	];
 

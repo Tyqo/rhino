@@ -187,7 +187,6 @@ class RhinoHelper extends Helper {
 
 		$fileOptions = [
 			'type' => 'file',
-			'pattern' => 'png',
 			'id' => $this->_domId($options["id"] . "_file"),
 			'name' => $name . '_file',
 			'hidden'
@@ -204,7 +203,7 @@ class RhinoHelper extends Helper {
 
 		$file = $this->Form->input($fieldName, $fileOptions);
 
-		$button = $this->Form->label($options["id"] . "_file", $humanName, ['class' => 'button']);
+		$button = $this->Form->label($options["id"] . "_file", 'Upload File', ['class' => 'button']);
 
 		$text = $this->Form->input($fieldName, [
 			'type' => 'text',
@@ -218,7 +217,7 @@ class RhinoHelper extends Helper {
 			'action' => 'get',
 		]);
 
-		$select = $this->Form->button(_("Select " . $name), [
+		$select = $this->Form->button(_("Select File"), [
 			'name' => $fieldName,
 			'type' => 'directory',
 			'value' => $url,
@@ -227,7 +226,19 @@ class RhinoHelper extends Helper {
 			'data-types' => $options['types'] ?? ''
 		]);
 
-		return $label . $file . $button . $text . $select;
+		$pill = $this->templater()->format('tag', [
+			'content' => $button . $file . $select,
+			'tag' => 'div',
+			'attrs' => $this->templater()->formatAttributes(['class' => 'cluster pill']),
+		]);
+
+		$box = $this->templater()->format('tag', [
+			'content' => $text . $pill,
+			'tag' => 'div',
+			'attrs' => $this->templater()->formatAttributes(['class' => 'grid']),
+		]);
+
+		return $label . $box;
 	}
 
 	public function directory(string $fieldName, array $options = []): string {

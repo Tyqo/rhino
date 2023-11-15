@@ -40,23 +40,32 @@ class FileHandler {
 			// ToDo: type should be Mime type with exception for folder and File.
 			if (is_dir($directory . $dir)) {
 				$path .= DS;
-				$file['type'] = 'folder';
+				$file['type'] = 'directory';
 				$file['path'] = str_replace($directory, '', $path);
 				$file["children"] = $this->subDir($path, $types);
 			} else {
-				$pathinfo = pathinfo($path);
-				$file['type'] = $pathinfo['extension'];
+				// $pathinfo = pathinfo($path);
+				$file['type'] = mime_content_type($path);
 				$file['path'] = str_replace($directory, '', $path);
 			}
 
-			if (!empty($types) && !in_array($file['type'], $types)) {
-				if ($file['type'] != 'folder' && !in_array('file', $types)) {
-					continue;
+			if (!empty($types)) {
+				if ($types[0] != 'directory' && $file['type'] == 'directory') {
+					$file['options'] = ['disabled' => true];
+				} else if ($types[0] != 'file') {
+					$skip = true;
+					foreach ($types as $type) {
+						$pattern = sprintf('/%s/', addcslashes(trim($type), '/'));
+						if (preg_match($pattern, $file['type'])) {
+							$skip = false;
+						}
+					}
+	
+					if ($skip) {
+						continue;
+					}
 				}
 
-				if ($file['type'] == 'folder') {
-					$file['options'] = ['disabled' => true];
-				}
 			}
 
 			$dirs[] = $file;
