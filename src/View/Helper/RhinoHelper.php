@@ -3,6 +3,7 @@
 
 namespace Rhino\View\Helper;
 
+use Cake\Collection\Iterator\UniqueIterator;
 use Cake\View\Helper;
 use Cake\View\StringTemplateTrait;
 use Cake\Utility\Inflector;
@@ -68,6 +69,8 @@ class RhinoHelper extends Helper {
 			$content = $this->multiSelect($name, $options);
 		} else if (isset($options['type']) && $options['type'] == 'directory') {
 			$content = $this->directory($name, $options);
+		} else if (isset($options['type']) && $options['type'] == 'file') {
+			$content = $this->file($name, $options);
 		} else {
 			$content = $this->Form->control($name, $options);
 		}
@@ -173,6 +176,60 @@ class RhinoHelper extends Helper {
 		return $list;
 	}
 
+	public function file(string $fieldName, array $options = []): string {
+		if (!isset($options['id'])) {
+			$options['id'] = $fieldName;
+		}
+
+		$name = $options['name'] ?? $fieldName;
+		$humanName = __(Inflector::humanize(Inflector::underscore($fieldName)));
+		$label = $this->Form->label($options["id"], $humanName);
+
+		$fileOptions = [
+			'type' => 'file',
+			'pattern' => 'png',
+			'id' => $this->_domId($options["id"] . "_file"),
+			'name' => $name . '_file',
+			'hidden'
+		];
+
+		if (isset($options['accept'])) {
+			$fileOptions['accept'] = $options['accept'];
+		}
+
+		if (isset($options['multiple'])) {
+			$fileOptions['multiple'] = true;
+			$fileOptions['name'] .= '[]';
+		}
+
+		$file = $this->Form->input($fieldName, $fileOptions);
+
+		$button = $this->Form->label($options["id"] . "_file", $humanName, ['class' => 'button']);
+
+		$text = $this->Form->input($fieldName, [
+			'type' => 'text',
+			'id' => $this->_domId($options["id"]),
+			"value" => $options['value'] ?? null,
+			'name' => $options['name'] ?? $fieldName,
+		]);
+
+		$url = $this->Url->build([
+			'controller' => 'files',
+			'action' => 'get',
+		]);
+
+		$select = $this->Form->button(_("Select " . $name), [
+			'name' => $fieldName,
+			'type' => 'directory',
+			'value' => $url,
+			'data-target' => $options['id'],
+			'data-dir' => $options['directory'] ?? '',
+			'data-types' => $options['types'] ?? ''
+		]);
+
+		return $label . $file . $button . $text . $select;
+	}
+
 	public function directory(string $fieldName, array $options = []): string {
 		if (!isset($options['id'])) {
 			$options['id'] = $fieldName;
@@ -275,5 +332,44 @@ class RhinoHelper extends Helper {
 		}
 
 		return $out;
+	}
+
+	public function post($content, $link, $options) {
+		$uid = uniqid('post-');
+		if (isset($options['confirm'])) {
+			$options['data-modal'] = $options['confirm'];
+			unset($options['confirm']);
+		}
+
+		$options['data-target'] = $uid;
+
+		$action = $this->templater()->formatAttributes([
+			'action' => $this->Url->build($link),
+			'escape' => false,
+			'id' => $uid,
+			'method' => 'POST',
+			'hidden'
+		]);
+
+		$request = $this->_View->getRequest();
+		$csrfToken = $request->getAttribute('csrfToken') ?? '';
+
+		$form = $this->Form->formatTemplate('formStart', [
+			'attrs' => $this->templater()->formatAttributes([]) . $action,
+		]);
+
+		$form .= $this->Form->hidden('_csrfToken', [
+			'value' => $csrfToken,
+			'secure' => $this->Form->SECURE_SKIP,
+		]);
+
+		$form .= $this->Form->formatTemplate('formEnd', []);
+
+		$button = $this->formatTemplate('tag', [
+			'tag' => 'button',
+			'attrs' => $this->templater()->formatAttributes($options),
+			'content' => $content,
+		]);
+		return $form . $button;
 	}
 }

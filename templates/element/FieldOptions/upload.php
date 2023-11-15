@@ -35,3 +35,10 @@
 	"type" => "checkbox",
 	'description' => "Overwrite existing file."
 ]) ?>
+
+<?= $this->Rhino->control("uploadMultiple", [
+	"value" => $entry->options['uploadMultiple'] ?? '',
+	"name" => "settings[uploadMultiple]",
+	"type" => "checkbox",
+	'description' => "Allow multiple Files. Will be saved as comma separated list."
+]) ?>

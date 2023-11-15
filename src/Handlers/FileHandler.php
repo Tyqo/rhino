@@ -37,15 +37,16 @@ class FileHandler {
 				'name' => $dir,
 			];
 				
+			// ToDo: type should be Mime type with exception for folder and File.
 			if (is_dir($directory . $dir)) {
 				$path .= DS;
 				$file['type'] = 'folder';
-				$file['path'] = str_replace(WWW_ROOT, '', $path);
+				$file['path'] = str_replace($directory, '', $path);
 				$file["children"] = $this->subDir($path, $types);
 			} else {
 				$pathinfo = pathinfo($path);
 				$file['type'] = $pathinfo['extension'];
-				$file['path'] = str_replace(WWW_ROOT, '', $path);
+				$file['path'] = str_replace($directory, '', $path);
 			}
 
 			if (!empty($types) && !in_array($file['type'], $types)) {

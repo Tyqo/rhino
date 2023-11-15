@@ -18,10 +18,23 @@ export default class Files {
 			let modal = this.Modal.newModal(button, false);
 			this.Modal.addQuery(modal);
 
+			let input = document.getElementById(button.name);
+			let fileInput = document.querySelector('input[name=' + button.name + '_file]');
+
+			if (fileInput) {
+				fileInput.addEventListener('change', (event) => {
+					let files = fileInput.files;
+					let output = [];
+					for (var i = 0; i < files.length; i++) {
+						var filename = files[i].name.replace(/^.*[\\/]/, '');
+						output.push(filename);
+					}
+					input.value = output.join(', ');
+				});
+			}
+
 			modal.addEventListener('confirm', (e) => {
 				let selected = modal.querySelector('input[type=radio]:checked');
-				console.log(selected.value);
-				let input = document.getElementById(button.name);
 				input.value = selected.value;
 			});
 
@@ -47,7 +60,6 @@ export default class Files {
 						return response.text();
 					})
 					.then((html) => {
-						console.log(html);
 						this.Modal.addContent(modal, html);
 						this.Modal.openModal(modal);
 					})

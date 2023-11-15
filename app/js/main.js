@@ -27,7 +27,7 @@ class MAIN {
 	 * Constructor
 	 */
 	constructor() {
-		this.debug = true;
+		this.debug = false;
 
 		document.addEventListener("DOMContentLoaded", () => this.init());
 		window.onload = () => this.main();

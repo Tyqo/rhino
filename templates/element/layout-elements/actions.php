@@ -23,7 +23,7 @@
 		);
 	} ?>
 	<?php if (isset($delete) && $delete['valid']) {
-		echo $this->Form->postLink(
+		echo $this->Rhino->post(
 			$this->svg("Rhino.trash"),
 			$delete['link'],
 			[

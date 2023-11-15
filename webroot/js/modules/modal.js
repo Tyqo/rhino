@@ -25,18 +25,35 @@ export default class Modal {
 	init() {
 		this.buttons.forEach(button => {
 			let target = document.getElementById(button.dataset.target);
-			this.initButton(button, target);			
+			this.initButton(button, target);		
 		});
 	}
 
 	initButton(button, target) {
-		if (target.tagName == 'DIALOG') {
+		if (target == null) {
+			let modal = this.newModal(button);
+			this.addContent(modal, button.dataset.modal);
+			this.addQuery(modal);
+			modal.addEventListener('confirm', () => {
+				let form = modal.querySelector('form');
+				if (form) {
+					form.submit();
+				}
+			});
+		} else if (target.tagName == 'DIALOG') {
 			button.addEventListener('click', (event) => {
 				if (button.ariaLabel == 'Close') {
 					let event = new Event('cancel');
 					target.dispatchEvent(event);
 				}
 				this.toggleModal(event, target);
+			});
+		} else if (target.tagName == 'FORM') {
+			let modal = this.newModal(button);
+			this.addContent(modal, button.dataset.modal);
+			this.addQuery(modal);
+			modal.addEventListener('confirm', () => {
+				target.submit();				
 			});
 		}
 	}
@@ -77,7 +94,6 @@ export default class Modal {
 			target = button.name;
 			button.dataset.target = target;
 		}
-		console.log(target);
 
 		let modal = document.createElement('dialog');
 		let modalInner = document.createElement('article');
