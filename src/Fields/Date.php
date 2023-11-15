@@ -4,24 +4,10 @@ declare(strict_types=1);
 
 namespace Rhino\Fields;
 
-use Rhino\Model\ApplicationTrait;
+use Rhino\Fields\Field;
 
 class Date extends Field {
-	use ApplicationTrait;
-
-	static public function loadOptions() {
-		return null;
-	}
-
-	static public function loadField($field, $value = null) {
-		return $field;
-	}
-
-	static public function saveField($value, $field) {
-		return $value;
-	}
-
-	static public function displayField($value, $field, $entry) {
+	public function display($value, $entry) {
 		if (empty($value)) {
 			return;
 		}

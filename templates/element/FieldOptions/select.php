@@ -72,7 +72,8 @@
 		]) ?>
 		<?= $this->Rhino->control("selectFromSQL", [
 			"value" => $entry->options['selectFromSQL'] ?? '',
-			"name" => "settings[selectFromSQL]"
+			"name" => "settings[selectFromSQL]",
+			"description" => 'Will be added to the find operation.<br/>Example:<br/><code class="language-json">{"where": {"name IS NOT": ""},"orderBy": {"position": "ASC"}}</code>'
 		]) ?>
 	</div>
 	<?php $this->end('fromDataTable'); ?>

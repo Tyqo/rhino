@@ -68,10 +68,18 @@ class FieldHandler {
 		$this->Fields = new FieldsTable();
 	}
 
-	private function executeFieldClass($field, $function, &$params = null) {
-		$className = sprintf('\Rhino\Fields\%s', ucfirst($field['name']));
+	/**
+	 * getFieldClass
+	 *
+	 * Get the Class for the field.
+	 * 
+	 * @param  object $field
+	 * @return \Fields\Field
+	 */
+	private function getFieldClass($field) {
+		$className = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
 		if (class_exists($className)) {
-			return $className::$function($params);
+			return new $className($field);
 		}
 		return;
 	}
@@ -106,9 +114,6 @@ class FieldHandler {
 	}
 
 	private function prepareForSelect($values) {
-		// echo '<pre>';
-		// var_dump($values);
-		// die;
 		$selectOptions = [];
 
 		foreach ($values as $key => $value) {
@@ -154,25 +159,45 @@ class FieldHandler {
 		return $data;
 	}
 
+	/**
+	 * loadFiledOptions
+	 * 
+	 * Load additional Options needed for Field Settings.
+	 *
+	 * @return array
+	 */
 	public function loadFiledOptions() {
 		$return = [];
-		foreach ($this->customTypes as $key => $type) {
-			$loadOptions = $this->executeFieldClass($type, 'loadOptions');
-			if (empty($loadOptions)) {
-				continue;
+		foreach ($this->customTypes as $type) {
+			$type['type'] = $type['name'];
+			
+			$Field = $this->getFieldClass((object)$type);	
+			if (isset($Field) && method_exists($Field, 'loadOptions')) {
+				$return += $Field->loadOptions() ?? [];
 			}
-
-			$return += $loadOptions;
 		}
+
 		return $return;
 	}
 
+	/**
+	 * loadField
+	 * 
+	 * Load the needed options for the Form->control from its Field Class
+	 *
+	 * @param  object $field
+	 * @param  mixed $value
+	 * @return array
+	 */
 	public function loadField($field, $value) {
-		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
-		if (class_exists($fieldClass)) {
-			$field = $fieldClass::loadField($field, $value);
+		$Field = $this->getFieldClass($field);
+		$displayOptions = [];
+
+		if ($Field) {
+			$displayOptions = $Field->load($value);
 		}
-		return $field;
+		
+		return $displayOptions;
 	}
 
 	public function setFields(string $tableName, $entity) {
@@ -180,8 +205,7 @@ class FieldHandler {
 		
 		foreach ($fields as $field) {
 			$key = $field['name'];
-			$value = $entity[$key] ?? Null;
-			$value = $this->setField($value, $field);
+			$value = $this->setField($entity, $field);
 			if ($value === null) {
 				unset($entity[$key]);
 				continue;
@@ -189,25 +213,35 @@ class FieldHandler {
 			$entity[$key] =	$value;
 		}
 
-		// dd($entity);
-
 		return $entity;
 	}
 
-	private function setField($value, $field) {
-		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
-		if (class_exists($fieldClass)) {
-			return $fieldClass::saveField($value, $field);
+	private function setField($entity, $field) {
+		$Field = $this->getFieldClass($field);
+		$value = $entity[$field['name']] ?? null;
+
+		if ($Field && method_exists($Field, 'save')) {
+			return $Field->save($value, $entity);
 		}
 
 		return $value;
 	}
 
+	/**
+	 * display
+	 * 
+	 * Gets the Html output to display a Field form its Field Class.
+	 *
+	 * @param  object $entry
+	 * @param  object $field
+	 * @return ?string
+	 */
 	public function display($entry, $field) {
 		$value = $entry[$field->name] ?? null;
-		$fieldClass = sprintf('\Rhino\Fields\%s', ucfirst($field->type));
-		if (class_exists($fieldClass)) {
-			return $fieldClass::displayField($value, $field, $entry);
+
+		$Field = $this->getFieldClass($field);
+		if ($Field) {
+			return $Field->display($value, $entry);
 		}
 
 		return $value;

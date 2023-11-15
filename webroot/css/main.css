@@ -3504,15 +3504,7 @@ fieldset[role=multiselect] [role=list] {
 
 .icon {
   display: inline-block;
-  height: 100%;
-}
-.icon svg {
-  display: inline-block;
-  height: 100%;
-  width: auto;
-  vertical-align: text-top;
-  margin: 1px;
-  overflow: visible;
+  height: var(--line-height);
 }
 
 .with-icon {
@@ -3972,6 +3964,10 @@ table .caption {
   line-height: 1.2857142857em;
   margin-bottom: 0rem;
 }
+table th, table td {
+  min-width: max-content;
+  white-space: nowrap;
+}
 table th {
   font-weight: 800;
 }
@@ -3987,15 +3983,18 @@ table [align=left] {
 table [data-cell=Id] {
   opacity: 0.5;
 }
+table [data-cell=Actions] {
+  width: 0;
+}
 table [data-cell=Actions] > * {
   float: right;
 }
-table [data-cell=Actions] .cluster {
-  flex-wrap: nowrap;
-  justify-content: right;
-}
 table [data-cell=Actions] .button, table [data-cell=Actions] .file-select label, .file-select table [data-cell=Actions] label {
   margin-bottom: 0;
+}
+table .cluster {
+  flex-wrap: nowrap;
+  justify-content: right;
 }
 @media (max-width: 992px) {
   table caption {

@@ -7,40 +7,34 @@ namespace Rhino\Fields;
 use Rhino\Model\ApplicationTrait;
 
 class Upload extends Field {
+	
 	use ApplicationTrait;
 
-	static public function loadOptions() {
-		return null;
-	}
-
-	static public function loadField($field, $value = null) {
-		$field['displayOptions'] = [
-			"type" => 'file',
+	public function load($field, $value = null) {
+		$displayOptions = [
+			"type" => 'text',
 			'value' => $value
 		];
-		return $field;
+
+		return $displayOptions;
 	}
 
-	static public function displayField($value, $field, $entry) {
+	public function display($value, $entry) {
 		if (empty($value)) {
 			return;
 		}
 
-		$image = '<img src="' . DS . $field['options']['uploadDirectory'] . $value . '" />';
+		$image = '<img src="' . DS . $this->field['options']['uploadDirectory'] . $value . '" style="width: 120px" />';
 		return $image;
 	}
 
-	static public function saveField($value, $field) {
-		if ($value->getSize() == 0) {
-			return '';
+	public function save($value, $entity) {
+		if (is_string($value)) {
+			return $value;
 		}
 
 		$name = $value->getClientFilename();
-		$value->moveTo(WWW_ROOT . $field['options']['uploadDirectory'] . $name);
+		$value->moveTo(WWW_ROOT . $this->field['options']['uploadDirectory'] . $name);
 		return $name;
-	}
-
-	static public function getLocal() {
-		return locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
 	}
 }

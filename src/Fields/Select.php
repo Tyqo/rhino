@@ -5,90 +5,85 @@ namespace Rhino\Fields;
 
 use Rhino\Model\Table\ApplicationsTable;
 use Rhino\Fields\Field;
-use Cake\ORM\TableRegistry;
 
 class Select extends Field {
-	static public function loadOptions() {
+	public function loadOptions() {
 		$Apps = new ApplicationsTable();
-		$tables = self::prepareSelect($Apps->getList());
+		$tables = $this->prepareSelect($Apps->getList());
 		return ['tables' => $tables];
 	}
 
-	static public function loadField($field, $value = null) {
-		$options = $field->options;
-		$field['displayOptions'] = ['type' => 'select'];
-		$displayOptions = [];
-		
-		if (!empty($options["selectFromTable"])) {
-			$displayOptions = self::getTableOptions($field->options);
+	public function load($value) {
+		$displayOptions = ['type' => 'select'];
+		$selectOptions = [];
+
+		if (!empty($this->options["selectFromTable"])) {
+			$selectOptions = $this->getTableOptions();
+		} else if (!empty($this->options['selectValues'])) {
+			$selectOptions = $this->getSimpleOptions();
 		}
 
-		if (!empty($options['selectValues'])) {
-			$displayOptions = self::getSimpleOptions($options);
+		if (isset($this->options['selectEmpty']) && $this->options['selectEmpty']) {
+			$selectOptions = $this->addEmptyOption($selectOptions);
 		}
 
-		if (isset($options['selectEmpty']) && $options['selectEmpty']) {
-			$displayOptions = self::addEmptyOption($displayOptions);
-		}
+		if (isset($this->options['selectMultiple']) && $this->options['selectMultiple']) {
+			$displayOptions['multiple'] = true;
+			$displayOptions['type'] = 'radio';
 
-		if (isset($options['selectMultiple']) && $options['selectMultiple']) {
-			$field['displayOptions']['multiple'] = true;
-			$field['displayOptions']['type'] = 'radio';
-
-			if (!empty($value) || !empty($field->standard)) {
-				$field['displayOptions']['value'] = explode(',', $value ?? $field->standard);
+			if (!empty($value) || !empty($this->field->standard)) {
+				$field['displayOptions']['value'] = explode(',', $value ?? $this->field->standard);
 			}
 		}
 
-		$field['displayOptions']["options"] = $displayOptions;
-		return $field;
+		$displayOptions["options"] = $selectOptions;
+		return $displayOptions;
 	}
 
-	static public function displayField($value, $field, $entry) {
-		$options = $field->options;
-		
-		if (!empty($options["selectFromTable"]) && !empty($value)) {
-			$selectOptions = self::getTableOptions($options);
+	public function display($value, $entry) {
+		if (!empty($this->options["selectFromTable"]) && !empty($value)) {
+			$selectOptions = $this->getTableOptions();
+		} else if (!empty($this->options['selectValues'])) {
+			$selectOptions = $this->getSimpleOptions();
 		}
 
-		if (!empty($options['selectValues'])) {
-			$selectOptions = self::getSimpleOptions($options);
-		}
-
-
-		if (isset($options['selectMultiple']) && $options['selectMultiple'] && !empty($value)) {
-			$values = explode($options['selectSeparator'], $value);
+		if (isset($this->options['selectMultiple']) && $this->options['selectMultiple'] && !empty($value)) {
+			$values = explode($this->options['selectSeparator'], $value);
 			$return = [];
 			foreach ($values as $value) {
 				$return[] = $selectOptions[$value];
 			}
 
-			return join($options['selectSeparator'] . ' ', $return);
+			return join($this->options['selectSeparator'] . ' ', $return);
 		}
 
 		return $selectOptions[$value] ?? null;
 	}
 
-	static public function saveField($value, $field) {
-		$options = $field->options;
-
-		if (isset($options['selectMultiple']) && $options['selectMultiple'] && !empty($value)) {
-			$value = join($options['selectSeparator'], $value);
+	public function save($value, $entity) {
+		if (isset($this->options['selectMultiple']) && $this->options['selectMultiple'] && !empty($value)) {
+			$value = join($this->options['selectSeparator'], $value);
 		}
 		
 		return $value;
 	}
 
-	static private function getTableOptions($options) {
-		try {
-			$Table = TableRegistry::getTableLocator()->get(ucfirst($options["selectFromTable"]));
-		} catch (\Throwable $th) {
-			$Table = TableRegistry::getTableLocator()->get('Rhino.Tables');
-			$Table->setTable($options["selectFromTable"]);
-		}
+	private function getTableOptions() {
+		$Table = $this->getTable($this->options["selectFromTable"]);
 
-		$select = ['fields' => [$options["selectFromValue"], $options["selectFromAlias"]]];
-		$sql = json_decode($options["selectFromSQL"], true);
+		$select = [
+			'fields' => [
+				$this->options["selectFromValue"], 
+				$this->options["selectFromAlias"]
+			]
+		];
+
+		$sql = json_decode($this->options["selectFromSQL"], true);
+
+		// debug(json_encode(['orderBy' => ['position' => 'ASC']]));
+		// debug($this->options["selectFromSQL"]);
+		// dd($sql);
+
 		if (is_array($sql)) {
 			$select = array_merge($select, $sql);
 		}
@@ -96,10 +91,10 @@ class Select extends Field {
 		return $Table->find('list', $select)->toArray();
 	}
 
-	static private function getSimpleOptions($options) {
+	private function getSimpleOptions() {
 		$return = [];
-		$values = preg_split("/\r\n|\n|\r/", $options['selectValues']);
-		$keys = !empty($keys) ? preg_split("/\r\n|\n|\r/", $options['selectKeys']) : [];
+		$values = preg_split("/\r\n|\n|\r/", $this->options['selectValues']);
+		$keys = !empty($keys) ? preg_split("/\r\n|\n|\r/", $this->options['selectKeys']) : [];
 
 		foreach ($values as $key => $value) {
 			$key = $keys[$key] ?? $key;

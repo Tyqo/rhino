@@ -14,6 +14,11 @@ table {
 		@include type-setting(600);
 	}
 
+	th, td {
+		min-width: max-content;
+		white-space: nowrap;
+	}
+
 	th {
 		font-weight: 800;
 	}
@@ -35,27 +40,20 @@ table {
 	}
 
 	[data-cell="Actions"] {
-		// display: flex;
-		// // justify-content: flex-end;
-		// // align-items: center;
-
-		// float: right;
-		// width: 100%;
-		// align: right;
-		// height: 100%;
+		width: 0;
 
 		& > * {
 			float: right;
 		}
 
-		.cluster {
-			flex-wrap: nowrap;
-			justify-content: right;
-		}
-
 		.button {
 			margin-bottom: 0;
 		}
+	}
+
+	.cluster {
+		flex-wrap: nowrap;
+		justify-content: right;
 	}
 
 	@include for-size(lg-down) {

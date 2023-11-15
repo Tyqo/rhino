@@ -8,26 +8,34 @@ use Rhino\Fields\Field;
 
 class Checkbox extends Field {
 
-	static public function loadOption() {
-		return [];
-	}
-
-	static public function loadField($field, $value = null) {
-		$options = $field->options;
-		if (!empty($options['checkboxStyle'])) {
-			$field['displayOptions'] = ['role' => $options['checkboxStyle']];
-		}
-		return $field;
-	}
-
-	static public function displayField($value, $field, $entry) {
-		$checked = $value ? "checked" : '';
-		$options = $field->options;
+	public function load($value) {
+		$displayOptions = [];
+		$options = $this->options;
 
 		if (!empty($options['checkboxStyle'])) {
-			$style = sprintf('%s="%s"','role', $options['checkboxStyle']);
+			$displayOptions = ['role' => $options['checkboxStyle']];
 		}
 
-		return sprintf('<input disabled type="checkbox" %s %s/>', $checked, $style ?? '');
+		return $displayOptions;
+	}
+
+	public function display($value, $entity) {
+		$attrs = [
+			'role' => 'switch',
+			'type' => 'checkbox',
+			'disabled'
+		];
+
+		if ($value) {
+			$attrs['checked'] = true;
+		}
+		
+		if (!empty($this->options['checkboxStyle'])) {
+			$attrs['role'] = $this->options['checkboxStyle'];
+		}
+
+		return $this->Templater->format('input', [
+			'attrs' => $this->Templater->formatAttributes($attrs)
+		]);
 	}
 }

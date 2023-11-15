@@ -114,9 +114,9 @@ class RhinoHelper extends Helper {
 
 	public function editField($field, $value, $options = []) {
 		$options['label'] = $field['alias'];
-		$field = $this->FieldHandler->loadField($field, $value);
+		$displayOptions = $this->FieldHandler->loadField($field, $value);
 
-		$options = array_merge($field['displayOptions'] ?? [], $options);
+		$options = array_merge($displayOptions ?? [], $options);
 		return $this->control($field['name'], $options);
 	}
 

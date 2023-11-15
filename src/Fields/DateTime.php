@@ -4,27 +4,22 @@ declare(strict_types=1);
 
 namespace Rhino\Fields;
 
-use Rhino\Model\ApplicationTrait;
 use Cake\I18n\DateTime as CakeDateTime;
 
 class Datetime extends Field {
-	use ApplicationTrait;
 
-	static public function loadOptions() {
-		return null;
-	}
-
-	static public function loadField($field, $value = null) {
-		$current = $field->standard == 'current_timestamp()';
-		$update = $field->extra == 'on update current_timestamp()';
+	public function load($value) {
+		$displayOptions = [];
+		$current = $this->field->standard == 'current_timestamp()';
+		$update = $this->field->extra == 'on update current_timestamp()';
 		if ($current || $update) {
-			$field['displayOptions'] = ['disabled'];
+			$displayOptions = ['disabled'];
 		}
-		return $field;
+		return $displayOptions;
 	}
 
-	static public function saveField($value, $field) {
-		$update = $field->extra == 'on update current_timestamp()';
+	public function save($value, $entry) {
+		$update = $this->field->extra == 'on update current_timestamp()';
 		if ($update) {
 			return CakeDateTime::now();
 		}
@@ -32,12 +27,12 @@ class Datetime extends Field {
 		return $value;
 	}
 
-	static public function displayField($value, $field, $entry) {
+	function display($value, $entry) {
 		if (empty($value)) {
 			return;
 		}
 
-		$locale = self::getLocal();
+		$locale = $this->getLocal();
 		CakeDateTime::setDefaultLocale($locale);
 		return $value->nice();
 	}

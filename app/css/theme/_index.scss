@@ -178,17 +178,7 @@ fieldset[role=multiselect] [role=list] {
 
 .icon {
 	display: inline-block;
-	height: 100%;
-
-	svg {
-		display: inline-block;
-		height: 100%;
-		width: auto;
-		vertical-align: text-top;
-
-		margin: 1px;
-		overflow: visible;
-	}
+	height: var(--line-height);
 }
 
 .with-icon {

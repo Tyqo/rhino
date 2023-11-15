@@ -4,26 +4,16 @@ declare(strict_types=1);
 
 namespace Rhino\Fields;
 
-use Rhino\Model\ApplicationTrait;
 use NumberFormatter;
 
 class Decimal extends Field {
-	use ApplicationTrait;
 
-	static public function loadOptions() {
-		return null;
-	}
-
-	static public function loadField($field, $value = null) {
-		return $field;
-	}
-
-	static public function saveField($value, $field) {
-		$value = self::round($value, $field->options['decimals']);
+	public function save($value, $entity) {
+		$value = $this->round($value, $this->field->options['decimals']);
 		return $value;
 	}
 
-	static public function displayField($value, $field, $entry) {
+	public function display($value, $entry) {
 		if (empty($value)) {
 			return 0;
 		}
@@ -33,7 +23,7 @@ class Decimal extends Field {
 		return $Formatter->format($value);
 	}
 
-	static private function round($value, $decimals) {
+	private function round($value, $decimals) {
 		$value = (float)number_format((float)$value, 2, '.', '');
 		if (!empty($decimals)) {
 			return round($value, (int)$decimals);

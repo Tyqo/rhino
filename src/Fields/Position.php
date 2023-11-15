@@ -4,52 +4,64 @@ declare(strict_types=1);
 
 namespace Rhino\Fields;
 
-use Rhino\Model\ApplicationTrait;
-use Cake\ORM\TableRegistry;
-
 class Position extends Field {
-	use ApplicationTrait;
+	
+	private $arrows = [
+		'up' => '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>',
+		'down' => '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>'
+	];
 
-	static public function loadOptions() {
-		return null;
-	}
 
-	static public function loadField($field, $value = null) {
+	public function load($value) {
 		$displayOptions = [
 			'hidden' => true
 		];
 
 		if (empty($value) || $value == 0) {
-			try {
-				$Table = TableRegistry::getTableLocator()->get(ucfirst($field->tableName));
-			} catch (\Throwable $th) {
-				$Table = TableRegistry::getTableLocator()->get('Rhino.Tables');
-				$Table->setTable($field->tableName);
-			}
-			
+			$Table = $this->getTable($this->field->tableName);
 			$query = $Table->find('all');
 			$number = $query->count();
 			$displayOptions['value'] = $number + 1;
 		}
 	
-		$field['displayOptions'] = $displayOptions;
-
-		return $field;
+		return $displayOptions;
 	}
 
-	static public function displayField($value, $field, $entry) {
-		$button = '<a href="%s" class="button">%s</a>';
-		$up = sprintf($button, self::moveLink('up', $field, $entry->id), 'up');
-		$down = sprintf($button, self::moveLink('down', $field, $entry->id), 'down');
-		$value = ' <b>' . $value . '</b> ';
-		return $up . $value . $down;
+	public function display($value, $entry) {
+		$up = $this->moveLink('up', $entry->id);
+		$down = $this->moveLink('down', $entry->id);
+		
+		$attrs = [
+			'class' => 'cluster pill',
+			'href' => $up
+		];
+
+		$value = $this->Templater->format('tag', [
+			'tag' => 'span',
+			'attrs' => $this->Templater->formatAttributes(['class' => 'button contrast']),
+			'content' => $value
+		]);
+
+		return $this->Templater->format('tag', [
+			'tag' => 'div',
+			'attrs' => $this->Templater->formatAttributes($attrs),
+			'content' => $up . $value . $down
+		]);
 	}
 
-	static public function saveField($value, $field) {
-		return $value;
-	}
+	public function moveLink($action, $id) {
+		$link =  sprintf('/rhino/tables/move%s/%s/%s/%s', ucfirst($action), $this->field->tableName, $this->field->name, $id);
+		
+		$attrs = [
+			'class' => 'button icon',
+			'href' => $link,
+			'title' => 'Move ' . $action
+		];
 
-	static public function moveLink($action, $field, $id) {
-		return sprintf('/rhino/tables/move%s/%s/%s/%s', ucfirst($action), $field->tableName, $field->name, $id);
+		return $this->Templater->format('tag', [
+			'tag' => 'a',
+			'attrs' => $this->Templater->formatAttributes($attrs),
+			'content' => $this->arrows[$action]
+		]);
 	}
 }
