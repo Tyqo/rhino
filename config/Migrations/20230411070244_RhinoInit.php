@@ -283,7 +283,10 @@ class RhinoInit extends AbstractMigration
 
 		$this->table('rhino_media', $options)
 			->addColumn('filename', 'string')
-			->addColumn('filetype', 'string')
+			->addColumn('description', 'text')
+			->addColumn('type', 'string')
+			->addColumn('position', 'integer')
+			->addColumn('media_category_id', 'integer')
 			->addColumn('created', 'timestamp', [
 				'default' => 'CURRENT_TIMESTAMP'
 			])
@@ -291,6 +294,11 @@ class RhinoInit extends AbstractMigration
 				'default' => 'CURRENT_TIMESTAMP',
 				'update' => 'CURRENT_TIMESTAMP'
 			])
+			->create();
+
+		$this->table('rhino_media_categories', $options)
+			->addColumn('name', 'string')
+			->addColumn('description', 'text')
 			->create();
 
 		$this->table('rhino_widgets', $options)

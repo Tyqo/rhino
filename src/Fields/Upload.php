@@ -60,7 +60,6 @@ class Upload extends Field {
 	public function save($value, $entity) {
 		$file = $entity[$this->field->name . '_file'];
 		$path = WWW_ROOT . $this->options['uploadDirectory'];
-	
 		if (is_array($file)) {
 			foreach ($file as $_file) {
 				$name = $_file->getClientFilename();

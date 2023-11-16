@@ -124,7 +124,7 @@ class RhinoHelper extends Helper {
 	}
 
 	public function displayField($value, $field) {
-		return $this->FieldHandler->display($value, $field);
+		return $this->FieldHandler->displayField($value, $field);
 	}
 
 	private function multiSelect(string $fieldName, array $options = []): string {

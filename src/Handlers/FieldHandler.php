@@ -88,13 +88,19 @@ class FieldHandler {
 		return array_column($this->Fields->getColumns($tableName), "Field");
 	}
 
-	public function getFields(string $tableName) {
+	public function getFields(string $tableName, ?array $config = null) {
 		$fields = [];
 		$columns = $this->Fields->getColumns($tableName);
 		
 		foreach ($columns as $column) {
 			$name = $column['Field'];
-			$fields[$name] = $this->getField($name, $tableName, $column);
+			$field = $this->getField($name, $tableName, $column);
+			if (isset($config) && in_array($name, array_keys($config))) {
+				$fieldConfig = $config[$name];
+				$field->type = $fieldConfig['type'];
+				$field->setOptions($fieldConfig['options']);
+			}
+			$fields[$name] = $field;
 		}
 
 		return $fields;
@@ -138,19 +144,7 @@ class FieldHandler {
 		return $type;
 	}
 
-	public function getDefaults(string $tableName) {
-		$fields = $this->Fields->find()->select(['name', 'standard'])->where(['tableName' => $tableName])->toArray();
-		$defaults = [];
-		foreach ($fields as $field) {
-			if (empty($field['standard'])) {
-				continue;
-			}
-
-			$defaults[$field['name']] = $field['standard'];
-		}
-		return $defaults;
-	}
-
+	// Todo: Check for Delete
 	public function setFiledData($data) {
 		if (isset($data['default'])) {
 			$data['standard'] = $data['default'];
@@ -217,6 +211,9 @@ class FieldHandler {
 	}
 
 	private function setField($entity, $field) {
+		if ($field->name == 'filename') {
+			$field->type = 'upload';
+		}
 		$Field = $this->getFieldClass($field);
 		$value = $entity[$field['name']] ?? null;
 
@@ -236,7 +233,7 @@ class FieldHandler {
 	 * @param  object $field
 	 * @return ?string
 	 */
-	public function display($entry, $field) {
+	public function displayField($entry, $field) {
 		$value = $entry[$field->name] ?? null;
 
 		$Field = $this->getFieldClass($field);

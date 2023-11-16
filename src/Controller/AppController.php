@@ -17,6 +17,15 @@ class AppController extends BaseController
 	use ApplicationTrait;
 	use FilterHandler;
 
+	/**
+	 * fieldConfig
+	 * 
+	 * Add a Config for Field operations on Table
+	 *
+	 * @var array
+	 */
+	protected $fieldConfig = [];
+
 	public function initialize(): void
     {
         parent::initialize();
@@ -158,7 +167,7 @@ class AppController extends BaseController
 		}
 
 		$entry = $this->Table->patchEntity($entry, $data);
-		
+
 		if ($this->Table->save($entry)) {
 			$this->Flash->success($params['success'], ['plugin' => 'Rhino']);
 			return true;
@@ -176,14 +185,12 @@ class AppController extends BaseController
 		$this->viewBuilder()->addHelper('Rhino.Fields');
 
 		if ($this->useTable) {
-			// if (!$this->get('tableName')) {
-				$tableName = $this->Table->getTable();
-				$this->set([
-					'currentTable' => $tableName
-				]);
-			// }
+			$tableName = $this->Table->getTable();
+			$this->set([
+				'currentTable' => $tableName
+			]);
 			
-			$fields = $this->FieldHandler->getFields($tableName);
+			$fields = $this->FieldHandler->getFields($tableName, $this->fieldConfig);
 			$app = $this->Apps->getByName($tableName);
 			
 			if (empty($app)) {

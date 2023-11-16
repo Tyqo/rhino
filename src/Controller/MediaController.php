@@ -1,52 +1,116 @@
 <?php
 declare(strict_types=1);
 
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link      https://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
- * @license   https://opensource.org/licenses/mit-license.php MIT License
- */
 namespace Rhino\Controller;
 
-use Cake\Core\Configure;
-use Cake\Http\Exception\ForbiddenException;
-use Cake\Http\Exception\NotFoundException;
-use Cake\Http\Response;
-use Cake\View\Exception\MissingTemplateException;
-use Rhino\Controller\AppController as BaseController;
+use Rhino\Controller\AppController;
 
 /**
- * Static content controller
+ * Media Controller
  *
- * This controller will render views from templates/Pages/
- *
- * @link https://book.cakephp.org/4/en/controllers/pages-controller.html
+ * @property \Rhino\Model\Table\MediaTable $media
  */
-class MediaController extends BaseController {
-	
-	private $root = [0 => 'Root'];
-	
+class MediaController extends AppController {
+
 	public function initialize(): void {
-		parent::initialize();
+        parent::initialize();
+
+		$this->fieldConfig = [
+			'filename' => [
+				'type' => 'upload',
+				'options' =>  [
+					'uploadDirectory' => 'test/',
+					'uploadTypes' => '',
+					'uploadOverwrite' => '',
+					'uploadMultiple' => ''
+				]
+			]
+		];
+	}
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function index() {
+        $query = $this->Media->find()
+            ->contain(['MediaCategories']);
+        $media = $this->paginate($query);
+
+        $this->set(compact('media'));
     }
 
-	public function beforeFilter(\Cake\Event\EventInterface $event)
-	{
-		parent::beforeFilter($event);
-		// Configure the login action to not require authentication, preventing
-		// the infinite redirect loop issue
-		$this->Authentication->addUnauthenticatedActions(['display']);
+    /**
+     * View method
+     *
+     * @param string|null $id Rhino Media id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function view($id = null) {
+        $media = $this->Media->get($id, contain: ['MediaCategories']);
+        $this->set(compact('media'));
+    }
+
+    /**
+     * Add method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function add($categoryId = null) {
+        $media = $this->Media->newEmptyEntity();
+		$media->media_category_id = $categoryId;
+		$this->compose($media, [
+			"redirect" => ['controller' => 'MediaCategories', 'action' => 'view', $media->media_category_id],
+			'success' => __('The media has been saved.'),
+			'error' => __('The media could not be saved. Please, try again.')
+		]);
+    }
+
+    /**
+     * Edit method
+     *
+     * @param string|null $id Rhino Media id.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function edit($id = null) {
+        $media = $this->Media->get($id, contain: []);
+		$this->compose($media, [
+			"redirect" => ['controller' => 'MediaCategories', 'action' => 'view', $media->media_category_id],
+			'success' => __('TThe media has been saved.'),
+			'error' => __('The media could not be saved. Please, try again.')
+		]);
+    }
+
+	public function preCompose($media) {
+		$mediaCategories = $this->Media->MediaCategories->find('list', limit: 200)->all();
+        $this->set(compact('mediaCategories'));
+		return $media;
 	}
 
-    public function index() {
-		// die('Media');
+	public function preSave($media) {
+		// dd($media);
+		return $media;
 	}
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id Rhino Media id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null) {
+        $this->request->allowMethod(['post', 'delete']);
+        $media = $this->Media->get($id);
+        if ($this->Media->delete($media)) {
+            $this->Flash->success(__('The media has been deleted.'));
+        } else {
+            $this->Flash->error(__('The media could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
 }

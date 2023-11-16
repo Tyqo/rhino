@@ -2484,6 +2484,9 @@ body {
 .stack > * + * {
   margin-top: var(--spacing);
 }
+.stack > * {
+  display: block;
+}
 
 .cluster {
   gap: 0.5rem;
@@ -2491,7 +2494,28 @@ body {
   flex-wrap: wrap;
 }
 .cluster > * {
-  flex: 1 1 0%;
+  flex: 1 1 auto;
+}
+.cluster .button, .cluster .file-select label, .file-select .cluster label, .cluster button, .cluster [role=button], .cluster input, .cluster select {
+  margin-bottom: 0;
+  flex-basis: 0%;
+}
+.cluster input, .cluster select {
+  min-width: 16ch;
+}
+.cluster aside {
+  flex-basis: 0%;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
+
+.grid .button, .grid .file-select label, .file-select .grid label,
+.grid button,
+.grid [role=button],
+.grid input,
+.grid select {
+  margin-bottom: 0;
+  flex-basis: 0%;
 }
 
 .margin-100 {

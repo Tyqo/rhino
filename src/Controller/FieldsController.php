@@ -8,13 +8,7 @@ use Rhino\Handlers\FieldHandler;
 use App\View\AjaxView;
 
 class FieldsController extends AppController
-{
-
-	public function initialize(): void {
-		parent::initialize();
-		$this->FieldHandler = new FieldHandler();
-	}
-	
+{	
     public function index(string $tableName) {
         $columns = $this->Fields->getColumns($tableName);
 
@@ -88,68 +82,14 @@ class FieldsController extends AppController
 		}
 		return $this->redirect(['action' => 'index', $tableName]);
 	}
-
-	public function ogCompose($tableName, $entry, $params) {
-		if ($this->request->is(['patch', 'post', 'put'])) {
-			$data = $this->request->getData();
-			$data = $this->FieldHandler->setFiledData($data);
 	
-			$entry = $this->Fields->patchEntity($entry, $data);
-
-			$data['type'] = $this->FieldHandler->getDatabaseType($data['type']);
-		
-			if ($this->request->getParam('action') == 'add') {
-				$this->Fields->create($tableName, $data);
-			} else {
-				if ($data['name'] != $data['currentName']) {
-					$this->Fields->rename($tableName, $data["currentName"], $data["name"]);
-				}
-				$this->Fields->update($tableName, $data["name"], $data);
-			}
-
-			if ($this->Fields->save($entry)) {
-				$this->Flash->success(__('The field has been saved.'), ['plugin' => 'Rhino']);
-				return $this->redirect(['action' => 'index', $tableName]);
-			}
-
-			$this->Flash->error(__('The field could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
-		}
-
-
-		$settings = $this->getOptions($tableName, $entry['type'], $entry['name']);
-		$types = $this->FieldHandler->getTypes();
-
-		$this->set(array_merge([
-			"tableName" => $tableName,
-			"types" => $types,
-			"entry" => $entry,
-			'settings' => $settings
-		], $params));
-
-		try {
-			return $this->render('compose');
-		} catch (MissingTemplateException $exception) {
-			if (Configure::read('debug')) {
-				throw $exception;
-			}
-			throw new NotFoundException();
-		}
-	}
 
 	public function getOptions($tableName, $type, $fieldName = null) {
-		// $settings = $this->FieldHandler->getSettings($type);
-
 		if (isset($fieldName)) {
 			$field = $this->Fields->getByName($fieldName, $tableName);
 
 			if (isset($field['settings'])) {
 				$values = $field['settings'];
-				// $values = json_decode($field['settings'], true);
-				// foreach ($settings as $key => $setting) {
-				// 	if (isset($values[$key])) {
-				// 		$settings[$key]['value'] = $values[$key];
-				// 	}
-				// }
 			}
 		}
 

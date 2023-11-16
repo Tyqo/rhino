@@ -98,13 +98,41 @@
 
 .stack {
 	@include stack(var(--spacing));
+	& > * {
+		display: block;
+	}
 }
 
 .cluster {
 	@include cluster($spacing * 0.5);
 	& > * {
-		flex: 1 1 0%;
+		flex: 1 1 auto;
 	}
+
+	.button, button, [role=button], input, select {
+		margin-bottom: 0;
+		flex-basis: 0%;
+	}
+	
+	input, select {
+		min-width: 16ch;
+	}
+
+	aside {
+		flex-basis: 0%;
+		min-width: fit-content;
+	}
+}
+
+.grid {
+	.button,
+		button,
+		[role=button],
+		input,
+		select {
+			margin-bottom: 0;
+			flex-basis: 0%;
+		}
 }
 
 @each $key,

@@ -96,7 +96,7 @@ class GroupsCell extends Cell {
 					],
 					[
 						'name' => 'Medien',
-						'link' => ['controller' => 'Media', 'action' => 'index'],
+						'link' => ['controller' => 'MediaCategories', 'action' => 'index'],
 						'icon' => "Rhino.image",
 						'rights' => 'rhino_media'
 					],

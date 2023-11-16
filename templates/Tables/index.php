@@ -6,7 +6,7 @@
  */
 
 ?>
-<section class="tables">
+<section class="tables stack">
 
 	<?= $this->Form->create(null, [
 		'url' => [
@@ -20,20 +20,20 @@
 		<?= $this->Form->select("field", $columns, ['value' => $field]) ?>
 		<?= $this->Form->select("operator", $operators, ['value' => $operator]) ?>
 		<?= $this->Form->input("query", ['value' => $query]) ?>
+		<div class="cluster pill">
+			<?= $this->Form->button("Filter") ?>
+			<?= $this->Html->Link(
+				'clear Filter',
+				[
+					'action' => 'clearFilter',
+					$tableName
+				],
+				['class' => 'button']
+			)
+			?>
+		</div>
 	</div>
 
-	<div class="cluster pill">
-		<?= $this->Form->button("Filter") ?>
-		<?= $this->Html->Link(
-			'clear Filter',
-			[
-				'action' => 'clearFilter',
-				$tableName
-			],
-			['class' => 'button']
-		)
-		?>
-	</div>
 	<?= $this->Form->end() ?>
 
 	<figure>

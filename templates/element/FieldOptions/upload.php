@@ -16,7 +16,7 @@
 		"value" => $entry->options['uploadDirectory'] ?? '',
 		"name" => "settings[uploadDirectory]",
 		"type" => 'directory',
-		'types' => 'folder',
+		'types' => 'directory',
 		'description' => "Path where the files will be saved."
 	]) ?>
 </div>
