@@ -1,2 +1,2 @@
 
-<?= $this->element($entry['element']['element'], array_merge($entry->toArray(), ['layoutmode' => $layoutmode])); ?>
+<?= $this->element($entry['element']['elementName'], array_merge($entry->toArray(), ['layoutmode' => $layoutmode])); ?>

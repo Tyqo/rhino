@@ -61,8 +61,9 @@ export default class LayoutElements {
 			console.log(element);
 			this.container.innerHTML = element;
 
-			let html = this.modalForm.querySelector('[name=html]');
-			if (html) {
+			let editor = document.getElementById('editor');
+			if (editor) {
+				let html = this.modalForm.querySelector('[name=html]');
 				this.editor = new Editor('editor', html.value);
 			} else {
 				this.editor = null;

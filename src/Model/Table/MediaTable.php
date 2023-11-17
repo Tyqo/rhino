@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Rhino\Model\Table;
 
+use Rhino\Model\Table\AppTable;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
@@ -29,14 +29,14 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class MediaTable extends Table
+class MediaTable extends AppTable
 {
 
 	public array $fieldConfig = [
 		'filename' => [
 			'type' => 'upload',
 			'options' =>  [
-				'uploadDirectory' => 'media/',
+				'uploadDirectory' => '/webroot/media/',
 				'uploadTypes' => 'file',
 				'uploadOverwrite' => '',
 				'uploadMultiple' => ''

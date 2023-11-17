@@ -45,7 +45,7 @@ class Upload extends Field {
 			if ($type && preg_match('/(image\/*)/', $type)) {
 				$out .= $this->Templater->format('image', [
 					'attrs' => $this->Templater->formatAttributes([
-						'src' => DS . $this->field['options']['uploadDirectory'] . trim($file),
+						'src' => $this->field['options']['uploadDirectory'] . trim($file),
 						'style' => 'height: 120px'
 					])
 				]);
