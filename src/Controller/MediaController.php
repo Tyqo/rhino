@@ -14,18 +14,6 @@ class MediaController extends AppController {
 
 	public function initialize(): void {
         parent::initialize();
-
-		$this->fieldConfig = [
-			'filename' => [
-				'type' => 'upload',
-				'options' =>  [
-					'uploadDirectory' => 'test/',
-					'uploadTypes' => '',
-					'uploadOverwrite' => '',
-					'uploadMultiple' => ''
-				]
-			]
-		];
 	}
 
     /**
@@ -91,6 +79,17 @@ class MediaController extends AppController {
 	}
 
 	public function preSave($media) {
+		if (isset($media['filename_file'])) {
+			$type = $media['filename_file']->getClientMediaType();
+			$media['type'] = $type;
+
+			if (preg_match('/^(.+)\//', $type, $matches)) {
+				$match = $matches[1];
+				if (in_array($match, ['image', 'video', 'audio'])) {
+					$media['type'] = $match;
+				}
+			}
+		}
 		// dd($media);
 		return $media;
 	}
@@ -111,6 +110,6 @@ class MediaController extends AppController {
             $this->Flash->error(__('The media could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller' => 'MediaCategories', 'action' => 'view', $media->media_category_id]);
     }
 }

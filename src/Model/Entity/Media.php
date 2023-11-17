@@ -33,7 +33,7 @@ class Media extends Entity
     protected array $_accessible = [
         'filename' => true,
         'description' => true,
-        'filetype' => true,
+        'type' => true,
         'position' => true,
         'media_category_id' => true,
         'created' => true,

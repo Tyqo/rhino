@@ -56,6 +56,10 @@ class RhinoHelper extends Helper {
 	}
 
 	public function control(string $name, ?array $options = []) {
+		if (isset($options['type']) && $options['type'] === false) {
+			return;
+		}
+
 		if (isset($options['description'])) {
 			$description = $this->formatTemplate('tag', [
 				'content' => $options['description'],
@@ -109,22 +113,25 @@ class RhinoHelper extends Helper {
 		$content = '';
 
 		foreach ($fields as $field) {
-			$content .= $this->editField($field, $entity[$field->name], $options);
+			if ($field['name'] == 'id' && $field['extra'] == 'auto_increment') {
+				continue;
+			}
+
+			$options['label'] = $field['alias'];
+			$content .= $this->editField($field->name, $entity, $options);
 		}
 
 		return $content;
 	}
 
-	public function editField($field, $value, $options = []) {
-		$options['label'] = $field['alias'];
-		$displayOptions = $this->FieldHandler->loadField($field, $value);
-
+	public function editField($fieldName, $entity, $options = []) {
+		$displayOptions = $this->FieldHandler->loadField($fieldName, $entity);
 		$options = array_merge($displayOptions ?? [], $options);
-		return $this->control($field['name'], $options);
+		return $this->control($fieldName, $options);
 	}
 
-	public function displayField($value, $field) {
-		return $this->FieldHandler->displayField($value, $field);
+	public function displayField($fieldName, $entity) {
+		return $this->FieldHandler->displayField($fieldName, $entity);
 	}
 
 	private function multiSelect(string $fieldName, array $options = []): string {
@@ -183,7 +190,19 @@ class RhinoHelper extends Helper {
 
 		$name = $options['name'] ?? $fieldName;
 		$humanName = __(Inflector::humanize(Inflector::underscore($fieldName)));
+		
 		$label = $this->Form->label($options["id"], $humanName);
+		$text = $this->Form->input($fieldName, [
+			'type' => 'text',
+			'id' => $this->_domId($options["id"]),
+			"value" => $options['value'] ?? null,
+			'name' => $options['name'] ?? $fieldName,
+			'disabled' => isset($options['disabled'])
+		]);
+
+		if (isset($options['disabled'])) {
+			return $label . $text;
+		}
 
 		$fileOptions = [
 			'type' => 'file',
@@ -204,13 +223,6 @@ class RhinoHelper extends Helper {
 		$file = $this->Form->input($fieldName, $fileOptions);
 
 		$button = $this->Form->label($options["id"] . "_file", 'Upload File', ['class' => 'button']);
-
-		$text = $this->Form->input($fieldName, [
-			'type' => 'text',
-			'id' => $this->_domId($options["id"]),
-			"value" => $options['value'] ?? null,
-			'name' => $options['name'] ?? $fieldName,
-		]);
 
 		$url = $this->Url->build([
 			'controller' => 'files',

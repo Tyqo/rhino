@@ -22,9 +22,9 @@ if (isset($readonly) && $readonly) {
 	<?= $this->Rhino->render($fields, $entry, $options) ?>
 
 	<?php if ($entry->getVirtual() > 0) {
-		foreach ($entry->getVirtual() as $virtual) {
-			echo $this->Fields->control(['name' => $virtual, 'value' => $entry[$virtual]], ['readonly' => true]);
-		}
+		// foreach ($entry->getVirtual() as $virtual) {
+		// 	echo $virtual;
+		// }
 	} ?>
 
 	<div class="cluster pill">

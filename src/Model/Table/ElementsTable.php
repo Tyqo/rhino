@@ -9,6 +9,21 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 class ElementsTable extends Table {
+
+	public array $fieldConfig = [
+		'element' => [
+			'type' => 'upload',
+			'options' =>  [
+				'uploadDirectory' => '/templates/element',
+				'uploadTypes' => 'file',
+				'uploadOverwrite' => '',
+				'uploadMultiple' => ''
+			]
+		],
+		'created' => false,
+		'modified' => false,
+	];
+
     /**
      * Initialize method
      *

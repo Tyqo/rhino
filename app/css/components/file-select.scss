@@ -42,11 +42,17 @@
 	label {
 		border: var(--border-width) solid var(--primary);
 		border-radius: var(--border-radius);
-		@extend .outline;
 		@extend .button;
 		display: inline-block;
 		margin-bottom: 0;
 		text-align: left;
+		--background-color: transparent;
+		--color: var(--primary);
+	
+		&:is([aria-current], :hover, :active, :focus) {
+			--background-color: transparent;
+			--color: var(--primary-hover);
+		}
 	}
 		
 	input[type=radio] {
@@ -55,7 +61,7 @@
 
 	input[type=radio]:checked + label {
 		background-color: var(--primary);
-		color: var(--text-color);
+		color: var(--primary-inverse);
 	}
 
 	input[type=radio]:disabled + label {

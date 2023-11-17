@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Rhino\View;
 
 use Rhino\Model\Table\PagesTable;
+use Rhino\Model\Table\MediaCategoriesTable;
 use Cake\View\Exception\MissingLayoutException;
 use Cake\Core\Plugin;
 
@@ -114,6 +115,39 @@ trait RhinoView
 			}
 		}
 
+		return $content;
+	}
+
+	public function parseMedia($id = null, $edit = false) {
+		if (!$edit) {
+			$media = $this->MediaCategories->Media->get($id);
+			return $this->displayMedia($media);
+		}
+
+		$this->MediaCategories = new MediaCategoriesTable();
+		$mediaCategories = $this->MediaCategories->find('all', contain: ['Media' => ['sort' => ['Media.position' => 'ASC']]]);
+		$content = '';
+
+		foreach ($mediaCategories as $category) {
+			$content .= "<h1>" . $category->name . "</h1>";
+			foreach ($category->media as $media) {
+				$content .= $this->displayMedia($media);
+			}
+		}
+		return $content;
+	}
+
+	public function displayMedia($media) {
+		$content = '<img src="/media/' . $media->filename . '" />';
+		// switch ($media->type) {
+		// 	case 'image':
+		// 		$content .= '<img src="/media/' . $media->filename . '" />';
+		// 		break;
+
+		// 	default:
+		// 		# code...
+		// 		break;
+		// }
 		return $content;
 	}
 

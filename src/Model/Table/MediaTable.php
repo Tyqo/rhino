@@ -31,6 +31,24 @@ use Cake\Validation\Validator;
  */
 class MediaTable extends Table
 {
+
+	public array $fieldConfig = [
+		'filename' => [
+			'type' => 'upload',
+			'options' =>  [
+				'uploadDirectory' => 'media/',
+				'uploadTypes' => 'file',
+				'uploadOverwrite' => '',
+				'uploadMultiple' => ''
+			]
+		],
+		'type' => 'hidden',
+		'position' => ['type' => 'position'],
+		'media_category_id' => 'hidden',
+		'created' => false,
+		'modified' => false,
+	];
+
     /**
      * Initialize method
      *
@@ -71,9 +89,9 @@ class MediaTable extends Table
             ->allowEmptyString('description');
 
         $validator
-            ->scalar('filetype')
-            ->maxLength('filetype', 255)
-            ->allowEmptyFile('filetype');
+            ->scalar('type')
+            ->maxLength('type', 255)
+            ->allowEmptyFile('type');
 
         $validator
             ->integer('position')

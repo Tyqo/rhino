@@ -26,7 +26,7 @@ class Field {
 	 *
 	 * @var array
 	 */
-	protected array $options;
+	protected array $options = [];
 
 	/**
 	 * Default config for this class

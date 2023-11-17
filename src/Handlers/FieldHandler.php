@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Rhino\Handlers;
 
 use Rhino\Model\Table\FieldsTable;
+use Cake\ORM\TableRegistry;
 
 class FieldHandler {
 	public $customTypes = [
@@ -61,6 +62,11 @@ class FieldHandler {
 			"name" => "upload",
 			"alias" => "Upload",
 			"type" => "string",
+		],
+		[
+			"name" => "hidden",
+			"alias" => "Hidden",
+			'type' => 'hidden'
 		]
 	];
 
@@ -88,18 +94,17 @@ class FieldHandler {
 		return array_column($this->Fields->getColumns($tableName), "Field");
 	}
 
-	public function getFields(string $tableName, ?array $config = null) {
+	public function setConfig($config) {
+		$this->config = $config;
+	}
+
+	public function getFields(string $tableName) {
 		$fields = [];
 		$columns = $this->Fields->getColumns($tableName);
 		
 		foreach ($columns as $column) {
 			$name = $column['Field'];
 			$field = $this->getField($name, $tableName, $column);
-			if (isset($config) && in_array($name, array_keys($config))) {
-				$fieldConfig = $config[$name];
-				$field->type = $fieldConfig['type'];
-				$field->setOptions($fieldConfig['options']);
-			}
 			$fields[$name] = $field;
 		}
 
@@ -108,10 +113,19 @@ class FieldHandler {
 
 	public function getField($name, $tableName, $column = null) {
 		$field = $this->Fields->getByName($name, $tableName, $column);
-
-		// ToDo: Implement LoadFunction for Field Types
-		// Will have to move save and load functions to Entity Class
-
+		
+		if (isset($this->config) && isset($this->config[$name])) {
+			$fieldConfig = $this->config[$name];
+			if (isset($fieldConfig['type'])) {
+				$field->type = $fieldConfig['type'];
+				if (isset($fieldConfig['options'])) {
+					$field->setOptions($fieldConfig['options']);
+				}
+			} else {
+				$field->setOptions(['type' => $fieldConfig]);
+			}
+		}
+		
 		return $field;
 	}
 
@@ -174,26 +188,6 @@ class FieldHandler {
 		return $return;
 	}
 
-	/**
-	 * loadField
-	 * 
-	 * Load the needed options for the Form->control from its Field Class
-	 *
-	 * @param  object $field
-	 * @param  mixed $value
-	 * @return array
-	 */
-	public function loadField($field, $value) {
-		$Field = $this->getFieldClass($field);
-		$displayOptions = [];
-
-		if ($Field) {
-			$displayOptions = $Field->load($value);
-		}
-		
-		return $displayOptions;
-	}
-
 	public function setFields(string $tableName, $entity) {
 		$fields = $this->getFields($tableName);
 		
@@ -211,9 +205,6 @@ class FieldHandler {
 	}
 
 	private function setField($entity, $field) {
-		if ($field->name == 'filename') {
-			$field->type = 'upload';
-		}
 		$Field = $this->getFieldClass($field);
 		$value = $entity[$field['name']] ?? null;
 
@@ -225,6 +216,27 @@ class FieldHandler {
 	}
 
 	/**
+	 * loadField
+	 * 
+	 * Load the needed options for the Form->control from its Field Class
+	 *
+	 * @param  object $field
+	 * @param  mixed $value
+	 * @return array
+	 */
+	public function loadField($fieldName, $entity) {
+		$value = $entity[$fieldName] ?? null;
+		$field = $this->getFromEntity($fieldName, $entity);
+		$Field = $this->getFieldClass($field);
+
+		if (!$Field) {
+			return $field->options ?? null;
+		}
+		
+		return $Field->load($value);
+	}
+
+	/**
 	 * display
 	 * 
 	 * Gets the Html output to display a Field form its Field Class.
@@ -233,15 +245,24 @@ class FieldHandler {
 	 * @param  object $field
 	 * @return ?string
 	 */
-	public function displayField($entry, $field) {
-		$value = $entry[$field->name] ?? null;
-
+	public function displayField($fieldName, $entity) {
+		$value = $entity[$fieldName] ?? null;
+		$field = $this->getFromEntity($fieldName, $entity);
 		$Field = $this->getFieldClass($field);
-		if ($Field) {
-			return $Field->display($value, $entry);
-		}
 
-		return $value;
+		if (!$Field) {
+			return $value;
+		}
+		
+		return $Field->display($value, $entity);
+	}
+
+	public function getFromEntity($fieldName, $entity) {
+		$Table = TableRegistry::getTableLocator()->get($entity->getSource());
+		$tableName = $Table->getTable();
+		$this->setConfig($Table->fieldConfig ?? null);
+		$field = $this->getField($fieldName, $tableName);
+		return $field;
 	}
 }
 

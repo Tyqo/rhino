@@ -8,10 +8,10 @@
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Rhino Media'), ['action' => 'edit', $media->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Rhino Media'), ['action' => 'delete', $media->id], ['confirm' => __('Are you sure you want to delete # {0}?', $media->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Rhino Media'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Rhino Media'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Edit Media'), ['action' => 'edit', $media->id], ['class' => 'side-nav-item']) ?>
+            <?= $this->Form->postLink(__('Delete Media'), ['action' => 'delete', $media->id], ['confirm' => __('Are you sure you want to delete # {0}?', $media->id), 'class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('List Media'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('New Media'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column column-80">
@@ -23,12 +23,12 @@
                     <td><?= h($media->filename) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Filetype') ?></th>
-                    <td><?= h($media->filetype) ?></td>
+                    <th><?= __('Type') ?></th>
+                    <td><?= h($media->type) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Rhino Media Category') ?></th>
-                    <td><?= $media->hasValue('rhino_media_category') ? $this->Html->link($media->rhino_media_category->name, ['controller' => 'RhinoMediaCategories', 'action' => 'view', $media->rhino_media_category->id]) : '' ?></td>
+                    <td><?= $media->hasValue('media_category') ? $this->Html->link($media->media_category->name, ['controller' => 'MediaCategories', 'action' => 'view', $media->media_category->id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>

@@ -31,7 +31,7 @@ class MediaCategoriesController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null) {
-        $mediaCategory = $this->MediaCategories->get($id, contain: ['Media']);
+        $mediaCategory = $this->MediaCategories->get($id, contain: ['Media' => ['sort' => ['Media.position' => 'ASC']]]);
         $this->set(compact('mediaCategory'));
     }
 

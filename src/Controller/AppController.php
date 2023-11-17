@@ -76,6 +76,9 @@ class AppController extends BaseController
 
 	public function setTable($tableName) {
 		$alias = ucfirst($tableName);
+		if (preg_match('/^rhino\_(.*)/', $tableName, $matches)) {
+			$alias = 'Rhino.' . ucfirst($matches[1]);
+		}
 		$this->getTableLocator()->setConfig($alias, ['table' => $tableName]);
 		try {
 			$this->Table = $this->fetchTable($alias);
@@ -88,6 +91,11 @@ class AppController extends BaseController
 		if (!isset($this->Table)) {
 			$this->setTable($tableName);
 		}
+
+		if (isset($this->Table->fieldConfig)) {
+			$this->FieldHandler->setConfig($this->Table->fieldConfig);
+		}
+
 		return $this->Table;
 	}
 
@@ -127,7 +135,11 @@ class AppController extends BaseController
 
 		if ($this->request->is(['patch', 'post', 'put'])) {
 			$data = $this->request->getData();
-		
+
+			if (isset($this->Table->fieldConfig)) {
+				$this->FieldHandler->setConfig($this->Table->fieldConfig);
+			}
+
 			$check = $this->save($entry, $params, $data);
 			if ($check) {
 				$redirect =	$this->redirect($params['redirect']); 
@@ -190,7 +202,11 @@ class AppController extends BaseController
 				'currentTable' => $tableName
 			]);
 			
-			$fields = $this->FieldHandler->getFields($tableName, $this->fieldConfig);
+			if (isset($this->Table->fieldConfig)) {
+				$this->FieldHandler->setConfig($this->Table->fieldConfig);
+			}
+			
+			$fields = $this->FieldHandler->getFields($tableName);
 			$app = $this->Apps->getByName($tableName);
 			
 			if (empty($app)) {

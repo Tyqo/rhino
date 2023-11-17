@@ -36,18 +36,17 @@ class Upload extends Field {
 			$value = str_replace($this->options['uploadDirectory'], '', $this->field->standard);
 		}
 
-		$path = WWW_ROOT . $this->options['uploadDirectory'];
+		$path = ROOT . $this->options['uploadDirectory'] . DS;
 		$files = explode(',', $value);
 
 		$out = '';
 		foreach ($files as $file) {
-			$type = mime_content_type($path . $file);
-			if (preg_match('/(image\/*)/', $type)) {
-				// $out .= '<img src="' . DS . $this->field['options']['uploadDirectory'] . trim($file) . '" style="width: 120px" />';
+			$type = mime_content_type($path . trim($file));
+			if ($type && preg_match('/(image\/*)/', $type)) {
 				$out .= $this->Templater->format('image', [
 					'attrs' => $this->Templater->formatAttributes([
 						'src' => DS . $this->field['options']['uploadDirectory'] . trim($file),
-						'style' => 'width: 120px'
+						'style' => 'height: 120px'
 					])
 				]);
 			} else {
@@ -59,7 +58,12 @@ class Upload extends Field {
 
 	public function save($value, $entity) {
 		$file = $entity[$this->field->name . '_file'];
-		$path = WWW_ROOT . $this->options['uploadDirectory'];
+
+		if (empty($file)) {
+			return $value;
+		}
+
+		$path = ROOT . $this->options['uploadDirectory'];
 		if (is_array($file)) {
 			foreach ($file as $_file) {
 				$name = $_file->getClientFilename();

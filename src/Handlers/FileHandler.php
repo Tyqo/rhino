@@ -11,15 +11,16 @@ class FileHandler {
 
 	public function get($directory = null, $types = []) {
 		if (empty($directory)) {
-			$directory = WWW_ROOT;
+			$directory = ROOT;
 		} else {
-			$directory = WWW_ROOT . $directory . DS;
+			$directory = ROOT . $directory . DS;
 		}
 
 		if (!is_dir($directory)) {
 			return [];
 		}
 
+		$this->basePath = $directory;
 		$dirs = $this->subDir($directory, $types);
 
 		return $dirs;
@@ -36,17 +37,12 @@ class FileHandler {
 			$file = [
 				'name' => $dir,
 			];
-				
-			// ToDo: type should be Mime type with exception for folder and File.
-			if (is_dir($directory . $dir)) {
-				$path .= DS;
-				$file['type'] = 'directory';
-				$file['path'] = str_replace($directory, '', $path);
-				$file["children"] = $this->subDir($path, $types);
-			} else {
-				// $pathinfo = pathinfo($path);
-				$file['type'] = mime_content_type($path);
-				$file['path'] = str_replace($directory, '', $path);
+			
+			$file['type'] = mime_content_type($path);
+			$file['path'] = str_replace($this->basePath, '', $path);
+	
+			if ($file['type'] == 'directory') {
+				$file["children"] = $this->subDir($path . DS, $types);
 			}
 
 			if (!empty($types)) {
