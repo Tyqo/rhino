@@ -194,8 +194,6 @@ class AppController extends BaseController
 			$this->preRender();
 		}
 
-		$this->viewBuilder()->addHelper('Rhino.Fields');
-
 		if ($this->useTable) {
 			$tableName = $this->Table->getTable();
 			$this->set([
