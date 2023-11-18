@@ -1,6 +1,6 @@
-@import "menu";
-@import "flash-messages";
-@import "users";
-@import "table";
-@import "pages";
-@import "file-select";
+@forward "menu";
+@forward "flash-messages";
+@forward "users";
+@forward "table";
+@forward "pages";
+@forward "file-select";

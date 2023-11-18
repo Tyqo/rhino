@@ -93,7 +93,7 @@ class IconHelper extends Helper {
 		$paths = $this->getPluginPath($plugin);
 
 		$paths = array_merge(
-			[$paths . "webroot" . DS],
+			[$paths],
 			App::core('webroot')
 		);
 
@@ -110,7 +110,7 @@ class IconHelper extends Helper {
 			return WWW_ROOT;
 		}
 
-		return Plugin::path($pluginName);
+		return Plugin::path($pluginName) . 'webroot' . DS ;
 	}
 
 

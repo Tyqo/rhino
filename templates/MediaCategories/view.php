@@ -24,7 +24,7 @@
 				<?= $this->Html->link(__('New'), ['controller' => 'media', 'action' => 'add', $mediaCategory->id]) ?>
 
 				<?php if (!empty($mediaCategory->media)) : ?>
-					<div class="cluster">
+					<div class="auto-grid">
 						<?php foreach ($mediaCategory->media as $media) : ?>
 							<div class="stack box">
 

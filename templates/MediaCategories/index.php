@@ -6,7 +6,7 @@
 ?>
 <section class="mediaCategories index content stack">
 	<h3><?= __('Media Categories') ?></h3>
-	<div class="cluster">
+	<div class="auto-grid">
 		<?php foreach ($mediaCategories as $mediaCategory): ?>
 		<div class="stack box">
 			<h4><?= h($mediaCategory->name) ?></h4>

@@ -2,6 +2,7 @@
 @use 'sass:string';
 @use 'sass:list';
 @use 'sass:map';
+@use '../settings' as *;
 
 // Black & White
 $black: #0C0E26 !default;
@@ -27,7 +28,7 @@ $saturation-multiplication: (
 	warning: -1,
 	error: -1,
 	success: 0,
-);
+) !default;
 
 $weights: (
 	50,
@@ -40,7 +41,7 @@ $weights: (
 	700,
 	800,
 	900,
-);
+) !default;
 
 $lightness: (
 	50: 36%,
@@ -53,7 +54,7 @@ $lightness: (
 	700: -22%,
 	800: -26%,
 	900: -32%,
-);
+) !default;
 
 $saturation: (
 	50: 30%,
@@ -66,7 +67,7 @@ $saturation: (
 	700: 8%,
 	800: 0%,
 	900: -6%,
-);
+) !default;
 
 @function color($name, $weight) {
 	$multi: map.get($saturation-multiplication, $name);

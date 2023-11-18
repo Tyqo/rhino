@@ -1,20 +1,14 @@
-// Load Settings
-@import "settings";
-
 // add reset, makes things easier to handel
-@import "lib/reset";
+@forward "lib/reset";
 
 // Add Base pico styling
-@import "theme/pico";
-
-// Get lib before custom
-@import "lib";
+@forward "theme/pico";
 
 // Add Theme
-@import "theme";
+@forward "theme";
 
 // partials are for general setup
-@import "partials";
+@forward "partials";
 
 // components are used for specific elements
-@import "components";
+@forward "components";

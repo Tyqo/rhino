@@ -42,7 +42,7 @@
 	label {
 		border: var(--border-width) solid var(--primary);
 		border-radius: var(--border-radius);
-		@extend .button;
+		@extend .button !optional;
 		display: inline-block;
 		margin-bottom: 0;
 		text-align: left;

@@ -1,3 +1,5 @@
+@use "../lib/colors" as *;
+
 // Default: Light theme
 @mixin light {
 	--background-color: #{$white};

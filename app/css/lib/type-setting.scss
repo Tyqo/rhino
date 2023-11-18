@@ -6,10 +6,7 @@
  */
 @use "sass:math";
 @use "sass:map";
-
-$use-type-scale: true !default;
-$vertical-unit: 2rem !default;
-$modular-scale-ratio: 1.125 !default;
+@use '../settings' as *;
 
 $font-sizes: (
 	100: 0.5,

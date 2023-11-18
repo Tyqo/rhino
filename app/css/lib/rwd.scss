@@ -15,13 +15,7 @@
  * @package libhalma
  */
 
-$breakpoints: (
-	tablet-portrait: 600px,
-	tablet-landscape: 900px,
-	desktop: 1200px,
-	desktop-big: 1800px,
-	desktop-huge: 2400px,
-) !default;
+ @use '../settings' as *;
 
 @mixin for-size($size, $direction: false) {
 	$notFound: true;

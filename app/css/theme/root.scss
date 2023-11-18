@@ -1,4 +1,6 @@
 @use 'sass:map';
+@use '../settings' as *;
+@use '../lib' as *;
 
 :root {
 	--font-family: 'Manrope', sans-serif;
@@ -85,75 +87,5 @@
 			transform: translateY(20vh);
 			opacity: 0;
 		}
-	}
-}
-
-.margin {
-	margin-bottom: var(--spacing);
-}
-
-.margin-top {
-	margin-top: var(--spacing);
-}
-
-.stack {
-	@include stack(var(--spacing));
-	& > * {
-		display: block;
-	}
-}
-
-.cluster {
-	@include cluster($spacing * 0.5);
-	& > * {
-		flex: 1 1 auto;
-	}
-
-	.button, button, [role=button], input, select {
-		margin-bottom: 0;
-		flex-basis: 0%;
-	}
-	
-	input, select {
-		min-width: 16ch;
-	}
-
-	aside {
-		flex-basis: 0%;
-		min-width: fit-content;
-	}
-}
-
-.grid {
-	.button,
-		button,
-		[role=button],
-		input,
-		select {
-			margin-bottom: 0;
-			flex-basis: 0%;
-		}
-}
-
-@each $key,
-$margin in $spacings {
-	.margin-#{$key} {
-		margin-bottom: var(--spacing-#{$key});
-	}
-
-	.margin-top-#{$key} {
-		margin-top: var(--spacing-#{$key});
-	}
-
-	.gap-#{$key} {
-		gap: var(--spacing-#{$key});
-	}
-
-	.stack-#{$key} {
-		@include stack(var(--spacing-#{$key}));
-	}
-
-	.cluster-#{$key} {
-		@include cluster(var(--spacing-#{$key}));
 	}
 }

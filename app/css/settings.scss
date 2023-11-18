@@ -66,6 +66,22 @@ $spacings: (
 	900: $spacing * 14,
 );
 
+
+/********************
+ * Options/Switches *
+ ********************/
+
+$default-colors: (
+	primary: hsl(162, 68%, 58%),
+	secondary: hsl(194, 53%, 55%),
+	background: hsl(218, 13.2%, 39%),
+	neutral: hsl(235, 5%, 98% - 38),
+	warning: #ffca28,
+	error: #e53935,
+	success: #43a047,
+);
+
+
 /********************
  * Options/Switches *
  ********************/

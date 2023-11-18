@@ -1,15 +1,9 @@
 @use "sass:map"; 
 // Load Settings
-@import "settings";
+@use "settings" as *;
 
 // Get lib before custom
-@import "lib";
-
-// @import "theme/root";
-
-// Variables
-@import "theme/colors";
-@import "theme/typography";
+@use "lib" as *;
 
 
 $menu-size: 2rem;

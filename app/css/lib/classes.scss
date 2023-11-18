@@ -98,8 +98,8 @@
 // Webkit and Chromium will ignore color when size isn't set
 @mixin scrollbars(
 	$foreground-color: #999,
-  $background-color: #333,
-  $size: false
+  	$background-color: #333,
+  	$size: false
 ) {
 	@if $size {
 		// For Chrome & Safari

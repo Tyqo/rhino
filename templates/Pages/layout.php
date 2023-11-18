@@ -12,7 +12,7 @@
 	<div id="<?= 'element-' . $content['id'] ?>" class="layout-element" draggable="true">
 
 		<div class="element-container">
-			<?= $this->element($content['element']['elementName'], $content->toArray()) ?>
+			<?= $this->element($content['element']['elementName'], array_merge($content->toArray(), ['layoutmode' => true])) ?>
 		</div>
 
 		<div class="layout-handle">

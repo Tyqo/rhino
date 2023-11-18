@@ -1,3 +1,6 @@
+@use "../settings" as *;
+@use "../lib" as *;
+
 .flash-messages {
 	top: var(--spacing-300);
 	position: absolute;

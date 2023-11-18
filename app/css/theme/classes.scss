@@ -1,0 +1,150 @@
+@use '../settings' as *;
+@use '../lib' as *;
+
+.hidden {
+	display: none;
+}
+
+.box {
+	@include box();
+}
+
+.center {
+	@include center;
+}
+
+.icon {
+	display: inline-block;
+	height: var(--line-height);
+}
+
+.with-icon {
+	@include with-icon($spacing * 0.5);
+}
+
+.cover {
+	object-position: center;
+	object-fit: cover;
+	height: 100%;
+}
+
+.skip-link {
+	@include skip-link;
+}
+
+.sr-only {
+	@include sr-only(true);
+}
+
+.bound {
+	padding-left: var(--outer-bound);
+	padding-right: var(--outer-bound);
+}
+
+.outer-bound,
+.container,
+section {
+	@include bound(var(--outer-bound-width), var(--outer-bound));
+}
+
+.inner-bound,
+article {
+	@include bound(var(--inner-bound-width), var(--outer-bound));
+}
+
+.full-width {
+	@include full-width(var(--scrollbarWidth));
+}
+
+.list-style-none {
+	@include list-style-none;
+}
+
+.stack--clean * {
+	margin-bottom: 0 !important;
+}
+
+.margin {
+	margin-bottom: var(--spacing);
+}
+
+.margin-top {
+	margin-top: var(--spacing);
+}
+
+.stack {
+	@include stack(var(--spacing));
+
+	&>* {
+		display: block;
+	}
+}
+
+.cluster {
+	@include cluster($spacing * 0.5);
+
+	&>* {
+		flex: 1 1 auto;
+	}
+
+	.button,
+	button,
+	[role=button],
+	input,
+	select {
+		margin-bottom: 0;
+		flex-basis: 0%;
+	}
+
+	input,
+	select {
+		min-width: 16ch;
+	}
+
+	aside {
+		flex-basis: 0%;
+		min-width: fit-content;
+	}
+}
+
+.grid {
+
+	.button,
+	button,
+	[role=button],
+	input,
+	select {
+		margin-bottom: 0;
+		flex-basis: 0%;
+	}
+}
+
+.auto-grid {
+	display: grid;
+	gap: var(--spacing);
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+@each $key,
+$margin in $spacings {
+	.margin-#{$key} {
+		margin-bottom: var(--spacing-#{$key});
+	}
+
+	.margin-top-#{$key} {
+		margin-top: var(--spacing-#{$key});
+	}
+
+	.gap-#{$key} {
+		gap: var(--spacing-#{$key});
+	}
+
+	.stack-#{$key} {
+		@include stack(var(--spacing-#{$key}));
+	}
+
+	.cluster-#{$key} {
+		@include cluster(var(--spacing-#{$key}));
+	}
+}

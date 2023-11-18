@@ -12,6 +12,12 @@ export default class LayoutElements {
 		this.DragDrop = new DragDrop();
 		this.elements = document.querySelectorAll('.layout-element');
 		this.DragDrop.loadElements(this.elements, this.setPosition);
+
+		let editor = document.getElementById('editor');
+		if (editor) {
+			let html = document.querySelector('[name=html]');
+			this.editor = new Editor('editor', '');
+		}
 	}
 
 	setModal(modal) {

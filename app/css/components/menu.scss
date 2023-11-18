@@ -1,3 +1,6 @@
+@use "../settings" as *;
+@use "../lib" as *;
+
 .menu {
 	$width: 26rem;
 	background-color: var(--backdrop-color);
