@@ -47,5 +47,5 @@ class ElementsTable extends Table {
 		}
 		
 		return $this->newEmptyEntity();
-	}
+	}	
 }
