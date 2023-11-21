@@ -28,7 +28,7 @@ $modular-scale-ratio: 1.25 !default; // $major-third;
  * @param int $level 		 	The font size level to use
  * @param int $margin-bottom 	optional: Add bottom margin in n times the vertical unit
  */
-@mixin type-setting($level:0, $margin-bottom:0) {
+@mixin type-setting($level:0, $margin-bottom: 'none') {
 	$font-size: strip-unit(modular-scale($level));
 	$line-height: strip-unit($vertical-unit) / $font-size;
 
@@ -41,7 +41,10 @@ $modular-scale-ratio: 1.25 !default; // $major-third;
 
 	font-size: $font-size + rem;
 	line-height: $line-height + em;
-	margin-bottom: ($line-height * $margin-bottom) + rem;
+
+	@if $margin-bottom != 'none' {
+		margin-bottom: ($line-height * $margin-bottom) + rem;
+	}
 }
 
 

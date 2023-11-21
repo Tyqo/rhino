@@ -71,7 +71,7 @@ body:not(.page-has-loaded) {
 }
 
 body {
-	transition: background-color 100ms;
+	// transition: background-color 100ms;
 	display: flex;
 	flex-direction: column;
 	@include type-setting(200, 0);

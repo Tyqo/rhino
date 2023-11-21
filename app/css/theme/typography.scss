@@ -12,19 +12,19 @@ h6 {
 }
 
 h1 {
-	@include type-setting(900, 1);
+	@include type-setting(900);
 }
 
 h2 {
-	@include type-setting(800, 1);
+	@include type-setting(800);
 }
 
 h3 {
-	@include type-setting(600, 1);
+	@include type-setting(600);
 }
 
 h4 {
-	@include type-setting(400, 1);
+	@include type-setting(400);
 }
 
 h5 {

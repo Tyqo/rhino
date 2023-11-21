@@ -21,7 +21,9 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Controller\ControllerFactory;
 use Rhino\Controller\AppController as BaseController;
+use Cake\Core\App;
 
 use Rhino\Model\Table\ContentsTable;
 use Rhino\Model\Table\PagesTable;
@@ -78,29 +80,34 @@ class PagesController extends BaseController {
 		return $this->redirect($this->referer(['action' => 'index']));
 	}
 
-	public function change(int $id = null) {
-		$entry = $this->Pages->getEntry($id);
+	public function add(int $id = null) {
+		$entry = $this->Pages->newEmptyEntity();
+		$this->compose($entry, [
+			"redirect" => ['action' => 'index'],
+			'success' => __('The page has been saved.'),
+			'error' => __('The page could not be saved. Please, try again.')
+		]);
+	}
 
-		if ($this->request->is(['patch', 'post', 'put'])) {
-			$page = $this->Pages->patchEntity($entry, $this->request->getData());
-            
-			if ($this->Pages->save($page)) {
-				$this->Flash->success(__('The table has been saved.'), ['plugin' => 'Rhino']);
-                return $this->redirect(['action' => 'index']);
-            }
-			
-            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
-        }
-		
-		// $filter = !empty($id) ? ['id !=' => $id] : Null;
+	public function edit(int $id) {
+		$entry = $this->Pages->get($id);
+		$this->compose($entry, [
+			"redirect" => ['action' => 'index'],
+			'success' => __('The page has been saved.'),
+			'error' => __('The page could not be saved. Please, try again.')
+		]);
+	}
+
+	public function preCompose($entry, ...$params) {
 		$layouts = $this->Pages->Layouts->find('list')->all();
+		
 		$pages = $this->Pages->find('treeList', [
 			'spacer' => str_repeat("&nbsp", 3)
 		])->all();
+		
 		$pages = $this->Pages->root + $pages->toArray();
 
 		$this->set([
-			'entry' => $entry,
 			'pages' => $pages,
 			'layouts' => $layouts,
 			"pageTypes" => $this->Pages->pageTypes
@@ -203,6 +210,11 @@ class PagesController extends BaseController {
 		
 		$this->Pages = new PagesTable();
 		$page = $this->Pages->slug(urldecode($slug ?: ""));
+
+		if ($page->page_type === 1) { // Link
+			$redirect =	$this->redirect($page->url); 
+			return $redirect;
+		}
 
         $this->set(compact('page', 'subpage'));
 		

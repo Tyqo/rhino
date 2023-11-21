@@ -32,12 +32,14 @@ class FieldsController extends AppController
 		$this->compose($entry, ["redirect" => ['action' => 'index', $tableName]]);
 	}
 
-	public function preCompose($entry, $tableName, $field = null) {
+	public function preCompose($entry, ...$params) {
+		$tableName = $params[0];
+		$field = $params[1];
+
 		$types = $this->FieldHandler->customTypes;
 		$typeOptions = $this->FieldHandler->getTypes();
 		
 		$apps = ['test', 'alt'];
-		
 		
 		$this->set([
 			"tableName" => $tableName,

@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use "../lib/colors" as *;
+@use "../lib" as *;
 
 // // Default: Dark theme
 @mixin dark {

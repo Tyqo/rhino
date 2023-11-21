@@ -159,7 +159,7 @@ class RhinoInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table('rhino_pages', $options)
+		$this->table($pagesTable, $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,

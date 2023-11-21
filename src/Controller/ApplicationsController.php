@@ -35,6 +35,7 @@ class ApplicationsController extends AppController {
 
 		$_ungrouped = $this->Applications->getList(array_column($apps, 'name'));
 		$ungrouped = [];
+		
 		foreach ($_ungrouped as $key => $value) {
 			$ungrouped[] = ['name' => $value];
 		}
@@ -46,7 +47,9 @@ class ApplicationsController extends AppController {
 			];
 		}
 
-        $this->set(compact('groups'));
+		$rhinoTables = $this->Applications->tableBlackList;
+
+        $this->set(compact('groups', 'rhinoTables'));
     }
 
     /**
@@ -90,7 +93,9 @@ class ApplicationsController extends AppController {
 		]);
 	}
 
-	public function preCompose($entry, $tableName = null) {
+	public function preCompose($entry, ...$params) {
+		$tableName = $params[0];
+
 		$groups = $this->Groups->getGroups();
 
 		if (!empty($tableName)) {

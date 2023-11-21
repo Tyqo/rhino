@@ -20,7 +20,7 @@
 						"valid" => in_array('view', $rights)
 					],
 					"edit" => [
-						"link" => ['action' => 'change', $page['id']],
+						"link" => ['action' => 'edit', $page['id']],
 						"valid" => in_array('edit', $rights)
 					],
 					"delete" => [

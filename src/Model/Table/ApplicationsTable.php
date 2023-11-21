@@ -10,7 +10,7 @@ use Migrations\AbstractMigration;
 
 class ApplicationsTable extends Table
 {
-	private $tableBlackList = [
+	public $tableBlackList = [
 		"phinxlog",
 		"rhino_phinxlog",
 		'rhino_users',
@@ -23,6 +23,7 @@ class ApplicationsTable extends Table
 		'rhino_elements',
 		'rhino_contents',
 		'rhino_media',
+		'rhino_media_categories',
 		'rhino_widgets',
 	];
 

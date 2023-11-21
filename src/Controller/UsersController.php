@@ -67,7 +67,7 @@ class UsersController extends AppController
 		]);
     }
 
-	public function preCompose($user) {
+	public function preCompose($user, ...$params) {
 		$roles = [];
 		$_roles = $this->Users->Roles->find()->select(['id', 'name'])->all();
 		
@@ -80,7 +80,7 @@ class UsersController extends AppController
 		return $user;
 	}
 
-	public function preSave($data) {
+	public function preSave($data, $params) {
 		if ($data['newPassword'] === $data['repeatPassword']) {
 			if (!empty($data['newPassword'])) {
 				$data['password'] = $data['newPassword'];

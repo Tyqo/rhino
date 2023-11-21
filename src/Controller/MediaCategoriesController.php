@@ -65,11 +65,6 @@ class MediaCategoriesController extends AppController
 		]);
     }
 
-	
-	public function preCompose($mediaCategory) {
-		return $mediaCategory;
-	}
-
 
     /**
      * Delete method

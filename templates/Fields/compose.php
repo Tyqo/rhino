@@ -14,7 +14,12 @@
 		</div>
 
 		<div class="stack--200">
-			<?= $this->Form->control('type', ["type" => "select",  "options" => $typeOptions, "required", 'value' => $entry->Type]); ?>
+			<?= $this->Form->control('type', [
+				"type" => "select",
+				"options" => $typeOptions,
+				"required",
+				'value' => $entry->Type
+			]); ?>
 		</div>
 	</div>
 

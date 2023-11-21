@@ -1,11 +1,12 @@
-<section class="index content stack">
+<section class="index stack">
+
+	<h1><?= __('Application-Manager') ?></h1>
 
 	<figure>
 		<table role="grid">
-			<caption><?= __('Application-Manager') ?></caption>
 			<thead>
 				<tr>
-					<th colspan="2">Table</th>
+					<th colspan="2">Applications</th>
 					<th data-cell="Actions" align="right">Actions</th>
 				</tr>
 			</thead>
@@ -21,7 +22,7 @@
 
 				<?php foreach ($groups as $group) : ?>
 					<tr>
-						<td colspan="2"><b><?= $group['name'] ?></b></td>
+						<td data-cell="Group" colspan="2"><b><?= $group['name'] ?></b></td>
 						<td data-cell="Actions">
 							<?php if (isset($group['id'])) : ?>
 								<?php
@@ -45,7 +46,7 @@
 					</tr>
 					<?php foreach ($group['applications'] as $table) : ?>
 						<tr>
-							<td>
+							<td  data-cell="Application">
 								<?= $this->Html->link(
 									isset($table['alias']) ? $table['alias'] : $table['name'],
 									["controller" => "Tables", "action" => 'index', $table['name']],
@@ -77,10 +78,50 @@
 						</tr>
 					<?php endforeach ?>
 				<?php endforeach ?>
+
+
+				<?php if ($this->Identity->get('role_id') === '1') : // admin ?>
+					<tr>
+						<td colspan="3">
+							<details>
+								<summary>Rhino Tables</summary>
+								<dl class="stack">
+									<?php foreach ($rhinoTables as $table) : ?>
+										<div class="cluster">
+											<dd>
+												<?php
+												$this->start('actions');
+												echo $this->element("layout-elements/actions", [
+													"view" => [
+														"link" => ["controller" => "Fields", "action" => 'index', $table],
+														"valid" => in_array('view', $rights)
+													]
+												]);
+												$this->end();
+												?>
+												<?= $this->fetch('actions'); ?>
+											</dd>
+											<dt>
+												<?= $this->Html->link(
+													$table,
+													["controller" => "Tables", "action" => 'index', $table],
+													['class' => 'button outline']
+												) ?>
+											</dt>
+
+										</div>
+									<?php endforeach ?>
+								</dl>
+							</details>
+						</td>
+					</tr>
+				<?php endif ?>
 			</tbody>
 		</table>
 	</figure>
 
-	<?= $this->Html->link("Create new Table", ["action" => "add"], ["class" => "button"]) ?>
-	<?= $this->Html->link("Create new Group", ["action" => "newGroup"], ["class" => "button"]) ?>
+	<div class="cluster pill">
+		<?= $this->Html->link("Create new Table", ["action" => "add"], ["class" => "button"]) ?>
+		<?= $this->Html->link("Create new Group", ["action" => "newGroup"], ["class" => "button"]) ?>
+	</div>
 </section>

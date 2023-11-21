@@ -32,7 +32,7 @@ $font-sizes: (
 }
 
 
-@mixin type-setting($level: 400, $margin-bottom: 0) {
+@mixin type-setting($level: 400, $margin-bottom: 'none') {
 
 	$font-size: map-get($font-sizes, $level);
 
@@ -54,7 +54,10 @@ $font-sizes: (
 
 	font-size: $font-size + rem;
 	line-height: $line-height + em;
-	margin-bottom: ($line-height * $margin-bottom) + rem;
+
+	@if $margin-bottom != 'none' {
+		margin-bottom: ($line-height * $margin-bottom) + rem;
+	}
 }
 
 

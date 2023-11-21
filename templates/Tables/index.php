@@ -16,7 +16,7 @@
 	])
 	?>
 
-	<div class="cluster">
+	<div class="grid">
 		<?= $this->Form->select("field", $columns, ['value' => $field]) ?>
 		<?= $this->Form->select("operator", $operators, ['value' => $operator]) ?>
 		<?= $this->Form->input("query", ['value' => $query]) ?>

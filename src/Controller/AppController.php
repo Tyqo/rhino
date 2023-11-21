@@ -12,8 +12,7 @@ use Rhino\Model\Table\RolesTable;
 use Rhino\Handlers\FilterHandler;
 use Cake\ORM\Exception\MissingTableClassException;
 
-class AppController extends BaseController
-{
+class AppController extends BaseController {
 	use ApplicationTrait;
 	use FilterHandler;
 
@@ -48,10 +47,6 @@ class AppController extends BaseController
     }
 	
 	private function bootstrap() {
-		if (!empty($this->user)) {
-			$this->set(['user' => $this->user]);
-		}
-
 		if ($this->useTable && !empty($this->user) && !empty($this->user->role_id)) {
 			$action = $this->request->getParam('action');
 			$role = $this->user->role_id;
@@ -114,7 +109,18 @@ class AppController extends BaseController
 		}
 	}
 
-	public function compose($entry, $params = []) {
+	/**
+	 * compose
+	 * 
+	 * route the add and edit to the same template and handel save.
+	 * use preCompose for shared operations, and preSave for operations before save.
+	 * 
+	 *
+	 * @param  object $entry
+	 * @param  array  $params
+	 * @return Cake\Http\Response
+	 */
+	public function compose(object $entry, array $params = []) {
 		$action = $this->request->getParam('action');
 		$_params = [
 			'success' => __('The entry has been saved.'),
@@ -166,7 +172,42 @@ class AppController extends BaseController
 		}
 	}
 
-	public function save($entry, $params, $data) {
+	/**
+	 * preCompose
+	 * 
+	 * Shared function between add and edit.
+	 *
+	 * @param  object $entity
+	 * @param  mixed  ...$params
+	 * @return void|object
+	 */
+	// Todo: should probably be an Event
+	public function preCompose(object $entity, mixed ...$params) {
+		return null;
+	}
+
+	/**
+	 * preSave
+	 * 
+	 * Shared save Operations.
+	 *
+	 * @param  array $data
+	 * @param  array $params
+	 * @return array
+	 */
+	public function preSave(array $data, ?array $params) {
+		return $data;
+	}
+
+	/**
+	 * save
+	 *
+	 * @param  object $entry
+	 * @param  array  $params
+	 * @param  array  $data
+	 * @return void
+	 */
+	public function save(object $entry, array $params, array $data) {
 		$tableName = $this->Table->getTable();
 		$data = $this->FieldHandler->setFields($tableName, $data);
 		
@@ -189,6 +230,13 @@ class AppController extends BaseController
 		return false;
 	}
 
+	/**
+	 * render
+	 *
+	 * @param  string|null $template
+	 * @param  string|null $layout
+	 * @return Response
+	 */
 	public function render(?string $template = null, ?string $layout = null): Response {
 		if (method_exists($this, 'preRender')) {
 			$this->preRender();

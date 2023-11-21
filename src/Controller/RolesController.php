@@ -28,7 +28,7 @@ class RolesController extends AppController {
 		$this->compose($entry);
 	}
 
-	public function preCompose() {
+	public function preCompose(object $entity, mixed ...$params) {
 		$applications = $this->Roles->Applications->getList(["phinxlog", "rhino_phinxlog"], false);
 		$this->set([
 			'accessTypes' => $this->Roles->accessTypes,
