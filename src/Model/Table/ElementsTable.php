@@ -47,5 +47,12 @@ class ElementsTable extends Table {
 		}
 		
 		return $this->newEmptyEntity();
-	}	
+	}
+
+	public function list() {
+		return $this->find('list')
+					->where(['active' => true])
+					->select(['id', 'name'])
+					->all();
+	}
 }

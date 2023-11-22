@@ -6,10 +6,14 @@ export default class DragDrop {
 		}
 
 		elements.forEach(element => {
-			element.addEventListener('dragstart', (event) => this.dragStart(event.target));
-			element.addEventListener('dragover', (event) => this.dragOver(event.target));
-			element.addEventListener('dragend', (event) => this.dropped(event.target));
+			this.addElement(element);
 		});
+	}
+
+	addElement(element) {
+		element.addEventListener('dragstart', (event) => this.dragStart(event.target));
+		element.addEventListener('dragover', (event) => this.dragOver(event.target));
+		element.addEventListener('dragend', (event) => this.dropped(event.target));
 	}
 
 	dragStart(element) {

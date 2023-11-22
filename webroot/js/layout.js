@@ -9,9 +9,9 @@ class Layout {
 	}
 	
 	init() {
-		this.LayoutModal = new LayoutModal(this);
+		// this.LayoutModal = new LayoutModal(this);
 		this.elements = new LayoutElements(this);
-		this.elements.setModal(this.LayoutModal.modal);
+		// this.elements.setModal(this.LayoutModal.modal);
 	}
 }
 

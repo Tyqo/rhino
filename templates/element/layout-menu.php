@@ -8,19 +8,13 @@
 		
 		<p>Editing: <?= $this->pageLink($page['id'], ['target' => '_blank']) ?></p>
 
-		<button
-				class="layout-menu__button open-modal"
-				name="New Content"
-				value="<?= $this->Url->build([
-					'controller' => 'Contents',
-					'action' => 'new',
-					'?' => [
-						'modal' => true
-					],
-					$page['id']]) ?>"
-				data-dispatch="updateContent"
-				>
-				New
-			</button>
+		<?= $this->Form->button('New', [
+			'id' => 'new-content', 
+			'class' => 'layout-menu__button',
+			'data-url' => $this->Url->build([
+				'controller' => 'Contents',
+				'action' => 'new',
+				$page['id']])
+			]) ?>
 	</div>
 </div>

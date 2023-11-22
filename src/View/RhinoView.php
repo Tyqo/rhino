@@ -80,11 +80,11 @@ trait RhinoView
 		return 'aria-current="page"';
 	}
 
-	public function parseEditor(string $json, $edit = false) : string {
-		$object = json_decode($json);
+	public function parseEditor(?string $json = '[]',?bool $edit = false) : string {
+		$object = json_decode($json ?? '');
 
 		if ($edit) {
-			return '<div id="editor" class="editor"></div>';
+			return '<div class="editor"></div>' . '<textarea name="html" hidden>' . $json . '</textarea>';
 		}
 
 		$content = '';
@@ -119,21 +119,28 @@ trait RhinoView
 	}
 
 	public function parseMedia($id = null, $edit = false) {
-		if (!$edit) {
-			$media = $this->MediaCategories->Media->get($id);
-			return $this->displayMedia($media);
-		}
-
 		$this->MediaCategories = new MediaCategoriesTable();
+		
+		// if (!$edit) {
+		// 	$media = $this->MediaCategories->Media->get($id);
+		// 	return $this->displayMedia($media);
+		// }
+
+		
 		$mediaCategories = $this->MediaCategories->find('all', contain: ['Media' => ['sort' => ['Media.position' => 'ASC']]]);
 		$content = '';
-
+		
 		foreach ($mediaCategories as $category) {
 			$content .= "<h1>" . $category->name . "</h1>";
 			foreach ($category->media as $media) {
 				$content .= $this->displayMedia($media);
 			}
 		}
+		
+		if ($edit) {
+			$content .= '<button class="rhino-button select-media">Edit</button>';
+		}
+
 		return $content;
 	}
 

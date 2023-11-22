@@ -23,12 +23,14 @@ class ContentsTable extends Table {
         $this->setDisplayField('content');
         $this->setPrimaryKey('id');
 
+		$this->addBehavior('Timestamp');
+
 		$this->belongsTo('Rhino.Pages');
 		$this->belongsTo('Rhino.Elements');
     }
 		
 	public function beforeSave($event, $entity, $options) {
-		$this->setPosition($entity);
+		return $this->setPosition($entity);
 	}
 
 	public function getEntry(int $id = null): object {
@@ -41,7 +43,9 @@ class ContentsTable extends Table {
 
 	public function setPosition($entity) {
 		if ($entity->isNew()) {
-			return;
+			$last = $this->find()->select(['position'])->orderBy(['position' => 'DESC'])->first();
+			$entity->position = $last->position + 1;
+			return $entity;
 		}
 
 		$oldEntity = $this->get($entity->id);
@@ -64,5 +68,38 @@ class ContentsTable extends Table {
 			[$expression],
 			$statement
 		);
+
+		return $entity;
 	}
+
+	/**
+     * Default validation rules.
+     *
+     * @param \Cake\Validation\Validator $validator Validator instance.
+     * @return \Cake\Validation\Validator
+     */
+    public function validationDefault(Validator $validator): Validator
+    {
+        $validator
+            ->integer('page_id')
+            ->allowEmptyString('page_id');
+
+        $validator
+            ->integer('element_id')
+            ->allowEmptyString('element_id');
+
+        $validator
+            ->scalar('html')
+            ->allowEmptyString('html');
+
+        $validator
+            ->boolean('active')
+            ->allowEmptyString('active');
+
+        $validator
+            ->integer('position')
+            ->allowEmptyString('position');
+
+        return $validator;
+    }
 }

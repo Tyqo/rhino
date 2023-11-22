@@ -144,10 +144,14 @@ class PagesController extends BaseController {
 				'Layouts'
 			]
 		]);
+
+		$elements = $this->Pages->Contents->Elements->list();
 			
 		$this->set([
 			'page' => $page,
+			'elements' => $elements,
 		]);
+
 		$this->viewBuilder()->setLayout($page->layout->layout);
 		 
 		try {

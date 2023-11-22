@@ -1,5 +1,4 @@
 <section class="index stack">
-
 	<h1><?= __('Application-Manager') ?></h1>
 
 	<figure>

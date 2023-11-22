@@ -78,84 +78,156 @@ class ContentsController extends BaseController {
 	}
 
 	public function new(int $pageId) {
-		$entry = $this->Contents->getEntry();
-		$elements = $this->Contents->Elements->find('list');
+		$this->viewBuilder()->disableAutoLayout();
 
-		if ($this->request->is(['patch', 'post', 'put'])) {
-			$content = $this->Contents->patchEntity($entry, $this->request->getData());
-            $content['page_id'] = $pageId;
-            $content['position'] = $this->Contents->find()->where(['page_id' => $pageId])->all()->count();
-	
-			if ($this->Contents->save($content)) {
-				// $this->Flash->success(__('The table has been saved.'));
-				// If you want a json response
-				$response = $this->response->withType('application/json')
-					->withStringBody(json_encode([
-						'status' => 200,
-						'message' => __('The table has been saved.')
-				]));
-				return $response;
-            }
-			
-            // $this->Flash->error(__('The table could not be saved. Please, try again.'));
-			$response = $this->response->withType('application/json')
-				->withStringBody(json_encode([
-					'status' => 500,
-					'message' => __('The table could not be saved. Please, try again.')
-			]));
-			return $response;
-        }
-
-		$this->set([
-			'entry' => $entry,
-			'elements' => $elements,
-			'pageId' => $pageId,
+		$content = $this->Contents->newEntity([
+			'page_id' => $pageId,
+			'html' => ''
 		]);
+		$content = $this->Contents->save($content);
+
+		return $this->getElement($content, true);
 	}
 
-	public function change($id) {
-		$params = $this->request->getParam('?');
-		$entry = $this->Contents->get($id);
+	public function update($id) {
+		$content = $this->Contents->get($id);
+		$content = $this->Contents->patchEntity($content, $this->request->getData());
 
-		$entry[$params['key']] = $params['value'];
-		$this->Contents->save($entry);
-
-		if ($this->request->is(['ajax'])) {
+		if ($this->Contents->save($content)) {
 			$response = $this->response->withType('application/json')
 				->withStringBody(json_encode([
 					'status' => 200,
-					'message' => __('The entry has been changed.')
+					'message' => __('The content has been saved.')
 			]));
-			return $response;
-		}
+		} else {
+			$response = $this->response->withType('application/json')
+				->withStringBody(json_encode([
+					'status' => 500,
+					'message' => __('The content could not be saved. Please, try again.')
+			]));
+		}			
+	
+		return $response;
+	}
 
-		$referer = $this->request->getEnv('HTTP_REFERER');
-		return $this->redirect($referer);
+	public function read($id) {
+		$this->viewBuilder()->disableAutoLayout();
+		$content = $this->Contents->get($id);
+		$content = $this->Contents->patchEntity($content, $this->request->getData());
+		$this->Contents->save($content);
+		return $this->getElement($content, true);
 	}
 
 	public function delete($id) {
-		$entry = $this->Contents->get($id, ['contain' => 'Elements']);
-		if ($this->request->is(['patch', 'post', 'put', 'delete'])) {
-			if ($this->Contents->delete($entry)) {
-				// $this->Flash->success(__('The table has been deleted.'));
-				$response = $this->response->withType('application/json')
-					->withStringBody(json_encode([
-						'status' => 200,
-						'message' => __('The table has been deleted.')
-				]));
-				return $response;
-			} else {
-				// $this->Flash->error(__('The table could not be deleted. Please, try again.'));
-				$response = $this->response->withType('application/json')
-					->withStringBody(json_encode([
-						'status' => 500,
-						'message' => __('The table could not be deleted. Please, try again.')
-				]));
-				return $response;
-			}
+		if (!$this->request->is(['patch', 'post', 'put', 'delete'])) {
+			return;
 		}
-		$this->set(['entry' => $entry]);
+		
+		$entry = $this->Contents->get($id);
+			
+		if ($this->Contents->delete($entry)) {
+			$response = $this->response->withType('application/json')
+				->withStringBody(json_encode([
+					'status' => 200,
+					'message' => __('The element has been deleted.')
+			]));
+		} else {
+			$response = $this->response->withType('application/json')
+				->withStringBody(json_encode([
+					'status' => 500,
+					'message' => __('The element could not be deleted. Please, try again.')
+			]));
+		}
+
+		return $response;
     }
+
+	private function getElement($content, $layoutMode = false) {
+		$this->setPlugin(null);
+		
+		$elementId = $content->element_id ?? 1;
+
+		if (empty($content->element)) {
+			$content->element = $this->Contents->Elements->get($elementId);
+		}
+
+		if ($layoutMode) {
+			$elements = $this->Contents->Elements->list();
+			$this->set(['elements' => $elements]);
+		}
+
+		$this->set([
+			'content' => $content,
+			'layoutmode' => $layoutMode
+		]);
+
+		try {
+            return $this->render('Rhino.element');
+        } catch (MissingTemplateException $exception) {
+            if (Configure::read('debug')) {
+                throw $exception;
+            }
+
+            throw new NotFoundException();
+        }
+	}
+
+
+	// public function new(int $pageId) {
+	// 	$entry = $this->Contents->getEntry();
+	// 	$elements = $this->Contents->Elements->find('list');
+
+	// 	if ($this->request->is(['patch', 'post', 'put'])) {
+	// 		$content = $this->Contents->patchEntity($entry, $this->request->getData());
+    //         $content['page_id'] = $pageId;
+    //         $content['position'] = $this->Contents->find()->where(['page_id' => $pageId])->all()->count();
+	
+	// 		if ($this->Contents->save($content)) {
+	// 			// $this->Flash->success(__('The table has been saved.'));
+	// 			// If you want a json response
+	// 			$response = $this->response->withType('application/json')
+	// 				->withStringBody(json_encode([
+	// 					'status' => 200,
+	// 					'message' => __('The table has been saved.')
+	// 			]));
+	// 			return $response;
+    //         }
+			
+    //         // $this->Flash->error(__('The table could not be saved. Please, try again.'));
+	// 		$response = $this->response->withType('application/json')
+	// 			->withStringBody(json_encode([
+	// 				'status' => 500,
+	// 				'message' => __('The table could not be saved. Please, try again.')
+	// 		]));
+	// 		return $response;
+    //     }
+
+	// 	$this->set([
+	// 		'entry' => $entry,
+	// 		'elements' => $elements,
+	// 		'pageId' => $pageId,
+	// 	]);
+	// }
+
+	// public function change($id) {
+	// 	$params = $this->request->getParam('?');
+	// 	$entry = $this->Contents->get($id);
+
+	// 	$entry[$params['key']] = $params['value'];
+	// 	$this->Contents->save($entry);
+
+	// 	if ($this->request->is(['ajax'])) {
+	// 		$response = $this->response->withType('application/json')
+	// 			->withStringBody(json_encode([
+	// 				'status' => 200,
+	// 				'message' => __('The entry has been changed.')
+	// 		]));
+	// 		return $response;
+	// 	}
+
+	// 	$referer = $this->request->getEnv('HTTP_REFERER');
+	// 	return $this->redirect($referer);
+	// }
 
 	public function element($id = null) {
 		$this->viewBuilder()->disableAutoLayout();

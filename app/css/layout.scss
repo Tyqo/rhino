@@ -7,6 +7,7 @@
 
 
 $menu-size: 2rem;
+$border-radius: 0.5rem;
 
 body {
 	// padding-left: 300px;
@@ -62,6 +63,10 @@ body {
 			opacity: 1;
 		}
 	}
+
+	.ce-block__content, .ce-toolbar__content {
+		max-width: 100%;
+	}
 }
 
 .layout-handle {
@@ -69,8 +74,21 @@ body {
 	position: absolute;
 	top: 0;
 	right: 1rem;
+	left: 1rem;
 	transition: 150ms opacity;
 	display: flex;
+	gap: 2rem;
+	justify-content: space-between;
+
+	&__actions {
+		:first-child {
+			border-bottom-left-radius: $border-radius;
+		}
+
+		:last-child {
+			border-bottom-right-radius: $border-radius;
+		}
+	}
 }
 
 .rhino-button {
@@ -85,6 +103,25 @@ body {
 	&:focus, &:hover {
 		background-color: color('primary', 500);
 	}
+}
+
+.rhino-select {
+	display: inline-block;
+	color: color("neutral", 700);
+	font-weight: 600;
+	appearance: none;
+	padding-right: 2rem;
+	padding-left: 0.5rem;
+	padding-block: 0rem;
+	text-decoration: none;
+	border: color('primary', 400) solid 0.5rem;
+	border-radius: 0 0 $border-radius $border-radius;
+
+	--icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#{to-rgb(color("neutral", 700))}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+	background-image: var(--icon-chevron);
+	background-position: center right 0.75rem;
+	background-size: 1rem auto;
+	background-repeat: no-repeat;
 }
 
 .modal-form {
