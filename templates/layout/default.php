@@ -5,7 +5,7 @@
 	<?= $this->element('../layout/partials/head') ?>
 </head>
 
-<body <?= h($this->classSave($this->fetch('title'))) ?>">
+<body class="<?= $this->Rhino->escape($this->fetch('title')) ?>" >
 	<a href="#main" class="button skip-link">Navigation Überspringen</a>
 
 	<div class="menu-wrapper">

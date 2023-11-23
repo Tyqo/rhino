@@ -72,13 +72,13 @@ class MediaController extends AppController {
 		]);
     }
 
-	public function preCompose($media) {
+	public function preCompose(object $media, mixed ...$params) {
 		$mediaCategories = $this->Media->MediaCategories->find('list', limit: 200)->all();
         $this->set(compact('mediaCategories'));
 		return $media;
 	}
 
-	public function preSave($media) {
+	public function preSave(array $media, ?array $params) {
 		if (isset($media['filename_file'])) {
 			$type = $media['filename_file']->getClientMediaType();
 			$media['type'] = $type;

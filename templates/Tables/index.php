@@ -93,11 +93,11 @@
 	<div class="cluster pill">
 		<?php
 		if (in_array('add', $rights)) {
-			$newButton = $this->svg("Rhino.plus") . '<span>' . __('New Entry') . '</span>';
+			$newButton = $this->Icon->svg("Rhino.plus") . '<span>' . __('New Entry') . '</span>';
 			echo $this->Html->link($newButton, ['action' => 'add', $tableName], ['escape' => false, 'class' => 'button icon-button']);
 		} ?>
 
-		<?= $this->Html->link($this->svg("Rhino.download") . '<span>' . __('Export to CSV') . '</span>', ['action' => 'export', $tableName], ['escape' => false, 'class' => 'button icon-button', 'download' => $tableName . '.csv']); ?>
+		<?= $this->Html->link($this->Icon->svg("Rhino.download") . '<span>' . __('Export to CSV') . '</span>', ['action' => 'export', $tableName], ['escape' => false, 'class' => 'button icon-button', 'download' => $tableName . '.csv']); ?>
 	</div>
 
 

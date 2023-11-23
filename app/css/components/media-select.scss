@@ -1,0 +1,95 @@
+// Load Settings
+@use "settings" as *;
+
+// Get lib before custom
+@use "lib" as *;
+@use "theme/light" as *;
+@use "theme/measurements" as *;
+
+.media-select {
+	@include light;
+	@include measurements;
+
+	details {
+		border: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	summary::after {
+		display: none;
+	}
+
+	li {
+		margin-left: 2rem;
+		position: relative;
+	}
+
+	li+li {
+		margin-top: var(--spacing);
+	}
+
+	li>details>summary,
+	li>svg {
+		position: absolute;
+		left: -1rem;
+		top: 0.75rem;
+		transform: translateX(-100%);
+	}
+
+	svg path {
+		stroke: currentColor !important;
+	}
+
+	ul,
+	li {
+		list-style: none;
+		margin-bottom: 0;
+
+		&::after, &::before, &::marker {
+			display: none;
+		}
+	}
+
+	label {
+		border: var(--border-width) solid var(--primary);
+		border-radius: var(--border-radius);
+		@extend .button !optional;
+		display: inline-block;
+		margin-bottom: 0;
+		text-align: left;
+		padding: var(--form-element-spacing-vertical) var(--form-element-spacing-horizontal);
+		--background-color: transparent;
+		--color: var(--primary);
+
+		&:is([aria-current], :hover, :active, :focus) {
+			--background-color: transparent;
+			--color: var(--primary-hover);
+		}
+	}
+
+	input[type=radio] {
+		display: none;
+	}
+
+	input[type=radio]:checked+label {
+		background-color: var(--primary);
+		color: var(--primary-inverse);
+	}
+
+	input[type=radio]:disabled+label {
+		color: var(--text-color);
+		border-color: var(--text-color);
+	}
+
+	figure {
+		display: flex;
+		gap: var(--spacing);
+		// justify-content: center;
+		align-items: center;
+	}
+
+	.meida-image {
+		max-width: 6rem;
+	}
+}

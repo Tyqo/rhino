@@ -3,7 +3,7 @@
 <div class="login">
 	<article>
 		<div class="center">
-			<?= $this->svg("Rhino.rhino-big") ?>
+			<?= $this->Icon->svg("Rhino.rhino-big") ?>
 			<h3 class="sr-only">Login</h3>
 		</div>
 

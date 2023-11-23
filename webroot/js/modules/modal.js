@@ -153,5 +153,9 @@ export default class Modal {
 		
 		modalInner.appendChild(container);
 	}
+
+	reset(modal) {
+		this.addContent(modal, '');
+	}
 }
 //# sourceMappingURL=modal.js.map

@@ -144,6 +144,11 @@ class ContentsController extends BaseController {
 
 	private function getElement($content, $layoutMode = false) {
 		$this->setPlugin(null);
+
+		if ($layoutMode) {
+			$this->viewBuilder()->addHelper('Rhino.Layout');
+			Configure::write('layoutMode', true);
+		}
 		
 		$elementId = $content->element_id ?? 1;
 

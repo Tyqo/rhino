@@ -1,11 +1,15 @@
-@use "sass:map"; 
+@use "sass:map";
 // Load Settings
 @use "settings" as *;
 
 // Get lib before custom
 @use "lib" as *;
+@use "theme/light" as *;
+@use "theme/measurements" as *;
 
+@forward "components/media-select";
 
+$spacing: 1rem;
 $menu-size: 2rem;
 $border-radius: 0.5rem;
 
@@ -34,17 +38,18 @@ body {
 		border: none;
 		padding: 0 1rem;
 		// line-height: 1;
-		
-		&:focus, &:hover {
+
+		&:focus,
+		&:hover {
 			background-color: color('primary', 500);
 		}
 
-		& + * {
+		&+* {
 			margin-left: auto;
 		}
 	}
 
-	& > * > * {
+	&>*>* {
 		margin-bottom: 0;
 	}
 }
@@ -55,16 +60,21 @@ body {
 	margin-top: -4px;
 	margin-bottom: -4px;
 	transition: 150ms border-color;
-	
-	&:hover, &:focus-within { 
+
+	&:hover {
 		border: solid 4px color('primary', 400);
-	
+
 		.layout-handle {
+			opacity: 1;
+		}
+
+		.select-media {
 			opacity: 1;
 		}
 	}
 
-	.ce-block__content, .ce-toolbar__content {
+	.ce-block__content,
+	.ce-toolbar__content {
 		max-width: 100%;
 	}
 }
@@ -92,6 +102,9 @@ body {
 }
 
 .rhino-button {
+	@include light;
+	@include measurements;
+
 	display: inline-block;
 	background-color: color('primary', 400);
 	color: $white;
@@ -99,13 +112,17 @@ body {
 	text-decoration: none;
 	border: none;
 	padding: 0.5rem 1rem;
-	
-	&:focus, &:hover {
+
+	&:focus,
+	&:hover {
 		background-color: color('primary', 500);
 	}
 }
 
 .rhino-select {
+	@include light;
+	@include measurements;
+
 	display: inline-block;
 	color: color("neutral", 700);
 	font-weight: 600;
@@ -124,96 +141,108 @@ body {
 	background-repeat: no-repeat;
 }
 
-.modal-form {
-	fieldset {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-		border: none;
-	}
-
-	.input {
-		display: flex;
-		flex-direction: column;
-		min-width: 12ex;
-		width: 100%;
-	}
-	
-	input[type='text'], input[type='number'], select, textarea {
-		color: var(--rhino-text-color);
-		padding: var(--rhino-margin-200);
-		box-shadow: 0 0 2rem #ddd;
-		border-radius: 0.5rem;
-		border-radius: map.get($border, 'radius');
-		border: none;
-	}
-
-	input[type='checkbox'] {
-		width: 1em;
-		height: 1em;
-		accent-color: color('primary', 400);
-		margin-right: 0.5rem;
-	}
-}
-
-#close-modal {
-	background-color: unset;
-	border: none;
-	display: block;
-	height: 2rem;
-	padding: 0.4rem;
-	color: currentColor;
-
-	svg {
-		fill: currentColor;
-		display: block;
-		width: auto;
-		height: 1rem;
-	}
-}
-
-.modal {
-	position: fixed;
+.select-media {
+	opacity: 0;
+	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background-color: rgb(255 255 255);
-	min-width: 42rem;
-	max-width: 100vw;
-	resize: both;
-	overflow: auto;
-	border-radius: 0.25rem;
+}
+
+dialog {
+	@include light;
+	@include measurements;
+	width: 100%;
+	max-width: 52rem;
+	margin: auto;
 	border: none;
+	// padding: var(--typography-spacing-vertical);
+
+	@include for-size(sm-up) {
+		width: calc(100% - (var(--outer-bound) * 2));
+	}
 
 	&::backdrop {
-		background-color: rgba(0 0 0 / 0.5);
+		--modal-overlay-background-color: rgba(0, 0, 0, 0.2);
+		background-color: var(--modal-overlay-background-color);
+
+		--modal-overlay-backdrop-filter: blur(0.25rem);
+		-webkit-backdrop-filter: var(--modal-overlay-backdrop-filter);
+		backdrop-filter: var(--modal-overlay-backdrop-filter);
 	}
 
-	&-header {
-		display: flex;
-		justify-content: space-between;
-		background-color: black;
-		color: #FFF;
-		padding-left: 0.5rem;
-		font-weight: 600;
+	.close,
+	[aria-label="close"] {
+		position: sticky;
+		display: block;
 
-		& > * {
-			margin-bottom: 0;
+		right: 0;
+		margin-left: auto;
+		top: 0;
+
+		width: 1rem;
+		height: 1rem;
+		background-image: var(--icon-close);
+		background-position: center;
+		background-size: auto 1rem;
+		background-repeat: no-repeat;
+		opacity: .5;
+
+		padding: var(--form-element-spacing-vertical) var(--form-element-spacing-horizontal);
+		margin-bottom: var(--spacing);
+		--background-color: transparent;
+		background-color: var(--background-color);
+		--border-color: var(--contrast);
+		border: var(--border-width) solid var(--border-color);
+
+		&:focus, &:hover {
+			--box-shadow: var(--button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)), 0 0 0 var(--outline-width) var(--contrast-focus);
+			--border-color: var(--contrast-hover);
+			--color: var(--contrast-hover);
+			--background-color: transparent;
+			box-shadow: var(--box-shadow);
 		}
 	}
 
-	&-main {
-		padding: 1rem;
-		justify-self: stretch;
-		align-self: stretch;
-	}
+	&>article {
+		// margin: calc(var(--typography-spacing-vertical) * -1);
+		padding: var(--block-spacing-vertical) var(--block-spacing-horizontal);
+		border-radius: var(--border-radius);
+		background: var(--card-background-color);
+		box-shadow: var(--card-box-shadow);
 
-	&-form {
-		legend {
-			display: none;
+		&>footer {
+			border-top: var(--border-width) solid var(--card-border-color);
+			border-bottom-right-radius: var(--border-radius);
+			border-bottom-left-radius: var(--border-radius);
+
+			border-top: var(--border-width) solid var(--card-border-color);
+			border-bottom-right-radius: var(--border-radius);
+			border-bottom-left-radius: var(--border-radius);
+
+			padding: calc(var(--block-spacing-vertical) * 0.66) var(--block-spacing-horizontal);
+			background-color: var(--card-sectionning-background-color);
+
+			margin-top: var(--block-spacing-vertical);
+			margin-bottom: calc(var(--block-spacing-vertical) * -1);
+			margin-right: calc(var(--block-spacing-horizontal) * -1);
+			margin-left: calc(var(--block-spacing-horizontal) * -1);
+
+			@include cluster($spacing * 0.5);
+			justify-content: flex-end;
 		}
 
-		display: grid;
-		gap: 2rem;
+
+		main {
+			min-height: 12rem;
+			--border-color: var(--muted-color);
+			border: var(--border-width) solid var(--border-color);
+			border-radius: var(--border-radius);
+			padding: var(--spacing) var(--form-element-spacing-horizontal);
+		}
+	}
+
+	button {
+		@extend .rhino-button;
 	}
 }

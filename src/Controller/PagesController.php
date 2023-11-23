@@ -133,6 +133,7 @@ class PagesController extends BaseController {
 
 	public function layout(int $id) {
 		$this->setPlugin(null);
+		$this->viewBuilder()->addHelper('Rhino.Layout');
 		$page = $this->Pages->get($id, [
 			'contain' => [
 				'Contents' => [
@@ -150,7 +151,10 @@ class PagesController extends BaseController {
 		$this->set([
 			'page' => $page,
 			'elements' => $elements,
+			'layoutMode' => true
 		]);
+
+		Configure::write('layoutMode', true);
 
 		$this->viewBuilder()->setLayout($page->layout->layout);
 		 

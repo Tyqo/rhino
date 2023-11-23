@@ -6,7 +6,7 @@
 				'class' => 'layout-menu__button'
 			]) ?>
 		
-		<p>Editing: <?= $this->pageLink($page['id'], ['target' => '_blank']) ?></p>
+		<p>Editing: <?= $this->Layout->pageLink($page['id'], ['target' => '_blank']) ?></p>
 
 		<?= $this->Form->button('New', [
 			'id' => 'new-content', 

@@ -84,4 +84,13 @@ class MediaCategoriesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+	public function select() {
+		$this->viewBuilder()->disableAutoLayout();
+
+		$mediaCategories = $this->MediaCategories->find()->contain(['Media'])->all();
+        $this->set(compact('mediaCategories'));
+
+		// dd($mediaCategories->toArray());
+	}
 }

@@ -39,7 +39,7 @@ export default class Files {
 			});
 
 			modal.addEventListener('close', (e) => {
-				this.reset(modal);
+				this.Modal.reset(modal);
 			});
 
 			button.addEventListener('click', (event) => {
@@ -66,9 +66,5 @@ export default class Files {
 					.catch(err => console.log(err))
 			})
 		});
-	}
-
-	reset(modal) {
-		this.Modal.addContent(modal, '');
 	}
 }

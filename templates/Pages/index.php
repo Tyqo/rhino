@@ -9,7 +9,7 @@
 
 	<?php
 	if (in_array('add', $rights)) {
-		$newButton = $this->svg("Rhino.plus") . '<span>' . __('New Page') . '</span>';
+		$newButton = $this->Icon->svg("Rhino.plus") . '<span>' . __('New Page') . '</span>';
 		echo $this->Html->link($newButton, ['action' => 'add'], ['escape' => false, 'class' => 'button icon-button']);
 	}
 	?>

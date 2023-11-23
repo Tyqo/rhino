@@ -2,7 +2,7 @@
 @use '../lib' as *;
 
 /* Custom version */
-@forward "root";
+@use "measurements" as *;
 
 // Variables
 @forward "typography";
@@ -52,6 +52,10 @@
 // Enabled if forced with data-theme="dark"
 [data-theme="dark"] {
 	@include dark;
+}
+
+:root {
+	@include measurements;
 }
 
 // Accent-color

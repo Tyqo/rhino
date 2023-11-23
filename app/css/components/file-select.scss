@@ -46,6 +46,7 @@
 		display: inline-block;
 		margin-bottom: 0;
 		text-align: left;
+		padding: var(--form-element-spacing-vertical) var(--form-element-spacing-horizontal);
 		--background-color: transparent;
 		--color: var(--primary);
 	

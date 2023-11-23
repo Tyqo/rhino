@@ -10,6 +10,8 @@ use Cake\Utility\Inflector;
 use Rhino\Handlers\FieldHandler;
 use Rhino\Handlers\FileHandler;
 use Cake\View\Helper\IdGeneratorTrait;
+use Cake\Core\Configure;
+use Rhino\Model\Table\MediaCategoriesTable;
 
 class RhinoHelper extends Helper {
 	use StringTemplateTrait;
@@ -41,11 +43,12 @@ class RhinoHelper extends Helper {
 	 *
 	 * @var array
 	 */
-	protected array $helpers = ['Form', 'Html', 'Icon', 'Url'];
+	protected array $helpers = ['Form', 'Html', 'Icon', 'Url', 'Layout'];
 
 	public function initialize(array $config): void {
 		$this->FieldHandler = new FieldHandler();
 		$this->FileHandler = new FileHandler();
+		$this->layoutMode = Configure::read('layoutMode') ?? false;
 	}
 
 	public function sectionHeader(string $title, ?array $options = []) {
@@ -394,5 +397,122 @@ class RhinoHelper extends Helper {
 			'content' => $content,
 		]);
 		return $form . $button;
+	}
+
+	public function humanize(string $string) : string {
+		return __(Inflector::humanize(Inflector::underscore($string)));
+	}
+
+	public function escape(string $string) : string {
+		return $this->_domId($string);
+	}
+	
+	public function backLink() : string {
+		return isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "#";
+	}
+
+	public function getCurrent($args) : ?string {
+		$request = $this->_View->getRequest();
+		if (is_string($args)) {
+			if ($args != $request->getEnv("REQUEST_URI")) {
+				return null;
+			}
+		}
+
+		if (is_array($args)) {
+			foreach ($args as $key => $arg) {
+				if (empty($key)) {
+					$key = 'pass';
+				}
+				
+				$value = $request->getParam((string)$key);
+
+				if (is_array($value)) {
+					$value = $value[0];
+				}
+
+				if ($arg != $value) {
+					return null;
+				}
+			}
+		}
+
+		return 'aria-current="page"';
+	}
+
+	public function parseEditor(?string $json = '[]') : string {
+		if ($this->layoutMode) {
+			return $this->Layout->parseEditor($json);
+		}
+
+		$object = json_decode($json ?? '');
+
+		$content = '';
+		foreach ($object->blocks as $key => $block) {
+			$data = $block->data;
+
+			switch ($block->type) {
+				case 'header':
+					$level = 'h' . $data->level;
+					$content .= '<' . $level . '>' . $data->text . '</' . $level . '>';
+					break;
+
+				case 'list':
+					# code...
+					$items = '';
+					foreach ($data->items as $listItem) {
+						$items .= '<li>' . $listItem . '</li>';
+					}
+
+					$style = $data->style == "ordered" ? 'ol' : 'ul';
+
+					$content .= '<' . $style . '>' . $items . '</' . $style . '>';
+					break;
+				
+				default:
+					$content .= '<p>' . $data->text . '</p>';
+					break;
+			}
+		}
+
+		return $content;
+	}
+	
+	public function parseMedia(?string $id = null) : string {
+		$this->MediaCategories = new MediaCategoriesTable();
+		$content = '';
+		
+		if (empty($id)) {
+			$mediaCategories = $this->MediaCategories->find('all', contain: ['Media' => ['sort' => ['Media.position' => 'ASC']]]);
+			foreach ($mediaCategories as $category) {
+				$content .= "<h1>" . $category->name . "</h1>";
+				foreach ($category->media as $media) {
+					$content .= $this->displayMedia($media);
+				}
+			}
+		} else {
+			$media = $this->MediaCategories->Media->get($id);
+			$content .= $this->displayMedia($media);
+		}
+
+		if ($this->layoutMode) {
+			return $this->Layout->parseMedia($content);
+		}
+
+		return $content;
+	}
+
+		public function displayMedia($media) {
+		$content = '<img src="/media/' . $media->filename . '" />';
+		// switch ($media->type) {
+		// 	case 'image':
+		// 		$content .= '<img src="/media/' . $media->filename . '" />';
+		// 		break;
+
+		// 	default:
+		// 		# code...
+		// 		break;
+		// }
+		return $content;
 	}
 }

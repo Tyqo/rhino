@@ -1,5 +1,6 @@
 import DragDrop from "./dragdrop.js";
 import Editor from "./editor.js";
+import Modal from "./modal.js";
 
 /**
  * 
@@ -130,9 +131,9 @@ class Element {
 	}
 
 	initialize() {		
-		let saveButton = this.nodeElement.querySelector('[name=save]');
-		let deleteButton = this.nodeElement.querySelector('[name=delete]');
-		let toggleButton = this.nodeElement.querySelector('[name=toggle]');
+		this.saveButton = this.nodeElement.querySelector('[name=save]');
+		this.deleteButton = this.nodeElement.querySelector('[name=delete]');
+		this.toggleButton = this.nodeElement.querySelector('[name=toggle]');
 
 		this.select.addEventListener('change', () => this.elementHandler.updateContent(
 			'update',
@@ -141,29 +142,27 @@ class Element {
 			{ element_id: this.select.value },
 		));
 
-		saveButton.addEventListener('click', () => this.elementHandler.updateContent(
+		this.saveButton.addEventListener('click', () => this.elementHandler.updateContent(
 			'save',
-			saveButton.dataset.url,
+			this.saveButton.dataset.url,
 			this
 		));
 
-		toggleButton.addEventListener('change', () => this.elementHandler.updateContent(
+		this.toggleButton.addEventListener('change', () => this.elementHandler.updateContent(
 			'update',
-			toggleButton.dataset.url,
+			this.toggleButton.dataset.url,
 			this,
-			{ active: !toggleButton.value }
+			{ active: !this.toggleButton.value }
 		));
 
-		deleteButton.addEventListener('click', () => this.elementHandler.updateContent(
+		this.deleteButton.addEventListener('click', () => this.elementHandler.updateContent(
 			'delete',
-			deleteButton.dataset.url,
+			this.deleteButton.dataset.url,
 			this
 		));
 
-		let editor = this.nodeElement.querySelector('.editor');
-		if (editor) {
-			this.addEditor(editor);
-		}
+		this.addEditor();
+		this.addMedia();
 	}
 
 	createElement(html) {
@@ -174,9 +173,54 @@ class Element {
 		return element;
 	}
 
-	addEditor(editor) {
-		this.editor = editor;
-		this.nodeElement.editor = new Editor(this.editor, this.html.value);
+	addEditor() {
+		let editorElement = this.nodeElement.querySelector('.editor');
+		
+		if (!editorElement) {
+			return;
+		}
+
+		this.editor = new Editor(editorElement, this.html.value);
+	}
+
+	addMedia() {
+		let mediaButton = this.nodeElement.querySelector('[name=media]');
+
+		if (!mediaButton) {
+			return;
+		}
+
+		if (!this.Modal) {
+			this.Modal = new Modal(this);
+		}
+
+		let modal = this.Modal.newModal(mediaButton, false);
+		this.Modal.addQuery(modal);
+		
+		mediaButton.addEventListener('click', () => {
+			fetch(mediaButton.value)
+				.then(response => response.text())
+				.then(text => {
+					this.Modal.addContent(modal, text);
+					this.Modal.openModal(modal);
+				});
+		});
+
+		modal.addEventListener('confirm', (e) => {
+			let selected = modal.querySelector('input[type=radio]:checked');
+			this.html.value = selected.value;
+
+			this.elementHandler.updateContent(
+				'update',
+				this.select.dataset.url,
+				this,
+				{ html: this.html.value },
+			);
+		});
+
+		modal.addEventListener('close', (e) => {
+			this.Modal.reset(modal);
+		});
 	}
 
 	async get() {
@@ -187,11 +231,14 @@ class Element {
 
 		return {
 			html: this.html.value,
-			element_id: this.select.value
+			element_id: this.select.value,
 		};
 	}
 
 	destroy() {
+		if (this.editor) {
+			this.editor.destroy();
+		}
 		this.nodeElement.remove();
 	}
 }
