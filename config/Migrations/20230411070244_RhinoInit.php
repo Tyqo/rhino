@@ -266,6 +266,10 @@ class RhinoInit extends AbstractMigration
 				'default' => null,
 				'null' => true,
 			])
+			->addColumn('media', 'string', [
+				'default' => null,
+				'null' => true,
+			])
 			->addColumn('active', 'boolean', [
 				'default' => 1,
 			])

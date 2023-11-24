@@ -113,7 +113,7 @@ class Element {
 		this.fields = [
 			'element_id',
 			'html',
-			'string',
+			'media',
 		];
 
 		if (typeof element == "object" && element.nodeType) {
@@ -123,7 +123,7 @@ class Element {
 		}
 
 		this.html = this.nodeElement.querySelector('[name=html]');
-		this.string = this.nodeElement.querySelector('[name=string]');
+		this.media = this.nodeElement.querySelector('[name=media]');
 		this.select = this.nodeElement.querySelector('[name=element_id]');
 
 		this.id = this.nodeElement.dataset.id;
@@ -205,7 +205,7 @@ class Element {
 	}
 
 	addMedia() {
-		let mediaButton = this.nodeElement.querySelector('[name=media]');
+		let mediaButton = this.nodeElement.querySelector('[name=mediaButton]');
 
 		if (!mediaButton) {
 			return;
@@ -230,15 +230,15 @@ class Element {
 		modal.addEventListener('confirm', (e) => {
 			let selected = modal.querySelector('input[type=radio]:checked');
 
-			this.string.value = selected.value;
+			this.media.value = selected.value;
 
-			console.log(this.string.value);
+			console.log(this.media.value);
 
 			this.elementHandler.updateContent(
 				'update',
 				this.select.dataset.url,
 				this,
-				{ string: this.string.value },
+				{ media: this.media.value },
 			);
 		});
 

@@ -91,6 +91,9 @@ class ContentsTable extends Table {
         $validator
             ->scalar('html')
             ->allowEmptyString('html');
+			
+		$validator
+            ->allowEmptyString('media');
 
         $validator
             ->boolean('active')

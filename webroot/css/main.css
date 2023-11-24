@@ -4212,7 +4212,7 @@ table .button {
   display: flex;
   flex-direction: column;
 }
-@media (max-width: 992px) {
+@media (max-width: 1650px) {
   .menu {
     position: absolute;
     top: 0;
@@ -4263,7 +4263,7 @@ table .button {
   top: 0;
   z-index: 700;
 }
-@media (max-width: 992px) {
+@media (max-width: 1650px) {
   .menu-page > header {
     z-index: 800;
   }
@@ -4277,7 +4277,7 @@ table .button {
 .menu-page > header #menu-button {
   visibility: hidden;
 }
-@media (max-width: 992px) {
+@media (max-width: 1650px) {
   .menu-page > header #menu-button {
     visibility: visible;
   }

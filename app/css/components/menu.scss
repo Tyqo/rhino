@@ -16,7 +16,7 @@
 	display: flex;
 	flex-direction: column;
 
-	@include for-size(lg-down) {
+	@include for-size(xxl-down) {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -82,7 +82,7 @@
 			top: 0;
 			z-index: 700;
 
-			@include for-size(lg-down) {
+			@include for-size(xxl-down) {
 				z-index: 800;
 			}
 
@@ -96,7 +96,7 @@
 			#menu-button {
 				visibility: hidden;
 
-				@include for-size(lg-down) {
+				@include for-size(xxl-down) {
 					visibility: visible;
 				}
 			}

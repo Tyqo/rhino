@@ -57,12 +57,12 @@ class LayoutHelper extends Helper {
 			'tag' => 'button',
 			'attrs' => $this->Templater->formatAttributes([
 				'class' => 'rhino-button select-media',
-				'name' => "media",
+				'name' => "mediaButton",
 				'value' => $url
 			]),
 		]);
 
-		$content .= '<input type="text" name="string" hidden value="' . $id . '" />';
+		$content .= '<input type="text" name="media" hidden value="' . $id . '" />';
 
 		return $content;
 	}
