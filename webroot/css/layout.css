@@ -1096,4 +1096,10 @@ dialog > article main {
   border-radius: var(--border-radius);
   padding: var(--spacing) var(--form-element-spacing-horizontal);
 }
+.editor {
+  background: #f6f6f6;
+  color: #333;
+  border-radius: 0.5rem;
+  padding: 1rem 1rem 1rem 4rem;
+}
 /*# sourceMappingURL=layout.css.map */

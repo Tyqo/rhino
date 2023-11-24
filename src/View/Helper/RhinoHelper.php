@@ -482,27 +482,21 @@ class RhinoHelper extends Helper {
 		$this->MediaCategories = new MediaCategoriesTable();
 		$content = '';
 		
-		if (empty($id)) {
-			$mediaCategories = $this->MediaCategories->find('all', contain: ['Media' => ['sort' => ['Media.position' => 'ASC']]]);
-			foreach ($mediaCategories as $category) {
-				$content .= "<h1>" . $category->name . "</h1>";
-				foreach ($category->media as $media) {
-					$content .= $this->displayMedia($media);
-				}
-			}
-		} else {
+		if (!empty($id)) {
 			$media = $this->MediaCategories->Media->get($id);
 			$content .= $this->displayMedia($media);
+		} else {
+			$content .= '<img src="" />';
 		}
 
 		if ($this->layoutMode) {
-			return $this->Layout->parseMedia($content);
+			return $this->Layout->parseMedia($content, $id);
 		}
 
 		return $content;
 	}
 
-		public function displayMedia($media) {
+	public function displayMedia($media) {
 		$content = '<img src="/media/' . $media->filename . '" />';
 		// switch ($media->type) {
 		// 	case 'image':

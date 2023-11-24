@@ -1,12 +1,19 @@
 
-<div id="<?= 'element-' . $content['id'] ?>" class="layout-element" draggable="true" data-position="<?= $content['position'] ?>" data-id="<?= $content['id'] ?>">
+<div id="<?= 'element-' . $content['id'] ?>" class="layout-element" draggable="false" data-position="<?= $content['position'] ?>" data-id="<?= $content['id'] ?>">
 
 	<div class="element-container">
 		<?= $this->element($content['element']['elementName'], array_merge($content->toArray(), ['layoutmode' => true])) ?>
 	</div>
 
 	<div class="layout-handle">
-		<div class="layout-handle__select">
+		<div class="layout-handle__actions">
+			<?= $this->Form->button($this->Icon->svg("Rhino.menu"), [
+				'name' => 'move', 
+				'class' => 'rhino-button Icon',
+				'escapeTitle' => false,
+				'title' => __("Move Content"),
+			]) ?>
+			
 			<?= $this->Form->select('element_id', $elements, [
 				'class' => 'rhino-select',
 				'value' => $content['element_id'],

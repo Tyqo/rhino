@@ -246,3 +246,10 @@ dialog {
 		@extend .rhino-button;
 	}
 }
+
+.editor {
+	background: #f6f6f6;
+	color: #333;
+	border-radius: $border-radius;
+	padding: $spacing $spacing $spacing $spacing * 4;
+}

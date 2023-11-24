@@ -46,6 +46,8 @@ export default class LayoutElements {
 		this.elements.forEach(nodeElement => {
 			new Element(this, nodeElement);
 		});
+
+
 	}
 
 	newContent(url) {
@@ -110,7 +112,8 @@ class Element {
 
 		this.fields = [
 			'element_id',
-			'html'
+			'html',
+			'string',
 		];
 
 		if (typeof element == "object" && element.nodeType) {
@@ -120,6 +123,7 @@ class Element {
 		}
 
 		this.html = this.nodeElement.querySelector('[name=html]');
+		this.string = this.nodeElement.querySelector('[name=string]');
 		this.select = this.nodeElement.querySelector('[name=element_id]');
 
 		this.id = this.nodeElement.dataset.id;
@@ -134,6 +138,7 @@ class Element {
 		this.saveButton = this.nodeElement.querySelector('[name=save]');
 		this.deleteButton = this.nodeElement.querySelector('[name=delete]');
 		this.toggleButton = this.nodeElement.querySelector('[name=toggle]');
+		this.moveHandle = this.nodeElement.querySelector('[name=move]');
 
 		this.select.addEventListener('change', () => this.elementHandler.updateContent(
 			'update',
@@ -160,6 +165,22 @@ class Element {
 			this.deleteButton.dataset.url,
 			this
 		));
+
+		this.moveHandle.addEventListener('mouseover', () => this.nodeElement.draggable = true);
+		this.moveHandle.addEventListener('mouseout', () => this.nodeElement.draggable = false);
+
+		this.nodeElement.addEventListener('keydown', (e) => {
+			if (e.ctrlKey && e.keyCode === 83) {
+				e.preventDefault();
+
+				this.elementHandler.updateContent(
+					'save',
+					this.saveButton.dataset.url,
+					this
+				);
+				return false;
+			}
+		});
 
 		this.addEditor();
 		this.addMedia();
@@ -208,13 +229,16 @@ class Element {
 
 		modal.addEventListener('confirm', (e) => {
 			let selected = modal.querySelector('input[type=radio]:checked');
-			this.html.value = selected.value;
+
+			this.string.value = selected.value;
+
+			console.log(this.string.value);
 
 			this.elementHandler.updateContent(
 				'update',
 				this.select.dataset.url,
 				this,
-				{ html: this.html.value },
+				{ string: this.string.value },
 			);
 		});
 
@@ -227,12 +251,19 @@ class Element {
 		if (this.editor) {
 			let editorData = await this.editor.save();
 			this.html.value = JSON.stringify(editorData);
+			this.html.innerHTML = this.html.value;
 		}
 
-		return {
-			html: this.html.value,
-			element_id: this.select.value,
-		};
+		let data = {};
+
+		this.fields.forEach(field => {
+			let node = this.nodeElement.querySelector('[name=' + field + ']');
+			if (node) {
+				data[field] = node.value;
+			}
+		});
+
+		return data;
 	}
 
 	destroy() {

@@ -44,7 +44,7 @@ class LayoutHelper extends Helper {
 		return '<div class="editor"></div>' . '<textarea name="html" hidden>' . $json . '</textarea>';
 	}
 
-	public function parseMedia($content = null) {
+	public function parseMedia($content = null, $id = null) {
 		// $content .= '<button class="rhino-button select-media" name="media" value="//tusk.localhost:3000/rhino/files/get">Edit</button>';
 
 		$url = $this->Url->build([
@@ -62,7 +62,7 @@ class LayoutHelper extends Helper {
 			]),
 		]);
 
-		$content .= '<textarea name="html" hidden></textarea>';
+		$content .= '<input type="text" name="string" hidden value="' . $id . '" />';
 
 		return $content;
 	}

@@ -138,14 +138,3 @@ label {
 .skip-link {
 	@include shapes.skip-link;
 }
-
-.editor {
-	box-shadow: 0 0 2rem #ddd;
-	border-radius: var(--rhino-rhino-border-radius);
-	padding: var(--rhino-rhino-margin-200) var(--rhino-rhino-margin-500);
-	min-height: 300px;
-
-	.codex-editor {
-		height: 100%;
-	}
-}

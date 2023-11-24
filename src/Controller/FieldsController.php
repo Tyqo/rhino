@@ -34,7 +34,7 @@ class FieldsController extends AppController
 
 	public function preCompose($entry, ...$params) {
 		$tableName = $params[0];
-		$field = $params[1];
+		$field = $params[1] ?? null;
 
 		$types = $this->FieldHandler->customTypes;
 		$typeOptions = $this->FieldHandler->getTypes();

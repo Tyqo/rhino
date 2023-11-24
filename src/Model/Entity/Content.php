@@ -32,6 +32,7 @@ class Content extends Entity
         'page_id' => true,
         'element_id' => true,
         'html' => true,
+        'string' => true,
         'active' => true,
         'position' => true,
         'created' => true,
