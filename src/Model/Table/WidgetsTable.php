@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Rhino\Model\Table;
 
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -24,9 +24,27 @@ use Cake\Validation\Validator;
  * @method \Rhino\Model\Entity\Widget[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \Rhino\Model\Entity\Widget[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \Rhino\Model\Entity\Widget[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class WidgetsTable extends Table
 {
+	public array $fieldConfig = [
+		'template' => [
+			'type' => 'upload',
+			'options' =>  [
+				'uploadDirectory' => '/templates/element/',
+				'uploadTypes' => 'file',
+				'uploadOverwrite' => '',
+				'uploadMultiple' => ''
+			]
+		],
+		'position' => ['type' => 'position'],
+		'widget_category_id' => 'hidden',
+		'created' => false,
+		'modified' => false,
+	];
+
     /**
      * Initialize method
      *
@@ -40,6 +58,13 @@ class WidgetsTable extends Table
         $this->setTable('rhino_widgets');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
+
+		$this->belongsTo('WidgetCategories', [
+            'foreignKey' => 'widget_category_id',
+            'className' => 'Rhino.WidgetCategories',
+        ]);
     }
 
     /**
@@ -53,9 +78,39 @@ class WidgetsTable extends Table
         $validator
             ->scalar('name')
             ->maxLength('name', 255)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->allowEmptyString('name');
+
+        $validator
+            ->scalar('description')
+            ->allowEmptyString('description');
+
+        $validator
+            ->scalar('template')
+            ->maxLength('template', 255)
+            ->allowEmptyString('template');
+
+        $validator
+            ->integer('widget_category_id')
+            ->allowEmptyString('widget_category_id');
+
+        $validator
+            ->integer('position')
+            ->allowEmptyString('position');
 
         return $validator;
+    }
+
+	/**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('widget_category_id', 'WidgetCategories'), ['errorField' => 'widget_category_id']);
+
+        return $rules;
     }
 }

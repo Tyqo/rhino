@@ -305,8 +305,17 @@ class RhinoInit extends AbstractMigration
 			->addColumn('description', 'text')
 			->create();
 
+		$this->table('rhino_widget_categories', $options)
+			->addColumn('name', 'string')
+			->addColumn('description', 'text')
+			->create();
+
 		$this->table('rhino_widgets', $options)
 			->addColumn('name', 'string')
+			->addColumn('description', 'text')
+			->addColumn('template', 'string')
+			->addColumn('widget_category_id', 'integer')
+			->addColumn('position', 'integer')
 			->addColumn('created', 'timestamp', [
 				'default' => 'CURRENT_TIMESTAMP'
 			])
@@ -317,18 +326,6 @@ class RhinoInit extends AbstractMigration
 			->create();
 
 		if ($this->isMigratingUp()) {
-			$this->table($usersTable)
-				->insert([
-					[
-						'name' => 'Rhino',
-						'email' => 'rhino@example.com',
-						'password' => '$2y$10$D6POTVNQcplsR2bvLXiS3.fnS310gKtaWkLC.82MxMuzRQPhxpv46',
-						'theme' => 'rhino',
-						'role_id' => '1'
-					]
-				])
-				->saveData();
-				
 			$this->table($rolesTable)
 				->insert([
 					[

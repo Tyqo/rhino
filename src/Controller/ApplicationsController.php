@@ -94,7 +94,7 @@ class ApplicationsController extends AppController {
 	}
 
 	public function preCompose($entry, ...$params) {
-		$tableName = $params[0];
+		$tableName = $params[0] ?? null;
 
 		$groups = $this->Groups->getGroups();
 

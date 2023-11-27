@@ -6,7 +6,7 @@
 	
 		<div class="cluster">
 			<?= $this->Form->button('Save') ?>
-			<?= $this->Html->link("Back", $this->backLink(), ["class" => "button"]) ?>
+			<?= $this->Html->link("Back", $this->Rhino->backLink(), ["class" => "button"]) ?>
 		</div>
 		
 	<?= $this->Form->end(); ?>

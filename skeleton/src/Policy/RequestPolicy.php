@@ -23,7 +23,8 @@ class RequestPolicy implements RequestPolicyInterface {
 					return false;
 				}
 
-				return $request->getParam('action') === "login";
+				$action = $request->getParam('action');
+				return $action === "login" || $action === "new";
 			}
 
 			return $identity->getOriginalData()->getSource() === "Rhino.Users";

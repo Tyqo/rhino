@@ -44,7 +44,7 @@ class MediaCategoriesController extends AppController
         $mediaCategory = $this->MediaCategories->newEmptyEntity();
        	$this->compose($mediaCategory, [
 			"redirect" => ['action' => 'index'],
-			'success' => __('TThe media category has been saved.'),
+			'success' => __('The media category has been saved.'),
 			'error' => __('The media category could not be saved. Please, try again.')
 		]);
     }
@@ -60,7 +60,7 @@ class MediaCategoriesController extends AppController
         $mediaCategory = $this->MediaCategories->get($id, contain: []);
 		$this->compose($mediaCategory, [
 			"redirect" => ['action' => 'index'],
-			'success' => __('TThe media category has been saved.'),
+			'success' => __('The media category has been saved.'),
 			'error' => __('The media category could not be saved. Please, try again.')
 		]);
     }
@@ -77,9 +77,9 @@ class MediaCategoriesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $mediaCategory = $this->MediaCategories->get($id);
         if ($this->MediaCategories->delete($mediaCategory)) {
-            $this->Flash->success(__('The rhino media category has been deleted.'));
+            $this->Flash->success(__('The media category has been deleted.'));
         } else {
-            $this->Flash->error(__('The rhino media category could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The media category could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

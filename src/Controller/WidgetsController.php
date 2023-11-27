@@ -9,7 +9,6 @@ use Rhino\Controller\AppController;
  * Widgets Controller
  *
  * @property \Rhino\Model\Table\WidgetsTable $Widgets
- * @method \Rhino\Model\Entity\Widget[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class WidgetsController extends AppController
 {
@@ -20,7 +19,8 @@ class WidgetsController extends AppController
      */
     public function index()
     {
-        $widgets = $this->paginate($this->Widgets);
+        $query = $this->Widgets->find();
+        $widgets = $this->paginate($query);
 
         $this->set(compact('widgets'));
     }
@@ -28,14 +28,13 @@ class WidgetsController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Widget id.
+     * @param string|null $id Rhino Widget id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
         $widget = $this->Widgets->get($id, contain: []);
-
         $this->set(compact('widget'));
     }
 
@@ -44,48 +43,50 @@ class WidgetsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add(?int $widget_category_id = null)
     {
         $widget = $this->Widgets->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $widget = $this->Widgets->patchEntity($widget, $this->request->getData());
-            if ($this->Widgets->save($widget)) {
-                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Rhino']);
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
-        }
-        $this->set(compact('widget'));
+		$widget->widget_category_id = $widget_category_id;
+
+        $this->compose($widget, [
+			'entity' => 'widget',
+			"redirect" => ['controller' => 'WidgetCategories', 'action' => 'view', $widget_category_id],
+			'success' => __('The widget category has been saved.'),
+			'error' => __('The widget category could not be saved. Please, try again.')
+		]);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Widget id.
+     * @param string|null $id Rhino Widget id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
         $widget = $this->Widgets->get($id, contain: []);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $widget = $this->Widgets->patchEntity($widget, $this->request->getData());
-            if ($this->Widgets->save($widget)) {
-                $this->Flash->success(__('The widget has been saved.'), ['plugin' => 'Rhino']);
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The widget could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
-        }
-        $this->set(compact('widget'));
+		$widget_category_id = $widget->widget_category_id;
+		$this->compose($widget, [
+			'entity' => 'widget',
+			"redirect" => ['controller' => 'WidgetCategories', 'action' => 'view', $widget_category_id],
+			'success' => __('The widget category has been saved.'),
+			'error' => __('The widget category could not be saved. Please, try again.')
+		]);
     }
+
+	public function preCompose(object $widget, mixed ...$params) {
+		$widgetCategories = $this->Widgets->WidgetCategories->find('list', limit: 200)->all();
+        $this->set(compact('widgetCategories'));
+		return $widget;
+	}
 
     /**
      * Delete method
      *
-     * @param string|null $id Widget id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @param string|null $id Rhino Widget id.
+     * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
@@ -93,9 +94,9 @@ class WidgetsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $widget = $this->Widgets->get($id);
         if ($this->Widgets->delete($widget)) {
-            $this->Flash->success(__('The widget has been deleted.'), ['plugin' => 'Rhino']);
+            $this->Flash->success(__('The rhino widget has been deleted.'));
         } else {
-            $this->Flash->error(__('The widget could not be deleted. Please, try again.'), ['plugin' => 'Rhino']);
+            $this->Flash->error(__('The rhino widget could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

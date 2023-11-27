@@ -4,7 +4,9 @@ import LayoutElements from "/rhino/js/modules/elements.js";
 class Layout {
 	constructor() {
 		this.debug = true;
-		window.onload = () => this.init();
+		window.addEventListener("load", (event) => {
+			this.init();
+		});
 	}
 	
 	init() {

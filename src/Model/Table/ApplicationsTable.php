@@ -25,6 +25,7 @@ class ApplicationsTable extends Table
 		'rhino_media',
 		'rhino_media_categories',
 		'rhino_widgets',
+		'rhino_widget_categories',
 	];
 
     /**

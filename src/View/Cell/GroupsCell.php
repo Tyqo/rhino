@@ -102,7 +102,7 @@ class GroupsCell extends Cell {
 					],
 					[
 						'name' => 'Widgets',
-						'link' => ['controller' => 'Widgets', 'action' => 'index'],
+						'link' => ['controller' => 'WidgetCategories', 'action' => 'index'],
 						'icon' => "Rhino.sidebar",
 						'rights' => 'rhino_widgets'
 					]

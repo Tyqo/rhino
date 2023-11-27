@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Rhino\Controller;
 
 use Rhino\Controller\AppController;
+use Cake\Http\Exception\ForbiddenException;
 
 /**
  * Users Controller
@@ -13,7 +14,15 @@ use Rhino\Controller\AppController;
  */
 class UsersController extends AppController
 {
-    /**
+    
+	public function beforeFilter(\Cake\Event\EventInterface $event) {
+		parent::beforeFilter($event);
+		// Configure the login action to not require authentication, preventing
+		// the infinite redirect loop issue
+		$this->Authentication->addUnauthenticatedActions(['login', 'new']);
+	}
+	
+	/**
      * Index method
      *
      * @return \Cake\Http\Response|null|void Renders view
@@ -80,19 +89,20 @@ class UsersController extends AppController
 		return $user;
 	}
 
-	public function preSave($data, $params) {
-		if ($data['newPassword'] === $data['repeatPassword']) {
-			if (!empty($data['newPassword'])) {
-				$data['password'] = $data['newPassword'];
-			} else {
-				unset($data['password']);
-			}
-			return $data;
-		}
+	// public function preSave($data, $params) {
+	// 	if ($data['newPassword'] === $data['repeatPassword']) {
+	// 		if (!empty($data['newPassword'])) {
+	// 			$data['password'] = $data['newPassword'];
+	// 		} else {
+	// 			unset($data['password']);
+	// 		}
+	// 		return $data;
+	// 	}
 		
-		$this->Flash->error(__('Password does not match.'), ['plugin' => 'Rhino']);
-		return false;
-	}
+	// 	$this->Flash->error(__('Password does not match.'), ['plugin' => 'Rhino']);
+	// 	$data['password'] = false;
+	// 	return $data;
+	// }
 
     /**
      * Delete method
@@ -112,13 +122,6 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-	public function beforeFilter(\Cake\Event\EventInterface $event) {
-		parent::beforeFilter($event);
-		// Configure the login action to not require authentication, preventing
-		// the infinite redirect loop issue
-		$this->Authentication->addUnauthenticatedActions(['login']);
-	}
 
 	public function login() {
 		$this->Authorization->skipAuthorization();
@@ -152,5 +155,32 @@ class UsersController extends AppController
 			$this->Authentication->logout();
 			return $this->redirect(['controller' => 'Users', 'action' => 'login']);
 		}
+	}
+
+	public function new() {
+		$this->Authorization->skipAuthorization();
+		$this->viewBuilder()->setLayout('blank');
+
+		$count = $this->Users->find('all')->count();
+		if ($count > 0) {
+			throw new ForbiddenException('Admin User already set.');
+		}
+
+		$user = $this->Users->newEmptyEntity();
+		
+		$this->request->allowMethod(['get', 'post']);
+		if ($this->request->is(['post'])) {
+			$data = $this->request->getData();
+			$user = $this->Users->patchEntity($user, $data);
+
+			if ($this->Users->save($user)) {
+				$this->Flash->success(__('The user has been created.'));
+				return $this->redirect(['action' => 'index']);
+			}
+
+			$this->Flash->error(__('The user could not be saved. Please, try again.'));
+		}
+
+		$this->set(compact('user'));
 	}
 }

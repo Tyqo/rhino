@@ -50,6 +50,14 @@ class UsersTable extends Table
         $this->belongsTo('Roles', ['className' => 'Rhino.Roles']);
     }
 
+	public function afterMarshal($event, $entity, $data) {
+		if (isset($data['newPassword']) && !empty($data['newPassword'])) {
+			$entity['password'] = $data['newPassword'];
+		} else {
+			unset($data['password']);
+		}
+	}
+
     /**
      * Default validation rules.
      *
@@ -58,6 +66,17 @@ class UsersTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
+		$validator
+            ->add('newPassword', 'validPassword', [
+                'rule' => function ($value, $context) {
+					if ($value !== $context['data']['repeatPassword']) {
+						return "Password does not match.";
+					}
+
+					return true;
+				}
+            ]);
+
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
@@ -68,8 +87,9 @@ class UsersTable extends Table
             ->maxLength('password', 255)
             ->requirePresence('password', 'create')
             ->notEmptyString('password');
-
+			
 		$validator
+            ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
         return $validator;

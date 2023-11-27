@@ -6,18 +6,13 @@ namespace Rhino\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Widget Entity
+ * WidgetCategory Entity
  *
  * @property int $id
  * @property string|null $name
  * @property string|null $description
- * @property string|null $template
- * @property int|null $widget_category_id
- * @property int|null $position
- * @property \Cake\I18n\DateTime|null $created
- * @property \Cake\I18n\DateTime|null $modified
  */
-class Widget extends Entity
+class WidgetCategory extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -31,10 +26,5 @@ class Widget extends Entity
     protected array $_accessible = [
         'name' => true,
         'description' => true,
-        'template' => true,
-        'widget_category_id' => true,
-        'position' => true,
-        'created' => true,
-        'modified' => true,
     ];
 }
