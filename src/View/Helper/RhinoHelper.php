@@ -12,6 +12,7 @@ use Rhino\Handlers\FileHandler;
 use Cake\View\Helper\IdGeneratorTrait;
 use Cake\Core\Configure;
 use Rhino\Model\Table\MediaCategoriesTable;
+use Rhino\Model\Table\WidgetsTable;
 
 class RhinoHelper extends Helper {
 	use StringTemplateTrait;
@@ -447,6 +448,10 @@ class RhinoHelper extends Helper {
 
 		$object = json_decode($json ?? '');
 
+		if (empty($object)) {
+			return $json;
+		}
+
 		$content = '';
 		foreach ($object->blocks as $key => $block) {
 			$data = $block->data;
@@ -508,5 +513,13 @@ class RhinoHelper extends Helper {
 		// 		break;
 		// }
 		return $content;
+	}
+
+	public function parseWidget($id) {
+		$this->Widgets = new WidgetsTable();
+		$widget = $this->Widgets->get($id);
+		$data = json_decode($widget->description, true);
+		$template = str_replace('.php', '', $widget->template);
+		return $this->_View->element($template, $data);
 	}
 }

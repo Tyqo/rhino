@@ -20,7 +20,7 @@
 
 			<div class="related">
 				<h4><?= __('Widget') ?></h4>
-				<?= $this->Html->link(__('New'), ['controller' => 'widget', 'action' => 'add', $widgetCategory->id]) ?>
+				<?= $this->Html->link(__('New'), ['controller' => 'Widgets', 'action' => 'add', $widgetCategory->id]) ?>
 
 				<?php if (!empty($widgetCategory->widgets)) : ?>
 					<div class="auto-grid">

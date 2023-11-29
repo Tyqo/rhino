@@ -5,7 +5,6 @@
  */
 ?>
 <section class="widgetCategories index content">
-    <?= $this->Html->link(__('New Widget Category'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Widget Categories') ?></h3>
     <div class="table-responsive">
         <table>
@@ -19,7 +18,7 @@
                 <?php foreach ($widgetCategories as $widgetCategory): ?>
                 <tr>
                     <td><?= h($widgetCategory->name) ?></td>
-                    <td class="actions">
+                    <td class="actions" data-cell="Actions">
                         <?php $this->start('actions');
 							echo $this->element("layout-elements/actions", [
 								"view" => [
@@ -46,4 +45,6 @@
             </tbody>
         </table>
     </div>
+
+	<?= $this->Html->link(__('New Widget Category'), ['action' => 'add'], ['class' => 'button float-right']) ?>
 </section>

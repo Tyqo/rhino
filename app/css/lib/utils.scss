@@ -134,10 +134,9 @@
  */
 
 @function slope-minmax($min-size: 16px, $max-size: 124px, $min-view: 320px, $max-view: 1920px) {
-	$slope: ($max-size - $min-size) / ($max-view - $min-view);
+	$slope: math.div(($max-size - $min-size), ($max-view - $min-view));
 	$offset: ($slope * $min-view) - $min-size;
-
-	@return (100vw * #{$slope} - #{$offset});
+	@return calc(#{100 * $slope}vw + #{$offset * -1});
 }
 
 @mixin slope-type-minmax ($min-size: 16px, $max-size: 124px, $min-view: 320px, $max-view: 1920px) {
