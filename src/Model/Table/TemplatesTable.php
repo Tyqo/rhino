@@ -8,13 +8,13 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class ElementsTable extends Table {
+class TemplatesTable extends Table {
 
 	public array $fieldConfig = [
 		'element' => [
 			'type' => 'upload',
 			'options' =>  [
-				'uploadDirectory' => '/templates/element',
+				'uploadDirectory' => '/templates',
 				'uploadTypes' => 'file',
 				'uploadOverwrite' => '',
 				'uploadMultiple' => ''
@@ -33,12 +33,9 @@ class ElementsTable extends Table {
     public function initialize(array $config): void {
         parent::initialize($config);
 
-        $this->setTable('rhino_elements');
+        $this->setTable('rhino_templates');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-
-		$this->belongsToMany('Rhino.Layouts');
-		$this->belongsToMany('Rhino.Contents');
     }
 		
 	public function getEntry(int $id = null): object {

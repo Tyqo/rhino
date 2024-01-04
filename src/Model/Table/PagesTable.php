@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rhino\Model\Table;
 
+use Rhino\Model\Table\NodesTable;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -11,13 +12,21 @@ use Cake\Validation\Validator;
 
 use function PHPSTORM_META\map;
 
-class PagesTable extends Table {
+class PagesTable extends NodesTable {
 	public array $root = [null => 'Root'];
 
 	public array $pageTypes = [
 		0 => "Page",
 		1 => "Link",
 		2 => "Folder"
+	];
+
+	public array $roles = [
+		0 => "Page",
+		1 => "Link",
+		2 => "Folder",
+		3 => "Home Page",
+		4 => "Error Page",
 	];
 
 	/**
@@ -29,20 +38,20 @@ class PagesTable extends Table {
 	public function initialize(array $config): void {
 		parent::initialize($config);
 
-		$this->setTable('rhino_pages');
-		$this->setDisplayField('name');
-		$this->setPrimaryKey('id');
+		// $this->setTable('node_tree');
+		// $this->setDisplayField('name');
+		// $this->setPrimaryKey('id');
 
-		$this->addBehavior('Tree', [
-			'level' => 'level'
-		]);
+		// $this->addBehavior('Tree', [
+		// 	'level' => 'level'
+		// ]);
 
-		$this->hasMany('Rhino.Contents')
-			->setForeignKey('page_id')
-			->setDependent(true);
+		// $this->hasMany('Rhino.Contents')
+		// 	->setForeignKey('page_id')
+		// 	->setDependent(true);
 
-		$this->hasOne('Rhino.Pages');
-		$this->belongsTo('Rhino.Layouts');
+		// $this->hasOne('Rhino.Pages');
+		// $this->belongsTo('Rhino.Layouts');
 	}
 
 	public function afterSave($event, $entity, $options) {
@@ -65,29 +74,21 @@ class PagesTable extends Table {
 		});
 	}
 
-	public function getEntry(int $id = null): object {
-		if (!empty($id)) {
-			return $this->get($id);
-		}
-
-		return $this->newEmptyEntity();
-	}
-
 	public function slug(string $slug = null) {
 		$contain = [
-			'Contents' => [
-				'Elements',
-				'sort' => [
-					'Contents.position' => 'ASC'
-				]
-			],
-			'Layouts'
+			// 'Contents' => [
+			// 	'Elements',
+			// 	'sort' => [
+			// 		'Contents.position' => 'ASC'
+			// 	]
+			// ],
+			'Templates'
 		];
 
 		$where = ["Pages.name" => $slug];
 
 		if (!$slug) {
-			$where = ["is_homepage" => 1];
+			$where = ["role" => 3];
 		}
 
 		$query = $this->find()

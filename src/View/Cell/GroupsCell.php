@@ -105,6 +105,12 @@ class GroupsCell extends Cell {
 						'link' => ['controller' => 'WidgetCategories', 'action' => 'index'],
 						'icon' => "Rhino.sidebar",
 						'rights' => 'rhino_widgets'
+					],
+					[
+						'name' => 'Tree',
+						'link' => ['controller' => 'NodeTree', 'action' => 'index'],
+						'icon' => "Rhino.table",
+						'rights' => 'rhino_widgets'
 					]
 				]
 			],
@@ -118,20 +124,22 @@ class GroupsCell extends Cell {
 					[
 						'name' => 'Templates',
 						'icon' => "Rhino.table",
-						'buttons' => [
-							[
-								'name' => 'Elements',
-								'icon' => "Rhino.book",
-								'link' => ['controller' => 'Tables', 'action' => 'index', 'rhino_elements'],
-								'rights' => 'rhino_elements'
-							],
-							[
-								'name' => 'Layouts',
-								'icon' => "Rhino.book",
-								'link' => ['controller' => 'Tables', 'action' => 'index', 'rhino_layouts'],
-								'rights' => 'rhino_layouts'
-							]
-						]
+						'link' => ['controller' => 'Tables', 'action' => 'index', 'rhino_templates'],
+						'rights' => 'rhino_templates'
+						// 'buttons' => [
+						// 	[
+						// 		'name' => 'Elements',
+						// 		'icon' => "Rhino.book",
+						// 		'link' => ['controller' => 'Tables', 'action' => 'index', 'rhino_elements'],
+						// 		'rights' => 'rhino_elements'
+						// 	],
+						// 	[
+						// 		'name' => 'Layouts',
+						// 		'icon' => "Rhino.book",
+						// 		'link' => ['controller' => 'Tables', 'action' => 'index', 'rhino_layouts'],
+						// 		'rights' => 'rhino_layouts'
+						// 	]
+						// ]
 					],
 					[
 						'name' => 'Admin',

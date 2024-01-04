@@ -25,7 +25,6 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\Controller\ControllerFactory;
-use Rhino\Model\Table\PagesTable;
 
 /**
  * Static content controller
@@ -34,33 +33,24 @@ use Rhino\Model\Table\PagesTable;
  *
  * @link https://book.cakephp.org/4/en/controllers/pages-controller.html
  */
-class PagesController extends NodesController {
-
-	public function beforeFilter(\Cake\Event\EventInterface $event) {
+class LayoutsController extends NodesController {
+	
+	public function beforeFilter(\Cake\Event\EventInterface $event)
+	{
 		parent::beforeFilter($event);
 		// Configure the login action to not require authentication, preventing
 		// the infinite redirect loop issue
 		$this->Authentication->addUnauthenticatedActions(['display']);
 	}
 
-	/**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
     public function index() {
-		$pages = $this->Pages->find('threaded')->where(['type' => 0])->orderBy(["lft" => 'ASC']);
+		$pages = $this->Pages->find('threaded')->where(['node_type' => 0])->orderBy(["lft" => 'ASC']);
 
 		$this->set([
 			'pages' => $pages,
 		]);
 	}
 
-	/**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
 	public function add(int $id = null) {
 		$entry = $this->Pages->newEmptyEntity();
 		$this->compose($entry, [
@@ -109,13 +99,6 @@ class PagesController extends NodesController {
 		return $this->redirect(['action' => 'index']);
 	}
 
-	/**
-	 * preCompose method
-	 *
-	 * @param  [type] $entry
-	 * @param  [type] ...$params
-	 * @return void
-	 */
 	public function preCompose($entry, ...$params) {
 		$layouts = $this->Pages->Layouts->find('list')->all();
 		
@@ -123,7 +106,7 @@ class PagesController extends NodesController {
 			->find('treeList', [
 				'spacer' => str_repeat("&nbsp", 3)
 			])
-			->where(['type' => 0])
+			->where(['node_type' => 0])
 			->all();
 		
 		$pages = $this->Pages->root + $pages->toArray();
@@ -135,55 +118,40 @@ class PagesController extends NodesController {
 		]);
 	}
 
-	/**
-	 * preSave method
-	 *
-	 * @param  [type] $data
-	 * @param  [type] $params
-	 * @return void
-	 */
 	public function preSave($data, $params) {
 		$data = parent::preSave($data, $params);
 
-		$data['type'] = 0; // Page
+		$data['node_type'] = 0; // Page
 
 		return $data;
 	}
 
-	/**
-	 * layout method
-	 *
-	 * @param  integer $id
-	 * @return void
-	 */
 	public function layout(int $id) {
-		Configure::write('layoutMode', true);
-
 		$this->setPlugin(null);
 		$this->viewBuilder()->addHelper('Rhino.Layout');
-
 		$page = $this->Pages->get($id, [
 			'contain' => [
-				// 'Contents' => [
-				// 	'Elements',
-				// 	'sort' => [
-				// 		'Contents.position' => 'ASC'
-				// 	]
-				// ],
-				'Templates'
+				'Contents' => [
+					'Elements',
+					'sort' => [
+						'Contents.position' => 'ASC'
+					]
+				],
+				'Layouts'
 			]
 		]);
 
-		// $elements = $this->Pages->Contents->Elements->list();
+		$elements = $this->Pages->Contents->Elements->list();
 			
 		$this->set([
 			'page' => $page,
-			// 'elements' => $elements,
+			'elements' => $elements,
 			'layoutMode' => true
 		]);
 
-		$this->viewBuilder()
-			->setLayout($page->template->element);
+		Configure::write('layoutMode', true);
+
+		$this->viewBuilder()->setLayout($page->layout->layout);
 		 
 		try {
             return $this->render('Rhino.layout');
@@ -195,6 +163,26 @@ class PagesController extends NodesController {
         }
 	}
 
+	public function addContent(int $id) {
+		$page = $this->Pages->getEntry($id);
+		$entry = $this->Contents->newEmptyEntity();
+
+		if ($this->request->is(['patch', 'post', 'put'])) {
+			$content = $this->Contents->patchEntity($entry, $this->request->getData());
+            
+			if ($this->Pages->save($content)) {
+				$this->Flash->success(__('The table has been saved.'), ['plugin' => 'Rhino']);
+                return $this->redirect(['action' => 'index']);
+            }
+			
+            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
+        }
+		
+		$this->set([
+			'entry' => $entry,
+			'page' => $page,
+		]);
+	}
 	/**
      * Displays a view
      *
@@ -226,15 +214,15 @@ class PagesController extends NodesController {
 		$this->Pages = new PagesTable();
 		$page = $this->Pages->slug(urldecode($slug ?: ""));
 
-		// if ($page->page_type === 1) { // Link
-		// 	$redirect =	$this->redirect($page->url); 
-		// 	return $redirect;
-		// }
+		if ($page->page_type === 1) { // Link
+			$redirect =	$this->redirect($page->url); 
+			return $redirect;
+		}
 
         $this->set(compact('page', 'subpage'));
 		
         try {
-			$this->viewBuilder()->setLayout($page->template->element);
+			$this->viewBuilder()->setLayout($page->layout->layout);
             return $this->render('Rhino.display');
         } catch (MissingTemplateException $exception) {
             if (Configure::read('debug')) {
@@ -242,32 +230,5 @@ class PagesController extends NodesController {
             }
             throw new NotFoundException();
         }
-	}
-
-	/**
-	 * Undocumented function
-	 *
-	 * @param  integer $id
-	 * @return void
-	 */
-	public function addContent(int $id) {
-		$page = $this->Pages->getEntry($id);
-		$entry = $this->Contents->newEmptyEntity();
-
-		if ($this->request->is(['patch', 'post', 'put'])) {
-			$content = $this->Contents->patchEntity($entry, $this->request->getData());
-            
-			if ($this->Pages->save($content)) {
-				$this->Flash->success(__('The table has been saved.'), ['plugin' => 'Rhino']);
-                return $this->redirect(['action' => 'index']);
-            }
-			
-            $this->Flash->error(__('The table could not be saved. Please, try again.'), ['plugin' => 'Rhino']);
-        }
-		
-		$this->set([
-			'entry' => $entry,
-			'page' => $page,
-		]);
 	}
 }

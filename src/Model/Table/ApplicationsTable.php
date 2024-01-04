@@ -19,6 +19,7 @@ class ApplicationsTable extends Table
 		'rhino_apps',
 		'rhino_fields',
 		'rhino_pages',
+		'rhino_nodes',
 		'rhino_layouts',
 		'rhino_elements',
 		'rhino_contents',
