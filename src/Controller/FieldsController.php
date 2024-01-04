@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Rhino\Controller;
 
-use Rhino\Controller\AppController;
+use Rhino\Controller\RhinoController;
 use Rhino\Handlers\FieldHandler;
 use App\View\AjaxView;
 
-class FieldsController extends AppController
+class FieldsController extends RhinoController
 {	
     public function index(string $tableName) {
         $columns = $this->Fields->getColumns($tableName);

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Rhino\Controller;
 
-use Rhino\Controller\AppController;
+use Rhino\Controller\RhinoController;
 use Rhino\Model\Table\GroupsTable;
 
 /**
@@ -11,7 +11,7 @@ use Rhino\Model\Table\GroupsTable;
  *
  * @method \Rhino\Model\Entity\Table[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class ApplicationsController extends AppController {
+class ApplicationsController extends RhinoController {
 
 	public function initialize(): void {
 		parent::initialize();

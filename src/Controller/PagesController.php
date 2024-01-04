@@ -22,7 +22,7 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\Controller\ControllerFactory;
-use Rhino\Controller\AppController as BaseController;
+use Rhino\Controller\RhinoController as BaseController;
 use Cake\Core\App;
 
 use Rhino\Model\Table\ContentsTable;

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Rhino\Controller;
 
-use Rhino\Controller\AppController;
+use Rhino\Controller\RhinoController;
 
 /**
  * Widgets Controller
@@ -11,7 +11,7 @@ use Rhino\Controller\AppController;
  * @property \Rhino\Model\Table\WidgetsTable $Widgets
  * @method \Rhino\Model\Entity\Widget[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class _WidgetsController extends AppController
+class _WidgetsController extends RhinoController
 {
     /**
      * Index method

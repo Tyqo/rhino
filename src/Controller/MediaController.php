@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Rhino\Controller;
 
-use Rhino\Controller\AppController;
+use Rhino\Controller\RhinoController;
 
 /**
  * Media Controller
  *
  * @property \Rhino\Model\Table\MediaTable $media
  */
-class MediaController extends AppController {
+class MediaController extends RhinoController {
 
 	public function initialize(): void {
         parent::initialize();

@@ -12,7 +12,7 @@ use Rhino\Model\Table\RolesTable;
 use Rhino\Handlers\FilterHandler;
 use Cake\ORM\Exception\MissingTableClassException;
 
-class AppController extends BaseController {
+class RhinoController extends BaseController {
 	use ApplicationTrait;
 	use FilterHandler;
 
@@ -100,7 +100,7 @@ class AppController extends BaseController {
 		$this->useTable = false;
 		
 		try {
-			return $this->render('Rhino.App/no_access');
+			return $this->render('Rhino.Rhino/no_access');
 		} catch (MissingTemplateException $exception) {
 			if (Configure::read('debug')) {
 				throw $exception;

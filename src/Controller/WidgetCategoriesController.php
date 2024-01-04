@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Rhino\Controller;
 
-use Rhino\Controller\AppController;
+use Rhino\Controller\RhinoController;
 
 /**
  * WidgetCategories Controller
  *
  * @property \Rhino\Model\Table\WidgetCategoriesTable $WidgetCategories
  */
-class WidgetCategoriesController extends AppController
+class WidgetCategoriesController extends RhinoController
 {
     /**
      * Index method

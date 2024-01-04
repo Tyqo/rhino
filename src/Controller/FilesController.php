@@ -19,7 +19,7 @@ declare(strict_types=1);
 namespace Rhino\Controller;
 
 use Rhino\Handlers\FileHandler;
-use Rhino\Controller\AppController as BaseController;
+use Rhino\Controller\RhinoController as BaseController;
 
 /**
  * Static content controller

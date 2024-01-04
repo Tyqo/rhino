@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Rhino\Controller;
 
-use Rhino\Controller\AppController;
+use Rhino\Controller\RhinoController;
 
 /**
  * MediaCategories Controller
  *
  * @property \Rhino\Model\Table\MediaCategoriesTable $mediaCategories
  */
-class MediaCategoriesController extends AppController
+class MediaCategoriesController extends RhinoController
 {
     /**
      * Index method

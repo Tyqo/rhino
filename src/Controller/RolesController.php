@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Rhino\Controller;
 
-use Rhino\Controller\AppController;
+use Rhino\Controller\RhinoController;
 
 /**
  * Tables Controller
  *
  * @method \Rhino\Model\Entity\Table[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class RolesController extends AppController {
+class RolesController extends RhinoController {
 	public function index() {
 		$roles = $this->paginate($this->Roles);
 		$this->set(compact('roles'));

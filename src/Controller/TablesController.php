@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace Rhino\Controller;
 
-use Rhino\Controller\AppController;
+use Rhino\Controller\RhinoController;
 use InvalidArgumentException;
 /**
  * Tables Controller
  *
  * @method \Rhino\Model\Entity\Table[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class TablesController extends AppController
+class TablesController extends RhinoController
 {
 	public function initialize(): void {
 		parent::initialize();

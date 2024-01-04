@@ -21,7 +21,7 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
-use Rhino\Controller\AppController as BaseController;
+use Rhino\Controller\RhinoController as BaseController;
 
 /**
  * Static content controller

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Rhino\Controller;
 
-use Rhino\Controller\AppController;
+use Rhino\Controller\RhinoController;
 use Cake\Http\Exception\ForbiddenException;
 
 /**
@@ -12,7 +12,7 @@ use Cake\Http\Exception\ForbiddenException;
  * @property \Rhino\Model\Table\UsersTable $Users
  * @method \Rhino\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class UsersController extends AppController
+class UsersController extends RhinoController
 {
     
 	public function beforeFilter(\Cake\Event\EventInterface $event) {
