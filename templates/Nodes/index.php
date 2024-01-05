@@ -10,7 +10,7 @@
 
 	<ul class="page-list">
 		<?= $this->element('Pages/node_item', [
-			'nodes' => $nodeTrees
+			'nodes' => $nodes
 		]) ?>
 	</ul>
 

@@ -49,7 +49,7 @@ class PagesController extends NodesController {
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index() {
-		$pages = $this->Pages->find('threaded')->where(['type' => 0])->orderBy(["lft" => 'ASC']);
+		$pages = $this->Pages->find('threaded')->where(['node_type' => 0])->orderBy(["lft" => 'ASC']);
 
 		$this->set([
 			'pages' => $pages,
@@ -117,20 +117,20 @@ class PagesController extends NodesController {
 	 * @return void
 	 */
 	public function preCompose($entry, ...$params) {
-		$layouts = $this->Pages->Layouts->find('list')->all();
+		$templates = $this->Pages->Templates->find('list')->all();
 		
 		$pages = $this->Pages
 			->find('treeList', [
 				'spacer' => str_repeat("&nbsp", 3)
 			])
-			->where(['type' => 0])
+			->where(['node_type' => 0])
 			->all();
 		
 		$pages = $this->Pages->root + $pages->toArray();
 
 		$this->set([
 			'pages' => $pages,
-			'layouts' => $layouts,
+			'templates' => $templates,
 			'roles' => $this->Pages->roles
 		]);
 	}
@@ -145,7 +145,7 @@ class PagesController extends NodesController {
 	public function preSave($data, $params) {
 		$data = parent::preSave($data, $params);
 
-		$data['type'] = 0; // Page
+		$data['node_type'] = 0; // Page
 
 		return $data;
 	}
@@ -160,25 +160,23 @@ class PagesController extends NodesController {
 		Configure::write('layoutMode', true);
 
 		$this->setPlugin(null);
-		$this->viewBuilder()->addHelper('Rhino.Layout');
+		$this->viewBuilder()->setClassName('Rhino.Page');
 
 		$page = $this->Pages->get($id, [
-			'contain' => [
-				// 'Contents' => [
-				// 	'Elements',
-				// 	'sort' => [
-				// 		'Contents.position' => 'ASC'
-				// 	]
-				// ],
-				'Templates'
-			]
+			'contain' => ['Templates']
 		]);
 
-		// $elements = $this->Pages->Contents->Elements->list();
+		$children = $this->Pages->find('children', for: $page->id)
+			->find('threaded')
+			->contain(['Templates'])
+			->all();
+
+		$templates = $this->Pages->Templates->list(1);
 			
 		$this->set([
 			'page' => $page,
-			// 'elements' => $elements,
+			'children' => $children,
+			'templates' => $templates,
 			'layoutMode' => true
 		]);
 
@@ -212,6 +210,8 @@ class PagesController extends NodesController {
 		if (in_array('..', $path, true) || in_array('.', $path, true)) {
 			throw new ForbiddenException();
 		}
+
+		$this->viewBuilder()->setClassName('Rhino.Page');
 		
 		$slug = $subpage = null;
 		
@@ -225,13 +225,18 @@ class PagesController extends NodesController {
 		
 		$this->Pages = new PagesTable();
 		$page = $this->Pages->slug(urldecode($slug ?: ""));
-
-		// if ($page->page_type === 1) { // Link
-		// 	$redirect =	$this->redirect($page->url); 
-		// 	return $redirect;
-		// }
-
-        $this->set(compact('page', 'subpage'));
+		
+		if ($page->role === 1) { // Link
+			$redirect =	$this->redirect($page->content); 
+			return $redirect;
+		}
+		
+		$children = $this->Pages->find('children', for: $page->id)
+			->find('threaded')
+			->contain(['Templates'])
+			->all();
+		
+	    $this->set(compact('page', 'subpage', 'children'));
 		
         try {
 			$this->viewBuilder()->setLayout($page->template->element);

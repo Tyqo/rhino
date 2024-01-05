@@ -1,26 +1,26 @@
 
-<div id="<?= 'element-' . $content['id'] ?>" class="layout-element" draggable="false" data-position="<?= $content['position'] ?>" data-id="<?= $content['id'] ?>">
+<div id="<?= 'element-' . $component['id'] ?>" class="layout-element" draggable="false" data-position="<?= $component['position'] ?>" data-id="<?= $component['id'] ?>">
 
 	<div class="element-container">
-		<?= $this->element($content['element']['elementName'], array_merge($content->toArray(), ['layoutmode' => true])) ?>
+		<?= $this->element($component['template']['element'], array_merge($component->toArray(), ['layoutmode' => true])) ?>
 	</div>
 
 	<div class="layout-handle">
 		<div class="layout-handle__actions">
-			<?= $this->Form->button($this->Icon->svg("Rhino.menu"), [
+			<?= $this->Form->button("menu", [
 				'name' => 'move', 
-				'class' => 'rhino-button Icon',
+				'class' => 'rhino-button icon',
 				'escapeTitle' => false,
 				'title' => __("Move Content"),
 			]) ?>
 			
-			<?= $this->Form->select('element_id', $elements, [
+			<?= $this->Form->select('template_id', $templates, [
 				'class' => 'rhino-select',
-				'value' => $content['element_id'],
+				'value' => $component['template_id'],
 				'data-url' => $this->Url->build([
 					'controller' => 'Contents',
 					'action' => 'read',
-					$content['id']
+					$component['id']
 				])
 			]); ?>
 		</div>
@@ -32,7 +32,7 @@
 				'data-url' => $this->Url->build([
 					'controller' => 'Contents',
 					'action' => 'update',
-					$content['id']
+					$component['id']
 				])
 			]) ?>
 
@@ -42,7 +42,7 @@
 				'data-url' => $this->Url->build([
 					'controller' => 'Contents',
 					'action' => 'update',
-					$content['id']
+					$component['id']
 				])
 			]) ?>
 
@@ -52,7 +52,7 @@
 				'data-url' => $this->Url->build([
 					'controller' => 'Contents',
 					'action' => 'delete',
-					$content['id']
+					$component['id']
 				])
 			]) ?>
 		</div>

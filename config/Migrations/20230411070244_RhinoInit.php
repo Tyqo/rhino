@@ -180,7 +180,7 @@ class RhinoInit extends AbstractMigration
 			->addColumn('user_id', 'integer', [
 				'null' => false,
 			])
-			->addColumn('type', 'integer', [
+			->addColumn('node_type', 'integer', [
 				'null' => false,
 			])
 			->addColumn('role', 'integer', [
@@ -230,7 +230,7 @@ class RhinoInit extends AbstractMigration
 			->addColumn('active', 'boolean', [
 				'default' => 1,
 			])
-			->addColumn('type', 'integer', [
+			->addColumn('template_type', 'integer', [
 				'default' => 1,
 				'null' => false,
 			])
@@ -340,12 +340,12 @@ class RhinoInit extends AbstractMigration
 					[
 						'name' => 'Default',
 						'file' => 'default.php',
-						'type' => 0
+						'template_type' => 0
 					],
 					[
 						'name' => 'Text',
 						'file' => 'text.php',
-						'type' => 1
+						'template_type' => 1
 					]
 				])
 				->saveData();
@@ -354,22 +354,25 @@ class RhinoInit extends AbstractMigration
 				->insert([
 					[
 						'name' => 'Home',
-						'type' => 0,
+						'node_type' => 0,
 						'role' => 3,
 						'template_id' => 1,
-						'lft' => '0',
-						'rght' => '0',
+						'parent_id' => null,
+						'lft' => 0,
+						'rght' => 2,
+						'level' => 0,
 						'user_id' => 1
 					],
 					[
-						'name' => 'base',
-						'type' => 1,
+						'name' => 'content',
+						'node_type' => 1,
 						'role' => 0,
 						'template_id' => 2,
 						'parent_id' => 1,
 						'content' => '{"time":1690121834854,"blocks":[{"id":"BkMrFh55lD","type":"header","data":{"text":"Welcome to Rhino &#x1F98F;","level":1}},{"id":"R_LcFT6kwI","type":"paragraph","data":{"text":"The fast but stable Application-Framwork.<br>Powered by <a href=\"https://cakephp.org/\">CakePHP</a>."}}],"version":"2.26.5"}',
-						'lft' => '0',
-						'rght' => '0',
+						'lft' => 1,
+						'rght' => 1,
+						'level' => 1,
 						'user_id' => 1
 					]
 				])

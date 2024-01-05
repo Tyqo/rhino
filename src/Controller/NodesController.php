@@ -87,7 +87,7 @@ class NodesController extends RhinoController
     }
 
 	public function preCompose($entry, ...$params) {
-		$layouts = $this->Nodes->Layouts->find('list')->all();
+		$templates = $this->Nodes->Templates->find('list')->all();
 		
 		$nodes = $this->Nodes->find('treeList', [
 			'spacer' => str_repeat("&nbsp", 3)
@@ -99,7 +99,7 @@ class NodesController extends RhinoController
 		$this->set([
 			'nodes' => $nodes,
 			'roles' => $roles,
-			'layouts' => $layouts,
+			'templates' => $templates,
 			"nodeTypes" => $this->Nodes->nodeTypes
 		]);
 	}

@@ -70,12 +70,19 @@ class NodesTable extends Table {
             'foreignKey' => 'user_id',
         ]);
 
-		// $this->hasOne('Rhino.Node');
-		$this->hasOne('Templates', [
-			'className' => 'Rhino.Templates',
+		$this->belongsTo('Parent', [
+			'className' => 'Rhino.Nodes',
             'foreignKey' => 'id',
 		]);
-		// $this->belongsTo('Rhino.Layouts');
+		
+		$this->hasMany('Children', [
+			'className' => 'Rhino.Nodes',
+            'foreignKey' => 'parent_id',
+		]);
+
+		$this->belongsTo('Templates', [
+			'className' => 'Rhino.Templates',
+		]);
     }
 
     /**

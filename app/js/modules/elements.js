@@ -111,8 +111,8 @@ class Element {
 		this.elementHandler = handler;
 
 		this.fields = [
-			'element_id',
-			'html',
+			'template_id',
+			'content',
 			'media',
 		];
 
@@ -122,9 +122,9 @@ class Element {
 			this.nodeElement = this.createElement(element);
 		}
 
-		this.html = this.nodeElement.querySelector('[name=html]');
+		this.content = this.nodeElement.querySelector('[name=content]');
 		this.media = this.nodeElement.querySelector('[name=media]');
-		this.select = this.nodeElement.querySelector('[name=element_id]');
+		this.select = this.nodeElement.querySelector('[name=template_id]');
 
 		this.id = this.nodeElement.dataset.id;
 		this.position = this.nodeElement.dataset.position;
@@ -201,7 +201,7 @@ class Element {
 			return;
 		}
 
-		this.editor = new Editor(editorElement, this.html.value);
+		this.editor = new Editor(editorElement, this.content.value);
 	}
 
 	addMedia() {
@@ -250,8 +250,8 @@ class Element {
 	async get() {
 		if (this.editor) {
 			let editorData = await this.editor.save();
-			this.html.value = JSON.stringify(editorData);
-			this.html.innerHTML = this.html.value;
+			this.content.value = JSON.stringify(editorData);
+			this.content.innerHTML = this.content.value;
 		}
 
 		let data = {};

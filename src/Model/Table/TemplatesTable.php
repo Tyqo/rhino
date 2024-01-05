@@ -36,6 +36,10 @@ class TemplatesTable extends Table {
         $this->setTable('rhino_templates');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+		$this->hasMany('Nodes', [
+			'className' => 'Rhino.Nodes',
+		]);
     }
 		
 	public function getEntry(int $id = null): object {
@@ -46,9 +50,9 @@ class TemplatesTable extends Table {
 		return $this->newEmptyEntity();
 	}
 
-	public function list() {
+	public function list($type = 0) {
 		return $this->find('list')
-					->where(['active' => true])
+					->where(['active' => true, 'template_type' => $type])
 					->select(['id', 'name'])
 					->all();
 	}

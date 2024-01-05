@@ -41,7 +41,7 @@ class LayoutHelper extends Helper {
 	protected array $helpers = ['Form', 'Html', 'Icon', 'Url'];
 		
 	public function parseEditor(?string $json = '[]',?bool $edit = false) : string {
-		return '<div class="editor"></div>' . '<textarea name="html" hidden>' . $json . '</textarea>';
+		return '<div class="editor"></div>' . '<textarea name="content" hidden>' . $json . '</textarea>';
 	}
 
 	public function parseMedia($content = null, $id = null) {

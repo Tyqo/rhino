@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace Rhino\Model\Table;
 
+use Rhino\Model\Table\NodesTable;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Database\Expression\QueryExpression;
 
-class ContentsTable extends Table {
+class ContentsTable extends NodesTable {
     /**
      * Initialize method
      *
@@ -19,14 +19,14 @@ class ContentsTable extends Table {
     public function initialize(array $config): void {
         parent::initialize($config);
 
-        $this->setTable('rhino_contents');
-        $this->setDisplayField('content');
-        $this->setPrimaryKey('id');
+        $this->setTable('rhino_nodes');
+        // $this->setDisplayField('content');
+        // $this->setPrimaryKey('id');
 
-		$this->addBehavior('Timestamp');
+		// $this->addBehavior('Timestamp');
 
-		$this->belongsTo('Rhino.Pages');
-		$this->belongsTo('Rhino.Elements');
+		// $this->belongsTo('Rhino.Pages');
+		// $this->belongsTo('Rhino.Elements');
     }
 		
 	public function beforeSave($event, $entity, $options) {
@@ -71,38 +71,4 @@ class ContentsTable extends Table {
 
 		return $entity;
 	}
-
-	/**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator): Validator
-    {
-        $validator
-            ->integer('page_id')
-            ->allowEmptyString('page_id');
-
-        $validator
-            ->integer('element_id')
-            ->allowEmptyString('element_id');
-
-        $validator
-            ->scalar('html')
-            ->allowEmptyString('html');
-			
-		$validator
-            ->allowEmptyString('media');
-
-        $validator
-            ->boolean('active')
-            ->allowEmptyString('active');
-
-        $validator
-            ->integer('position')
-            ->allowEmptyString('position');
-
-        return $validator;
-    }
 }

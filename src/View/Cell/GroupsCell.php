@@ -107,8 +107,8 @@ class GroupsCell extends Cell {
 						'rights' => 'rhino_widgets'
 					],
 					[
-						'name' => 'Tree',
-						'link' => ['controller' => 'NodeTree', 'action' => 'index'],
+						'name' => 'Nodes',
+						'link' => ['controller' => 'Nodes', 'action' => 'index'],
 						'icon' => "Rhino.table",
 						'rights' => 'rhino_widgets'
 					]

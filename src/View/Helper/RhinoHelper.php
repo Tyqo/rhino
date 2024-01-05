@@ -522,4 +522,10 @@ class RhinoHelper extends Helper {
 		$template = str_replace('.php', '', $widget->template);
 		return $this->_View->element($template, $data);
 	}
+
+	public function region(string $name) {
+		$content = $this->_View->fetch($name);
+		// debug($content);
+		return $content;
+	}
 }

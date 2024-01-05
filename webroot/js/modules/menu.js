@@ -1,9 +1,72 @@
-/**
- * @project       tusk
- * @author        carsten.coull@swu.de
- * @build         Mon, Nov 27, 2023 4:42 PM ET
- * @release       d6815068fe7f024f6df783c14f58618d57dda4e4 [main]
- * @copyright     Copyright (c) 2023, SWU Stadtwerke Ulm / Neu-Ulm GmbH
- *
- */
-export default class Menu{constructor(t){this.main=t,this.main.debug,this.Config={menuID:"main-menu",menuButtonID:"menu-button",bodyClass:"menu-is-open",menuClass:"menu--open"},this.menu=document.getElementById(this.Config.menuID),this.menuButton=document.getElementById(this.Config.menuButtonID),this.menu&&this.menuButton&&this.setup()}setup(){this.menuButton.addEventListener("click",(()=>this.toggle())),window.addEventListener("keydown",(t=>{"Escape"==t.key&&this.close()})),this.main.onOutsideClick("#"+this.Config.menuID,(t=>{"true"==this.menuButton.getAttribute("aria-expanded")&&this.close()}))}toggle(){"true"==this.menuButton.getAttribute("aria-expanded")?this.close():this.open()}close(){this.menu.classList.remove(this.Config.menuClass),document.body.classList.remove(this.Config.bodyClass),this.menuButton.setAttribute("aria-expanded","false")}open(){setTimeout((()=>{this.menu.classList.add(this.Config.menuClass),document.body.classList.add(this.Config.bodyClass),this.menuButton.setAttribute("aria-expanded","true")}),100)}}
+export default class Menu {
+	constructor(main) {
+		this.main = main;
+
+		if (this.main.debug) {
+			console.debug("Menu::const");
+		}
+
+		this.Config = {
+			menuID: 'main-menu',
+			menuButtonID: 'menu-button',
+			bodyClass: "menu-is-open",
+			menuClass: 'menu--open'
+		}
+
+		this.menu = document.getElementById(this.Config.menuID);
+		this.menuButton = document.getElementById(this.Config.menuButtonID);
+
+		if (this.menu && this.menuButton) {
+			this.setup();
+		}
+	}
+
+	setup() {
+		this.menuButton.addEventListener('click', () => this.toggle());
+
+		window.addEventListener('keydown', (e) => {
+			if (e.key == "Escape") {
+				this.close();
+			}
+		});
+
+		this.main.onOutsideClick('#' + this.Config.menuID, (event) => {
+			let status = this.menuButton.getAttribute("aria-expanded");
+			if (status == 'true') {
+				this.close();
+			}
+		});
+	}
+
+	toggle() {
+		let status = this.menuButton.getAttribute('aria-expanded');
+
+		if (status == 'true') {
+			this.close();
+		} else {
+			this.open();
+		}
+	}
+
+	close() {
+		this.menu.classList.remove(this.Config.menuClass);
+		document.body.classList.remove(this.Config.bodyClass);
+		this.menuButton.setAttribute(
+			"aria-expanded",
+			"false"
+		);
+	}
+
+	open() {
+		// Small delay for onOutsideClick to work
+		setTimeout(() => {
+			this.menu.classList.add(this.Config.menuClass);
+			document.body.classList.add(this.Config.bodyClass);
+			this.menuButton.setAttribute(
+				"aria-expanded",
+				"true"
+			);
+		}, 100);
+	}
+}
+//# sourceMappingURL=menu.js.map

@@ -75,27 +75,15 @@ class PagesTable extends NodesTable {
 	}
 
 	public function slug(string $slug = null) {
-		$contain = [
-			// 'Contents' => [
-			// 	'Elements',
-			// 	'sort' => [
-			// 		'Contents.position' => 'ASC'
-			// 	]
-			// ],
-			'Templates'
-		];
+		$where = $slug ? ["Pages.name" => $slug] : ["role" => 3];
+		$where['node_type'] = 0;
 
-		$where = ["Pages.name" => $slug];
-
-		if (!$slug) {
-			$where = ["role" => 3];
-		}
-
-		$query = $this->find()
+		$page = $this->find()
 			->where($where)
-			->contain($contain);
+			->contain(['Templates'])
+			->first();
 
-		return $query->first();
+		return $page;
 	}
 
 	public function getMenu(?int $root = null, ?int $limit = null) {
