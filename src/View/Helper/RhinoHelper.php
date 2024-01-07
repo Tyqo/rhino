@@ -525,7 +525,11 @@ class RhinoHelper extends Helper {
 
 	public function region(string $name) {
 		$content = $this->_View->fetch($name);
-		// debug($content);
+
+		if ($this->layoutMode) {
+			return $this->Layout->region($name, $content);
+		}
+
 		return $content;
 	}
 }

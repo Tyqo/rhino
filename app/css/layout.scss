@@ -26,6 +26,7 @@ body {
 	right: 0;
 	z-index: 200;
 	height: $menu-size;
+	box-sizing: border-box;
 
 	padding: 0 1rem;
 
@@ -52,6 +53,10 @@ body {
 	&>*>* {
 		margin-bottom: 0;
 	}
+}
+
+.layout-container {
+	border: solid 4px grey;
 }
 
 .layout-element {
@@ -116,6 +121,14 @@ body {
 	&:focus,
 	&:hover {
 		background-color: color('primary', 500);
+	}
+
+	&[name=new-component] {
+		position: absolute;
+		// top: 0;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		border-radius: var(--border-radius);
 	}
 }
 

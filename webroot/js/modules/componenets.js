@@ -1,11 +1,11 @@
-import DragDrop from "./dragdrop.js";
+// import DragDrop from "./dragdrop.js";
 import Editor from "./editor.js";
 import Modal from "./modal.js";
 
 /**
  * 
  */
-export default class LayoutElements {
+export default class LayoutComponents {
 	/**
 	 * 
 	 * @param {*} main 
@@ -14,70 +14,110 @@ export default class LayoutElements {
 		this.main = main;
 
 		if (this.main.debug) {
-			console.debug("LayoutElements::const");
+			console.debug("LayoutComponents::const");
 		}
 
 		this.Config = {
-			newButtonID: 'new-content',
-			mainID: 'layout-container',
-			tokenSelector: 'meta[name="csrfToken"]',
+			newButtonSelector: 'button[name=new-component]',
+			layoutContainerSelector: '.layout-container',
 			elementSelector: '.layout-element'
 		}
 
-		this.newButton = document.getElementById(this.Config.newButtonID);
-		this.mainContainer = document.getElementById(this.Config.mainID);
-		this.elements = document.querySelectorAll(this.Config.elementSelector);
-		this.csrfToken = document.querySelector(this.Config.tokenSelector).getAttribute('content');
+		this.Actions = {
+			new: 	'/rhino/components/new/',
+			update: '/rhino/components/update/',
+			delete: '/rhino/components/delete/',
+		}
 
-		this.DragDrop = new DragDrop();
+		this.containers = [];
+
+		this.layoutContainers = document.querySelectorAll(this.Config.layoutContainerSelector);
+		
+		// this.DragDrop = new DragDrop();
 			
-		if (this.newButton) {
+		if (this.layoutContainers.length) {
 			this.setup();
 		}
 	}
 	
+	/**
+	 * setup
+	 */
 	setup() {
-		this.DragDrop.loadElements(
-			this.elements,
-			(element, position) => this.setPosition(element, position)
-		);
+		// this.DragDrop.loadElements(
+		// 	this.elements,
+		// 	(element, position) => this.setPosition(element, position)
+		// );
 
-		this.newButton.addEventListener('click', () => this.newContent(this.newButton.dataset.url));
+		this.newButtons = document.querySelectorAll(this.Config.newButtonSelector);
+		this.elements = document.querySelectorAll(this.Config.elementSelector);
+
+		this.layoutContainers.forEach(container => {
+			this.containers.push(container.name, container);
+		});
+
+		console.log(this.containers);
+
+		this.newButtons.forEach(newButton => {
+			newButton.addEventListener('click', () => {
+				this.newContent(newButton.dataset.url, newButton.value);
+			});
+		});
+
 		this.elements.forEach(nodeElement => {
 			new Element(this, nodeElement);
 		});
-
-
 	}
 
-	newContent(url) {
+	/**
+	 * newComponent
+	 * 
+	 * @param {*} url 
+	 * @param {*} name 
+	 */
+	newComponent(url, name) {
 		this.postFetch(url)
 			.then((response) => response.text())
 			.then((html) => {
-				let element = new Element(this, html);
-				this.mainContainer.appendChild(element.nodeElement);
+				let component = new Component(this, html);
+				let container = document.querySelector(this.Config.layoutContainerSelector + "[name=" + name + "]");
+				container.appendChild(component.element);
 			});
 	}
 
+	/**
+	 * updateContent
+	 * 
+	 * @param {*} action 
+	 * @param {*} url 
+	 * @param {*} element 
+	 * @param {*} data 
+	 */
 	async updateContent(action, url, element, data = {}) {
 		if (action == 'save') {
 			data = await element.get();
 		}
 
 		this.postFetch(url, data)
-		.then((response) => response.text())
-		.then((html) => {
-			if (action == 'update') {
-				let elementNew = new Element(this, html);
-				this.mainContainer.insertBefore(elementNew.nodeElement, element.nodeElement);
-			}
-			
-			if (action == 'delete' || action == 'update') {
-				element.destroy();
-			}
-		});
+			.then((response) => response.text())
+			.then((html) => {
+				if (action == 'update') {
+					let elementNew = new Element(this, html);
+					element.container.insertBefore(elementNew.nodeElement, element.nodeElement);
+				}
+				
+				if (action == 'delete' || action == 'update') {
+					element.destroy();
+				}
+			});
 	}
 
+	/**
+	 * setPosition (Depricated)
+	 * 
+	 * @param {*} element 
+	 * @param {*} position 
+	 */
 	setPosition(element, position) {
 		let id = element.id.replace('element-', '');
 		let url = '/rhino/contents/update/' + id
@@ -86,18 +126,23 @@ export default class LayoutElements {
 			position = 0;
 		}
 
-		console.log(this);
-
 		this.updateContent('move', url, element, { position: position });
 	}
 
+	/**
+	 * postFetch
+	 * 
+	 * @param {*} url 
+	 * @param {*} data 
+	 * @returns 
+	 */
 	async postFetch(url, data = '') {
 		return fetch(url, {
 			method: 'POST',
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
-				'X-CSRF-Token': this.csrfToken,
+				'X-CSRF-Token': this.main.getToken,
 				'X-Requested-With': 'XMLHttpRequest'
 			},
 			credentials: "same-origin",
@@ -106,9 +151,19 @@ export default class LayoutElements {
 	}
 }
 
-class Element {
+
+/**
+ * Component
+ * 
+ */
+class Component {
+	/**
+	 * 
+	 * @param {*} handler 
+	 * @param {*} element 
+	 */
 	constructor(handler, element = null) {
-		this.elementHandler = handler;
+		this.Handler = handler;
 
 		this.fields = [
 			'template_id',
@@ -117,24 +172,30 @@ class Element {
 		];
 
 		if (typeof element == "object" && element.nodeType) {
-			this.nodeElement = element;
+			this.element = element;
 		} else if (typeof element == "string") {
-			this.nodeElement = this.createElement(element);
+			this.element = this.createElement(element);
 		}
 
-		this.content = this.nodeElement.querySelector('[name=content]');
-		this.media = this.nodeElement.querySelector('[name=media]');
-		this.select = this.nodeElement.querySelector('[name=template_id]');
+		this.content = this.element.querySelector('[name=content]');
+		this.media = this.element.querySelector('[name=media]');
+		this.select = this.element.querySelector('[name=template_id]');
 
-		this.id = this.nodeElement.dataset.id;
-		this.position = this.nodeElement.dataset.position;
+		this.id = this.element.dataset.id;
+		this.position = this.element.dataset.position;
 
-		this.elementHandler.DragDrop.addElement(this.nodeElement);
+		// this.elementHandler.DragDrop.addElement(this.nodeElement);
 
 		this.initialize();
 	}
 
-	initialize() {		
+	/**
+	 * initialize
+	 * 
+	 */
+	initialize() {
+		this.container = this.nodeElement.parentElement;
+
 		this.saveButton = this.nodeElement.querySelector('[name=save]');
 		this.deleteButton = this.nodeElement.querySelector('[name=delete]');
 		this.toggleButton = this.nodeElement.querySelector('[name=toggle]');
@@ -186,6 +247,12 @@ class Element {
 		this.addMedia();
 	}
 
+	/**
+	 * createElement
+	 * 
+	 * @param {*} html 
+	 * @returns 
+	 */
 	createElement(html) {
 		let template = document.createElement('template');
 		template.innerHTML = html.trim();
@@ -194,6 +261,11 @@ class Element {
 		return element;
 	}
 
+	/**
+	 * addEditor
+	 * 
+	 * @returns 
+	 */
 	addEditor() {
 		let editorElement = this.nodeElement.querySelector('.editor');
 		
@@ -204,6 +276,11 @@ class Element {
 		this.editor = new Editor(editorElement, this.content.value);
 	}
 
+	/**
+	 * addMedia
+	 * 
+	 * @returns 
+	 */
 	addMedia() {
 		let mediaButton = this.nodeElement.querySelector('[name=mediaButton]');
 
@@ -247,6 +324,11 @@ class Element {
 		});
 	}
 
+	/**
+	 * get
+	 * 
+	 * @returns 
+	 */
 	async get() {
 		if (this.editor) {
 			let editorData = await this.editor.save();
@@ -266,6 +348,9 @@ class Element {
 		return data;
 	}
 
+	/**
+	 * destroy
+	 */
 	destroy() {
 		if (this.editor) {
 			this.editor.destroy();
@@ -273,3 +358,4 @@ class Element {
 		this.nodeElement.remove();
 	}
 }
+//# sourceMappingURL=componenets.js.map

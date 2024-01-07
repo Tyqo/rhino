@@ -45,6 +45,7 @@ class PageView extends AppView {
 
 		if ($isLayout) {
 			$this->append('meta', $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')));
+			$this->append('meta', $this->Html->meta('pageId', (string)$page->id));
 			$this->append('css', $this->Html->css('Rhino.layout')); 
 			$this->append('script', $this->Html->script(['Rhino.layout'], ["type" => "module"]));
 			$this->append('script', $this->Html->script(['Rhino./vendor/editorjs/dist/editor.js']));
@@ -60,12 +61,12 @@ class PageView extends AppView {
 				$region = $component->name;
 				
 				if ($isLayout) {
-					$element = $this->element('Rhino.' . '../Contents/element', compact('component'));
+					$element = $this->element('Rhino.' . '../Components/element', compact('component'));
 				} else {
 					$element = $this->element($component['template']['element'], $component->toArray());
 				}
 
-				$this->assign($region, $element);
+				$this->append($region, $element);
 			}
 		}
     }

@@ -6,6 +6,6 @@ namespace Rhino\Model\Entity;
 use Rhino\Model\Entity\Node;
 
 
-class Content extends Node {
+class Component extends Node {
 
 }

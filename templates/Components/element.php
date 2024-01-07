@@ -18,7 +18,7 @@
 				'class' => 'rhino-select',
 				'value' => $component['template_id'],
 				'data-url' => $this->Url->build([
-					'controller' => 'Contents',
+					'controller' => 'Components',
 					'action' => 'read',
 					$component['id']
 				])
@@ -30,7 +30,7 @@
 				'name' => 'toggle', 
 				'class' => 'rhino-button',
 				'data-url' => $this->Url->build([
-					'controller' => 'Contents',
+					'controller' => 'Components',
 					'action' => 'update',
 					$component['id']
 				])
@@ -40,7 +40,7 @@
 				'name' => 'save', 
 				'class' => 'rhino-button',
 				'data-url' => $this->Url->build([
-					'controller' => 'Contents',
+					'controller' => 'Components',
 					'action' => 'update',
 					$component['id']
 				])
@@ -50,7 +50,7 @@
 				'name' => 'delete', 
 				'class' => 'rhino-button',
 				'data-url' => $this->Url->build([
-					'controller' => 'Contents',
+					'controller' => 'Components',
 					'action' => 'delete',
 					$component['id']
 				])

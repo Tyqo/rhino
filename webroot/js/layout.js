@@ -1,4 +1,4 @@
-import LayoutElements from "/rhino/js/modules/elements.js";
+import LayoutComponents from "/rhino/js/modules/components.js";
 // import EditorJS from "/rhino/js/vendor/editor.js";
 
 class Layout {
@@ -10,9 +10,16 @@ class Layout {
 	}
 	
 	init() {
-		
-		this.elements = new LayoutElements(this);
+		this.Components = new LayoutComponents(this);
 		// this.elements.setModal(this.LayoutModal.modal);
+	}
+
+	getToken() {
+		return document.querySelector('meta[name="csrfToken"]').getAttribute('content');
+	}
+
+	getPageId() {
+		return document.querySelector('meta[name="pageId"]').getAttribute('content');
 	}
 }
 

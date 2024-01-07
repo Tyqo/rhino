@@ -473,6 +473,7 @@ body {
   right: 0;
   z-index: 200;
   height: 2rem;
+  box-sizing: border-box;
   padding: 0 1rem;
 }
 .layout-menu__button {
@@ -492,6 +493,10 @@ body {
 }
 .layout-menu > * > * {
   margin-bottom: 0;
+}
+
+.layout-container {
+  border: solid 4px grey;
 }
 
 .layout-element {
@@ -692,6 +697,12 @@ body {
 }
 .rhino-button:focus, dialog button:focus, .rhino-button:hover, dialog button:hover {
   background-color: #26c595;
+}
+.rhino-button[name=new-component], dialog button[name=new-component] {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: var(--border-radius);
 }
 
 .rhino-select {

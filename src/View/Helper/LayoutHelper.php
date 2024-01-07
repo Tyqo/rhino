@@ -36,6 +36,8 @@ class LayoutHelper extends Helper {
 	public function initialize(array $config): void {
 		$this->layoutMode = true;
 		$this->Templater = $this->templater();
+
+		$this->page = $this->_View->get('page');
 	}
 
 	protected array $helpers = ['Form', 'Html', 'Icon', 'Url'];
@@ -77,5 +79,33 @@ class LayoutHelper extends Helper {
 		$this->Pages = new PagesTable();
 		$page = $this->Pages->get($id);
 		return $this->Html->link($page["name"], ['plugin' => null, 'controller' => 'Pages', 'action' => 'display', urlencode($page["name"])], $options);
+	}
+
+	public function region($name, $content) {
+		$url = $this->Url->build([
+			'controller' => 'Components',
+			'action' => 'new',
+			$this->page->id,
+			$name
+		]);
+
+		$content = $this->templater()->format('tag', [
+			'content' => $content,
+			'tag' => 'div',
+			'attrs' => $this->templater()->formatAttributes(['class' => 'layout-container', 'name' => $name]),
+		]);
+
+		$content .= $this->Templater->format('tag', [
+			'content' => 'New',
+			'tag' => 'button',
+			'attrs' => $this->Templater->formatAttributes([
+				'class' => 'rhino-button',
+				'name' => "new-component",
+				'value' => $name,
+				'data-url' => $url
+			]),
+		]);
+
+		return $content;
 	}
 }
