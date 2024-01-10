@@ -10,7 +10,7 @@
 			<?php 
 			// $this->Form->button("menu", [
 			// 	'name' => 'move', 
-			// 	'class' => 'rhino-button icon',
+			// 	'class' => 'layout-button icon',
 			// 	'escapeTitle' => false,
 			// 	'title' => __("Move Content"),
 			// ]) 
@@ -27,21 +27,21 @@
 				'escapeTitle' => false,
 				'title' => __("toggle Active"),
 				'name' => 'toggle', 
-				'class' => 'rhino-button'
+				'class' => 'layout-button'
 			]) ?>
 
 			<?= $this->Form->button($this->Icon->svg("Rhino.save"), [
 				'escapeTitle' => false,
 				'title' => __("Save"),
 				'name' => 'save', 
-				'class' => 'rhino-button'
+				'class' => 'layout-button'
 			]) ?>
 
 			<?= $this->Form->button($this->Icon->svg("Rhino.trash"), [
 				'escapeTitle' => false,
 				'title' => __("Delete"),
 				'name' => 'delete', 
-				'class' => 'rhino-button'
+				'class' => 'layout-button'
 			]) ?>
 		</div>
 	</div>
