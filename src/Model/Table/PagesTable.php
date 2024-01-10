@@ -87,7 +87,7 @@ class PagesTable extends NodesTable {
 	}
 
 	public function getMenu(?int $root = null, ?int $limit = null) {
-		$_menu = $this->find('threaded')->orderBy(["lft" => 'ASC']);
+		$_menu = $this->find('threaded')->where(['node_type' => 0])->orderBy(["lft" => 'ASC']);
 		if (!empty($root)) {
 			$_menu->find('children', for: $root);
 		}

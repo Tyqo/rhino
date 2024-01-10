@@ -19,7 +19,7 @@ export default class LayoutComponents {
 
 		this.Config = {
 			newButtonSelector: 'button[name=new-component]',
-			layoutContainerSelector: '.layout-container',
+			layoutContainerSelector: '.layout-container, .layout-slot',
 			elementSelector: '.layout-element'
 		}
 
@@ -32,27 +32,30 @@ export default class LayoutComponents {
 
 		this.containers = {};
 
-		this.layoutContainers = document.querySelectorAll(this.Config.layoutContainerSelector);
+		let layoutContainers = document.querySelector(this.Config.layoutContainerSelector);
 		
 		// this.DragDrop = new DragDrop();
 			
-		if (this.layoutContainers.length) {
-			this.setup();
+		if (layoutContainers) {
+			this.setup(document);
 		}
 	}
 	
 	/**
 	 * setup
 	 */
-	setup() {
+	setup(parentNode) {
 		// this.DragDrop.loadElements(
 		// 	this.elements,
 		// 	(element, position) => this.setPosition(element, position)
 		// );
 		this.pageId = this.main.getPageId();
 
-		this.newButtons = document.querySelectorAll(this.Config.newButtonSelector);
-		this.elements = document.querySelectorAll(this.Config.elementSelector);
+		this.newButtons = parentNode.querySelectorAll(this.Config.newButtonSelector);
+		this.elements = parentNode.querySelectorAll(this.Config.elementSelector);
+		this.layoutContainers = parentNode.querySelectorAll(this.Config.layoutContainerSelector);
+
+		console.log(this.newButtons.length);
 
 		this.layoutContainers.forEach(container => {
 			this.containers[container.getAttribute('name')] = container;
@@ -97,14 +100,17 @@ export default class LayoutComponents {
 	 * @param {*} name 
 	 */
 	newComponent(region) {
+		let container = this.containers[region];
+		
 		this.postFetch(this.Actions.new, {
 			region: region,
-			pageId: this.pageId
+			parentId: container.getAttribute('value')
 		}).then((response) => response.text())
 			.then((html) => {
 				let component = new Component(this, html);
-				let container = this.containers[region];
 				container.appendChild(component.element);
+
+				this.setup(component.element);
 			});
 	}
 
@@ -254,6 +260,8 @@ class Component {
 				let elementNew = new Component(this.Handler, html);
 				this.element.parentElement.insertBefore(elementNew.element, this.element);
 				this.destroy();
+
+				this.Handler.setup(elementNew.element);
 			});
 	}
 
@@ -289,6 +297,11 @@ class Component {
 		let editorElement = this.element.querySelector('.editor');
 		
 		if (!editorElement) {
+			return;
+		}
+		
+		let parentElement = editorElement.closest('.layout-element');
+		if (this.element.dataset.id != parentElement.dataset.id) {
 			return;
 		}
 

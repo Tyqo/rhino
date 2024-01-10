@@ -41,7 +41,6 @@ class PageView extends AppView {
 		$page = $this->get('page');
 		$this->assign('title', $page->name);
 		$this->loadHelper('Rhino.Layout');
-		// $this->loadHelper('Rhino.Icon');
 
 		if ($isLayout) {
 			$this->append('meta', $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')));
@@ -55,18 +54,12 @@ class PageView extends AppView {
 		}
 		
 		foreach ($this->get('children') as $component) { 
-			if (empty($component['template'])) continue;
+			if (empty($component->template) || $component->node_type != 1) continue;
 			
 			if ($component->active) {
 				$region = $component->name;
-				
-				if ($isLayout) {
-					$element = $this->element('Rhino.' . '../Components/element', compact('component'));
-				} else {
-					$element = $this->element($component['template']['element'], $component->toArray());
-				}
-
-				$this->append($region, $element);
+				$content = $this->Rhino->component($component);
+				$this->append($region, $content);
 			}
 		}
     }

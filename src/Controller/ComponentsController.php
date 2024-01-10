@@ -84,7 +84,7 @@ class ComponentsController extends BaseController {
 
 		$component = $this->Components->newEntity([
 			'name' => $data['region'],
-			'parent_id' => $data['pageId'],
+			'parent_id' => $data['parentId'],
 			'content' => '',
 			'user_id' => $this->user->id,
 			'node_type' => 1,

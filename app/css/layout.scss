@@ -55,6 +55,11 @@ body {
 	}
 }
 
+.layout-container, .layout-element, .layout-slot {
+	width: 100%;
+	position: relative;
+}
+
 .layout-container {
 	border: solid 4px grey;
 }
@@ -82,6 +87,13 @@ body {
 	.ce-toolbar__content {
 		max-width: 100%;
 	}
+}
+
+.layout-slot {
+	background: #f6f6f6;
+	color: #333;
+	border-radius: $border-radius;
+	padding: $spacing $spacing $spacing $spacing * 4;
 }
 
 .layout-handle {

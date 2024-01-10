@@ -5,6 +5,7 @@ namespace Rhino\Model\Table;
 
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
+use Cake\ORM\ResultSet;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -84,6 +85,14 @@ class NodesTable extends Table {
 			'className' => 'Rhino.Templates',
 		]);
     }
+
+	public function getChildren(int $parentId): ResultSet {
+		return $this->find()
+			->where(['parent_id' => $parentId])
+			->contain(['Templates'])
+			->orderBy(['lft' => 'ASC'])
+			->all();
+	}
 
     /**
      * Default validation rules.
