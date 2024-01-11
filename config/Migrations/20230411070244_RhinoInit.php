@@ -89,7 +89,7 @@ class RhinoInit extends AbstractMigration
 				'limit' => 100,
 				'null' => true,
 			])
-			->addColumn('tableName', 'string', [
+			->addColumn('table_name', 'string', [
 				'default' => null,
 				'limit' => 100,
 				'null' => false,
@@ -101,13 +101,20 @@ class RhinoInit extends AbstractMigration
 				'default' => null,
 				'null' => true,
 			])
-			->addColumn('standard', 'string', [ // default as column name throws errors
+			->addColumn('default_value', 'string', [ // default as column name throws errors
 				'default' => null,
 				'null' => true,
 			])
 			->addColumn('settings', 'text', [
 				'default' => null,
 				'null' => true,
+			])
+			->addColumn('created', 'timestamp', [
+				'default' => 'CURRENT_TIMESTAMP'
+			])
+			->addColumn('modified', 'timestamp', [
+				'default' => 'CURRENT_TIMESTAMP',
+				'update' => 'CURRENT_TIMESTAMP'
 			])
 			->create();
 
@@ -122,7 +129,7 @@ class RhinoInit extends AbstractMigration
 				'limit' => 100,
 				'null' => false,
 			])
-			->addColumn('overviewFields', 'string', [
+			->addColumn('overview_fields', 'string', [
 				'default' => null,
 				'null' => true,
 			])
@@ -242,7 +249,7 @@ class RhinoInit extends AbstractMigration
 				'update' => 'CURRENT_TIMESTAMP'
 			])
 			->create();
-		
+
 		$this->table($contentsTable, $options)
 			->addColumn('page_id', 'integer', [
 				'default' => Null,
@@ -349,7 +356,7 @@ class RhinoInit extends AbstractMigration
 					]
 				])
 				->saveData();
-							
+
 			$this->table('rhino_nodes')
 				->insert([
 					[

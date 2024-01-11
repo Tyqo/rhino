@@ -17,7 +17,7 @@
 	<?= $this->Form->control('active', ["type" => "checkbox"]) ?>
 
 	<?php if (isset($appFields)) : ?>
-		<?= $this->Rhino->control('overviewFields', [
+		<?= $this->Rhino->control('overview_fields', [
 			'label' => 'Overview Fields',
 			"type" => "select",
 			"options" => $appFields,

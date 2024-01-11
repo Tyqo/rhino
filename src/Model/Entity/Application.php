@@ -11,10 +11,10 @@ class Application extends Entity
 	];
 
 	protected function _getOverviewData() {
-		if (empty($this->overviewFields)) {
+		if (empty($this->overview_fields)) {
 			return [];
 		}
-		
-		return json_decode($this->overviewFields, true);
+
+		return json_decode($this->overview_fields, true);
 	}
 }
