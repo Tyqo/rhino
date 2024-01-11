@@ -22,6 +22,17 @@
 			]
 		);
 	} ?>
+	<?php if (isset($duplicate) && $duplicate['valid']) {
+		echo $this->Html->link(
+			$this->Icon->svg("Rhino.copy"),
+			$duplicate['link'],
+			[
+				'escape' => false,
+				'title' => __("Duplicate Entry"),
+				'class' => 'button'
+			]
+		);
+	} ?>
 	<?php if (isset($delete) && $delete['valid']) {
 		echo $this->Rhino->post(
 			$this->Icon->svg("Rhino.trash"),

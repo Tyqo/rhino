@@ -8,29 +8,43 @@ use Rhino\Handlers\FieldHandler;
 use App\View\AjaxView;
 
 class FieldsController extends RhinoController
-{	
+{
     public function index(string $tableName) {
         $columns = $this->Fields->getColumns($tableName);
 
         $this->set([
-			"tableName" => $tableName, 
+			"tableName" => $tableName,
 			"columns" => $columns,
 			"rows" => $this->Fields->rows
 		]);
     }
 
+
 	public function add(string $tableName) {
+        // TODO: Catch and handle error if duplicate column/field name
 		$entry = $this->Fields->newEmptyEntity();
 		$this->set(['title' => 'Add']);
 		$this->compose($entry, ["redirect" => ['action' => 'index', $tableName]]);
 	}
-	
-	public function edit(string $tableName, string $field) {
-		$entry = $this->Fields->getByName($field, $tableName);
 
+
+    public function duplicate(string $tableName, string $fieldName) {
+        $oldEntry = $this->Fields->getByName($fieldName, $tableName);
+        $newEntry = $this->Fields->newEmptyEntity();
+        $this->Fields->patchEntity($newEntry, $oldEntry->toArray());
+        $newEntry->isNew(true);
+        unset($newEntry->id);
+        $this->set(['title' => __('Duplicate')]);
+        $this->compose($newEntry, ['redirect' => ['action' => 'index', $tableName]]);
+    }
+
+
+	public function edit(string $tableName, string $fieldName) {
+        $entry = $this->Fields->getByName($fieldName, $tableName);
 		$this->set(['title' => 'Edit']);
 		$this->compose($entry, ["redirect" => ['action' => 'index', $tableName]]);
 	}
+
 
 	public function preCompose($entry, ...$params) {
 		$tableName = $params[0];
@@ -38,9 +52,9 @@ class FieldsController extends RhinoController
 
 		$types = $this->FieldHandler->customTypes;
 		$typeOptions = $this->FieldHandler->getTypes();
-		
+
 		$apps = ['test', 'alt'];
-		
+
 		$this->set([
 			"tableName" => $tableName,
 			"typeOptions" => $typeOptions,
@@ -60,12 +74,12 @@ class FieldsController extends RhinoController
 
 		$pass = $this->request->getParam('pass');
 		$tableName = $pass[0];
-		$data = $this->FieldHandler->setFiledData($data);
+		$data = $this->FieldHandler->setFieldData($data);
 
 		$dbData = $data;
 		$dbData['type'] = $this->FieldHandler->getDatabaseType($data['type']);
 
-		if ($params['action'] == 'add') {
+        if ($params['action'] == 'add' || $params['action'] == 'duplicate') {
 			$this->Fields->create($tableName, $dbData);
 		} else {
 			if ($data['name'] != $data['currentName']) {
@@ -84,7 +98,7 @@ class FieldsController extends RhinoController
 		}
 		return $this->redirect(['action' => 'index', $tableName]);
 	}
-	
+
 
 	public function getOptions($tableName, $type, $fieldName = null) {
 		if (isset($fieldName)) {

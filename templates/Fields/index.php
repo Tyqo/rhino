@@ -25,6 +25,11 @@
 									"link" => ['action' => 'edit', $tableName, $column["Field"]],
 									"valid" => in_array('edit', $rights)
 								],
+                                "duplicate" => [
+                                    "link" => ['action' => 'duplicate', $tableName, $column['Field']],
+                                    'valid' => true || in_array('edit', $rights)
+                                    // TODO: Extra rule for 'duplicate'? Else should be covered by 'new' - but does this exist?
+                                ],
 								"delete" => [
 									"link" => ['action' => 'delete', $tableName, $column["Field"]],
 									"valid" => in_array('edit', $rights),
