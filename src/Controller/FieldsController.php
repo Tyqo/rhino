@@ -4,28 +4,33 @@ declare(strict_types=1);
 namespace Rhino\Controller;
 
 use Rhino\Controller\RhinoController;
-use Rhino\Handlers\FieldHandler;
-use App\View\AjaxView;
 
 class FieldsController extends RhinoController
 {
     public function index(string $tableName) {
-        $columns = $this->Fields->getColumns($tableName);
+        // $columns = $this->Fields->getColumns($tableName);
+        $fields = $this->Fields->find('all')->where(['table_name' => $tableName]);
+        foreach ($fields as $field) {
+            $field->set('column', $this->Fields->getColumn($tableName, $field['name']));
+        }
 
         $this->set([
+            "tableFields" => $fields,
 			"tableName" => $tableName,
-			"columns" => $columns,
-			"rows" => $this->Fields->rows
+			// "columns" => $columns,
+			// "rows" => $this->Fields->rows
 		]);
     }
+
 
 
 	public function add(string $tableName) {
         // TODO: Catch and handle error if duplicate column/field name
 		$entry = $this->Fields->newEmptyEntity();
 		$this->set(['title' => 'Add']);
-		$this->compose($entry, ["redirect" => ['action' => 'index', $tableName]]);
+		$this->compose($entry, ['redirect' => ['action' => 'index', $tableName]]);
 	}
+
 
 
     public function duplicate(string $tableName, string $fieldName) {
@@ -39,11 +44,13 @@ class FieldsController extends RhinoController
     }
 
 
+
 	public function edit(string $tableName, string $fieldName) {
         $entry = $this->Fields->getByName($fieldName, $tableName);
 		$this->set(['title' => 'Edit']);
 		$this->compose($entry, ["redirect" => ['action' => 'index', $tableName]]);
 	}
+
 
 
 	public function preCompose($entry, ...$params) {
@@ -80,7 +87,13 @@ class FieldsController extends RhinoController
 		$dbData['type'] = $this->FieldHandler->getDatabaseType($data['type']);
 
         if ($params['action'] == 'add' || $params['action'] == 'duplicate') {
-			$this->Fields->create($tableName, $dbData);
+            try {
+                $this->Fields->create($tableName, $dbData);
+            }
+            catch (\Exception $e) {
+                $this->Flash->error(__('Failed to create column: ') . $e->getMessage(), ['plugin' => 'Rhino']);
+                return false;
+            }
 		} else {
 			if ($data['name'] != $data['currentName']) {
 				$this->Fields->rename($tableName, $dbData["currentName"], $dbData["name"]);

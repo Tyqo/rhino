@@ -86,6 +86,13 @@ class NodesController extends RhinoController
         return $this->redirect(['action' => 'index']);
     }
 
+	/**
+	 * Undocumented function
+	 *
+	 * @param  [type] $entry
+	 * @param  [type] ...$params
+	 * @return void
+	 */
 	public function preCompose($entry, ...$params) {
 		$templates = $this->Nodes->Templates->find('list')->all();
 		

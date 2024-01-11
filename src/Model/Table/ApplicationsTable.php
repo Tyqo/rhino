@@ -86,8 +86,8 @@ class ApplicationsTable extends Table
 	}
 
 	public function beforeMarshal($event, $data, $options) {
-		if (!empty($data['overviewFields'])) {
-			$data['overviewFields'] = json_encode($data['overviewFields']);
+		if (!empty($data['overview_fields'])) {
+			$data['overview_fields'] = json_encode($data['overview_fields']);
 		}
 	}
 

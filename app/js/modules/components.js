@@ -45,10 +45,6 @@ export default class LayoutComponents {
 	 * setup
 	 */
 	setup(parentNode) {
-		// this.DragDrop.loadElements(
-		// 	this.elements,
-		// 	(element, position) => this.setPosition(element, position)
-		// );
 		this.pageId = this.main.getPageId();
 
 		this.newButtons = parentNode.querySelectorAll(this.Config.newButtonSelector);
@@ -187,13 +183,9 @@ class Component {
 
 		this.content = this.element.querySelector('[name=content]');
 		this.select = this.element.querySelector('[name=template_id]');
-		// this.media = this.element.querySelector('[name=media]');
 
 		this.id = this.element.dataset.id;
 		this.region = this.element.dataset.region;
-		// this.position = this.element.dataset.position;
-
-		// this.elementHandler.DragDrop.addElement(this.nodeElement);
 
 		this.initialize();
 	}
@@ -207,29 +199,12 @@ class Component {
 		this.deleteButton = this.element.querySelector('[name=delete]');
 		this.toggleButton = this.element.querySelector('[name=toggle]');
 		this.moveHandle = this.element.querySelector('[name=move]');
-
-		// this.select.addEventListener('change', () => this.elementHandler.updateContent(
-		// 	'update',
-		// 	this.select.dataset.url,
-		// 	this,
-		// 	{ element_id: this.select.value },
-		// ));
 		
 		this.saveButton.addEventListener('click', () => this.update());
 		this.deleteButton.addEventListener('click', () => this.delete());
 		this.select.addEventListener('change', () => this.change({
 			template_id: this.select.value
 		}));
-
-		// this.toggleButton.addEventListener('change', () => this.elementHandler.updateContent(
-		// 	'update',
-		// 	this.toggleButton.dataset.url,
-		// 	this,
-		// 	{ active: !this.toggleButton.value }
-		// ));
-
-		// this.moveHandle.addEventListener('mouseover', () => this.nodeElement.draggable = true);
-		// this.moveHandle.addEventListener('mouseout', () => this.nodeElement.draggable = false);
 
 		this.element.addEventListener('keydown', (e) => {
 			if (e.ctrlKey && e.keyCode === 83) {
@@ -242,7 +217,6 @@ class Component {
 		this.addEditor();
 		this.addMedia();
 	}
-
 
 	async update() {
 		let data = await this.getContent();

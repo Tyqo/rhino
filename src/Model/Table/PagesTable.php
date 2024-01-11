@@ -10,8 +10,6 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-use function PHPSTORM_META\map;
-
 class PagesTable extends NodesTable {
 	public array $root = [null => 'Root'];
 
@@ -37,21 +35,6 @@ class PagesTable extends NodesTable {
 	 */
 	public function initialize(array $config): void {
 		parent::initialize($config);
-
-		// $this->setTable('node_tree');
-		// $this->setDisplayField('name');
-		// $this->setPrimaryKey('id');
-
-		// $this->addBehavior('Tree', [
-		// 	'level' => 'level'
-		// ]);
-
-		// $this->hasMany('Rhino.Contents')
-		// 	->setForeignKey('page_id')
-		// 	->setDependent(true);
-
-		// $this->hasOne('Rhino.Pages');
-		// $this->belongsTo('Rhino.Layouts');
 	}
 
 	public function afterSave($event, $entity, $options) {

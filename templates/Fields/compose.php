@@ -1,5 +1,5 @@
 <section class="stack">
-	<h1><?= $title ?> Field <i><?= $entry->name ?></i> in Table: <i><?= $tableName ?></i></h1>
+	<h1><?= $title ?> Field <code><?= $entry->name ?></code> in Table <code><?= $tableName ?></code></h1>
 
 	<?= $this->Form->create($entry, ["class" => "stack"]); ?>
 
@@ -35,12 +35,13 @@
 	<?= $this->Rhino->control('description', ["type" => "textarea", "description" => "Field Description. (optional)"]) ?>
 
 	<div class="cluster">
-		<?= $this->Form->button('Save') ?>
+        <?= $this->Form->button(__('Save Entry'), ['name' => 'save', 'type' => 'button']); ?>
+        <?= $this->Form->button(__('Save & Exit')); ?>
 		<?= $this->Html->link("Back", ['action' => 'index', $tableName], ["class" => "button"]) ?>
 	</div>
 
 	<?= $this->Form->hidden('currentName', ["value" => $entry["name"]]) ?>
-	<?= $this->Form->hidden('tableName', ["value" => $tableName]) ?>
+	<?= $this->Form->hidden('table_name', ["value" => $tableName]) ?>
 	<?= $this->Form->hidden('id') ?>
 	<?= $this->Form->end(); ?>
 </section>

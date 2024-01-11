@@ -1,52 +1,59 @@
 <section class="stack">
+
 	<h1><?= $tableName ?></h1>
+
 	<figure class="table-wrapper">
 		<table role="grid">
-			<caption><?= __('Table fields') ?></caption>
-			<tr>
-				<?php foreach ($rows as $row) : ?>
-					<th><?= $row ?></th>
-				<?php endforeach ?>
-				<th data-cell="Actions" align="right">Actions</th>
-			</tr>
-			<?php if (!empty($columns)) : ?>
-				<?php foreach ($columns as $column) : ?>
-					<tr>
-						<?php foreach ($rows as $row) : ?>
-							<td><?= $column[$row] ?></td>
-						<?php endforeach ?>
+            <caption><?= __('Table fields') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col"><?= __('Name'); ?></th>
+                    <th scope="col"><?= __('Alias'); ?></th>
+                    <th scope="col"><?= __('Type'); ?></th>
+                    <th scope="col"><?= __('Default'); ?></th>
+                    <!-- <th><?= __('Column'); ?></th> -->
+                    <th data-cell="Actions" align="right"><?= __('Actions'); ?></th>
+                </tr>
+            <thead>
 
-						<td data-cell="Actions">
-							<?php if ($column['Field'] != 'id') : ?>
-							<?php
-							$this->start('actions');
-							echo $this->element("layout-elements/actions", [
-								"edit" => [
-									"link" => ['action' => 'edit', $tableName, $column["Field"]],
-									"valid" => in_array('edit', $rights)
-								],
-                                "duplicate" => [
-                                    "link" => ['action' => 'duplicate', $tableName, $column['Field']],
-                                    'valid' => true || in_array('edit', $rights)
-                                    // TODO: Extra rule for 'duplicate'? Else should be covered by 'new' - but does this exist?
-                                ],
-								"delete" => [
-									"link" => ['action' => 'delete', $tableName, $column["Field"]],
-									"valid" => in_array('edit', $rights),
-									"confirm" => __('Are you sure you want to delete: {0}?', $column["Field"]),
-								],
-							]);
-							$this->end();
-							?>
-							<?= $this->fetch('actions'); ?>
-							<?php endif ?>
-						</td>
-					</tr>
-				<?php endforeach ?>
-			<?php endif ?>
+            <tbody>
+            <?php foreach ($tableFields as $field) : ?>
+                <tr>
+                    <td><?= $field->name; ?></td>
+                    <td><?= $field->alias; ?></td>
+                    <td><?= $field->type; ?></td>
+                    <td><?= $field->default_value ?? 'N&thinsp;/&thinsp;A'; ?></td>
+                    <td data-cell="Actions">
+                        <?php
+                        $this->start('actions');
+                        echo $this->element("layout-elements/actions", [
+                            "edit" => [
+                                "link" => ['action' => 'edit', $tableName, $field->name],
+                                "valid" => in_array('edit', $rights)
+                            ],
+                            "duplicate" => [
+                                "link" => ['action' => 'duplicate', $tableName, $field->name],
+                                'valid' => true || in_array('edit', $rights)
+                                // TODO: Extra rule for 'duplicate'? Else should be covered by 'new' - but does this exist?
+                            ],
+                            "delete" => [
+                                "link" => ['action' => 'delete', $tableName, $field->name],
+                                "valid" => in_array('edit', $rights),
+                                "confirm" => __('Are you sure you want to delete: {0}?', $field->name),
+                            ],
+                        ]);
+                        $this->end();
+                        ?>
+                        <?= $this->fetch('actions'); ?>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+            </tbody>
 		</table>
 	</figure>
 
-	<?= $this->Html->link("Add Cloumn", ["controller" => "Fields", "action" => "add", $tableName], ["class" => "button"]) ?>
-	<?= $this->Html->link("Back", ['controller' => 'applications'], ["class" => "button"]); ?>
+    <div class="action-area">
+        <?= $this->Html->link("Add Cloumn", ["controller" => "Fields", "action" => "add", $tableName], ["class" => "button"]) ?>
+        <?= $this->Html->link("Back", ['controller' => 'applications'], ["class" => "button"]); ?>
+    </div>
 </section>

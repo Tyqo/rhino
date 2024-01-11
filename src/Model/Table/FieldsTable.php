@@ -158,7 +158,7 @@ class FieldsTable extends Table {
 		if (empty($entry)) {
 			$entry = $this->newEmptyEntity();
 			$entry->name = $fieldName;
-			$entry->tableName = $tableName;
+			$entry->table_name = $tableName;
 
 		}
 		
@@ -173,8 +173,12 @@ class FieldsTable extends Table {
 		return $entry;
 	}
 
+
+
+
+
 	public function checkForEntry($fieldName, $tableName) {
-		$query = $this->find()->where(['name' => $fieldName, 'tableName' => $tableName]);
+		$query = $this->find()->where(['name' => $fieldName, 'table_name' => $tableName]);
 		if (!$query->all()->isEmpty()) {
 			return $query->first();
 		}

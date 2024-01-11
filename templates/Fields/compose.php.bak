@@ -44,14 +44,14 @@
 	</div>
 
 	<?= $this->Form->hidden('currentName', ["value" => $entry["name"]]) ?>
-	<?= $this->Form->hidden('tableName', ["value" => $tableName]) ?>
+	<?= $this->Form->hidden('table_name', ["value" => $tableName]) ?>
 	<?= $this->Form->hidden('id') ?>
 	<?= $this->Form->end(); ?>
 
 	<script>
 		const type = document.getElementById('type');
 		const options = document.getElementById('options');
-		const table = document.querySelector('[name="tableName"]').value;
+		const table = document.querySelector('[name="table_name"]').value;
 		const name = document.querySelector('[name="name"]').value;
 		type.addEventListener('change', () => setOptions());
 
