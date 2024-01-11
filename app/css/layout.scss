@@ -26,6 +26,7 @@ body {
 	right: 0;
 	z-index: 200;
 	height: $menu-size;
+	box-sizing: border-box;
 
 	padding: 0 1rem;
 
@@ -54,6 +55,15 @@ body {
 	}
 }
 
+.layout-container, .layout-element, .layout-slot {
+	width: 100%;
+	position: relative;
+}
+
+.layout-container {
+	border: solid 4px grey;
+}
+
 .layout-element {
 	position: relative;
 	border: solid 4px transparent;
@@ -77,6 +87,13 @@ body {
 	.ce-toolbar__content {
 		max-width: 100%;
 	}
+}
+
+.layout-slot {
+	background: #f6f6f6;
+	color: #333;
+	border-radius: $border-radius;
+	padding: $spacing $spacing $spacing $spacing * 4;
 }
 
 .layout-handle {
@@ -116,6 +133,14 @@ body {
 	&:focus,
 	&:hover {
 		background-color: color('primary', 500);
+	}
+
+	&[name=new-component] {
+		position: absolute;
+		// top: 0;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		border-radius: var(--border-radius);
 	}
 }
 

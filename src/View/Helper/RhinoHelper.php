@@ -13,10 +13,18 @@ use Cake\View\Helper\IdGeneratorTrait;
 use Cake\Core\Configure;
 use Rhino\Model\Table\MediaCategoriesTable;
 use Rhino\Model\Table\WidgetsTable;
+use Rhino\Model\Table\ComponentsTable;
 
 class RhinoHelper extends Helper {
 	use StringTemplateTrait;
 	use IdGeneratorTrait;
+
+	/**
+	 * Undocumented variable
+	 *
+	 * @var array
+	 */
+	public $counter = [];
 
 	/**
 	 * Default config for this class
@@ -521,5 +529,56 @@ class RhinoHelper extends Helper {
 		$data = json_decode($widget->description, true);
 		$template = str_replace('.php', '', $widget->template);
 		return $this->_View->element($template, $data);
+	}
+
+	public function region(string $name, $id = null) {
+		if ($this->layoutMode) {
+			return $this->Layout->region($name, $id);
+		}
+	
+		return $this->_View->fetch($name);
+	}
+
+	public function component($component) {
+		$this->counter[$component->id] = 0;
+		
+		if ($this->layoutMode) {
+			return $this->Layout->component($component);
+		}
+
+		$element = $this->_View->element($component->template->element, $component->toArray());
+
+		return $element;
+	}
+
+	public function slot(int $parentId, string $name = null) {
+		$this->Components = new ComponentsTable();
+		$content = '';
+
+		$count = isset($this->counter[$parentId]) ? $this->counter[$parentId]++ : 0;
+		
+		if (!empty($name)) {
+			$component = $this->Components->find()
+				->where(['parent_id' => $parentId, 'name' => $name])
+				->contain(['Templates'])
+				->first();
+		} else {
+			$component = $this->Components->find()
+				->where(['parent_id' => $parentId])
+				->contain(['Templates'])
+				->offset($count)
+				->orderBy(['lft' => 'ASC'])
+				->first();
+		}
+
+		if (!empty($component)) {
+			$content = $this->component($component);
+		}
+
+		if ($this->layoutMode) {
+			return $this->Layout->slot($parentId, $content);
+		}
+		
+		return $content;
 	}
 }

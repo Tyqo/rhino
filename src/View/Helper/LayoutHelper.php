@@ -5,16 +5,21 @@ use Cake\Collection\Iterator\UniqueIterator;
 use Cake\View\Helper;
 use Cake\View\StringTemplateTrait;
 use Cake\Utility\Inflector;
+use Cake\View\Helper\IdGeneratorTrait;
+
 use Rhino\Handlers\FieldHandler;
 use Rhino\Handlers\FileHandler;
-use Cake\View\Helper\IdGeneratorTrait;
 use Rhino\Model\Table\PagesTable;
+use Rhino\Model\Table\ComponentsTable;
 use Rhino\Model\Table\MediaCategoriesTable;
 
-class LayoutHelper extends Helper {
+class LayoutHelper extends Helper
+{
 	use StringTemplateTrait;
 
-		/**
+	public $counter = [];
+
+	/**
 	 * Default config for this class
 	 *
 	 * @var array<string, mixed>
@@ -33,18 +38,23 @@ class LayoutHelper extends Helper {
 		]
 	];
 
-	public function initialize(array $config): void {
+	public function initialize(array $config): void
+	{
 		$this->layoutMode = true;
 		$this->Templater = $this->templater();
+
+		$this->page = $this->_View->get('page');
 	}
 
 	protected array $helpers = ['Form', 'Html', 'Icon', 'Url'];
-		
-	public function parseEditor(?string $json = '[]',?bool $edit = false) : string {
-		return '<div class="editor"></div>' . '<textarea name="html" hidden>' . $json . '</textarea>';
+
+	public function parseEditor(?string $json = '[]', ?bool $edit = false): string
+	{
+		return '<div class="editor"></div>' . '<textarea name="content" hidden>' . $json . '</textarea>';
 	}
 
-	public function parseMedia($content = null, $id = null) {
+	public function parseMedia($content = null, $id = null)
+	{
 		// $content .= '<button class="rhino-button select-media" name="media" value="//tusk.localhost:3000/rhino/files/get">Edit</button>';
 
 		$url = $this->Url->build([
@@ -67,15 +77,90 @@ class LayoutHelper extends Helper {
 		return $content;
 	}
 
-	public function getPages(int $baseId = 0) : array {
+	public function getPages(int $baseId = 0): array
+	{
 		$this->Pages = new PagesTable();
 		$_pages = $this->Pages->find('all')->toArray();
 		return $this->Pages->getChildren($baseId, $_pages);
 	}
 
-	public function pageLink(int $id, array $options = []) : string {
+	public function pageLink(int $id, array $options = []): string
+	{
 		$this->Pages = new PagesTable();
 		$page = $this->Pages->get($id);
 		return $this->Html->link($page["name"], ['plugin' => null, 'controller' => 'Pages', 'action' => 'display', urlencode($page["name"])], $options);
+	}
+
+	public function region($name, $id = null) {
+		if (empty($id)) {
+			$id = $this->page->id;
+		}
+
+		$url = $this->Url->build([
+			'controller' => 'Components',
+			'action' => 'new',
+			$id,
+			$name
+		]);
+
+		$content = $this->Templater->format('tag', [
+			'content' => 'New',
+			'tag' => 'button',
+			'attrs' => $this->Templater->formatAttributes([
+				'class' => 'rhino-button',
+				'name' => "new-component",
+				'value' => $name,
+				'data-url' => $url,
+				'data-id' => $id
+			]),
+		]);
+
+		$content .= $this->_View->fetch($name);
+
+		$content = $this->Templater->format('tag', [
+			'content' => $content,
+			'tag' => 'div',
+			'attrs' => $this->Templater->formatAttributes([
+				'class' => 'layout-container',
+				'name' => $name,
+				'value' => $id
+			]),
+		]);
+
+		return $content;
+	}
+
+	public function component($component) {
+		$this->counter[$component->id] = 0;
+		$element = $this->_View->element('Rhino.' . '../Components/element', ['component' => $component]);
+		return $element;
+	}
+
+	public function slot(int $parentId, string $content) {
+		$name = uniqid();
+		if (empty($content)) {
+			$content = $this->Templater->format('tag', [
+				'content' => 'New',
+				'tag' => 'button',
+				'attrs' => $this->Templater->formatAttributes([
+					'class' => 'rhino-button',
+					'name' => "new-component",
+					'value' => $name,
+					'data-id' => $parentId
+				]),
+			]);
+		}
+
+		$content = $this->Templater->format('tag', [
+			'content' => $content,
+			'tag' => 'div',
+			'attrs' => $this->Templater->formatAttributes([
+				'class' => 'layout-slot',
+				'name' => $name,
+				'value' => $parentId
+			]),
+		]);
+
+		return $content;
 	}
 }

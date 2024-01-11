@@ -4,7 +4,6 @@ namespace Rhino\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Page extends Entity
-{
-    
+class Page extends Entity {
+	
 }

@@ -1,9 +1,92 @@
-/**
- * @project       tusk
- * @author        carsten.coull@swu.de
- * @build         Mon, Nov 27, 2023 4:42 PM ET
- * @release       d6815068fe7f024f6df783c14f58618d57dda4e4 [main]
- * @copyright     Copyright (c) 2023, SWU Stadtwerke Ulm / Neu-Ulm GmbH
- *
- */
-export default class Tabs{constructor(t){this.main=t,this.main.debug,this.Config={tabGroupSelector:".tab-group",tabButtonSelector:"[data-target]",tabButtonClass:"tab-button",activeTabClass:"tab--active",activeButtonClass:"tab-button--active"},this.tabGroups=document.querySelectorAll(this.Config.tabGroupSelector),this.tabGroups.length>0&&this.setup()}setup(){this.tabGroups.forEach((t=>{let e=t.querySelector(this.Config.tabButtonSelector);this.open(e)}));const t=location.hash.substring(1);if(t){let e=document.querySelector("."+this.Config.tabButtonClass+this.Config.tabButtonSelector.slice(0,-1)+"="+t+"]");if(e){let t=e.closest(this.Config.tabGroupSelector);this.toggle(e,t)}}}init(){this.tabGroups.forEach((t=>{t.querySelectorAll(this.Config.tabButtonSelector).forEach((e=>{e.addEventListener("click",(s=>{s.preventDefault(),this.toggle(e,t)}))}))})),window.addEventListener("layout-update",(()=>this.refresh()))}toggle(t,e){this.close(e),this.open(t)}close(t){let e=t.querySelectorAll("."+this.Config.activeButtonClass),s=t.querySelectorAll("."+this.Config.activeTabClass);e.forEach((t=>{t.classList.remove(this.Config.activeButtonClass)})),s.forEach((t=>{t.classList.remove(this.Config.activeTabClass)}))}open(t){let e=document.getElementById(t.dataset.target);t.classList.add(this.Config.activeButtonClass),e.classList.add(this.Config.activeTabClass)}refresh(){this.tabGroups=document.querySelectorAll(this.Config.tabGroupSelector),this.tabGroups.forEach((t=>{let e=t.querySelector(this.Config.tabButtonSelector);this.open(e)}))}}
+export default class Tabs {
+	constructor(main) {
+		this.main = main;
+
+		if (this.main.debug) {
+			console.debug("Tabs::const");
+		}
+
+		this.Config = {
+			tabGroupSelector: '.tab-group',
+			tabButtonSelector: '[data-target]',
+			tabButtonClass: 'tab-button',
+			activeTabClass: 'tab--active',
+			activeButtonClass: 'tab-button--active'
+		}
+
+		this.tabGroups = document.querySelectorAll(this.Config.tabGroupSelector);
+
+		if (this.tabGroups.length > 0) {
+			this.setup();
+		}
+	}
+
+	setup() {
+		this.tabGroups.forEach(tabGroup => {
+			let tabButton = tabGroup.querySelector(this.Config.tabButtonSelector);
+			this.open(tabButton);
+		});
+
+		const hash = location.hash.substring(1);
+		if (hash) {
+			let hashButton = document.querySelector(
+				"." + this.Config.tabButtonClass + this.Config.tabButtonSelector.slice(0, -1) + "=" + hash + "]"
+				);
+
+			if (hashButton) {
+				let hashGroup = hashButton.closest(this.Config.tabGroupSelector);
+				this.toggle(hashButton, hashGroup);
+				console.log("toggle");
+			}
+		}
+	}
+
+	init() {
+		this.tabGroups.forEach(tabGroup => {
+			let tabButtons = tabGroup.querySelectorAll(this.Config.tabButtonSelector);
+
+			tabButtons.forEach(tabButton => {
+				tabButton.addEventListener('click', (event) => {
+					event.preventDefault();
+					this.toggle(tabButton, tabGroup);
+				});
+			});
+		});
+
+		window.addEventListener("layout-update", () => this.refresh());
+	}
+	
+	toggle(tabButton, tabGroup) {
+		this.close(tabGroup);
+		this.open(tabButton);
+	}
+
+	close(group) {
+		let activeButtons = group.querySelectorAll("." + this.Config.activeButtonClass);
+		let activeTabs = group.querySelectorAll("." + this.Config.activeTabClass);
+
+		activeButtons.forEach(active => {
+			active.classList.remove(this.Config.activeButtonClass);
+		});
+
+		activeTabs.forEach(active => {
+			active.classList.remove(this.Config.activeTabClass);
+		});
+	}
+
+	open(button) {
+		let target = document.getElementById(button.dataset.target);
+
+		button.classList.add(this.Config.activeButtonClass);
+		target.classList.add(this.Config.activeTabClass);
+	}
+
+	refresh() {
+		this.tabGroups = document.querySelectorAll(this.Config.tabGroupSelector);
+		this.tabGroups.forEach(tabGroup => {
+			let tabButton = tabGroup.querySelector(this.Config.tabButtonSelector);
+			this.open(tabButton);
+		});
+	}
+}
+//# sourceMappingURL=tabs.js.map

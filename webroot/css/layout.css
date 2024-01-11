@@ -473,6 +473,7 @@ body {
   right: 0;
   z-index: 200;
   height: 2rem;
+  box-sizing: border-box;
   padding: 0 1rem;
 }
 .layout-menu__button {
@@ -494,6 +495,15 @@ body {
   margin-bottom: 0;
 }
 
+.layout-container, .layout-element, .layout-slot {
+  width: 100%;
+  position: relative;
+}
+
+.layout-container {
+  border: solid 4px grey;
+}
+
 .layout-element {
   position: relative;
   border: solid 4px transparent;
@@ -513,6 +523,13 @@ body {
 .layout-element .ce-block__content,
 .layout-element .ce-toolbar__content {
   max-width: 100%;
+}
+
+.layout-slot {
+  background: #f6f6f6;
+  color: #333;
+  border-radius: 0.5rem;
+  padding: 1rem 1rem 1rem 4rem;
 }
 
 .layout-handle {
@@ -692,6 +709,12 @@ body {
 }
 .rhino-button:focus, dialog button:focus, .rhino-button:hover, dialog button:hover {
   background-color: #26c595;
+}
+.rhino-button[name=new-component], dialog button[name=new-component] {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: var(--border-radius);
 }
 
 .rhino-select {

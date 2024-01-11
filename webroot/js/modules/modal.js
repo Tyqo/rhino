@@ -1,9 +1,161 @@
-/**
- * @project       tusk
- * @author        carsten.coull@swu.de
- * @build         Mon, Nov 27, 2023 4:42 PM ET
- * @release       d6815068fe7f024f6df783c14f58618d57dda4e4 [main]
- * @copyright     Copyright (c) 2023, SWU Stadtwerke Ulm / Neu-Ulm GmbH
- *
- */
-export default class Modal{constructor(t){this.main=t,this.main.debug,this.Conf={isOpenClass:"modal-is-open",openingClass:"modal-is-opening",closingClass:"modal-is-closing",animationDuration:400},this.visibleModal=null,this.buttons=document.querySelectorAll("[data-target]"),this.buttons.length>0&&this.init()}init(){this.buttons.forEach((t=>{let e=document.getElementById(t.dataset.target);this.initButton(t,e)}))}initButton(t,e){if(null==e){let e=this.newModal(t);this.addContent(e,t.dataset.modal),this.addQuery(e),e.addEventListener("confirm",(()=>{let t=e.querySelector("form");t&&t.submit()}))}else if("DIALOG"==e.tagName)t.addEventListener("click",(n=>{if("Close"==t.ariaLabel){let t=new Event("cancel");e.dispatchEvent(t)}this.toggleModal(n,e)}));else if("FORM"==e.tagName){let n=this.newModal(t);this.addContent(n,t.dataset.modal),this.addQuery(n),n.addEventListener("confirm",(()=>{e.submit()}))}}toggleModal(t,e){t.preventDefault(),this.isModalOpen(e)?this.closeModal(e):this.openModal(e)}isModalOpen(t){return!(!t.hasAttribute("open")||"false"==t.getAttribute("open"))}openModal(t){this.visibleModal=t;let e=new CustomEvent("open",{detail:this.button});t.dispatchEvent(e),t.showModal()}closeModal(t){this.visibleModal=null,t.close()}newModal(t,e=!0){let n=t.dataset.target;null==n&&(n=t.name,t.dataset.target=n);let a=document.createElement("dialog"),i=document.createElement("article"),l=document.createElement("main"),o=document.createElement("button");return a.id=n,o.classList.add("close","button","outline","contrast"),o.ariaLabel="Close",o.dataset.target=n,i.appendChild(o),i.appendChild(l),a.appendChild(i),document.body.appendChild(a),this.initButton(o,a),e&&this.initButton(t,a),a}addContent(t,e){t.querySelector("main").innerHTML=e}addQuery(t,e={cancel:!0,confirm:!0}){let n=t.querySelector("article"),a=document.createElement("footer");if(e.cancel){let e=document.createElement("button");e.innerText="cancel",e.classList.add("contrast"),a.appendChild(e),e.addEventListener("click",(()=>{let e=new Event("cancel");t.dispatchEvent(e),this.closeModal(t)}))}if(e.confirm){let e=document.createElement("button");e.innerText="confirm",a.appendChild(e),e.addEventListener("click",(()=>{let e=new Event("confirm");t.dispatchEvent(e),this.closeModal(t)}))}n.appendChild(a)}reset(t){this.addContent(t,"")}}
+export default class Modal {
+
+	constructor(main) {
+		this.main = main;
+
+		if (this.main.debug) {
+			console.debug("Modal::const");
+		}
+
+		this.Conf = {
+			isOpenClass: "modal-is-open",
+			openingClass: "modal-is-opening",
+			closingClass: "modal-is-closing",
+			animationDuration: 400
+		};
+
+		this.visibleModal = null;
+
+		this.buttons = document.querySelectorAll('[data-target]');
+		if (this.buttons.length > 0) {
+			this.init();
+		}
+	}
+
+	init() {
+		this.buttons.forEach(button => {
+			let target = document.getElementById(button.dataset.target);
+			this.initButton(button, target);		
+		});
+	}
+
+	initButton(button, target) {
+		if (target == null) {
+			let modal = this.newModal(button);
+			this.addContent(modal, button.dataset.modal);
+			this.addQuery(modal);
+			modal.addEventListener('confirm', () => {
+				let form = modal.querySelector('form');
+				if (form) {
+					form.submit();
+				}
+			});
+		} else if (target.tagName == 'DIALOG') {
+			button.addEventListener('click', (event) => {
+				if (button.ariaLabel == 'Close') {
+					let event = new Event('cancel');
+					target.dispatchEvent(event);
+				}
+				this.toggleModal(event, target);
+			});
+		} else if (target.tagName == 'FORM') {
+			let modal = this.newModal(button);
+			this.addContent(modal, button.dataset.modal);
+			this.addQuery(modal);
+			modal.addEventListener('confirm', () => {
+				target.submit();				
+			});
+		}
+	}
+
+	toggleModal(event, target) {
+		event.preventDefault();
+		if (this.isModalOpen(target)) {
+			this.closeModal(target);
+		} else {
+			this.openModal(target);
+		}
+	}
+
+	isModalOpen(modal) {
+		return !(!modal.hasAttribute("open") || "false" == modal.getAttribute("open"));
+	}
+
+	openModal(modal) {
+		this.visibleModal = modal;
+
+		let event = new CustomEvent("open", {
+			detail: this.button,
+		});
+		modal.dispatchEvent(event);
+
+		modal.showModal();
+	}
+
+	closeModal(modal) {
+		this.visibleModal = null;
+
+		modal.close();
+	}
+
+	newModal(button, openOnclick = true) {
+		let target = button.dataset.target;
+		if (target == null) {
+			target = button.name;
+			button.dataset.target = target;
+		}
+
+		let modal = document.createElement('dialog');
+		let modalInner = document.createElement('article');
+		let modalMain = document.createElement('main');
+		let closeButton = document.createElement('button');
+
+		modal.id = target;
+
+		closeButton.classList.add('close', 'button', 'outline', 'contrast');
+		closeButton.ariaLabel = 'Close';
+		closeButton.dataset.target = target;
+
+		modalInner.appendChild(closeButton);
+		modalInner.appendChild(modalMain);
+		modal.appendChild(modalInner);
+		document.body.appendChild(modal);
+		
+		this.initButton(closeButton, modal);
+
+		if (openOnclick) {
+			this.initButton(button, modal);
+		}
+
+		return modal;
+	}
+
+	addContent(modal, content) {
+		modal.querySelector('main').innerHTML = content;
+	}
+
+	addQuery(modal, conf = {cancel: true, confirm: true}) {
+		let modalInner = modal.querySelector('article');
+		let container = document.createElement('footer');
+		
+		if (conf.cancel) {
+			let cancel = document.createElement('button');
+			cancel.innerText = 'cancel';
+			cancel.classList.add('contrast');
+			container.appendChild(cancel);
+			cancel.addEventListener('click', () => {
+				let event = new Event('cancel');
+				modal.dispatchEvent(event);
+				this.closeModal(modal);
+			});
+		}
+
+		if (conf.confirm) {
+			let confirm = document.createElement('button');
+			confirm.innerText = 'confirm';
+			container.appendChild(confirm);
+			confirm.addEventListener('click', () => {
+				let event = new Event('confirm');
+				modal.dispatchEvent(event);
+				this.closeModal(modal);
+			});
+		}
+		
+		modalInner.appendChild(container);
+	}
+
+	reset(modal) {
+		this.addContent(modal, '');
+	}
+}
+//# sourceMappingURL=modal.js.map

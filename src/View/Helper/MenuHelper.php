@@ -78,7 +78,8 @@ class MenuHelper extends Helper {
 			$children .= $this->nestedList($item->children, $options);
 		}
 
-		$type = $this->Pages->pageTypes[$item->page_type];
+		$type = 'Page';
+		// $type = $this->Pages->pageTypes[$item->page_type];
 		
 		switch ($type) {
 			case 'Page':

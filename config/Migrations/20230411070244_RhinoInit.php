@@ -159,7 +159,7 @@ class RhinoInit extends AbstractMigration
 			])
 			->create();
 
-		$this->table($pagesTable, $options)
+		$this->table('rhino_nodes', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
@@ -168,11 +168,24 @@ class RhinoInit extends AbstractMigration
 			->addColumn('active', 'boolean', [
 				'default' => 1,
 			])
-			->addColumn('is_homepage', 'boolean', [
-				'default' => 0,
+			->addColumn('created', 'timestamp', [
+				'null' => false,
+				'default' => 'CURRENT_TIMESTAMP',
 			])
-			->addColumn('page_type', 'integer', [
-				'default' => 0,
+			->addColumn('modified', 'timestamp', [
+				'null' => false,
+				'default' => 'CURRENT_TIMESTAMP',
+				'update' => 'CURRENT_TIMESTAMP',
+			])
+			->addColumn('user_id', 'integer', [
+				'null' => false,
+			])
+			->addColumn('node_type', 'integer', [
+				'null' => false,
+			])
+			->addColumn('role', 'integer', [
+				'null' => true,
+				'default' => 0
 			])
 			->addColumn('parent_id', 'integer', [
 				'default' => null,
@@ -194,57 +207,32 @@ class RhinoInit extends AbstractMigration
 				'limit' => 10,
 				'null' => false,
 			])
-			->addColumn('url', 'string', [
-				'null' => true,
-			])
-			->addColumn('layout_id', 'integer', [
+			->addColumn('template_id', 'integer', [
 				'default' => 0,
 			])
-			->addColumn('created', 'timestamp', [
-				'null' => false,
-				'default' => 'CURRENT_TIMESTAMP',
-			])
-			->addColumn('modified', 'timestamp', [
-				'null' => false,
-				'default' => 'CURRENT_TIMESTAMP',
-				'update' => 'CURRENT_TIMESTAMP',
-			])
+			->addColumn('language', 'string')
+			->addColumn('version', 'integer')
+			->addColumn('config', 'text')
+			->addColumn('content', 'text')
 			->addIndex(['lft'], ['name' => 'idx_lft'])
 			->addIndex(['parent_id'])
 			->create();
 
-		$this->table($layoutsTable, $options)
+		$this->table('rhino_templates', $options)
 			->addColumn('name', 'string', [
 				'default' => null,
 				'limit' => 100,
 				'null' => false,
 			])
-			->addColumn('layout', 'string', [
+			->addColumn('file', 'string', [
 				'default' => null,
 			])
 			->addColumn('active', 'boolean', [
 				'default' => 1,
 			])
-			->addColumn('created', 'timestamp', [
-				'default' => 'CURRENT_TIMESTAMP'
-			])
-			->addColumn('modified', 'timestamp', [
-				'default' => 'CURRENT_TIMESTAMP',
-				'update' => 'CURRENT_TIMESTAMP'
-			])
-			->create();
-		
-		$this->table($elementsTable, $options)
-			->addColumn('name', 'string', [
-				'default' => null,
-				'limit' => 100,
+			->addColumn('template_type', 'integer', [
+				'default' => 1,
 				'null' => false,
-			])
-			->addColumn('element', 'string', [
-				'default' => null,
-			])
-			->addColumn('active', 'boolean', [
-				'default' => 1,
 			])
 			->addColumn('created', 'timestamp', [
 				'default' => 'CURRENT_TIMESTAMP'
@@ -347,42 +335,45 @@ class RhinoInit extends AbstractMigration
 				])
 				->saveData();
 
-			$this->table($layoutsTable)
+			$this->table('rhino_templates')
 				->insert([
 					[
 						'name' => 'Default',
-						'layout' => 'default',
-					]
-				])
-				->saveData();
-				
-			$this->table($elementsTable)
-				->insert([
+						'file' => 'default.php',
+						'template_type' => 0
+					],
 					[
 						'name' => 'Text',
-						'element' => 'text',
+						'file' => 'text.php',
+						'template_type' => 1
 					]
 				])
 				->saveData();
-						
-			$this->table($pagesTable)
+							
+			$this->table('rhino_nodes')
 				->insert([
 					[
 						'name' => 'Home',
-						'is_homepage' => 1,
-						'layout_id' => 1,
-						'lft' => '0',
-						'rght' => '0',
-					]
-				])
-				->saveData();
-					
-			$this->table($contentsTable)
-				->insert([
+						'node_type' => 0,
+						'role' => 3,
+						'template_id' => 1,
+						'parent_id' => null,
+						'lft' => 0,
+						'rght' => 2,
+						'level' => 0,
+						'user_id' => 1
+					],
 					[
-						'page_id' => 1,
-						'element_id' => 1,
-						'html' => '{"time":1690121834854,"blocks":[{"id":"BkMrFh55lD","type":"header","data":{"text":"Welcome to Rhino &#x1F98F;","level":1}},{"id":"R_LcFT6kwI","type":"paragraph","data":{"text":"The fast but stable Application-Framwork.<br>Powered by <a href=\"https://cakephp.org/\">CakePHP</a>."}}],"version":"2.26.5"}'
+						'name' => 'content',
+						'node_type' => 1,
+						'role' => 0,
+						'template_id' => 2,
+						'parent_id' => 1,
+						'content' => '{"time":1690121834854,"blocks":[{"id":"BkMrFh55lD","type":"header","data":{"text":"Welcome to Rhino &#x1F98F;","level":1}},{"id":"R_LcFT6kwI","type":"paragraph","data":{"text":"The fast but stable Application-Framwork.<br>Powered by <a href=\"https://cakephp.org/\">CakePHP</a>."}}],"version":"2.26.5"}',
+						'lft' => 1,
+						'rght' => 1,
+						'level' => 1,
+						'user_id' => 1
 					]
 				])
 				->saveData();

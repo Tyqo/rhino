@@ -33,7 +33,7 @@ use Rhino\Model\Table\PagesTable;
  *
  * @link https://book.cakephp.org/4/en/controllers/pages-controller.html
  */
-class ContentsController extends BaseController {
+class ComponentsController extends BaseController {
 
 	public function initialize(): void {
 		parent::initialize();
@@ -45,13 +45,13 @@ class ContentsController extends BaseController {
     }
 
 	public function edit(int $id) {
-		$entry = $this->Contents->getEntry($id);
-		$elements = $this->Contents->Elements->find('list');
+		$entry = $this->Components->getEntry($id);
+		$elements = $this->Components->Elements->find('list');
 
 		if ($this->request->is(['patch', 'post', 'put'])) {
-			$content = $this->Contents->patchEntity($entry, $this->request->getData());
+			$content = $this->Components->patchEntity($entry, $this->request->getData());
             
-			if ($this->Contents->save($content)) {
+			if ($this->Components->save($content)) {
 				// $this->Flash->success(__('The table has been saved.'));
 				// If you want a json response
 				$response = $this->response->withType('application/json')
@@ -77,23 +77,31 @@ class ContentsController extends BaseController {
 		]);
 	}
 
-	public function new(int $pageId) {
+	public function new() {
 		$this->viewBuilder()->disableAutoLayout();
 
-		$content = $this->Contents->newEntity([
-			'page_id' => $pageId,
-			'html' => ''
-		]);
-		$content = $this->Contents->save($content);
+		$data = $this->request->getData();
 
-		return $this->getElement($content, true);
+		$component = $this->Components->newEntity([
+			'name' => $data['region'],
+			'parent_id' => $data['parentId'],
+			'content' => '',
+			'user_id' => $this->user->id,
+			'node_type' => 1,
+			'template_id' => 2
+		]);
+		$component = $this->Components->save($component);
+
+		return $this->getElement($component, true);
 	}
 
-	public function update($id) {
-		$content = $this->Contents->get($id);
-		$content = $this->Contents->patchEntity($content, $this->request->getData());
+	public function update() {
+		$data = $this->request->getData();
 
-		if ($this->Contents->save($content)) {
+		$content = $this->Components->get($data['id']);
+		$content = $this->Components->patchEntity($content, $data);
+
+		if ($this->Components->save($content)) {
 			$response = $this->response->withType('application/json')
 				->withStringBody(json_encode([
 					'status' => 200,
@@ -110,22 +118,26 @@ class ContentsController extends BaseController {
 		return $response;
 	}
 
-	public function read($id) {
+	public function change() {
 		$this->viewBuilder()->disableAutoLayout();
-		$content = $this->Contents->get($id);
-		$content = $this->Contents->patchEntity($content, $this->request->getData());
-		$this->Contents->save($content);
+		$data = $this->request->getData();
+
+		$content = $this->Components->get($data['id']);
+		$content = $this->Components->patchEntity($content, $data);
+		$this->Components->save($content);
 		return $this->getElement($content, true);
 	}
 
-	public function delete($id) {
+	public function delete() {
+		$data = $this->request->getData();
+
 		if (!$this->request->is(['patch', 'post', 'put', 'delete'])) {
 			return;
 		}
 		
-		$entry = $this->Contents->get($id);
+		$entry = $this->Components->get($data['id']);
 			
-		if ($this->Contents->delete($entry)) {
+		if ($this->Components->delete($entry)) {
 			$response = $this->response->withType('application/json')
 				->withStringBody(json_encode([
 					'status' => 200,
@@ -142,7 +154,7 @@ class ContentsController extends BaseController {
 		return $response;
     }
 
-	private function getElement($content, $layoutMode = false) {
+	private function getElement($component, $layoutMode = false) {
 		$this->setPlugin(null);
 
 		if ($layoutMode) {
@@ -150,19 +162,19 @@ class ContentsController extends BaseController {
 			Configure::write('layoutMode', true);
 		}
 		
-		$elementId = $content->element_id ?? 1;
+		$templateId = $component->template_id ?? 2;
 
-		if (empty($content->element)) {
-			$content->element = $this->Contents->Elements->get($elementId);
+		if (empty($component->template)) {
+			$component->template = $this->Components->Templates->get($templateId);
 		}
 
 		if ($layoutMode) {
-			$elements = $this->Contents->Elements->list();
-			$this->set(['elements' => $elements]);
+			$templates = $this->Components->Templates->list(1);
+			$this->set(['templates' => $templates]);
 		}
 
 		$this->set([
-			'content' => $content,
+			'component' => $component,
 			'layoutmode' => $layoutMode
 		]);
 
@@ -241,13 +253,13 @@ class ContentsController extends BaseController {
 
 		try {
 			if (!empty($id)) {
-				$entry = $this->Contents->get($id, ['contain' => 'Elements']);
+				$entry = $this->Components->get($id, ['contain' => 'Elements']);
 			} else {
-				$entry = $this->Contents->find()->contain(["Elements"])->first();
+				$entry = $this->Components->find()->contain(["Elements"])->first();
 			}
 
 			if (!empty($elementId)) {
-				$entry->element = $this->Contents->Elements->get($elementId);
+				$entry->element = $this->Components->Elements->get($elementId);
 			}
 
 			$this->set([
