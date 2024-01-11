@@ -55,7 +55,7 @@ class LayoutHelper extends Helper
 
 	public function parseMedia($content = null, $id = null)
 	{
-		// $content .= '<button class="rhino-button select-media" name="media" value="//tusk.localhost:3000/rhino/files/get">Edit</button>';
+		// $content .= '<button class="layout-button select-media" name="media" value="//tusk.localhost:3000/rhino/files/get">Edit</button>';
 
 		$url = $this->Url->build([
 			'controller' => 'MediaCategories',
@@ -66,7 +66,7 @@ class LayoutHelper extends Helper
 			'content' => 'Edit',
 			'tag' => 'button',
 			'attrs' => $this->Templater->formatAttributes([
-				'class' => 'rhino-button select-media',
+				'class' => 'layout-button select-media',
 				'name' => "mediaButton",
 				'value' => $url
 			]),
@@ -96,25 +96,9 @@ class LayoutHelper extends Helper
 			$id = $this->page->id;
 		}
 
-		$url = $this->Url->build([
-			'controller' => 'Components',
-			'action' => 'new',
-			$id,
-			$name
-		]);
+		$content = '';
 
-		$content = $this->Templater->format('tag', [
-			'content' => 'New',
-			'tag' => 'button',
-			'attrs' => $this->Templater->formatAttributes([
-				'class' => 'rhino-button',
-				'name' => "new-component",
-				'value' => $name,
-				'data-url' => $url,
-				'data-id' => $id
-			]),
-		]);
-
+		$content .= $this->getNewButton($name, $id);
 		$content .= $this->_View->fetch($name);
 
 		$content = $this->Templater->format('tag', [
@@ -139,16 +123,7 @@ class LayoutHelper extends Helper
 	public function slot(int $parentId, string $content) {
 		$name = uniqid();
 		if (empty($content)) {
-			$content = $this->Templater->format('tag', [
-				'content' => 'New',
-				'tag' => 'button',
-				'attrs' => $this->Templater->formatAttributes([
-					'class' => 'rhino-button',
-					'name' => "new-component",
-					'value' => $name,
-					'data-id' => $parentId
-				]),
-			]);
+			$content = $this->getNewButton($name, $parentId);
 		}
 
 		$content = $this->Templater->format('tag', [
@@ -162,5 +137,18 @@ class LayoutHelper extends Helper
 		]);
 
 		return $content;
+	}
+
+	private function getNewButton($name, $id) {
+		return $this->Templater->format('tag', [
+			'content' => $this->Icon->svg("Rhino.plus"),
+			'tag' => 'button',
+			'attrs' => $this->Templater->formatAttributes([
+				'class' => 'layout-button',
+				'name' => "new-component",
+				'value' => $name,
+				'data-id' => $id
+			]),
+		]);
 	}
 }
