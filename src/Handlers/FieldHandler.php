@@ -78,7 +78,7 @@ class FieldHandler {
 	 * getFieldClass
 	 *
 	 * Get the Class for the field.
-	 * 
+	 *
 	 * @param  object $field
 	 * @return \Fields\Field
 	 */
@@ -101,7 +101,7 @@ class FieldHandler {
 	public function getFields(string $tableName) {
 		$fields = [];
 		$columns = $this->Fields->getColumns($tableName);
-		
+
 		foreach ($columns as $column) {
 			$name = $column['Field'];
 			$field = $this->getField($name, $tableName, $column);
@@ -113,7 +113,7 @@ class FieldHandler {
 
 	public function getField($name, $tableName, $column = null) {
 		$field = $this->Fields->getByName($name, $tableName, $column);
-		
+
 		if (isset($this->config) && isset($this->config[$name])) {
 			$fieldConfig = $this->config[$name];
 			if (isset($fieldConfig['type'])) {
@@ -125,7 +125,7 @@ class FieldHandler {
 				$field->setOptions(['type' => $fieldConfig]);
 			}
 		}
-		
+
 		return $field;
 	}
 
@@ -151,7 +151,7 @@ class FieldHandler {
 
 	public function getDatabaseType($type) {
 		$types = array_column($this->customTypes, "type", "name");
-		
+
 		if (isset($types[$type])) {
 			return $types[$type];
 		}
@@ -159,7 +159,7 @@ class FieldHandler {
 	}
 
 	// Todo: Check for Delete
-	public function setFiledData($data) {
+	public function setFieldData($data) {
 		if (isset($data['default'])) {
 			$data['standard'] = $data['default'];
 		}
@@ -169,7 +169,7 @@ class FieldHandler {
 
 	/**
 	 * loadFiledOptions
-	 * 
+	 *
 	 * Load additional Options needed for Field Settings.
 	 *
 	 * @return array
@@ -178,8 +178,8 @@ class FieldHandler {
 		$return = [];
 		foreach ($this->customTypes as $type) {
 			$type['type'] = $type['name'];
-			
-			$Field = $this->getFieldClass((object)$type);	
+
+			$Field = $this->getFieldClass((object)$type);
 			if (isset($Field) && method_exists($Field, 'loadOptions')) {
 				$return += $Field->loadOptions() ?? [];
 			}
@@ -190,7 +190,7 @@ class FieldHandler {
 
 	public function setFields(string $tableName, $entity) {
 		$fields = $this->getFields($tableName);
-		
+
 		foreach ($fields as $field) {
 			$key = $field['name'];
 			$value = $this->setField($entity, $field);
@@ -217,7 +217,7 @@ class FieldHandler {
 
 	/**
 	 * loadField
-	 * 
+	 *
 	 * Load the needed options for the Form->control from its Field Class
 	 *
 	 * @param  object $field
@@ -232,13 +232,13 @@ class FieldHandler {
 		if (!$Field) {
 			return $field->options ?? null;
 		}
-		
+
 		return $Field->load($value);
 	}
 
 	/**
 	 * display
-	 * 
+	 *
 	 * Gets the Html output to display a Field form its Field Class.
 	 *
 	 * @param  object $entry
@@ -253,7 +253,7 @@ class FieldHandler {
 		if (!$Field) {
 			return $value;
 		}
-		
+
 		return $Field->display($value, $entity);
 	}
 

@@ -86,7 +86,7 @@ class GroupsCell extends Cell {
 				]
 			],
 			[
-				'heading' => 'Standartfunktionen',
+				'heading' => 'Standardfunktionen',
 				"buttons" => [
 					[
 						'name' => 'Seiten',
@@ -146,7 +146,7 @@ class GroupsCell extends Cell {
 						'icon' => "Rhino.settings",
 						'buttons' => [
 							[
-								'name' => 'Applikation-Manager',
+								'name' => _('Applications-Manager'),
 								'icon' => "Rhino.unlock",
 								'link' => ['controller' => 'Applications', "action" => "index"],
 								'rights' => 'rhino_apps'

@@ -27,6 +27,7 @@ class ApplicationsTable extends Table
 		'rhino_media_categories',
 		'rhino_widgets',
 		'rhino_widget_categories',
+        'rhino_templates'
 	];
 
     /**
@@ -57,7 +58,7 @@ class ApplicationsTable extends Table
 
 	public function getByName($tableName) {
 		$query = $this->find()->where(['Applications.name' => $tableName]);
-		
+
 		if ($query->all()->isEmpty()) {
 			return false;
 		}
@@ -98,7 +99,7 @@ class ApplicationsTable extends Table
 		$table = $this->abstract->table($tableName);
 		$table->create();
 	}
-	
+
 	public function rename(string $tableName, string $newName) : void {
 		$table = $this->abstract->table($tableName);
 		$table->rename($newName)->update();
